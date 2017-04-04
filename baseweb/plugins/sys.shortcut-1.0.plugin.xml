@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.shortcut</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/shortcuts.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/pub/quickmenu/MenuCounterAction.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/pub/quickmenu/PubStaffQuickMenu.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/pub/quickmenu/QuickMenuAction.java' charset='GBK'/>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<!-- 用户菜单使用次数 -->
+        <action name="MenuCounter" class="com.soule.crm.pub.quickmenu.MenuCounterAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>
+        <!-- 快捷菜单 -->
+        <action name="QuickMen" class="com.soule.crm.pub.quickmenu.QuickMenuAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/quick_menu_sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<!-- 快捷菜单 -->
+	<sqlMap resource="config/ibatis/framework/quick_menu_sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之快捷菜单定制-ShortCutMenu --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNShortCutMenu','快捷菜单定制','jsp/sysmgr/shortcuts.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 公共菜单使用信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS PUB_MENU_USEINFO;
+CREATE TABLE PUB_MENU_USEINFO(
+  STAFF_ID	VARCHAR(32)	NOT NULL,
+  UNIT_ID	VARCHAR(32)	NOT NULL,
+  ROLE_ID	VARCHAR(32)	NOT NULL,
+  MENU_ID	VARCHAR(32)	NOT NULL,
+  USER_COUNT	INTEGER,
+  MISC	VARCHAR(10)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 公共员工快捷菜单表 -------------------------------------------
+-- DROP TABLE IF EXISTS PUB_STAFF_QUICK_MENU;
+CREATE TABLE PUB_STAFF_QUICK_MENU (
+  STAFF_ID	VARCHAR(32)	NOT NULL,
+  UNIT_ID	VARCHAR(32)	NOT NULL,
+  ROLE_ID	VARCHAR(32)	NOT NULL,
+  MENU_ID	VARCHAR(32)	NOT NULL,
+  SEQ	INTEGER,
+  MISC	VARCHAR(10)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

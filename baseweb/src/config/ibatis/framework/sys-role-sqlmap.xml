@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="role">
+	<resultMap id="SysRoleMap" class="com.soule.app.sys.role.RoleRolePo">
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="roleName" column="ROLE_NAME"/>
+		<result property="roleStatus" column="ROLE_STATUS"/>
+		<result property="remark" column="REMARK"/>
+		<result property="parentRoleId" column="PARENT_ROLE_ID"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="lastUpdUser" column="LAST_UPD_USER"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+		<result property="ext1" column="EXT1"/>
+		<result property="ext2" column="EXT2"/>
+		<result property="ext3" column="EXT3"/>
+	</resultMap>
+	<select id="getSysRoleByKey" parameterClass="com.soule.app.sys.role.RoleRolePo" 
+		resultMap="SysRoleMap">
+		select * from SYS_ROLE where 
+			ROLE_ID = #roleId#
+	</select>
+
+	<select id="getSysRole" parameterClass="java.util.Map" resultMap="SysRoleMap">
+		select * from SYS_ROLE 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID like '$roleId$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="roleName">ROLE_NAME like '$roleName$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="roleStatus">ROLE_STATUS = #roleStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="remark">REMARK like '$remark$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="parentRoleId">PARENT_ROLE_ID = #parentRoleId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER like '$createUser$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdUser">LAST_UPD_USER like '$lastUpdUser$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext1">EXT1 = #ext1#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext2">EXT2 = #ext2#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext3">EXT3 = #ext3#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysRoleCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_ROLE 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID like '$roleId$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="roleName">ROLE_NAME like '$roleName$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="roleStatus">ROLE_STATUS = #roleStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="remark">REMARK like '$remark$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="parentRoleId">PARENT_ROLE_ID = #parentRoleId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER like '$createUser$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdUser">LAST_UPD_USER like '$lastUpdUser$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext1">EXT1 = #ext1#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext2">EXT2 = #ext2#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext3">EXT3 = #ext3#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysRole" parameterClass="com.soule.app.sys.role.RoleRolePo">
+		update SYS_ROLE 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="roleName">ROLE_NAME = #roleName#</isNotNull>
+			<isNotNull prepend="," property="roleStatus">ROLE_STATUS = #roleStatus#</isNotNull>
+			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+			<isNotNull prepend="," property="parentRoleId">PARENT_ROLE_ID = #parentRoleId#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+			<isNotNull prepend="," property="ext1">EXT1 = #ext1#</isNotNull>
+			<isNotNull prepend="," property="ext2">EXT2 = #ext2#</isNotNull>
+			<isNotNull prepend="," property="ext3">EXT3 = #ext3#</isNotNull>
+		</dynamic>
+		where 
+			ROLE_ID = #roleId#
+	</update>
+
+	<insert id="saveSysRole" parameterClass="com.soule.app.sys.role.RoleRolePo">
+		insert into SYS_ROLE (ROLE_ID,ROLE_NAME,ROLE_STATUS,REMARK,PARENT_ROLE_ID,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
+		values(#roleId:VARCHAR# ,#roleName:VARCHAR# ,#roleStatus:CHAR# ,#remark:VARCHAR# ,#parentRoleId:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# ,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
+	</insert>
+
+	<delete id="delSysRole" parameterClass="com.soule.app.sys.role.RoleRolePo">
+		delete from SYS_ROLE where 
+			ROLE_ID = #roleId#
+	</delete>
+
+</sqlMap>
+

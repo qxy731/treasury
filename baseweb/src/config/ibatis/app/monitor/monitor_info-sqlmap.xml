@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="monitor">
+	<select id="getLogonInfo" parameterClass="com.soule.crm.monitor.realtime.user.UserListIn" 
+		resultClass="com.soule.crm.monitor.realtime.user.UserDetailPo">
+		select 
+			A.LOGON_ID as userId,
+			B.STAFF_NAME as userName,
+			A.LAST_LOGON_IP as ipAddress,
+			A.LAST_LOGON_TIME as logonTime
+		from SYS_LOGON_INFO A left join SYS_STAFF B on A.STAFF_ID = B.STAFF_ID
+		where 1=1
+		<isNotEmpty prepend=" AND " property="userId">
+			A.LOGON_ID = #userId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="minTime">
+			A.LAST_LOGON_TIME &gt; #minTime#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="maxTime">
+			A.LAST_LOGON_TIME &lt; #maxTime#
+		</isNotEmpty>
+	</select>
+</sqlMap>

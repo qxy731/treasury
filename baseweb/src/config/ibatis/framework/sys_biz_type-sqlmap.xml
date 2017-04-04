@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="bizline">
+	<resultMap id="SysBizTypeMap" class="com.soule.app.sys.bizline.bltype.BltypeBizTypePo">
+		<result property="bizTypeId" column="BIZ_TYPE_ID"/>
+		<result property="bizTypeName" column="BIZ_TYPE_NAME"/>
+		<result property="remark" column="REMARK"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="lastUpdUser" column="LAST_UPD_USER"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+	</resultMap>
+	<resultMap id="SysBizValueMap" class="com.soule.app.sys.bizline.blval.BlvalBizValPo">
+		<result property="bizTypeId" column="BIZ_TYPE_ID"/>
+		<result property="bizValue" column="BIZ_VALUE"/>
+		<result property="bizName" column="BIZ_NAME"/>
+		<result property="remark" column="REMARK"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="lastUpdUser" column="LAST_UPD_USER"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+	</resultMap>
+	<resultMap id="SysBizMapMap" class="com.soule.app.sys.bizline.blass.BlassBizassPo">
+		<result property="bizTypeId" column="BIZ_TYPE_ID"/>
+		<result property="bizValue" column="BIZ_VALUE"/>
+		<result property="staffId" column="STAFF_ID"/>
+		<result property="staffName" column="STAFF_NAME"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+	</resultMap>
+	<select id="getSysBizTypeByKey" parameterClass="com.soule.app.sys.bizline.bltype.BltypeBizTypePo" 
+		resultMap="SysBizTypeMap">
+		select * from SYS_BIZ_TYPE where BIZ_TYPE_ID = #bizTypeId#
+	</select>
+	<select id="getAllSysBizType" parameterClass="com.soule.app.sys.bizline.bltype.BltypeBizTypePo" 
+		resultMap="SysBizTypeMap">
+		select * from SYS_BIZ_TYPE
+	</select>
+ 
+	<update id="updSysBizType" parameterClass="com.soule.app.sys.bizline.bltype.BltypeBizTypePo">
+		update SYS_BIZ_TYPE 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="bizTypeName">BIZ_TYPE_NAME = #bizTypeName#</isNotNull>
+			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+		</dynamic>
+		where 
+			BIZ_TYPE_ID = #bizTypeId#
+	</update>
+
+	<insert id="saveSysBizType" parameterClass="com.soule.app.sys.bizline.bltype.BltypeBizTypePo">
+		insert into SYS_BIZ_TYPE (BIZ_TYPE_ID,BIZ_TYPE_NAME,REMARK,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
+		values(#bizTypeId:VARCHAR# ,#bizTypeName:VARCHAR# ,#remark:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# )
+	</insert>
+
+	<delete id="delSysBizType" parameterClass="java.lang.String" >
+		delete from SYS_BIZ_TYPE where BIZ_TYPE_ID = #bizTypeId#
+	</delete>
+	<delete id="delSysBizValueByType" parameterClass="java.lang.String">
+		delete from SYS_BIZ_VALUE where BIZ_TYPE_ID = #bizTypeId#
+	</delete>
+	<delete id="delSysBizMapByType" parameterClass="java.lang.String">
+		delete from SYS_BIZ_MAP where BIZ_TYPE_ID = #bizTypeId#
+	</delete>
+	<delete id="delSysBizMapByVal" parameterClass="com.soule.app.sys.bizline.blval.BlvalBizValPo">
+		delete from SYS_BIZ_MAP where BIZ_TYPE_ID = #bizTypeId# and BIZ_VALUE=#bizValue#
+	</delete>
+	<select id="getSysBizValue" parameterClass="java.lang.String" resultMap="SysBizValueMap">
+		select * from SYS_BIZ_VALUE where BIZ_TYPE_ID = #value#
+	</select>
+	<insert id="saveSysBizValue" parameterClass="com.soule.app.sys.bizline.blval.BlvalBizValPo">
+		insert into SYS_BIZ_VALUE (BIZ_TYPE_ID,BIZ_VALUE,BIZ_NAME,REMARK,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
+		values(#bizTypeId:VARCHAR# ,#bizValue:VARCHAR# ,#bizName:VARCHAR# ,#remark:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# )
+	</insert>
+	<update id="updSysBizValue" parameterClass="com.soule.app.sys.bizline.blval.BlvalBizValPo">
+		update SYS_BIZ_VALUE 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="bizName">BIZ_NAME = #bizName#</isNotNull>
+			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+		</dynamic>
+		where 
+			BIZ_TYPE_ID = #bizTypeId#
+			AND BIZ_VALUE = #bizValue#
+	</update>
+	<delete id="delSysBizValue" parameterClass="com.soule.app.sys.bizline.blval.BlvalBizValPo">
+		delete from SYS_BIZ_VALUE where 
+			BIZ_TYPE_ID = #bizTypeId#
+			AND BIZ_VALUE = #bizValue#
+	</delete>
+	<select id="getSysBizMapByBizType" parameterClass="java.lang.String" resultMap="SysBizMapMap">
+		select B.*,S.STAFF_NAME from SYS_BIZ_MAP B
+		left join SYS_STAFF S ON B.STAFF_ID = S.STAFF_ID 
+		where BIZ_TYPE_ID = #bizTypeId#
+	</select>
+	<select id="getSysBizMap" parameterClass="com.soule.app.sys.bizline.blval.BlvalBizValPo" resultMap="SysBizMapMap">
+		select B.*,S.STAFF_NAME from SYS_BIZ_MAP B
+		left join SYS_STAFF S ON B.STAFF_ID = S.STAFF_ID 
+		where BIZ_TYPE_ID = #bizTypeId# and BIZ_VALUE=#bizValue#
+	</select>
+	<insert id="saveSysBizMap" parameterClass="com.soule.app.sys.bizline.blass.BlassBizassPo">
+		insert into SYS_BIZ_MAP (BIZ_TYPE_ID,BIZ_VALUE,STAFF_ID,CREATE_USER,CREATE_TIME)
+		values(#bizTypeId:VARCHAR# ,#bizValue:VARCHAR# ,#staffId:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# )
+	</insert>
+	<select id="getSysBizMapByKey" parameterClass="com.soule.app.sys.bizline.blass.BlassBizassPo" resultMap="SysBizMapMap">
+		select B.*,S.STAFF_NAME from SYS_BIZ_MAP B
+		left join SYS_STAFF S ON B.STAFF_ID = S.STAFF_ID
+		where B.BIZ_TYPE_ID = #bizTypeId# and B.BIZ_VALUE=#bizValue# and B.STAFF_ID=#staffId#
+	</select>
+	<delete id="delSysBizMap" parameterClass="com.soule.app.sys.bizline.blass.BlassBizassPo">
+		delete from SYS_BIZ_MAP where 
+			BIZ_TYPE_ID = #bizTypeId#
+			AND BIZ_VALUE = #bizValue#
+			AND STAFF_ID = #staffId#
+	</delete>
+	<delete id="delSysBizMapAll" parameterClass="com.soule.app.sys.bizline.blass.BlassDeleteAllIn">
+		delete from SYS_BIZ_MAP where 
+			BIZ_TYPE_ID = #bizTypeId#
+			AND BIZ_VALUE = #bizValueId#
+	</delete>
+		<resultMap id="BizLinePoMap" class="com.soule.base.po.BizLinePo">
+		<result property="bizTypeId" column="BIZ_TYPE_ID"/>
+		<result property="bizTypeName" column="BIZ_TYPE_NAME"/>
+		<result property="bizValue" column="BIZ_VALUE"/>
+		<result property="bizName" column="BIZ_NAME"/>
+		<result property="createUser" column="CREATE_USER"/>
+	</resultMap>
+	
+	<select id="getAllBizLineByStaff" parameterClass="java.lang.String" resultClass="com.soule.base.po.BizLinePo">
+		select B.BIZ_TYPE_ID as bizTypeId,B.BIZ_VALUE as bizValue,B.CREATE_USER as createUser,
+		V.BIZ_NAME as bizName,T.BIZ_TYPE_NAME as bizTypeName from SYS_BIZ_MAP B
+		left join SYS_BIZ_VALUE V ON V.BIZ_TYPE_ID = B.BIZ_TYPE_ID AND V.BIZ_VALUE = B.BIZ_VALUE
+		left join SYS_BIZ_TYPE T ON T.BIZ_TYPE_ID = B.BIZ_TYPE_ID
+		where B.STAFF_ID=#staffId#
+	</select>
+</sqlMap>

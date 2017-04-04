@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>monitor.daily.cpumem</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2013-02-18 01:41</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='SERVICE_XML' path='src/config/spring/app/code-create-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="CpumemService"
+		class="com.soule.crm.monitor.daily.cpumem.CpumemServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='STRUTS_CFG' path='src/config/struts/code-create-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="Cpumem" class="com.soule.crm.monitor.daily.cpumem.CpumemAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/monitor/daily/cpumem/cpumem.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/crm/monitor/daily/cpumem/CpumemAction.java' charset='UTF-8'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/crm/monitor/daily/cpumem/CpumemServiceImpl.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/ICpumemService.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/CpumemCinfoIn.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/CpumemCinfoOut.java' charset='UTF-8'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 处理器信息-CpumemCinfo --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNCpumemCinfo','处理器信息','jsp/monitor/daily/cpumem/cpumem_cinfo.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='WebContent/jsp/monitor/daily/cpumem/cpumem_cinfo.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/CpumemMinfoIn.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/CpumemMinfoOut.java' charset='UTF-8'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 内存信息-CpumemMinfo --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNCpumemMinfo','内存信息','jsp/monitor/daily/cpumem/cpumem_minfo.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='WebContent/jsp/monitor/daily/cpumem/cpumem_minfo.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/CpumemCpuPo.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/monitor/daily/cpumem/CpumemMemPo.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/highcharts/highcharts.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/highcharts/highcharts.src.js' charset='UTF-8'/>
+    </AppFiles>
+</AppPlugIn>

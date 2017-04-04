@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="single">
+	<resultMap id="SysKeygenMap" class="com.soule.app.table.SysKeygenPo">
+		<result property="tableName" column="TABLE_NAME"/>
+		<result property="seqVal" column="SEQ_VAL"/>
+		<result property="seqLen" column="SEQ_LEN"/>
+		<result property="modifing" column="MODIFING"/>
+	</resultMap>
+	<select id="getSysKeygenByKey" parameterClass="com.soule.app.table.SysKeygenPo" 
+		resultMap="SysKeygenMap">
+		select * from SYS_KEYGEN where 
+			TABLE_NAME = #tableName#
+	</select>
+
+	<select id="getSysKeygen" parameterClass="java.util.Map" resultMap="SysKeygenMap">
+		select * from SYS_KEYGEN 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="tableName">TABLE_NAME = #tableName#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="seqVal">SEQ_VAL = #seqVal#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="seqLen">SEQ_LEN = #seqLen#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="modifing">MODIFING = #modifing#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysKeygenCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_KEYGEN 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="tableName">TABLE_NAME = #tableName#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="seqVal">SEQ_VAL = #seqVal#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="seqLen">SEQ_LEN = #seqLen#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="modifing">MODIFING = #modifing#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysKeygen" parameterClass="com.soule.app.table.SysKeygenPo">
+		update SYS_KEYGEN 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="seqVal">SEQ_VAL = #seqVal#</isNotNull>
+			<isNotNull prepend="," property="seqLen">SEQ_LEN = #seqLen#</isNotNull>
+			<isNotNull prepend="," property="modifing">MODIFING = #modifing#</isNotNull>
+		</dynamic>
+		where 
+			TABLE_NAME = #tableName#
+	</update>
+
+	<insert id="saveSysKeygen" parameterClass="com.soule.app.table.SysKeygenPo">
+		insert into SYS_KEYGEN (TABLE_NAME,SEQ_VAL,SEQ_LEN,MODIFING)
+		values(#tableName:VARCHAR# ,#seqVal:INTEGER# ,#seqLen:INTEGER# ,#modifing:CHAR# )
+	</insert>
+
+	<delete id="delSysKeygen" parameterClass="com.soule.app.table.SysKeygenPo">
+		delete from SYS_KEYGEN where 
+			TABLE_NAME = #tableName#
+	</delete>
+</sqlMap>

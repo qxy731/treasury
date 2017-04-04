@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.roleass</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="RoleassService"
+		class="com.soule.app.sys.roleass.RoleassServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="Roleass" class="com.soule.app.sys.roleass.RoleassAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/sysmgr/role/roleass.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/roleass/RoleassAction.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/roleass/RoleassServiceImpl.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/IRoleassService.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassDeleteIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassDeleteOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassInsertIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassInsertOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassQueryByRoleIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassQueryByRoleOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassQueryStaffIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassQueryStaffOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassRoleStaffPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/roleass/RoleassStaffPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysRoleAssignPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysPositionPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysRoleAssignPo.java' charset='GBK'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之角色分配-RoleAssign --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNRoleAssign','角色分配','jsp/sysmgr/role/roleass.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/role/roleass.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/role/lay_template.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sys_role_assign-sqlmap.xml' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_role_assign-sqlmap.xml' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_position-sqlmap.xml' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_posi_assign-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sys_role_assign-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_role_assign-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_position-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_posi_assign-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

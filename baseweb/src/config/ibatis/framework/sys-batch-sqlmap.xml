@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="batch">
+	<typeAlias alias="StepPo" type="com.soule.app.sys.batch.BatchStepPo" />
+
+	<select id="queryMaxStepId" parameterClass="java.lang.String"
+		resultClass="java.lang.Integer">
+		SELECT max(step_id) FROM BAT_STEP WHERE BATCH_ID=#batchId#
+	</select>
+	<select id="queryMainStep" parameterClass="StepPo" resultClass="StepPo">
+		select
+		BATCH_ID as batchId,
+		STEP_ID as stepId,
+		STEP_TYPE as stepType,
+		STEP_NO as stepNo,
+		PARENT_ID as parentId,
+		STEP_NAME as stepName,
+		STEP_DESC as stepDesc,
+		PROC_FREQ as procFreq,
+		PROC_CLASS as procClass,
+		PARAM1 as param1,
+		PARAM2 as param2,
+		PARAM3 as param3,
+		PARAM4 as param4,
+		PARAM5 as param5,
+		COMP_COUNT as compCount,
+		SKIP_STEP_ID as skipStepId,
+		DEPEND_IDS as dependIds,
+		REF_TIME as refTime,
+		EXT1 as ext1,
+		EXT2 as ext2,
+		EXT3 as ext3
+		from bat_step
+		<dynamic prepend="WHERE">
+			<isNotEmpty prepend="AND" property="batchId">
+				BATCH_ID=#batchId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stepId">
+				step_Id=#stepId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stepName">
+				step_name=#stepName#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="stepDesc">
+				step_desc like
+				'%$condition.stepDesc$%'
+			</isNotEmpty>
+		</dynamic>
+		order by PARENT_ID asc,STEP_NO asc
+	</select>
+
+	<select id='queryAllBatchId' resultClass="com.soule.app.sys.batch.BatchStepIdPo">
+		select distinct BATCH_ID as batchId from bat_step
+	</select>
+	<select id='queryInstIds' resultClass="com.soule.app.sys.batch.BatchMonitorPo" parameterClass="java.lang.String">
+		select distinct INST_ID as instId from bat_step_monitor where BATCH_ID=#batchId#
+	</select>
+	<select id="qureyMainStepById" parameterClass="com.soule.app.sys.batch.BatchQueryStepIn"
+		resultClass="StepPo">
+		select
+		BATCH_ID as batchId,
+		STEP_ID as stepId,
+		STEP_NAME as stepName,
+		STEP_DESC as stepDesc,
+		PROC_FREQ as procFreq,
+		PROC_CLASS as procClass,
+		PARAM1 as param1,
+		PARAM2 as param2,
+		PARAM3 as param3,
+		PARAM4 as param4,
+		PARAM5 as param5,
+		COMP_COUNT as compCount,
+		SKIP_STEP_ID as skipStepId,
+		DEPEND_IDS as dependIds,
+		REF_TIME as refTime,
+		EXT1 as ext1,
+		EXT2 as ext2,
+		EXT3 as ext3
+		from bat_step
+		where BATCH_ID=#batchId# and STEP_ID=#stepId#
+	</select>
+
+	<delete id="deleteMainStep" parameterClass="StepPo">
+		delete from bat_step
+		WHERE BATCH_ID=#batchId# AND step_Id=#stepId#
+	</delete>
+
+	<update id="updateMainPo" parameterClass="StepPo">
+		update bat_step
+		set
+			BATCH_ID =#batchId#,
+			STEP_ID =#stepId#,
+			STEP_NO =#stepNo#,
+			STEP_TYPE =#stepType#,
+			STEP_NAME =#stepName#,
+			STEP_DESC =#stepDesc#,
+			PROC_FREQ =#procFreq#,
+			PROC_CLASS =#procClass#,
+			PARAM1 =#param1#,
+			PARAM2 =#param2#,
+			PARAM3 =#param3#,
+			PARAM4 =#param4#,
+			PARAM5 =#param5#,
+			COMP_COUNT =#compCount#,
+			SKIP_STEP_ID =#skipStepId#,
+			DEPEND_IDS =#dependIds#,
+			REF_TIME =#refTime#,
+			EXT1 =#ext1#,
+			EXT2 =#ext2#,
+			EXT3 =#ext3#
+		WHERE BATCH_ID=#batchId# and step_Id=#stepId#
+	</update>
+	<insert id="insertMainStep" parameterClass="StepPo">
+		insert into BAT_STEP
+		(BATCH_ID,STEP_ID,PARENT_ID,STEP_NO,STEP_TYPE,STEP_NAME,STEP_DESC,PROC_FREQ,PROC_CLASS,PARAM1,PARAM2,PARAM3,PARAM4,PARAM5,COMP_COUNT,SKIP_STEP_ID,DEPEND_IDS,REF_TIME,EXT1,EXT2,EXT3)
+		values(#batchId:VARCHAR#
+		,#stepId:INTEGER#,#parentId:INTEGER#,#stepNo:INTEGER#,#stepType:VARCHAR#,#stepName:VARCHAR#
+		,#stepDesc:VARCHAR# ,#procFreq:CHAR# ,#procClass:VARCHAR#
+		,#param1:VARCHAR# ,#param2:VARCHAR# ,#param3:VARCHAR#
+		,#param4:VARCHAR# ,#param5:VARCHAR# ,#compCount:INTEGER#
+		,#skipStepId:INTEGER# ,#dependIds:VARCHAR# ,#refTime:VARCHAR#
+		,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
+	</insert>
+	<insert id="insertBatParam" parameterClass="com.soule.app.sys.batch.BatParamsPo">
+		insert into BAT_PARAMS (BATCH_ID,PARA_ID,PARA_NAME,PARA_VALUE,REMARK)
+		values(#batchId:VARCHAR# ,#paraId:VARCHAR# ,#paraName:VARCHAR# ,#paraValue:VARCHAR# ,#remark:VARCHAR# )
+	</insert>
+	<select id="queryMonitor" parameterClass="com.soule.app.sys.batch.BatchMonitorPo" resultClass="com.soule.app.sys.batch.BatchMonitorPo">
+		select
+			a.BATCH_ID as batchId,
+			a.STEP_ID as stepId,
+			a.STEP_TYPE as stepType,
+			a.STEP_NO as stepNo,
+			a.PARENT_ID as parentId,
+			a.STEP_NAME as stepName,
+			a.STEP_DESC as stepDesc,
+			a.PROC_FREQ as procFreq,
+			a.PROC_CLASS as procClass,
+			a.PARAM1 as param1,
+			a.PARAM2 as param2,
+			a.PARAM3 as param3,
+			a.PARAM4 as param4,
+			a.PARAM5 as param5,
+			a.COMP_COUNT as compCount,
+			a.SKIP_STEP_ID as skipStepId,
+			a.DEPEND_IDS as dependIds,
+			a.REF_TIME as refTime,
+			a.EXT1 as ext1,
+			a.EXT2 as ext2,
+			a.EXT3 as ext3,
+			b.START_TIME as startTime,
+			b.END_TIME as endTime,
+			b.PROC_STATUS as procStatus,
+			b.PROC_INFO as procInfo,
+			b.INST_ID as instId
+		from bat_step a left join bat_step_monitor b 
+		on a.BATCH_ID=b.BATCH_ID and a.STEP_ID=b.STEP_ID and b.INST_ID=#instId#
+		WHERE a.BATCH_ID=#batchId#
+		order by a.PARENT_ID asc,a.STEP_NO asc
+	</select>
+	<select id="queryStatus" parameterClass="com.soule.app.sys.batch.BatchMonitorPo" resultClass="com.soule.app.sys.batch.BatchMonitorPo">
+		select
+			a.BATCH_ID as batchId,
+			a.STEP_ID as stepId,
+			a.STEP_TYPE as stepType,
+			a.STEP_NO as stepNo,
+			a.PARENT_ID as parentId,
+			b.START_TIME as startTime,
+			b.END_TIME as endTime,
+			b.PROC_STATUS as procStatus,
+			b.PROC_INFO as procInfo
+		from bat_step a left join bat_step_monitor b 
+		on a.BATCH_ID=b.BATCH_ID and a.STEP_ID=b.STEP_ID and b.INST_ID=#instId#
+		WHERE a.BATCH_ID=#batchId#
+		order by a.PARENT_ID asc,a.STEP_NO asc
+	</select>
+	
+	<select id="queryLog" parameterClass="com.soule.app.sys.batch.BatchLogIn" resultClass="com.soule.app.sys.batch.BatchLogPo">
+		select
+			a.BATCH_ID as batchId,
+			a.STEP_ID as stepId,
+			a.TX_DATE as txDate,
+			b.STEP_NAME as stepName,
+			a.EXE_TIME as exeTime,
+			a.RET_CODE as retCode,
+			a.RET_MSG as retMsg
+		from bat_tx_log a left join bat_step b 
+		on a.BATCH_ID=b.BATCH_ID and a.STEP_ID=b.STEP_ID
+		WHERE a.BATCH_ID=#batchId# and a.INST_ID=#instId# and a.STEP_ID=#stepId#
+		order by a.STEP_ID asc,a.EXE_TIME asc
+	</select>
+</sqlMap>

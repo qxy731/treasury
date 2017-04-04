@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="staffquery">
+
+	<resultMap id="SysStaffMap" class="com.soule.app.sys.qstaff.QstaffBasePo">
+		<result property="staffId" column="staffId"/>
+		<result property="staffName" column="staffName"/>
+		<result property="ownerUnitId" column="ownerUnitId"/>
+		<result property="ownerUnitName" column="ownerUnitName"/>
+		<result property="staffLevel" column="staffLevel"/>
+		<result property="staffStatus" column="staffStatus"/>
+		<result property="sex" column="sex"/>
+		<result property="createUser" column="createUser"/>
+		<result property="createTime" column="createTime"/>
+		<result property="lastUpdUser" column="lastUpdUser"/>
+		<result property="lastUpdTime" column="lastUpdTime"/>		
+	</resultMap>
+	
+	<select id="getSysStaffQuery" parameterClass="java.util.Map" resultMap="SysStaffMap">
+		select
+           s.STAFF_ID AS staffId,
+           s.STAFF_NAME AS staffName,
+           s.OWNER_UNITID AS ownerUnitId,
+           u.UNIT_NAME AS ownerUnitName,
+           s.STAFF_LEVEL AS staffLevel,
+           s.STAFF_STATUS AS staffStatus,
+           s.SEX AS sex,
+           s.CREATE_USER AS createUser,
+           s.CREATE_TIME AS createTime,
+           s.LAST_UPD_USER AS lastUpdUser,
+           s.LAST_UPD_TIME AS lastUpdTime
+		from SYS_STAFF s 
+		left join SYS_UNIT u on s.OWNER_UNITID=u.UNIT_ID
+		<isNotEmpty property="staff.ownerUnitId">
+			inner join SYS_UNITMAP m on m.RELA_UNITID=s.OWNER_UNITID
+		</isNotEmpty>
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="staff.staffId">s.STAFF_ID like '%$staff.staffId$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.staffName">s.STAFF_NAME like '%$staff.staffName$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.staffLevel">s.STAFF_LEVEL = #staff.staffLevel#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.staffStatus">s.STAFF_STATUS =#staff.staffStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.sex">s.SEX =#staff.sex#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.ownerUnitId">m.UNIT_ID =#staff.ownerUnitId#</isNotEmpty>
+		</dynamic>
+	</select>
+	<select id="getSysStaffQueryCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_STAFF s
+		<isNotEmpty property="staff.ownerUnitId">
+			inner join SYS_UNITMAP m on m.RELA_UNITID=s.OWNER_UNITID
+		</isNotEmpty>
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="staff.staffId">s.STAFF_ID like '%$staff.staffId$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.staffName">s.STAFF_NAME like '%$staff.staffName$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.staffLevel">s.STAFF_LEVEL = #staff.staffLevel#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.staffStatus">s.STAFF_STATUS =#staff.staffStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.sex">s.SEX =#staff.sex#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staff.ownerUnitId">m.UNIT_ID =#staff.ownerUnitId#</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

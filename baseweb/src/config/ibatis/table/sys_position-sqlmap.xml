@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="single">
+	<resultMap id="SysPositionMap" class="com.soule.app.table.SysPositionPo">
+		<result property="posiId" column="POSI_ID"/>
+		<result property="unitId" column="UNIT_ID"/>
+		<result property="roleId" column="ROLE_ID"/>
+	</resultMap>
+	<select id="getSysPositionByKey" parameterClass="com.soule.app.table.SysPositionPo" 
+		resultMap="SysPositionMap">
+		select * from SYS_POSITION where 
+			POSI_ID = #posiId#
+	</select>
+
+	<select id="getSysPosition" parameterClass="java.util.Map" resultMap="SysPositionMap">
+		select * from SYS_POSITION 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unitId">UNIT_ID = #unitId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID = #roleId#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysPositionCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_POSITION 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unitId">UNIT_ID = #unitId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID = #roleId#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysPosition" parameterClass="com.soule.app.table.SysPositionPo">
+		update SYS_POSITION 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="unitId">UNIT_ID = #unitId#</isNotNull>
+			<isNotNull prepend="," property="roleId">ROLE_ID = #roleId#</isNotNull>
+		</dynamic>
+		where 
+			POSI_ID = #posiId#
+	</update>
+
+	<insert id="saveSysPosition" parameterClass="com.soule.app.table.SysPositionPo">
+		insert into SYS_POSITION (POSI_ID,UNIT_ID,ROLE_ID)
+		values(#posiId:VARCHAR# ,#unitId:VARCHAR# ,#roleId:VARCHAR# )
+	</insert>
+
+	<delete id="delSysPosition" parameterClass="com.soule.app.table.SysPositionPo">
+		delete from SYS_POSITION where 
+			POSI_ID = #posiId#
+	</delete>
+</sqlMap>

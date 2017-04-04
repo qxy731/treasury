@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.batch</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="Batch" class="com.soule.app.sys.batch.BatchAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/sysmgr/batch/batstep.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/batch/BatchAction.java' charset='GBK'/>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/batch/BatchDetailAction.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/IBatchService.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/batch/BatchServiceImpl.java' charset='GBK'/>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="BatchService"
+		class="com.soule.app.sys.batch.BatchServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 批处理主控表 -------------------------------------------
+-- DROP TABLE IF EXISTS BAT_STEP;
+CREATE TABLE BAT_STEP (
+    BATCH_ID VARCHAR2(16) NOT NULL ,
+    STEP_ID INTEGER NOT NULL ,
+    STEP_NAME VARCHAR2(32),
+    STEP_DESC VARCHAR2(128),
+    PROC_FREQ CHAR(1),
+    PROC_CLASS VARCHAR2(128),
+    PARAM1 VARCHAR2(64),
+    PARAM2 VARCHAR2(64),
+    PARAM3 VARCHAR2(64),
+    PARAM4 VARCHAR2(64),
+    PARAM5 VARCHAR2(64),
+    COMP_COUNT INTEGER,
+    SKIP_STEP_ID INTEGER,
+    DEPEND_IDS VARCHAR2(64),
+    REF_TIME VARCHAR2(10),
+    EXT1 VARCHAR2(64),
+    EXT2 VARCHAR2(64),
+    EXT3 VARCHAR2(64),
+    PRIMARY KEY (BATCH_ID,STEP_ID)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 批处理子步骤信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS BAT_STEP_CHILD;
+CREATE TABLE BAT_STEP_CHILD (
+    STEP_ID INTEGER NOT NULL ,
+    CHILD_ID INTEGER NOT NULL ,
+    BATCH_ID VARCHAR2(16) NOT NULL ,
+    STEP_NAME VARCHAR2(32),
+    STEP_DESC VARCHAR2(128),
+    PROC_FREQ CHAR(1),
+    PROC_CLASS VARCHAR2(128),
+    PARAM1 VARCHAR2(64),
+    PARAM2 VARCHAR2(64),
+    PARAM3 VARCHAR2(64),
+    PARAM4 VARCHAR2(64),
+    PARAM5 VARCHAR2(64),
+    DEPEND_IDS VARCHAR2(64),
+    REF_TIME VARCHAR2(10),
+    EXT1 VARCHAR2(64),
+    EXT2 VARCHAR2(64),
+    EXT3 VARCHAR2(64),
+    PRIMARY KEY (STEP_ID,CHILD_ID,BATCH_ID)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 批处理MONITOR表 -------------------------------------------
+-- DROP TABLE IF EXISTS BAT_STEP_MONITOR;
+CREATE TABLE BAT_STEP_MONITOR (
+   INST_ID	VARCHAR(32)	NOT NULL,
+   STEP_ID 	INTEGER	NOT NULL,
+   CHILD_ID 	INTEGER	NOT NULL,
+   BATCH_ID 	VARCHAR(16)	NOT NULL,
+   START_TIME 	TIMESTAMP,
+   END_TIME 	TIMESTAMP,
+   PROC_STATUS  CHARACTER(1),
+   PROC_INFO	VARCHAR(512)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryMainOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/PageUtil.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryMainIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryStepOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryStepIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryChildOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryChildIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryIdOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchQueryIdIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchUpdateOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchUpdateIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchInsertOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchInsertIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchDeleteOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchDeleteIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchStepPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/batch/BatchStepIdPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/batch/batstep.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/batch/mainStepDetail.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/batch/childStepDetail.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/batch/imptext.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sys-batch-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sys-batch-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>baseweb</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:/config/env/*.xml,
+			classpath*:/config/framework/*.xml,
+			classpath*:/config/spring/framework/*.xml,
+			classpath*:/config/spring/app/*.xml
+		</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>requestContextFilter</filter-name>
+		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<!-- 
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	 -->
+	 <filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>requestContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
+	<listener>
+		<listener-class>com.soule.base.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.soule.base.SessionListener</listener-class>
+	</listener>
+
+	<!--start 此部分仅仅为了迎合websphere要求,否则会报Error 404: SRVE0190E: 找不到文件 -->
+	<!-- <servlet> <servlet-name>FileServlet</servlet-name> <servlet-class> 
+		com.ibm.ws.webcontainer.servlet.SimpleFileServlet </servlet-class> <load-on-startup>1</load-on-startup> 
+		</servlet> <servlet-mapping> <servlet-name>FileServlet</servlet-name> <url-pattern>/*</url-pattern> 
+		</servlet-mapping> -->
+	<!--end 此部分仅仅为了迎合websphere要求,否则会报Error 404: SRVE0190E: 找不到文件 -->
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/ncrm-tags</taglib-uri>
+			<taglib-location>/WEB-INF/tld/ncrm-tags.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+</web-app>

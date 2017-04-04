@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+      
+	<!-- springSecurityFilterChain会按顺序来调用这些filter, id 固定为springSecurityFilterChain -->
+	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+         	<security:filter-chain pattern="/j_spring_security_check" filters="AUTH_HSF, AUTH_SCF, AUTH_APF, AUTH_ETF"/>
+         	<security:filter-chain pattern="/j_acegi_logout" filters="AUTH_HSF, AUTH_SCF, AUTH_LOF,AUTH_ETF"/>
+         	<security:filter-chain pattern="/**/*.jsp" filters="AUTH_HSF, AUTH_SCF, AUTH_RMF, AUTH_ETF,AUTH_CSF,AUTH_FII"/>
+         	<security:filter-chain pattern="/**/*.action" filters="AUTH_HSF,AUTH_HSEF,AUTH_ETF"/>
+     	</security:filter-chain-map>
+	</bean>
+
+	<bean id="AUTH_HSF" class="org.springframework.security.web.context.SecurityContextPersistenceFilter" />
+	<bean id="AUTH_HSEF" class="com.soule.base.service.auth.HttpSessionEmptyFilter">
+		<property name="sessionRegistry" ref="SessionRegistry" /> 
+	</bean>
+	<bean id="AUTH_SCF" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter" />
+	<bean id="AUTH_ETF" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<bean
+				class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+				<property name="loginFormUrl" value="/index.jsp" />
+			</bean>
+		</property>
+		<property name="accessDeniedHandler">
+			<bean class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+				<property name="errorPage" value="/jsp/sysmgr/noauth.jsp" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="AUTH_RMF"
+		class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+		<property name="authenticationManager">
+			<ref local="authenticationManager" />
+		</property>
+		<property name="rememberMeServices">
+			<ref local="rememberMeServices" />
+		</property>
+	</bean>
+
+	<bean id="AUTH_APF" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="sessionAuthenticationStrategy" ref="sas"></property>
+		<!--
+			定义登陆失败时转向的页面
+		
+		<property name="exceptionMappings">
+			<value>
+			<![CDATA[
+				org.acegisecurity.BadCredentialsException=/index.jsp?l=i
+				org.acegisecurity.CredentialsExpiredException=/index.jsp?l=e
+				org.acegisecurity.userdetails.UsernameNotFoundException=/index.jsp?l=f
+				org.acegisecurity.DisabledException=/index.jsp?l=d
+				org.acegisecurity.LockedException=/index.jsp?l=l
+				org.acegisecurity.AccountExpiredException=/index.jsp?l=a
+			]]>
+			</value>
+		</property>
+		-->
+		<property name="authenticationManager">
+			<ref local="authenticationManager" />
+		</property>
+		<property name="rememberMeServices">
+			<ref local="rememberMeServices" />
+		</property>
+        <property name="authenticationSuccessHandler">  
+            <bean class="com.soule.base.service.logon.NeuUrlAuthenticationSuccessHandler">  
+                <property name="defaultTargetUrl" value="/main.action"></property>  
+                <property name="alwaysUseDefaultTargetUrl" value="true"></property>  
+           </bean>  
+        </property>  
+        <property name="authenticationFailureHandler">  
+            <bean class="com.soule.base.service.logon.NeuUrlAuthenticationFailureHandler">  
+                <property name="defaultFailureUrl" value="/index.jsp"></property>  
+            </bean>  
+        </property>  
+	</bean>
+
+	<!-- 基于数据库的身份验证 -->
+	<bean id="daoAuthenticationProvider"
+		class="com.soule.base.service.auth.MyDaoAuthenticationProvider">
+		<property name="userDetailsService">
+			<ref bean="userDetailsService" />
+		</property>
+		<property name="passwordEncoder">
+			<ref bean="md5PasswordEncoder" />
+		</property>
+	</bean>
+
+	<bean id="md5PasswordEncoder" class="com.soule.base.Md5PasswordEncoder" />
+	<bean id="shaPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+	<bean id="plaintextPasswordEncoder"
+		class="org.springframework.security.authentication.encoding.PlaintextPasswordEncoder" />
+
+	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref bean="daoAuthenticationProvider" />
+				<!--
+					认证提供者，从数据库中读取用户信息验证身份
+				-->
+				<ref local="rememberMeAuthenticationProvider" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 同一用户登陆限制,默认限制同一用户只能同时在系统中存在一个 -->
+	<bean id="AUTH_CSF"
+		class="org.springframework.security.web.session.ConcurrentSessionFilter" >
+		<property name="sessionRegistry">
+			<ref bean="SessionRegistry"/>
+		</property>
+		<property name="expiredUrl" value="/index.jsp"/>
+	</bean>
+	<bean id="SessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" scope="singleton"/>
+
+
+	<!--
+		通过UserDetailsService完成UserDetails的获取工作，根据存储用户信息媒介的不同，Acegi提供了两个UserDetailsService的实现类：
+	-->
+	<bean id="userDetailsService" class="com.soule.base.service.logon.UserDetailsServiceImpl" />
+
+	<bean id="AUTH_LOF" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		<constructor-arg value="/index.jsp" />
+		<constructor-arg>
+			<list>
+				<ref local="clearSessionRegistry" />
+				<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+				<ref local="rememberMeServices" />
+			</list>
+		</constructor-arg>
+		<property name="filterProcessesUrl" value="/j_acegi_logout" />
+	</bean>
+
+	<bean id="clearSessionRegistry" class="com.soule.base.ClearSessionRegistry">
+		<property name="sessionRegistry">
+			<ref bean="SessionRegistry"/>
+		</property>
+	</bean>
+
+	<!--
+		rememberMeAuthenticationProvider负责Cookies记忆用户RememberMeAuthenticationToken的进一步处理
+	-->
+	<bean id="rememberMeAuthenticationProvider"
+		class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
+		<property name="key" value="NSCRM" />
+	</bean>
+
+	<bean id="rememberMeServices"
+		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<property name="userDetailsService">
+			<ref bean="userDetailsService" />
+		</property>
+		<property name="key" value="NSCRM" />
+	</bean>
+
+	<bean id="AUTH_FII"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<property name="validateConfigAttributes" value="true" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="urlAccessDecisionManager" />
+		<property name="objectDefinitionSource" ref="urlResourceDefiner" />
+	</bean>
+
+	<bean id="urlAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+		<property name="allowIfAllAbstainDecisions" value="false" />
+		<property name="decisionVoters">
+			<list>
+				<ref bean="adminVoter" />
+				<ref bean="urlVoter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="urlResourceDefiner"
+		class="com.soule.base.service.auth.ResourceDefinerServiceImpl">
+		<property name="uncheckSource">
+			<value>index.jsp,noauth.jsp,changePassword.jsp,/jsp/common,/jsp/public
+			</value>
+		</property>
+	</bean>
+
+	<bean id="urlVoter" class="com.soule.base.service.auth.UrlVoter">
+		<property name="enabled" value="true" />
+	</bean>
+	<bean id="adminVoter" class="com.soule.base.service.auth.AdminVoter" />
+
+	<bean id="arcGrant" class="com.soule.base.service.auth.ArcGrantServiceImpl">
+	</bean>
+	<bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<constructor-arg name="sessionRegistry" ref="SessionRegistry"/>
+		<property name="maximumSessions" value="200"/>
+		<!--<beans:property name="exceptionIfMaximumExceeded" value="true"/>-->
+	</bean>
+
+</beans>

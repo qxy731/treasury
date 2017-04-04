@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="init">
+
+    <select id="queryAllUnits" parameterClass="java.util.Map"
+		resultClass="com.soule.app.sys.unit.UnitPo">
+		SELECT UNIT_ID as unitId, UNIT_NAME as unitName FROM SYS_UNIT
+    </select>
+
+</sqlMap>
+

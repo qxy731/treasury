@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.filetransfer</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-05-23 10:32</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='STRUTS_CFG' path='src/config/struts/common-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="FileTransfer" class="com.soule.app.sys.filetransfer.FileTransferAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/common/upload/file_inner.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="download" type="stream">
+              <param name="contentType">text/plain</param>
+              <param name="contentDisposition">
+                 attachment;filename="${fileName}"
+              </param>
+              <param name="inputName">
+                 downloadFile
+              </param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/filetransfer/FileTransferAction.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/IFileTransferService.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/filetransfer/FileTransferServiceImpl.java' charset='GBK'/>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="FileTransferService"
+		class="com.soule.app.sys.filetransfer.FileTransferServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferUploadOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='WebContent/jsp/common/upload/file_inner.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/common/upload/file_upload.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferUploadIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferListOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferListIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferDeleteOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferDeleteIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferDownloadIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferDownloadOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/filetransfer/FileTransferFilePo.java' charset='GBK'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 上传文件 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_UPLOAD_FILE;
+CREATE TABLE SYS_UPLOAD_FILE (
+    UPLOAD_ID VARCHAR2(32) NOT NULL ,
+    FILE_ID VARCHAR2(32) NOT NULL ,
+    FILE_NAME VARCHAR2(64),
+    FILE_SIZE INTEGER,
+    FILE_PATH VARCHAR2(255),
+    DEL_FLAG CHAR(1),
+    CREATE_USER VARCHAR2(16),
+    CREATE_TIME TIMESTAMP,
+    PRIMARY KEY (UPLOAD_ID,FILE_ID)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sys_upload_file-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysUploadFilePo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sys_upload_file-sqlmap.xml' charset='UTF-8'/>
+    </AppFiles>
+</AppPlugIn>

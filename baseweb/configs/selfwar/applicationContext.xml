@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="gb2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	default-lazy-init="true" 
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--
+		使用应用服务器JNDI数据源配置示例，非Tomcat环境下配置jndi-name值为WFISDB，
+		Tomcat环境下配置jndi-name值为java:/comp/env/CRMDB。
+		<jee:jndi-lookup id="dataSource" jndi-name="java:/comp/env/CRMDB" />
+	-->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+			destroy-method="close">
+		<property name="driverClass" value="org.h2.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:h2:work/webapp/db/crmdb;SCHEMA=PUBLIC;MODE=Oracle" />
+		<property name="user" value="sa" />
+		<property name="password" value="" />
+		<property name="autoCommitOnClose" value="true" />
+		<property name="checkoutTimeout" value="5000" />
+		<property name="initialPoolSize" value="2" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxPoolSize" value="10" />
+		<property name="maxIdleTime" value="25200" />
+		<property name="acquireIncrement" value="5" />
+		<property name="maxIdleTimeExcessConnections" value="1800" />
+	</bean>
+	
+	<!--
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+			destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost:3306/ocrmdb" />
+		<property name="user" value="ocrmdb" />
+		<property name="password" value="ocrmdb" />
+		<property name="autoCommitOnClose" value="true" />
+		<property name="checkoutTimeout" value="5000" />
+		<property name="initialPoolSize" value="20" />
+		<property name="minPoolSize" value="20" />
+		<property name="maxPoolSize" value="60" />
+		<property name="maxIdleTime" value="25200" />
+		<property name="acquireIncrement" value="5" />
+		<property name="maxIdleTimeExcessConnections" value="1800" />
+	</bean>
+		<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	-->
+
+
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocations">
+			<!-- sql map配置文件的入口文件，如果添加了一个sqlmap文件，只要在下面的入口文件中加入相应的选项即可 -->
+			<value>classpath*:/config/ibatis/*sqlmap-config.xml
+			</value>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<bean id="propertyConfigurer"
+		class="com.soule.base.PropertyPlaceholderConfigurerExt">
+		<property name="locations">
+			<list>
+				<value>classpath*:config/env/*.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="com.soule.comm.tools,com.soule.app,com.soule.crm"/>
+	<!-- enable autowire -->
+	<context:annotation-config />
+	
+</beans>
+

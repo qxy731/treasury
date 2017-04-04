@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="enum">
+	<resultMap id="SysEnumItemMap" class="com.soule.app.sys.enums.EnumItemPo">
+		<result property="enumId" column="ENUM_ID"/>
+		<result property="itemId" column="ITEM_ID"/>
+		<result property="itemValue" column="ITEM_VALUE"/>
+		<result property="itemDesc" column="ITEM_DESC"/>
+		<result property="seqId" column="SEQ_ID"/>
+	</resultMap>
+	<select id="getSysEnumItemByKey" parameterClass="com.soule.app.sys.enums.EnumItemPo" 
+		resultMap="SysEnumItemMap">
+		select * from SYS_ENUM_ITEM where 
+			ENUM_ID = #enumId#
+			AND ITEM_ID = #itemId#
+	</select>
+
+	<select id="getSysEnumItem" parameterClass="java.util.Map" resultMap="SysEnumItemMap">
+		select * from SYS_ENUM_ITEM 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="enumId">ENUM_ID = #enumId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="itemId">ITEM_ID = #itemId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="itemValue">ITEM_VALUE = #itemValue#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="itemDesc">ITEM_DESC = #itemDesc#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="seqId">SEQ_ID = #seqId#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysEnumItemCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_ENUM_ITEM 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="enumId">ENUM_ID = #enumId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="itemId">ITEM_ID = #itemId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="itemValue">ITEM_VALUE = #itemValue#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="itemDesc">ITEM_DESC = #itemDesc#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="seqId">SEQ_ID = #seqId#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysEnumItem" parameterClass="com.soule.app.sys.enums.EnumItemPo">
+		update SYS_ENUM_ITEM 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="itemValue">ITEM_VALUE = #itemValue#</isNotNull>
+			<isNotNull prepend="," property="itemDesc">ITEM_DESC = #itemDesc#</isNotNull>
+			<isNotNull prepend="," property="seqId">SEQ_ID = #seqId#</isNotNull>
+		</dynamic>
+		where 
+			ENUM_ID = #enumId#
+			AND ITEM_ID = #itemId#
+	</update>
+
+	<insert id="saveSysEnumItem" parameterClass="com.soule.app.sys.enums.EnumItemPo">
+		insert into SYS_ENUM_ITEM (ENUM_ID,ITEM_ID,ITEM_VALUE,ITEM_DESC,SEQ_ID)
+		values(#enumId:VARCHAR# ,#itemId:VARCHAR# ,#itemValue:VARCHAR# ,#itemDesc:VARCHAR# ,#seqId:INTEGER# )
+	</insert>
+
+	<delete id="delSysEnumItem" parameterClass="com.soule.app.sys.enums.EnumItemPo">
+		delete from SYS_ENUM_ITEM where 
+			ENUM_ID = #enumId#
+			AND ITEM_ID = #itemId#
+	</delete>
+	<delete id="delSysEnumItems" parameterClass="java.lang.String">
+		delete from SYS_ENUM_ITEM where ENUM_ID = #value#
+	</delete>
+	<select id="loadAll" parameterClass="java.lang.String" resultMap="SysEnumItemMap">
+		select * from SYS_ENUM_ITEM order by enum_Id,seq_Id
+	</select>
+</sqlMap>

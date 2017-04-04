@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.staff</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="StaffService"
+		class="com.soule.app.sys.staff.StaffServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="staffManager" class="com.soule.app.sys.staff.StaffAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/sysmgr/staff/staff.jsp</result>
+			<result name="updateui">/jsp/sysmgr/staff/staffUpdate.jsp</result>
+			<result name="json" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/staff/SelectStaffAction.java' charset='GBK'/>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/staff/StaffAction.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/staff/StaffServiceImpl.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/IStaffService.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffDeleteIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffDeleteOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffInsertIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffInsertOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffQueryIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffQueryOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffUpdateIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffUpdateOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/staff/StaffStaffPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysStaffPo.java' charset='GBK'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之人员维护-StaffMaintain --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNStaffMaintain','人员维护','jsp/sysmgr/staff/staff.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/staff/selectStaff.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/staff/staff.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/staff/staffAdd.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/staff/staffUpdate.jsp' charset='UTF-8'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 人员维护表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_STAFF;
+CREATE TABLE SYS_STAFF(
+  STAFF_ID	VARCHAR(16)	NOT NULL,
+  STAFF_NAME	VARCHAR(32),
+  OWNER_UNITID	VARCHAR(32),
+  STAFF_LEVEL	SMALLINT,
+  STAFF_STATUS	CHARACTER(1)	NOT NULL,
+  SEX	CHARACTER(1),
+  CREATE_USER	VARCHAR(16),
+  CREATE_TIME	TIMESTAMP,
+  LAST_UPD_USER	VARCHAR(16),
+  LAST_UPD_TIME	TIMESTAMP,
+  EXT1	VARCHAR(64),
+  EXT2	VARCHAR(64),
+  EXT3	VARCHAR(64)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 人员维护EXT表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_STAFF_EXT;
+CREATE TABLE SYS_STAFF_EXT (
+  STAFF_ID	VARCHAR(16)	NOT NULL,
+  CREATE_USER	VARCHAR(16),
+  CREATE_TIME	TIMESTAMP,
+  LAST_UPD_USER	VARCHAR(16),
+  LAST_UPD_TIME	TIMESTAMP
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sys-staff-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sys-staff-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="sysmgr_unit">
+	<select id="getRootUnits" resultClass="com.soule.app.sys.unit.UnitPo">
+		SELECT
+		UNIT_ID as unitId,
+		UNIT_NAME as unitName,
+		SUPER_UNITID as superUnitId,
+		UNIT_LEVEL as unitLevel,
+		UNIT_KIND as unitKind,
+		UNIT_STATUS as unitStatus,
+		UNIT_INDEX as unitIndex,
+		UNIT_PATH as unitPath,
+		CREATE_USER as createUser,
+		CREATE_TIME as createTime,
+		LAST_UPD_USER as lastUpdUser,
+		LAST_UPD_TIME as lastUpdTime,
+		EXT1 as ext1,
+		EXT2 as ext2,
+		EXT3 as ext3,
+		EXT4 as ext4,
+		EXT5 as ext5
+		FROM SYS_UNIT
+		WHERE UNIT_LEVEL = '1'
+    </select>
+
+	<select id="getUnitById" parameterClass="java.util.Map"
+		resultClass="com.soule.app.sys.unit.UnitPo">
+		SELECT
+		A.UNIT_ID as unitId,
+		A.UNIT_NAME as unitName,
+		A.SUPER_UNITID as superUnitId,
+		B.UNIT_NAME as superUnitName,
+		A.UNIT_LEVEL as unitLevel,
+		A.UNIT_KIND as unitKind,
+		A.UNIT_STATUS as unitStatus,
+		A.UNIT_INDEX as unitIndex,
+		A.UNIT_PATH as unitPath,
+		A.CREATE_USER as createUser,
+		A.CREATE_TIME as createTime,
+		A.LAST_UPD_USER as lastUpdUser,
+		A.LAST_UPD_TIME as lastUpdTime,
+		A.EXT1 as ext1,
+		A.EXT2 as ext2,
+		A.EXT3 as ext3,
+		A.EXT4 as ext4,
+		A.EXT5 as ext5
+		FROM SYS_UNIT A left join SYS_UNIT B on
+		A.SUPER_UNITID=B.UNIT_ID
+		WHERE A.UNIT_ID = #unitId#
+    </select>
+	<select id="getOneUnitById" parameterClass="java.util.Map"
+		resultClass="com.soule.app.sys.unit.UnitPo">
+		SELECT
+		A.UNIT_ID as unitId,
+		A.UNIT_NAME as unitName,
+		A.SUPER_UNITID as superUnitId,
+		A.UNIT_LEVEL as unitLevel,
+		A.UNIT_KIND as unitKind,
+		A.UNIT_STATUS as unitStatus,
+		A.UNIT_INDEX as unitIndex,
+		A.UNIT_PATH as unitPath,
+		A.CREATE_USER as createUser,
+		A.CREATE_TIME as createTime,
+		A.LAST_UPD_USER as lastUpdUser,
+		A.LAST_UPD_TIME as lastUpdTime,
+		A.LEAF_FLAG as leafFlag,
+		A.EXT1 as ext1,
+		A.EXT2 as ext2,
+		A.EXT3 as ext3,
+		A.EXT4 as ext4,
+		A.EXT5 as ext5
+		FROM SYS_UNIT A
+		WHERE A.UNIT_ID = #unitId#
+    </select>
+	<select id="querySubUnitsById" parameterClass="java.util.Map"
+		resultClass="com.soule.app.sys.unit.UnitPo">
+		SELECT
+		UNIT_ID as unitId,
+		UNIT_NAME as unitName,
+		SUPER_UNITID as superUnitId,
+		UNIT_LEVEL as unitLevel,
+		UNIT_KIND as unitKind,
+		UNIT_STATUS as unitStatus,
+		UNIT_INDEX as unitIndex,
+		UNIT_PATH as unitPath,
+		CREATE_USER as createUser,
+		CREATE_TIME as createTime,
+		LAST_UPD_USER as lastUpdUser,
+		LAST_UPD_TIME as lastUpdTime,
+		LEAF_FLAG as leafFlag,
+		EXT1 as ext1,
+		EXT2 as ext2,
+		EXT3 as ext3,
+		EXT4 as ext4,
+		EXT5 as ext5
+		FROM SYS_UNIT
+		WHERE SUPER_UNITID = #unitId# and UNIT_STATUS='1'
+    </select>
+    
+    <update id="updateUnitById" parameterClass="java.util.Map">
+		update SYS_UNIT
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="unitName">UNIT_NAME = #unitName#</isNotNull>
+			<isNotNull prepend="," property="unitKind">UNIT_KIND = #unitKind#</isNotNull>
+			<isNotNull prepend="," property="unitStatus">UNIT_STATUS = #unitStatus#</isNotNull>
+			<isNotNull prepend="," property="unitPath">UNIT_PATH = #unitPath#</isNotNull>
+			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+			<isNotNull prepend="," property="leafFlag">LEAF_FLAG = #leafFlag#</isNotNull>
+			<isNotNull prepend="," property="superUnitId">SUPER_UNITID = #superUnitId#</isNotNull>
+		</dynamic>
+		where UNIT_ID = #unitId#
+    </update>
+
+
+	<update id="deleteUnitById" parameterClass="java.util.Map">
+		delete from SYS_UNIT where UNIT_ID=#unitId#		  
+    </update>
+
+	<insert id="insertUnit" parameterClass="java.util.Map">
+		insert into SYS_UNIT(
+		UNIT_ID,
+		UNIT_NAME,
+		SUPER_UNITID,
+		UNIT_KIND,
+		UNIT_LEVEL,
+		UNIT_STATUS,
+		UNIT_PATH,
+		CREATE_USER,
+		CREATE_TIME,
+		LEAF_FLAG,
+		LAST_UPD_TIME
+		)values(
+		#unitId#,
+		#unitName#,
+		#superUnitId#,
+		#unitKind#,
+		#unitLevel#,
+		#unitStatus#,
+		#unitPath#,
+		#createUser#,
+		#createTime#,
+		#leafFlag#,
+		#lastUpdTime#)		  
+    </insert>
+    
+    <select id="queryUnitsByCondition" parameterClass="java.util.Map"
+		resultClass="com.soule.app.sys.unit.UnitPo">
+		SELECT
+		A.UNIT_ID as unitId,
+		A.UNIT_NAME as unitName,
+		A.SUPER_UNITID as superUnitId,
+		B.UNIT_NAME as superUnitName,
+		A.UNIT_LEVEL as unitLevel,
+		A.UNIT_KIND as unitKind,
+		A.UNIT_STATUS as unitStatus,
+		A.UNIT_INDEX as unitIndex,
+		A.UNIT_PATH as unitPath,
+		A.CREATE_USER as createUser,
+		A.CREATE_TIME as createTime,
+		A.LAST_UPD_USER as lastUpdUser,
+		A.LAST_UPD_TIME as lastUpdTime,
+		A.EXT1 as ext1,
+		A.EXT2 as ext2,
+		A.EXT3 as ext3,
+		A.EXT4 as ext4,
+		A.EXT5 as ext5
+		FROM SYS_UNIT A
+		left join SYS_UNIT B on A.SUPER_UNITID=B.UNIT_ID
+		<isNotEmpty property="unit.superUnitId">
+			inner join SYS_UNITMAP m on m.RELA_UNITID=A.UNIT_ID
+		</isNotEmpty>
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="unit.unitName">a.UNIT_NAME like '%$unit.unitName$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitId">a.UNIT_ID = #unit.unitId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitLevel">a.UNIT_LEVEL= #unit.unitLevel#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitKind">a.UNIT_KIND = #unit.unitKind#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitStatus">A.UNIT_STATUS= #unit.unitStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.superUnitId">m.UNIT_ID =#unit.superUnitId#</isNotEmpty>
+		</dynamic>
+	 order by A.UNIT_LEVEL
+    </select>
+    
+    <select id="queryUnitsCountByCondition" parameterClass="java.util.Map"
+		resultClass="java.lang.Long">
+		SELECT count(1) FROM SYS_UNIT A
+		<isNotEmpty property="unit.superUnitId">
+			inner join SYS_UNITMAP m on m.RELA_UNITID=A.UNIT_ID
+		</isNotEmpty>
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="unit.unitName">A.UNIT_NAME like '%$unit.unitName$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitId">A.UNIT_ID = #unit.unitId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitLevel">A.UNIT_LEVEL= #unit.unitLevel#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitKind">A.UNIT_KIND = #unit.unitKind#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.unitStatus">A.UNIT_STATUS= #unit.unitStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="unit.superUnitId">m.UNIT_ID =#unit.superUnitId#</isNotEmpty>
+		</dynamic>
+    </select>
+
+</sqlMap>
+

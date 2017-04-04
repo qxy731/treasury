@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="getProps">
+
+	<select id="getSysStaffByKey" parameterClass="java.util.HashMap" 
+		resultClass="com.soule.app.table.SysStaffPo">
+		select Staff_id as staffId ,staff_name as staffName from SYS_STAFF where 
+			STAFF_ID = #staffId#
+	</select>
+
+	<select id="getUnitByKey" parameterClass="java.util.HashMap" 
+		resultClass="com.soule.app.sys.unit.UnitPo">
+		select UNIT_ID as unitId ,UNIT_NAME as unitName from SYS_UNIT where 
+			UNIT_ID = #unitId# 
+	</select>
+
+</sqlMap>

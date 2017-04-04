@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.role</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="roleManager" class="com.soule.app.sys.role.RoleAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/sysmgr/role/role.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/role/RoleAction.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/IRoleService.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/role/RoleServiceImpl.java' charset='GBK'/>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="RoleService"
+		class="com.soule.app.sys.role.RoleServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleQueryOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleQueryIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleUpdateOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleUpdateIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleInsertOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleInsertIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleDeleteOut.java' charset='GBK'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之角色维护-RoleMaintain --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNRoleMaintain','角色维护','jsp/sysmgr/role/role.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/role/role.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/role/roleAdd.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/role/roleUpdate.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleDeleteIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/role/RoleRolePo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysRolePo.java' charset='GBK'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 角色信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_ROLE;
+CREATE TABLE SYS_ROLE (
+    ROLE_ID VARCHAR2(16) NOT NULL ,
+    ROLE_NAME VARCHAR2(64),
+    ROLE_STATUS CHAR(1) NOT NULL ,
+    REMARK VARCHAR2(255),
+    PARENT_ROLE_ID VARCHAR2(16),
+    CREATE_USER VARCHAR2(16),
+    CREATE_TIME TIMESTAMP,
+    LAST_UPD_USER VARCHAR2(16),
+    LAST_UPD_TIME TIMESTAMP,
+    EXT1 VARCHAR2(64),
+    EXT2 VARCHAR2(64),
+    EXT3 VARCHAR2(64),
+    PRIMARY KEY (ROLE_ID)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sys-role-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sys-role-sqlmap.xml' charset='UTF-8'/>
+    </AppFiles>
+</AppPlugIn>

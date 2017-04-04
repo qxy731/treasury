@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="stfOrgChange">
+	<!-- 
+		STAFF_ID as staffId,
+		OWNER_UNITID as ownerUnitid,
+		UPD_USER as updUser,
+		START_TIME as startTime,
+		END_TIME as endTime,
+	-->
+
+	<select id="getSysStaffOrgChangeHisCount" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo" resultClass="java.lang.Long">
+		select  
+		    count(1) as count
+		from SYS_STAFF_ORG_CHANGE_HIS AS orgchange
+		    inner join SYS_STAFF staff on orgchange.STAFF_ID =staff.STAFF_ID 
+		    inner join SYS_UNIT unit on orgchange.OWNER_UNITID=unit.UNIT_ID
+		    inner join SYS_STAFF st on orgchange.UPD_USER=st.STAFF_ID
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="staffId">orgchange.STAFF_ID = #staffId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ownerUnitid">orgchange.OWNER_UNITID = #ownerUnitid#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="updUser">orgchange.UPD_USER = #updUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="startTime">date(orgchange.START_TIME) = #startTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="endTime">date(orgchange.END_TIME) = #endTime#</isNotEmpty>
+		</dynamic>
+	</select>
+	<select id="getSysStaffOrgChangeHis" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo" resultClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo">
+        select  
+            orgchange.STAFF_ID as staffId,
+            orgchange.OWNER_UNITID as ownerUnitid,
+            orgchange.UPD_USER as updUser,
+            orgchange.START_TIME as startTime,
+            orgchange.END_TIME as endTime,
+            unit.UNIT_NAME as unitName,
+            staff.STAFF_NAME as staffName,
+            st.STAFF_NAME AS updUserName
+        from SYS_STAFF_ORG_CHANGE_HIS AS orgchange
+            inner join SYS_STAFF staff on orgchange.STAFF_ID =staff.STAFF_ID 
+            inner join SYS_UNIT unit on orgchange.OWNER_UNITID=unit.UNIT_ID
+            inner join SYS_STAFF st on orgchange.UPD_USER=st.STAFF_ID
+        <dynamic prepend="where">
+            <isNotEmpty prepend=" AND " property="staffId">orgchange.STAFF_ID = #staffId#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="ownerUnitid">orgchange.OWNER_UNITID = #ownerUnitid#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="updUser">orgchange.UPD_USER = #updUser#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="startTime">date(orgchange.START_TIME) = #startTime#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="endTime">date(orgchange.END_TIME) = #endTime#</isNotEmpty>
+        </dynamic>
+        order by orgchange.START_TIME
+    </select>
+
+	<insert id="saveSysStaffOrgChangeHis" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo">
+		insert into SYS_STAFF_ORG_CHANGE_HIS (STAFF_ID,OWNER_UNITID,UPD_USER,START_TIME,END_TIME)
+		values(#staffId:VARCHAR# ,#ownerUnitid:VARCHAR# ,#updUser:VARCHAR# ,#startTime:TIMESTAMP# ,#endTime:TIMESTAMP# )
+	</insert>
+
+	<update id="updPreStaffOrgChange" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo">
+        update SYS_STAFF_ORG_CHANGE_HIS 
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="endTime">END_TIME = #endTime#</isNotNull>
+        </dynamic>
+        where 
+            STAFF_ID = #staffId#
+            AND END_TIME is null
+    </update>
+</sqlMap>

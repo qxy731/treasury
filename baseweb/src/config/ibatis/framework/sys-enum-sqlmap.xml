@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="enum">
+	<resultMap id="SysEnumMap" class="com.soule.app.sys.enums.EnumPo">
+		<result property="enumId" column="ENUM_ID"/>
+		<result property="enumName" column="ENUM_NAME"/>
+		<result property="enumDesc" column="ENUM_DESC"/>
+		<result property="linkSrcFlag" column="LINK_SRC_FLAG"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="lastUpdUser" column="LAST_UPD_USER"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+	</resultMap>
+	<select id="getSysEnumByKey" parameterClass="com.soule.app.sys.enums.EnumPo" 
+		resultMap="SysEnumMap">
+		select * from SYS_ENUM where ENUM_ID = #enumId#
+	</select>
+
+	<select id="getSysEnum" parameterClass="java.util.Map" resultMap="SysEnumMap">
+		select * from SYS_ENUM 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="enumId">ENUM_ID like '%$enumId$%' </isNotEmpty>
+			<isNotEmpty prepend=" AND " property="enumName">ENUM_NAME like '%$enumName$%' </isNotEmpty>
+			<isNotEmpty prepend=" AND " property="enumDesc">ENUM_DESC = #enumDesc#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="linkSrcFlag">LINK_SRC_FLAG = #linkSrcFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER = #createUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysEnum" parameterClass="com.soule.app.sys.enums.EnumPo">
+		update SYS_ENUM 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="enumName">ENUM_NAME = #enumName#</isNotNull>
+			<isNotNull prepend="," property="enumDesc">ENUM_DESC = #enumDesc#</isNotNull>
+			<isNotNull prepend="," property="linkSrcFlag">LINK_SRC_FLAG = #linkSrcFlag#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+		</dynamic>
+		where 
+			ENUM_ID = #enumId#
+	</update>
+
+	<insert id="saveSysEnum" parameterClass="com.soule.app.sys.enums.EnumPo">
+		insert into SYS_ENUM (ENUM_ID,ENUM_NAME,ENUM_DESC,LINK_SRC_FLAG,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
+		values(#enumId:VARCHAR# ,#enumName:VARCHAR# ,#enumDesc:VARCHAR# ,#linkSrcFlag:CHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# )
+	</insert>
+
+	<delete id="delSysEnum" parameterClass="com.soule.app.sys.enums.EnumPo">
+		delete from SYS_ENUM where 
+			ENUM_ID = #enumId#
+	</delete>
+
+</sqlMap>
+

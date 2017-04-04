@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.pagegrant</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="PageGrantService"
+		class="com.soule.app.sys.pagegrant.PageGrantServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="PageGrant" class="com.soule.app.sys.pagegrant.PageGrantAction">
+			<result name="success">/jsp/sys/pagegrant/pagegrant.jsp</result>
+			<result name="json" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/pagegrant/PageGrantAction.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/pagegrant/PageGrantServiceImpl.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/IPageGrantService.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/PageGrantListChildIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/PageGrantListChildOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/PageGrantSaveAuthIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/PageGrantSaveAuthOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/PageGrantNodePo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/pagegrant/PageGrantNodeVo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysArcGrantPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/table/SysResUrlPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/grant/pageauth.jsp' charset='UTF-8'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 系统URL信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_RES_URL;
+CREATE TABLE SYS_RES_URL (
+  URL_ID	VARCHAR(32)	NOT NULL,
+  URL_NAME	VARCHAR(32),
+  URL_PATH	VARCHAR(255)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 权限控制信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_ARC_GRANT;
+CREATE TABLE SYS_ARC_GRANT (
+  PRINCIPAL_CODE	VARCHAR(64)	NOT NULL,
+  PRINCIPAL_TYPE	VARCHAR(16)	NOT NULL,
+  RES_CODE	VARCHAR(64)	NOT NULL,
+  RES_TYPE	VARCHAR(255)	NOT NULL,
+  CHANNEL_CODE	VARCHAR(64),
+  RUN_FLAG	CHARACTER(1),
+  ASS_FLAG	CHARACTER(1),
+  CREATE_USER	VARCHAR(16),
+  CREATE_TIME	TIMESTAMP,
+  LAST_UPD_USER	VARCHAR(16),
+  LAST_UPD_TIME	TIMESTAMP,
+  EXT1	VARCHAR(64),
+  EXT2	VARCHAR(64),
+  EXT3	VARCHAR(64)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_arc_grant-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_arc_grant-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_res_url-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_res_url-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

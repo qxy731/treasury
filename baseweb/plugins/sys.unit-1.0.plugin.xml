@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.unit</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="unitManager" class="com.soule.app.sys.unit.UnitAction">
+            <result name="success">/jsp/sysmgr/unit/unit.jsp</result>
+			<result name="detail">/jsp/sysmgr/unit/unitDetail.jsp</result>
+			<result name="edit">/jsp/sysmgr/unit/unitEdit.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/unit/UnitAction.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/IUnitService.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/unit/UnitServiceImpl.java' charset='GBK'/>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="unitService"
+		class="com.soule.app.sys.unit.UnitServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/unit/SelectUnitAction.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/ISelcUnitService.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/unit/SelcUnitServiceImpl.java' charset='GBK'/>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="SelcUnitService"
+		class="com.soule.app.sys.unit.SelcUnitServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/IUnitMapService.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/unit/UnitMapServiceImpl.java' charset='GBK'/>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="unitMapService"
+		class="com.soule.app.sys.unit.UnitMapServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/UnitQueryOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/UnitQueryIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/UnitPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/SelcUnitQueryOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/unit/UnitTreeObj.java' charset='GBK'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之组织维护-UnitMaintain --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNUnitMaintain','组织维护','jsp/sysmgr/unit/unit.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/unit/unit.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/unit/unit.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/unit/unitAdd.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/unit/unitDetail.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/unit/unitEdit.jsp' charset='UTF-8'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 组织信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_UNIT;
+CREATE TABLE SYS_UNIT (
+  UNIT_ID	VARCHAR(32)	NOT NULL,
+  UNIT_NAME	VARCHAR(64),
+  SUPER_UNITID	VARCHAR(32),
+  UNIT_LEVEL	CHARACTER(1),
+  UNIT_KIND	CHARACTER(1)	NOT NULL,
+  UNIT_STATUS	CHARACTER(1)	NOT NULL,
+  UNIT_INDEX	INTEGER,
+  UNIT_PATH	VARCHAR(512),
+  LEAF_FLAG	CHARACTER(1),
+  CREATE_USER	VARCHAR(16),
+  CREATE_TIME	TIMESTAMP,
+  LAST_UPD_USER	VARCHAR(16),
+  LAST_UPD_TIME	TIMESTAMP,
+  EXT1	VARCHAR(64),
+  EXT2	VARCHAR(64),
+  EXT3	VARCHAR(64),
+  EXT4	VARCHAR(32),
+  EXT5	VARCHAR(32),
+  MAPPING_CODE	VARCHAR(256)
+) ;
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 组织Map信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_UNITMAP;
+CREATE TABLE SYS_UNITMAP(
+  UNIT_ID	VARCHAR(32)	NOT NULL,
+  RELA_UNITID	VARCHAR(32)	NOT NULL
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 组织EXT信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_UNIT_EXT;
+CREATE TABLE SYS_UNIT_EXT(
+  UNIT_ID	VARCHAR(32)	NOT NULL,
+  CREATE_USER	VARCHAR(16),
+  CREATE_TIME	TIMESTAMP,
+  LAST_UPD_USER	VARCHAR(16),
+  LAST_UPD_TIME	TIMESTAMP
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sysmgr-unitmap-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sysmgr-unitmap-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sysmgr-unit-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sysmgr-unit-sqlmap.xml' charset='UTF-8'/>
+    </AppFiles>
+</AppPlugIn>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" cacheModelsEnabled="false" />
+	<sqlMap resource="config/ibatis/framework/sys-common-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys-auth-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sysmgr-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sysmgr-unit-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-role-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-enum-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-enumitem-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-resfunction-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-staff-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys_role_assign-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_posi_assign-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-staffquery-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sysmgr-unitmap-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-batch-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys_biz_type-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys_log_audit-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_upload_file-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_pub_getproperties.xml" />
+<sqlMap resource="config/ibatis/framework/sys_staff_org_change_his-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_unit-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/quick_menu_sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys_params-sqlmap.xml" />
+	
+<sqlMap resource="config/ibatis/table/sys_arc_grant-sqlmap.xml" />
+<sqlMap resource="config/ibatis/table/sys_res_url-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/table/sys_keygen-sqlmap.xml" />
+<sqlMap resource="config/ibatis/table/sys_role_assign-sqlmap.xml" />
+<sqlMap resource="config/ibatis/table/sys_position-sqlmap.xml" />
+<sqlMap resource="config/ibatis/table/sys_posi_assign-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-logoninfo-sqlmap.xml" />
+</sqlMapConfig>

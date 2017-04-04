@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="single">
+	<resultMap id="SysArcGrantMap" class="com.soule.app.table.SysArcGrantPo">
+		<result property="principalCode" column="PRINCIPAL_CODE"/>
+		<result property="principalType" column="PRINCIPAL_TYPE"/>
+		<result property="resCode" column="RES_CODE"/>
+		<result property="resType" column="RES_TYPE"/>
+		<result property="channelCode" column="CHANNEL_CODE"/>
+		<result property="runFlag" column="RUN_FLAG"/>
+		<result property="assFlag" column="ASS_FLAG"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="lastUpdUser" column="LAST_UPD_USER"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+		<result property="ext1" column="EXT1"/>
+		<result property="ext2" column="EXT2"/>
+		<result property="ext3" column="EXT3"/>
+	</resultMap>
+	<select id="getSysArcGrantByKey" parameterClass="com.soule.app.table.SysArcGrantPo" 
+		resultMap="SysArcGrantMap">
+		select * from SYS_ARC_GRANT where 
+			PRINCIPAL_CODE = #principalCode#
+			AND PRINCIPAL_TYPE = #principalType#
+			AND RES_CODE = #resCode#
+			AND RES_TYPE = #resType#
+	</select>
+
+	<select id="getSysArcGrant" parameterClass="java.util.Map" resultMap="SysArcGrantMap">
+		select * from SYS_ARC_GRANT 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="principalCode">PRINCIPAL_CODE = #principalCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="principalType">PRINCIPAL_TYPE = #principalType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="resCode">RES_CODE = #resCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="resType">RES_TYPE = #resType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="channelCode">CHANNEL_CODE = #channelCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="runFlag">RUN_FLAG = #runFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="assFlag">ASS_FLAG = #assFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER = #createUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext1">EXT1 = #ext1#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext2">EXT2 = #ext2#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext3">EXT3 = #ext3#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysArcGrantCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_ARC_GRANT 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="principalCode">PRINCIPAL_CODE = #principalCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="principalType">PRINCIPAL_TYPE = #principalType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="resCode">RES_CODE = #resCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="resType">RES_TYPE = #resType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="channelCode">CHANNEL_CODE = #channelCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="runFlag">RUN_FLAG = #runFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="assFlag">ASS_FLAG = #assFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER = #createUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext1">EXT1 = #ext1#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext2">EXT2 = #ext2#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="ext3">EXT3 = #ext3#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysArcGrant" parameterClass="com.soule.app.table.SysArcGrantPo">
+		update SYS_ARC_GRANT 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="channelCode">CHANNEL_CODE = #channelCode#</isNotNull>
+			<isNotNull prepend="," property="runFlag">RUN_FLAG = #runFlag#</isNotNull>
+			<isNotNull prepend="," property="assFlag">ASS_FLAG = #assFlag#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+			<isNotNull prepend="," property="ext1">EXT1 = #ext1#</isNotNull>
+			<isNotNull prepend="," property="ext2">EXT2 = #ext2#</isNotNull>
+			<isNotNull prepend="," property="ext3">EXT3 = #ext3#</isNotNull>
+		</dynamic>
+		where 
+			PRINCIPAL_CODE = #principalCode#
+			AND PRINCIPAL_TYPE = #principalType#
+			AND RES_CODE = #resCode#
+			AND RES_TYPE = #resType#
+	</update>
+
+	<insert id="saveSysArcGrant" parameterClass="com.soule.app.table.SysArcGrantPo">
+		insert into SYS_ARC_GRANT (PRINCIPAL_CODE,PRINCIPAL_TYPE,RES_CODE,RES_TYPE,CHANNEL_CODE,RUN_FLAG,ASS_FLAG,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
+		values(#principalCode:VARCHAR# ,#principalType:VARCHAR# ,#resCode:VARCHAR# ,#resType:VARCHAR# ,#channelCode:VARCHAR# ,#runFlag:CHAR# ,#assFlag:CHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# ,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
+	</insert>
+
+	<delete id="delSysArcGrant" parameterClass="com.soule.app.table.SysArcGrantPo">
+		delete from SYS_ARC_GRANT where 
+			PRINCIPAL_CODE = #principalCode#
+			AND PRINCIPAL_TYPE = #principalType#
+			AND RES_CODE = #resCode#
+			AND RES_TYPE = #resType#
+	</delete>
+</sqlMap>

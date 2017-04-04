@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.app.homepage</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-11-22 01:42</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+        <AppDepend appId='demo.charts.single' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='SERVICE_XML' path='src/config/spring/app/code-create-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="HomepageService"
+		class="com.soule.crm.sys.app.homepage.HomepageServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='STRUTS_CFG' path='src/config/struts/code-create-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="Homepage" class="com.soule.crm.sys.app.homepage.HomepageAction">
+            <result name="input">/jsp/common/errinfo.jsp</result>
+            <result name="success">/jsp/sys/app/homepage/homepage.jsp</result>
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/crm/sys/app/homepage/HomepageAction.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/crm/sys/app/homepage/HomepageServiceImpl.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/IHomepageService.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageInitDataIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageInitDataOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/WidgetUtil.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/IWidgetService.java' charset='GBK'/>
+        <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA ,PARAMB,PARAMC,REMARK) values ( 'ZW2','计算器','','calc',NULL,NULL,NULL,'计算器微件');
+insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA ,PARAMB,PARAMC,REMARK) values ( 'ZW3','图表-饼图','','chart','Pie2D',NULL,NULL,'图形显示微件');
+insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA ,PARAMB,PARAMC,REMARK) values ( 'ZW4','图表-柱状图','','chart','Column2D',NULL,NULL,NULL); 
+insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA ,PARAMB,PARAMC,REMARK) values ( 'ZW5','图表-曲线图','','chart','Line',NULL,NULL,NULL);  
+insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA ,PARAMB,PARAMC,REMARK) values ( 'ZW6','图表-曲线图','','chart','Area2D',NULL,NULL,NULL); 
+insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA ,PARAMB,PARAMC,REMARK) values ( 'ZW7','角色列表','','rolegrid','NULL',NULL,NULL,NULL); ]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageModifyIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageModifyOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageListWidgetIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageListWidgetOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/mypage.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepagePageConfigPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/sys/app/homepage/HomepageWidgetPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/table/SysWidgetPo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/crm/table/SysHomepagePo.java' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_widget-sqlmap.xml' charset='UTF-8'/>
+        <File htype='PRIVATE' path='src/config/ibatis/table/sys_homepage-sqlmap.xml' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/widget.css' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/widget_panel.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/rolegrid_widget.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/def_widget.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/chart_widget.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/calc_widget.js' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jwebui/widget/images/calc.png' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/images/repeat-title.png' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/images/close-hover.png' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/images/close.png' charset='UTF-8'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 微件定义 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_WIDGET;
+CREATE TABLE SYS_WIDGET (
+    WID VARCHAR2(10) NOT NULL ,
+    TITLE VARCHAR2(32),
+    DATA_SERVICE VARCHAR2(32),
+    TYPE VARCHAR2(32),
+    PARAMA VARCHAR2(32),
+    PARAMB VARCHAR2(32),
+    PARAMC VARCHAR2(128),
+    REMARK VARCHAR2(128),
+    PRIMARY KEY (WID)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 首页定制信息 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_HOMEPAGE;
+CREATE TABLE SYS_HOMEPAGE (
+    USER_ID VARCHAR2(32) NOT NULL ,
+    LAYOUT_DATA VARCHAR2(1024),
+    PRIMARY KEY (USER_ID)
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/create_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_widget-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/create_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/table/sys_homepage-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

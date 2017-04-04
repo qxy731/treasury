@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="single">
+	<!-- 
+		WID as wid,
+		TITLE as title,
+		DATA_SERVICE as dataService,
+		TYPE as type,
+		PARAMA as parama,
+		PARAMB as paramb,
+		PARAMC as paramc,
+		REMARK as remark,
+	-->
+	<resultMap id="SysWidgetMap" class="com.soule.crm.table.SysWidgetPo">
+		<result property="wid" column="WID"/>
+		<result property="title" column="TITLE"/>
+		<result property="dataService" column="DATA_SERVICE"/>
+		<result property="type" column="TYPE"/>
+		<result property="parama" column="PARAMA"/>
+		<result property="paramb" column="PARAMB"/>
+		<result property="paramc" column="PARAMC"/>
+		<result property="remark" column="REMARK"/>
+	</resultMap>
+	<select id="getSysWidgetByKey" parameterClass="com.soule.crm.table.SysWidgetPo" 
+		resultMap="SysWidgetMap">
+		select * from SYS_WIDGET where 
+			WID = #wid#
+	</select>
+
+	<select id="getSysWidget" parameterClass="java.util.Map" resultMap="SysWidgetMap">
+		select * from SYS_WIDGET 
+		<dynamic prepend=" where ">
+			<isNotEmpty prepend=" AND " property="roleId">
+				 wid in (select wid from sys_role_widget where role_id=#roleId#)
+			</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="wid">WID = #wid#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="title">TITLE = #title#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="dataService">DATA_SERVICE = #dataService#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="type">TYPE = #type#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="parama">PARAMA = #parama#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="paramb">PARAMB = #paramb#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="paramc">PARAMC = #paramc#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="remark">REMARK = #remark#</isNotEmpty>
+			</dynamic>
+	</select>
+
+	<update id="updSysWidget" parameterClass="com.soule.crm.table.SysWidgetPo">
+		update SYS_WIDGET 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="title">TITLE = #title#</isNotNull>
+			<isNotNull prepend="," property="dataService">DATA_SERVICE = #dataService#</isNotNull>
+			<isNotNull prepend="," property="type">TYPE = #type#</isNotNull>
+			<isNotNull prepend="," property="parama">PARAMA = #parama#</isNotNull>
+			<isNotNull prepend="," property="paramb">PARAMB = #paramb#</isNotNull>
+			<isNotNull prepend="," property="paramc">PARAMC = #paramc#</isNotNull>
+			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+		</dynamic>
+		where 
+			WID = #wid#
+	</update>
+
+	<insert id="saveSysWidget" parameterClass="com.soule.crm.table.SysWidgetPo">
+		insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA,PARAMB,PARAMC,REMARK)
+		values(#wid:VARCHAR# ,#title:VARCHAR# ,#dataService:VARCHAR# ,#type:VARCHAR# ,#parama:VARCHAR# ,#paramb:VARCHAR# ,#paramc:VARCHAR# ,#remark:VARCHAR# )
+	</insert>
+
+	<delete id="delSysWidget" parameterClass="com.soule.crm.table.SysWidgetPo">
+		delete from SYS_WIDGET where 
+			WID = #wid#
+	</delete>
+</sqlMap>

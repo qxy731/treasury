@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+
+<sqlMap resource="config/ibatis/table/sys_widget-sqlmap.xml" />
+<sqlMap resource="config/ibatis/table/sys_homepage-sqlmap.xml" />
+<sqlMap resource="config/ibatis/app/monitor/monitor_info-sqlmap.xml" />
+<sqlMap resource="config/ibatis/app/monitor/monitor_db-sqlmap.xml" />
+<sqlMap resource="config/ibatis/framework/sys-unitload-sqlmap.xml" />
+</sqlMapConfig>

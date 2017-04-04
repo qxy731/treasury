@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="single">
+	<resultMap id="SysResUrlMap" class="com.soule.app.table.SysResUrlPo">
+		<result property="urlId" column="URL_ID"/>
+		<result property="urlName" column="URL_NAME"/>
+		<result property="urlPath" column="URL_PATH"/>
+	</resultMap>
+	<select id="getSysResUrlByKey" parameterClass="com.soule.app.table.SysResUrlPo" 
+		resultMap="SysResUrlMap">
+		select * from SYS_RES_URL where 
+			URL_ID = #urlId#
+	</select>
+
+	<select id="getSysResUrl" parameterClass="java.util.Map" resultMap="SysResUrlMap">
+		select * from SYS_RES_URL 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="urlId">URL_ID = #urlId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="urlName">URL_NAME = #urlName#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="urlPath">URL_PATH = #urlPath#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysResUrlCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_RES_URL 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="urlId">URL_ID = #urlId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="urlName">URL_NAME = #urlName#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="urlPath">URL_PATH = #urlPath#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysResUrl" parameterClass="com.soule.app.table.SysResUrlPo">
+		update SYS_RES_URL 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="urlName">URL_NAME = #urlName#</isNotNull>
+			<isNotNull prepend="," property="urlPath">URL_PATH = #urlPath#</isNotNull>
+		</dynamic>
+		where 
+			URL_ID = #urlId#
+	</update>
+
+	<insert id="saveSysResUrl" parameterClass="com.soule.app.table.SysResUrlPo">
+		insert into SYS_RES_URL (URL_ID,URL_NAME,URL_PATH)
+		values(#urlId:VARCHAR# ,#urlName:VARCHAR# ,#urlPath:VARCHAR# )
+	</insert>
+
+	<delete id="delSysResUrl" parameterClass="com.soule.app.table.SysResUrlPo">
+		delete from SYS_RES_URL where 
+			URL_ID = #urlId#
+	</delete>
+</sqlMap>

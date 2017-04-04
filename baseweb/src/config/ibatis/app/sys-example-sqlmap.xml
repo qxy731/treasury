@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="example">
+	<select id="getSysMenusByMenuId" parameterClass="java.lang.String"
+		resultClass="com.soule.app.sys.menu.MenuPo">
+		select 
+		MENU_ID as menuId,
+		NODE_ID as nodeId,
+		NODE_NAME as nodeName,
+		NODE_URL as nodeUrl,
+		PARENT_NODE as parentNode,
+		SEQ_ID as seqId,
+		NODE_IMG as nodeImg,
+		RELA_FLAG as relaFlag,
+		NODE_TARGET as nodeTarget,
+		NODE_CMD as nodeCmd,
+		NODE_VISIBLE as nodeVisible,
+		NODE_TOOLTIP as nodeTooltip,
+		HAS_CHILD_FLAG as hasChildFlag
+		from SYS_MENU
+		where MENU_ID=#value# AND NODE_VISIBLE='1'
+		order by PARENT_NODE,SEQ_ID
+	</select>
+
+</sqlMap>
+

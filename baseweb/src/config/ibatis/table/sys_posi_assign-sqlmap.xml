@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="single">
+	<resultMap id="SysPosiAssignMap" class="com.soule.app.table.SysPosiAssignPo">
+		<result property="posiId" column="POSI_ID"/>
+		<result property="staffId" column="STAFF_ID"/>
+	</resultMap>
+	<select id="getSysPosiAssignByKey" parameterClass="com.soule.app.table.SysPosiAssignPo" 
+		resultMap="SysPosiAssignMap">
+		select * from SYS_POSI_ASSIGN where 
+			POSI_ID = #posiId#
+			AND STAFF_ID = #staffId#
+	</select>
+
+	<select id="getSysPosiAssign" parameterClass="java.util.Map" resultMap="SysPosiAssignMap">
+		select * from SYS_POSI_ASSIGN 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staffId">STAFF_ID = #staffId#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="getSysPosiAssignCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+		select count(1) as count from SYS_POSI_ASSIGN 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staffId">STAFF_ID = #staffId#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysPosiAssign" parameterClass="com.soule.app.table.SysPosiAssignPo">
+		update SYS_POSI_ASSIGN 
+		<dynamic prepend="set">
+		</dynamic>
+		where 
+			POSI_ID = #posiId#
+			AND STAFF_ID = #staffId#
+	</update>
+
+	<insert id="saveSysPosiAssign" parameterClass="com.soule.app.table.SysPosiAssignPo">
+		insert into SYS_POSI_ASSIGN (POSI_ID,STAFF_ID)
+		values(#posiId:VARCHAR# ,#staffId:VARCHAR# )
+	</insert>
+
+	<delete id="delSysPosiAssign" parameterClass="com.soule.app.table.SysPosiAssignPo">
+		delete from SYS_POSI_ASSIGN where 
+			POSI_ID = #posiId#
+			AND STAFF_ID = #staffId#
+	</delete>
+</sqlMap>

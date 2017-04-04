@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>sys.orgchange</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2012-09-21 11:24</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='1.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='SERVICE_XML' path='src/config/spring/framework/sysmgr-services.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<bean id="OrgchangeService"
+		class="com.soule.app.sys.orgchange.OrgchangeServiceImpl" >
+	</bean>]]>
+            </ManualContent>
+        </File>
+        <File htype='STRUTS_CFG' path='src/config/struts/sysmgr-struts.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<action name="Orgchange" class="com.soule.app.sys.orgchange.OrgchangeAction">
+            <result name="json" type="json">
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </action>]]>
+            </ManualContent>
+        </File>
+        <File htype='ACTION_JAVA' path='src/com/soule/app/sys/orgchange/OrgchangeAction.java' charset='GBK'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/app/sys/orgchange/OrgchangeServiceImpl.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/orgchange/IOrgchangeService.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/orgchange/OrgchangeQueryIn.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/orgchange/OrgchangeQueryOut.java' charset='GBK'/>
+        <File htype='PRIVATE' path='src/com/soule/app/sys/orgchange/OrgchangeOrgChangePo.java' charset='GBK'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/orgchange/orgchange_query.jsp' charset='UTF-8'/>
+        <File htype='PRIVATE' path='WebContent/jsp/sysmgr/orgchange/orgchange_detail.jsp' charset='UTF-8'/>
+        <File htype='DBSCRIPT' path='dbscript/create_table.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[------------------------------------------- 员工组织更改信息表 -------------------------------------------
+-- DROP TABLE IF EXISTS SYS_STAFF_ORG_CHANGE_HIS;
+CREATE TABLE SYS_STAFF_ORG_CHANGE_HIS (
+  STAFF_ID	VARCHAR(32)	NOT NULL,
+  OWNER_UNITID	VARCHAR(32)	NOT NULL,
+  UPD_USER	VARCHAR(32),
+  START_TIME	TIMESTAMP,
+  END_TIME	TIMESTAMP
+);
+-----------------------------------------------------------------------------------------------------]]>
+            </ManualContent>
+        </File>
+        <File htype='PRIVATE' path='src/config/ibatis/framework/sys_staff_org_change_his-sqlmap.xml' charset='UTF-8'/>
+        <File htype='SQLMAP_CFG' path='src/config/ibatis/sys_sqlmap-config.xml' charset='UTF-8'>
+            <ManualContent mode='PART'>
+                    <![CDATA[<sqlMap resource="config/ibatis/framework/sys_staff_org_change_his-sqlmap.xml" />]]>
+            </ManualContent>
+        </File>
+    </AppFiles>
+</AppPlugIn>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="gb2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
+
+	<!-- 日志拦截器-->
+	<bean id="logAfter" class="com.soule.comm.log.LogAfterAdvice" />
+	<bean id="logBefore" class="com.soule.comm.log.LogBeforeAdvice" />
+	<bean id="logThrow" class="com.soule.comm.log.LogThrowAdvice" />
+	<bean id="logTime" class="com.soule.comm.log.LogMethodTimeAdvice" />
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation-logAfter"
+			expression="execution(* com.soule..*Service.*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation-logAfter"
+			advice-ref="logAfter" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation-logBefore"
+			expression="execution(* com.soule..*Service.*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation-logBefore"
+			advice-ref="logBefore" />
+	</aop:config>
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation-logThrow"
+			expression="execution(* com.soule..*Service.*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation-logThrow"
+			advice-ref="logThrow" />
+	</aop:config>
+
+	<aop:config>
+		<aop:advisor id="serviceOperation-logMethodTime"
+			advice-ref="logTime" pointcut="execution(* com.soule..*Service.*(..))" />
+	</aop:config>
+</beans>

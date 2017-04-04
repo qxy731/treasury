@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="sys.params">
+	<!-- 
+		PARA_ID as paraId,
+		PARA_RANK as paraRank,
+		PARA_VALUE as paraValue,
+		REMARK as remark,
+	-->
+	<resultMap id="SysParamsMap" class="com.soule.app.sys.params.ParamsParamsPo">
+		<result property="paraId" column="PARA_ID"/>
+		<result property="paraRank" column="PARA_RANK"/>
+		<result property="paraValue" column="PARA_VALUE"/>
+		<result property="remark" column="REMARK"/>
+	</resultMap>
+	<select id="getSysParamsByKey" parameterClass="com.soule.app.sys.params.ParamsParamsPo" 
+		resultMap="SysParamsMap">
+		select * from SYS_PARAMS where PARA_ID=#paraId#
+	</select>
+	<select id="getAllSysParams"  resultMap="SysParamsMap">
+		select * from SYS_PARAMS
+	</select>
+	
+	<select id="getSysParams" parameterClass="com.soule.app.sys.params.ParamsParamsPo" resultMap="SysParamsMap">
+		select * from SYS_PARAMS 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="paraId">PARA_ID like '%$paraId$%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="paraRank">PARA_RANK = #paraRank#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="paraValue">PARA_VALUE = #paraValue#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="remark">REMARK like '%$remark$%'</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysParams" parameterClass="com.soule.app.sys.params.ParamsParamsPo">
+		update SYS_PARAMS 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="paraRank">PARA_RANK = #paraRank#</isNotNull>
+			<isNotNull prepend="," property="paraValue">PARA_VALUE = #paraValue#</isNotNull>
+			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+		</dynamic>
+		where 
+			PARA_ID = #paraId#
+	</update>
+
+	<insert id="saveSysParams" parameterClass="com.soule.app.sys.params.ParamsParamsPo">
+		insert into SYS_PARAMS (PARA_ID,PARA_RANK,PARA_VALUE,REMARK)
+		values(#paraId:VARCHAR# ,#paraRank:VARCHAR# ,#paraValue:VARCHAR# ,#remark:VARCHAR# )
+	</insert>
+
+	<delete id="delSysParams" parameterClass="java.lang.String">
+		delete from SYS_PARAMS 
+		where
+			PARA_ID = #paraId#
+	</delete>
+</sqlMap>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="position">
+	<resultMap id="SysPosiAssignMap" class="com.soule.app.sys.userinfo.UserInfoPositionPo">
+		<result property="posiId" column="POSI_ID"/>
+		<result property="staffId" column="STAFF_ID"/>
+		<result property="defFlag" column="DEF_FLAG"/>
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="roleName" column="ROLE_NAME"/>
+		<result property="operUnitid" column="UNIT_ID"/>
+		<result property="operUnitname" column="UNIT_NAME"/>
+	</resultMap>
+	<resultMap id="SysStaffMap" class="com.soule.app.sys.userinfo.UserInfoStaffPo">
+		<result property="staffId" column="STAFF_ID"/>
+		<result property="staffName" column="STAFF_NAME"/>
+		<result property="staffLevel" column="STAFF_LEVEL"/>
+		<result property="staffStatus" column="STAFF_STATUS"/>
+		<result property="sex" column="SEX"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="lastUpdUser" column="LAST_UPD_USER"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+		<result property="ext1" column="EXT1"/>
+		<result property="ext2" column="EXT2"/>
+		<result property="ext3" column="EXT3"/>
+		<result property="ownerUnitid" column="OWNER_UNITID"/>
+		<result property="unitName" column="UNIT_NAME"/>
+	</resultMap>
+	<select id="getPositions" parameterClass="java.lang.String" resultMap="SysPosiAssignMap">
+		select a.*,b.role_id,c.role_name, b.unit_id,d.unit_name from SYS_POSI_ASSIGN a 
+			left join SYS_POSITION b on a.posi_id=b.posi_id
+			left join SYS_ROLE c on b.role_id=c.role_id
+			left join SYS_UNIT d on b.unit_id=d.unit_id
+		where a.STAFF_ID = #value#
+	</select>
+	<select id="getStaff" parameterClass="java.lang.String" resultMap="SysStaffMap">
+		select a.*,b.unit_name from SYS_STAFF a
+		left join SYS_UNIT b on a.owner_unitid=b.unit_id where a.STAFF_ID = #value#
+	</select>
+	<update id="updateDefaultPosi" parameterClass="com.soule.app.sys.changeposi.ChangePosiChangeIn" >
+		update SYS_POSI_ASSIGN set def_flag='1' where posi_id=#posiId# and staff_id=#staffId#
+	</update>
+	<update id="updateNoDefaultPosi" parameterClass="com.soule.app.sys.userinfo.UserInfoPositionPo" >
+		update SYS_POSI_ASSIGN set def_flag='0' where posi_id=#posiId# and staff_id=#staffId#
+	</update>
+</sqlMap>

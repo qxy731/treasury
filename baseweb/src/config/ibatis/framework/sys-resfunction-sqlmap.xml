@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="func">
+    <resultMap id="ResFunctionMap" class="com.soule.app.sys.funcauth.FuncAuthRecordPo">
+        <result property="funcId" column="FUNC_ID"/>
+        <result property="funcCode" column="FUNC_CODE"/>
+        <result property="jspPath" column="JSP_PATH"/>
+        <result property="funcName" column="FUNC_NAME"/>
+        <result property="funcDesc" column="FUNC_DESC"/>
+    </resultMap>
+
+    <select id="getResFunction" parameterClass="java.util.Map" resultMap="ResFunctionMap">
+        select * from SYS_RES_FUNCTION 
+        <dynamic prepend="where">
+            <isNotEmpty prepend=" AND " property="funcId">FUNC_ID = #funcId#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="funcCode">FUNC_CODE = #funcCode#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="jspPath">JSP_PATH = #jspPath#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="funcName">FUNC_NAME = #funcName#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="funcDesc">FUNC_DESC = #funcDesc#</isNotEmpty>
+        </dynamic>
+    </select>
+
+    <select id="getResFunctionCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
+        select count(1) as count from SYS_RES_FUNCTION 
+        <dynamic prepend="where">
+            <isNotEmpty prepend=" AND " property="funcId">FUNC_ID = #funcId#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="funcCode">FUNC_CODE = #funcCode#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="jspPath">JSP_PATH = #jspPath#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="funcName">FUNC_NAME = #funcName#</isNotEmpty>
+            <isNotEmpty prepend=" AND " property="funcDesc">FUNC_DESC = #funcDesc#</isNotEmpty>
+        </dynamic>
+    </select>
+
+    <update id="updResFunction" parameterClass="com.soule.app.sys.funcauth.FuncAuthRecordPo">
+        update SYS_RES_FUNCTION 
+        <dynamic prepend="set">
+            <isNotNull prepend="," property="funcCode">FUNC_CODE = #funcCode#</isNotNull>
+            <isNotNull prepend="," property="jspPath">JSP_PATH = #jspPath#</isNotNull>
+            <isNotNull prepend="," property="funcName">FUNC_NAME = #funcName#</isNotNull>
+            <isNotNull prepend="," property="funcDesc">FUNC_DESC = #funcDesc#</isNotNull>
+        </dynamic>
+        where FUNC_ID = #funcId#
+    </update>
+
+    <insert id="saveResFunction" parameterClass="com.soule.app.sys.funcauth.FuncAuthRecordPo">
+        insert into SYS_RES_FUNCTION (FUNC_ID,FUNC_CODE,JSP_PATH,FUNC_NAME,FUNC_DESC)
+		values(#funcId:VARCHAR# ,#funcCode:VARCHAR# ,#jspPath:VARCHAR# ,#funcName:VARCHAR# ,#funcDesc:VARCHAR# )
+    </insert>
+
+    <delete id="delResFunction" parameterClass="com.soule.app.sys.funcauth.FuncAuthRecordPo">
+        delete from SYS_RES_FUNCTION where FUNC_ID=#funcId#
+    </delete>
+</sqlMap>

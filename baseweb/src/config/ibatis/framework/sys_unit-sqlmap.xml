@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="sysmgr">
+	<select id="getUnitInfoByNull" 
+			parameterClass="com.soule.app.common.selectunit.SelectUnitIn"
+			resultClass="com.soule.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT A
+		where
+			A.SUPER_UNITID is null order by A.UNIT_ID 
+	</select>
+	<select id="getUnitInfo" 
+			parameterClass="com.soule.app.common.selectunit.SelectUnitIn"
+			resultClass="com.soule.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT A
+		where
+			A.SUPER_UNITID = #superUnitId# order by A.UNIT_ID 
+	</select>
+	
+	<select id="getUnitInfoByUnitId" 
+			parameterClass="com.soule.app.common.selectunit.SelectUnitIn"
+			resultClass="com.soule.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT A
+		where 1=1
+		<isNotEmpty prepend=" AND " property="unitId">
+			A.UNIT_ID = #unitId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="unitName">
+			A.UNIT_NAME like '%$unitName$%'
+		</isNotEmpty>
+		 order by A.UNIT_ID 
+	</select>
+	
+	<select id="getUnitInfoByUnitIdNext" 
+			parameterClass="com.soule.app.common.selectunit.SelectUnitIn"
+			resultClass="com.soule.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT A
+			INNER JOIN SYS_UNITMAP UMAP ON UMAP.RELA_UNITID=A.UNIT_ID AND UMAP.UNIT_ID=#orgId#
+		where 1=1
+		<isNotEmpty prepend=" AND " property="unitId">
+			A.UNIT_ID = #unitId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="unitName">
+			A.UNIT_NAME like '%$unitName$%'
+		</isNotEmpty>
+		 order by A.UNIT_ID 
+	</select>
+</sqlMap>

@@ -1,0 +1,74 @@
+body{padding:0; margin:0;overflow:hidden;}
+#layout1{  width:100%; margin:0; padding:0;} 
+.l-link{ display:block; height:26px; line-height:26px; padding-left:10px; text-decoration:underline; color:#333;}
+.l-link2{text-decoration:underline; color:white;}
+.l-layout-top { background: url('../images/barsplit.png') repeat-x;} 
+.l-layout-bottom{ background:#E5EDEF; text-align:center;}
+#pageloading{position:absolute; left:0px; top:0px; background:white url('../images/loading.gif') no-repeat center; width:100%; height:100%; height:700px; z-index:99999;}
+.l-link{ display:block; line-height:22px; height:22px; padding-left:20px;border:1px solid white; margin:4px;}
+.l-link-over{ background:#FFEEAC; border:1px solid #DB9F00;}
+    
+/** 2 页头样式 **/
+.header{
+	float:right;
+	font: italic small-caps 600 11pts 宋体;
+	margin-right:250px;
+	/* background:#102A49; */
+}
+.header ui{
+	
+}
+.header li{
+	float:left;
+	margin-right:10px;
+}
+
+.header li span{
+	color:white;
+}
+
+.header li span:hover{
+	color: #66F;
+	cursor: pointer;
+}
+
+.righthead{
+	float:right;
+	background: url('../images/mainbarright.png') no-repeat left;
+	width:868px;
+	height:64px;
+}
+.righthead ul{
+	float:right;
+}
+.righthead li{
+	float:right;
+	margin-right:10px;
+}
+.righthead li span{
+	color: #5555BB;
+}
+.righthead li span:hover{
+	color: #66F;
+	cursor: pointer;
+}
+.lefthead {
+	float:left;
+	width:426px;
+	height:64px;
+	background: url('../images/mainbarleft.png') no-repeat left top;
+}
+
+#headcontent {
+	background: url('../images/barspilt.png') repeat-x;
+}
+#quickLink {
+	height:100%;
+	padding: 10px;
+}
+#quickLink .quick {
+	width: 66px;
+	height: 59px;
+	float:left;
+	padding: 10px;
+}

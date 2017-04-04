@@ -1,0 +1,64 @@
+.content {margin:0 0 0 25px; width:95%;}
+.nbutton {width:70px;height:22px;border-width:1px;border-right:1px solid #5F69FF;
+	background:url('./../images/btn_bg.png') repeat-x;border-radius:4px 4px 4px 4px;box-shadow:0 0 5px rgba(51, 151, 236, 0.6);
+	margin:0 3px 0 2px ;text-align: center;
+}
+
+.nbutton:active {border:1px solid #99f;background:url('./../images/bb.png') repeat-x; }
+.params tbody tr td {background-color: #EAEFFF;padding:1px 1px 1px 10px;line-height: 28px;}
+.params input,.params select {width: 150px; border:1px solid #b3bcFF;border-radius:2px 2px 2px 2px;vertical-align: bottom;}
+.params input {padding-left: 4px; padding-bottom:4px;width: 145px;}
+.params select {height:22px;}
+.params input {height:16px;}
+fieldset .params  {width:100%;}
+fieldset {padding: 5px; border: 1px solid #ddd;margin-bottom:5px;border-radius:4px 4px 4px 4px;}
+fieldset legend {height:16px; padding-left:20px;background:url('./../images/search.png') no-repeat;}
+.detailBox legend {height:16px; padding-left:20px;background:url('./../images/detail.gif') no-repeat;}
+.params .unit_btn {border:0px; width:22px;height:22px;background:url('./../images/zuzhi.png') no-repeat;}
+.unit_select { width:149px; height:22px; border:1px solid #B3BCFF; vertical-align:bottom; cursor:pointer; background:#fff url('./../images/zuzhi.png') no-repeat right top;}
+.unit_select input {border :none; width:123px; }
+.user_select {background:#fff url('./../images/man.gif') no-repeat right center;}
+.wage_item_select {background:#fff url('./../images/wage-item.gif') no-repeat right center;}
+.btn_select {background:#fff url('./../images/bar-button.gif') no-repeat right center;}
+
+/**日期输入框样式*/
+.l-text {border:none;width:150px;}
+
+.n-trigger,.n-trigger-hover{border:none; cursor:pointer; position:absolute;top:1px;right:1px;width:16px;height:16px;overflow:hidden; background:#fff url(./../images/datePicker.gif) no-repeat right top;}
+.n-trigger-icon {background:#fff url(./../images/datePicker.gif) no-repeat right top;width:100%;height:100%;}
+
+/**普通表单样式一**/
+.s1-params,.s1-button { width:100%;}
+.s1-params>tbody>tr>td:first-child { width:120px;text-align: right; line-height:28px;padding:5px 10px 5px 5px;vertical-align: center;}
+.s1-params input,.s1-params select {width: 150px; height:20px;border:1px solid #b3bcFF;border-radius:2px 2px 2px 2px;vertical-align: middle  ;}
+.s1-params input[readonly=readonly],.s1-params select[readonly=readonly] {background-color:#eee;}
+
+.s1-button {margin: 20px 0 10px 0;}
+.s1-button td:first-child {text-align: right;padding-right:20px;}
+.s1-button td {text-align: left;padding-right:20px;}
+.s1-params .unit_btn {border:0px; width:22px;height:22px;background:url('./../images/zuzhi.png') no-repeat;}
+
+.dialog-image { width:48px; height:48px; overflow:hidden; position:absolute; top:50px; left:20px;background:url('./../images/dialog-icons.png') no-repeat;}
+.dialog-image-done{ background-position:0px 0px; }
+.dialog-image-error{ background-position:0px -48px; }
+.dialog-image-question{ background-position:0px -144px; }
+.dialog-image-warn{ background-position:0px -96px; }
+.dialog-content {padding:10px 10px 0 70px;overflow-y:auto;}
+
+
+.l-toolbar-item { float:left; background: url(../jwebui/skins/sys/images/panel/panel-btn.gif);}
+.l-panel-btn .l-panel-btn-l, .l-panel-btn .l-panel-btn-r {display: block;}
+.l-panel-btn-over {background:url(../jwebui/skins/sys/images/controls/button-bg-over.gif);}
+.l-panel-btn-over .l-panel-btn-l {background: url(../jwebui/skins/sys/images/controls/btn-l.png);}
+.l-panel-btn-over .l-panel-btn-r {background: url(../jwebui/skins/sys/images/controls/btn-r.png);}
+
+.l-bar-textc {float: left; padding: 1px 2px;_margin:3px 0;}
+
+input[type=text] {border: 1px solid #B3BCFF;width:123px;}
+
+#toptoolbar {height:24px;width:100%;background: url("../jwebui/skins/sys/images/panel/panel-toolbar.jpg") repeat-x scroll 0 0 #CEDFEF;}
+#toptoolbar .l-icon {left: 2px; position: absolute; top: 2px; }
+#toptoolbar .l-toolbar-item-hasicon {_margin-left: 4px;padding-left:20px;}
+.l-button {width:80px;}
+.params input.l-button {height:24px;}
+.no-shadow {FILTER:none;}

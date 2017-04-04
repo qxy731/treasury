@@ -1,0 +1,107 @@
+>>异步访问
+$.ajax({
+	type: "POST",
+	url: "menuManager!saveMenu.action",
+	data:$("#form1").serialize(),
+	dataType:'json',
+	success: function(msg) {
+		$.dialogBox.error(msg.retMsg);
+	}
+});
+
+
+>>在get方法上设置，防止数据序列化
+@JSON(serialize=false)
+
+>>输出日期格式指定
+@JSON(format="yyyy-MM-dd")
+
+>>注册日期处理器 
+JsonConfig jsonCfg = new JsonConfig();
+jsonCfg.registerJsonValueProcessor(java.util.Date.class, new JsonValueProcessorImpl()); 
+this.bltypeStr = JSONArray.fromObject(obj,jsonCfg).toString();
+
+>>获取属性值
+<s:property value="#request.bbb"/>
+
+>>查看内存
+<s:debug />
+
+>>获得HttpServletRequest
+HttpServletRequest request=ServletActionContext.getRequest();
+
+>>授权的两种写法
+<n:auth key='roleId'/><n:authif key='roleId'></n:authif>
+
+>>绑定枚举参数的select
+<n:select codetype="valid_type" id="roleStatus" name='queryIn.roleStatus' emptyOption="true" disabled="false"></n:select>
+
+>>action中建议不要使用get
+action中建议不要使用get作为action执行方法，如一定要，加上  @JSON(serialize=false)
+
+>>获取登录信息
+ILogonUserInfo userInfo = AppUtils.getLogonUserInfo();
+
+>>ibatis语法
+ <iterate   open="(" close=")" conjunction=","  property="targetCodeList">
+   	    #targetCodeList[]#
+   </iterate>
+   
+
+>>机构选择通用页面
+function openSelectUnit(){
+	Utils.openSelectUnit('#createOrgBtn1','',setUnitIdName);
+}
+
+function setUnitIdName(unitId,unitName){
+	$("#ownerUnitid").val(unitId);
+	$("#zzname").val(unitName);
+}
+
+>>人员选择能用页面
+function openSelectStaff(){
+	Utils.openSelectStaff('#createStaffBtn1','',setStaffName);
+}
+
+function setStaffName(staffId,staffName){
+	$("#staffid").val(staffId);
+	$("#staffname").val(staffName);
+}
+
+>>页面获取登录信息
+${logUserInfo} 获取的ILogonUserInfo接口实例
+
+>>jsp页面校验功能初始化方法
+Utils.validateInit();
+
+>>远程数据校验
+后台返回true或fasle
+<input id="tarName" name="newQtyDef.tarName" type="text" validate="{required:true,minlength:2,maxlength:50
+		,remote:{url:'${_CONTEXT_PATH}/qtydefManager!validTarName.action',type:'post',data:{'newQtyDef.tarName':function(){return $('#tarName').val();}}},messages:{remote:'指标名称重复'}}"/>
+
+>>获取记录总数
+long cl = (Long) sDefault.getIbatisMediator().getRecordTotal(普通查询数据, 参数);
+
+>>引用员工选择
+<jsp:include page="/jsp/common/staffquery_inter.jsp?dup=true"></jsp:include>
+<%@include file="/jsp/common/staffquery_inter.jsp" %>
+
+>>AppUtils.initRecordStatus(param);
+
+>>记录审计日志
+AppUtils.saveAuditLog
+>> 提示框
+$.dialogBox.info("请先选择需要删除的记录");
+$.dialogBox.error("请先选择需要删除的记录");
+$.dialogBox.warn("请先选择需要删除的记录");
+$.dialogBox.choice("请先选择需要删除的记录",yesFunction,noFunction,cancelFunction)
+
+
+
+>>axis2 在websphere下发布注意
+打aar包放到${axis2.repository.path}services目录下， axis2.repository.path在web.xml中初始参数定义
+	aar文件中，META-INF/services.xml
+		<init-param>
+			<param-name>axis2.repository.path</param-name>
+			<param-value>F:/njehr/ehr/WebContent/WEB-INF/services/axis/META-INF</param-value>
+		</init-param>

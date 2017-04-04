@@ -1,0 +1,94 @@
+.pstep {
+	cursor:pointer;
+	height:34px;
+	width:135px;
+	margin-left: -61px;
+	text-align: left;
+	vertical-align: middle;
+}
+.b2b {
+	width:18px;
+	min-width:18px;
+	background: url('images/b2b.png') no-repeat left top;
+}
+.b2g {
+	width:18px;
+	min-width:18px;
+	background: url('images/b2g.png') no-repeat left top;
+}
+.b2n {
+	width:18px;
+	min-width:18px;
+	background: url('images/b2n.png') no-repeat left top;
+}
+.g2b {
+	width:18px;
+	min-width:18px;
+	background: url('images/g2b.png') no-repeat left top;
+}
+.g2g {
+	width:18px;
+	min-width:18px;
+	background: url('images/g2g.png') no-repeat left top;
+}
+.g2n {
+	width:18px;
+	min-width:18px;
+	background: url('images/g2n.png') no-repeat left top;
+}
+.n2b {
+	width:18px;
+	min-width:18px;
+	background: url('images/n2b.png') no-repeat left top;
+}
+.n2g {
+	width:18px;
+	min-width:18px;
+	background: url('images/n2g.png') no-repeat left top;
+}
+.n2n {
+	width:18px;
+	min-width:18px;
+	background: url('images/n2n.png') no-repeat left top;
+}
+.pstep label {
+	cursor:pointer;
+	font-size: 15px;
+	color: #FFF;
+	font-style: oblique;
+	margin-left:30px;
+	vertical-align: middle;
+}
+.pstep1 label,.pstep1_select label {
+	margin-left:50px;
+}
+.pstep1 {background: url('images/1_b.png') no-repeat left top;width:155px;}
+.pstep1_select {width:155px;background: url('images/1.png') no-repeat left top;}
+.pstep1_disable {width:155px;background: url('images/1_d.png') no-repeat left top;cursor:default;}
+.pstep2 {background: url('images/2_b.png') no-repeat left top;}
+.pstep2_select {background: url('images/2.png') no-repeat left top;}
+.pstep2_disable {background: url('images/2_d.png') no-repeat left top;cursor:default;}
+.pstep3 {background: url('images/3_b.png') no-repeat left top;}
+.pstep3_select {background: url('images/3.png') no-repeat left top;}
+.pstep3_disable {background: url('images/3_d.png') no-repeat left top;cursor:default;}
+.pstep4 {background: url('images/4_b.png') no-repeat left top;}
+.pstep4_select {background: url('images/4.png') no-repeat left top;}
+.pstep4_disable {background: url('images/4_d.png') no-repeat left top;cursor:default;}
+.pstep5 {background: url('images/5_b.png') no-repeat left top;}
+.pstep5_select {background: url('images/5.png') no-repeat left top;}
+.pstep5_disable {background: url('images/5_d.png') no-repeat left top;cursor:default;}
+.pstep6 {background: url('images/6_b.png') no-repeat left top;}
+.pstep6_select {background: url('images/6.png') no-repeat left top;}
+.pstep6_disable {background: url('images/6_d.png') no-repeat left top;cursor:default;}
+.pstep7 {background: url('images/7_b.png') no-repeat left top;}
+.pstep7_select {background: url('images/7.png') no-repeat left top;}
+.pstep7_disable {background: url('images/7_d.png') no-repeat left top;cursor:default;}
+.pstep8 {background: url('images/8_b.png') no-repeat left top;}
+.pstep8_select {background: url('images/8.png') no-repeat left top;}
+.pstep8_disable {background: url('images/8_d.png') no-repeat left top;cursor:default;}
+.pstep9 {background: url('images/9_b.png') no-repeat left top;}
+.pstep9_select {background: url('images/9.png') no-repeat left top;}
+.pstep9_disable {background: url('images/9_d.png') no-repeat left top;cursor:default;}
+.pstep10 {background: url('images/10_b.png') no-repeat left top;}
+.pstep10_select {background: url('images/10.png') no-repeat left top;}
+.pstep10_disable {background: url('images/10_d.png') no-repeat left top;cursor:default;}

@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<project name="BaseWeb" default="packageJar" basedir=".">
+	<property file="build.properties" />
+    <property name="debuglevel" value="source,vars,lines"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="c:/temp/template" />
+	<property name="lib.dir" value="WebContent/WEB-INF/lib" />
+	<property name="eclipse.compile.dir" value="WebContent/WEB-INF/classes" />
+	<property name="compile.dir" value="build/classes/" />
+	<property name="project.name" value="baseweb" />
+	<property name="JarName" value="app-base.jar" />
+	<property name="JarSrcName" value="app-base.src.jar" />
+
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${compile.dir}" />
+		<tstamp>
+			<format property="jartime" pattern="yyyy-MM-dd HH:mm"/>
+		</tstamp>
+	</target>
+
+	<fileset id="lib" dir="${lib.dir}">
+		<include name="*.jar" />
+	</fileset>
+
+	<path id="compile.classpath">
+		<fileset dir="lib" >
+			<include name="*.jar" />
+		</fileset>
+		<fileset refid="lib" />
+	</path>
+
+	<target name="compile" depends="init">
+		<exec command="java -version"></exec>
+		<javac classpathref="compile.classpath" source="${source}" target="${target}" destdir="${compile.dir}" optimize="true" debuglevel="${debuglevel}" debug="true">
+			<src path="${src.dir}" />
+		</javac>
+		<copy todir="${compile.dir}">
+			<fileset dir="${src.dir}">
+				<include name="template/**"/>
+				<include name="config/ibatis/framework/*.xml" />
+				<include name="config/ibatis/table/*.xml" />
+				<include name="config/ibatis/sys_sqlmap-config.xml" />
+				<include name="config/spring/framework/sysmgr-services.xml" />
+				<include name="config/struts/sysmgr-struts.xml" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="packageJar" depends="compile">
+		<jar jarfile="dist/${JarName}">
+			<fileset dir="${compile.dir}">
+				<include name="config/**"/>
+				<include name="com/**"/>
+				<include name="template/**"/>
+				<exclude name="config/env/**"/>
+				<exclude name="config/log/**"/>
+				<exclude name="config/msg/**"/>
+			</fileset>
+			<manifest>
+				<attribute name="Date" value="${jartime}" />
+			</manifest>
+		</jar>
+		<jar jarfile="dist/${JarSrcName}">
+			<fileset dir="${src.dir}">
+				<include name="**"/>
+			</fileset>
+			<manifest>
+				<attribute name="Date" value="${jartime}" />
+			</manifest>
+		</jar>
+	</target>
+	<target name="packageAll" depends="compile">
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${basedir}/dist" />
+		<mkdir dir="${dist.dir}/.settings" />
+		<copy todir="${dist.dir}">
+			<fileset dir="${basedir}/export">
+				<include name="**" />
+			</fileset>
+		</copy>
+		<delete dir="${basedir}/WebContent/WEB-INF/classes"></delete>
+		<copy todir="${dist.dir}">
+			<fileset dir="${basedir}">
+				<include name="dbscript/init/**" />
+				<include name="WebContent/**" />
+				<include name="src/config/env/**" />
+				<include name="src/config/ibatis/app/readme.txt" />
+				<include name="src/config/ibatis/table/readme.txt" />
+				<include name="src/config/ibatis/app_sqlmap-config.xml" />
+				<include name="src/config/ibatis/create_sqlmap-config.xml" />
+				<include name="src/config/log/**" />
+				<include name="src/config/msg/**" />
+				<include name="src/config/spring/app/*.txt" />
+				<include name="src/config/struts/code-create-struts.xml" />
+				<include name="src/struts.xml" />
+				<include name="lib/*.jar" />
+			</fileset>
+		</copy>
+		<jar jarfile="dist/${JarName}">
+			<fileset dir="${compile.dir}">
+				<include name="config/**"/>
+				<include name="com/**"/>
+				<include name="template/**"/>
+				<exclude name="config/env/**"/>
+				<exclude name="config/log/**"/>
+				<exclude name="config/msg/**"/>
+			</fileset>
+			<manifest>
+				<attribute name="Date" value="${jartime}" />
+			</manifest>
+		</jar>
+		<property name="JarPath" value="${dist.dir}/${lib.dir}/${JarName}" />
+		<copy todir="${dist.dir}/${lib.dir}" file="dist/${JarName}"/>
+	</target>
+	<target name="clean">
+		<delete dir="${dist.dir}"></delete>
+		<delete dir="${compile.dir}"></delete>
+	</target>
+</project>

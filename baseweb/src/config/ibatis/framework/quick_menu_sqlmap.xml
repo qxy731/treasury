@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="sys.quickmenu">
+    <typeAlias alias="SysParamsPo" type="com.soule.app.pub.param.SysParamsPo"/>
+    
+	
+	<!-- 用户菜单使用次数 -->
+	<select id="getMenuNodeIdByUrl" 
+			parameterClass="java.lang.String"
+			resultClass="java.util.HashMap">
+			SELECT COUNT(1),M.NODE_ID FROM SYS_MENU M WHERE M.NODE_URL = #NODE_URL# GROUP BY M.NODE_ID
+	</select>
+	<select id="getMenuClickedCount" 
+			parameterClass="java.util.HashMap"
+			resultClass="java.lang.Long">
+		 SELECT COUNT(*) FROM PUB_MENU_USEINFO T 
+		  WHERE T.STAFF_ID = #STAFF_ID#
+			AND T.UNIT_ID = #UNIT_ID#
+			AND T.ROLE_ID = #ROLE_ID#
+			AND T.MENU_ID = #MENU_ID#
+	</select>
+	<insert id="saveMenuClickedCount" parameterClass="java.util.HashMap">
+		insert into PUB_MENU_USEINFO (STAFF_ID,UNIT_ID,ROLE_ID,MENU_ID,USER_COUNT)
+		values(#STAFF_ID:VARCHAR# ,#UNIT_ID:VARCHAR# ,#ROLE_ID:VARCHAR# ,#MENU_ID:VARCHAR# ,1 )
+	</insert>
+	<update id="updMenuClickedCount" parameterClass="java.util.HashMap">
+		update PUB_MENU_USEINFO T set T.USER_COUNT = T.USER_COUNT+1 
+		WHERE T.STAFF_ID = #STAFF_ID#
+			AND T.UNIT_ID = #UNIT_ID#
+			AND T.ROLE_ID = #ROLE_ID#
+			AND T.MENU_ID = #MENU_ID#
+	</update>
+	
+	<select id="queryUserMenuCount" 
+			parameterClass="java.util.HashMap"
+			resultClass="java.util.HashMap">
+		 SELECT * FROM (
+			 SELECT T.USER_COUNT,T.MENU_ID,SYS_MENU.NODE_NAME FROM PUB_MENU_USEINFO  T 
+			   LEFT JOIN SYS_MENU ON T.MENU_ID = SYS_MENU.NODE_ID
+			  WHERE T.STAFF_ID = #STAFF_ID#
+				AND T.UNIT_ID = #UNIT_ID#
+				AND T.ROLE_ID = #ROLE_ID#
+			  ORDER BY T.USER_COUNT DESC) U
+	</select>
+    
+    <!-- 快捷菜单 -->
+	<select id="queryQucikMenu" 
+			parameterClass="java.util.HashMap"
+			resultClass="java.util.HashMap">
+		 SELECT '1' SAVED,T.SEQ,T.MENU_ID,SYS_MENU.NODE_NAME,SYS_MENU.NODE_URL,SYS_MENU.NODE_IMG,SYS_MENU.NODE_CMD  FROM PUB_STAFF_QUICK_MENU  T 
+		   LEFT JOIN SYS_MENU ON T.MENU_ID = SYS_MENU.NODE_ID
+		  WHERE T.STAFF_ID = #STAFF_ID#
+			AND T.UNIT_ID = #UNIT_ID#
+			<isNotEmpty prepend=" and " property="ROLE_ID">T.ROLE_ID = #ROLE_ID#</isNotEmpty>
+		  ORDER BY T.SEQ ASC
+	</select>
+	<insert id="saveQucikMenu" parameterClass="java.util.HashMap">
+		insert into PUB_STAFF_QUICK_MENU (STAFF_ID,UNIT_ID,ROLE_ID,MENU_ID,SEQ)
+		values(#STAFF_ID:VARCHAR# ,#UNIT_ID:VARCHAR# ,#ROLE_ID:VARCHAR# ,#MENU_ID:VARCHAR# ,#SEQ:VARCHAR# )
+	</insert>
+	<update id="updQucikMenu" parameterClass="java.util.HashMap">
+		UPDATE PUB_STAFF_QUICK_MENU T set T.SEQ = #SEQ# 
+		WHERE T.STAFF_ID = #STAFF_ID#
+			AND T.UNIT_ID = #UNIT_ID#
+			AND T.ROLE_ID = #ROLE_ID#
+			AND T.MENU_ID = #MENU_ID#
+	</update>
+	<delete id="deleteQucikMenu" parameterClass="java.util.HashMap">
+		delete from PUB_STAFF_QUICK_MENU 
+		where STAFF_ID = #STAFF_ID# 
+		   AND UNIT_ID = #UNIT_ID#
+		   AND ROLE_ID = #ROLE_ID#
+		   AND MENU_ID = #MENU_ID#
+	</delete>
+</sqlMap>
+
