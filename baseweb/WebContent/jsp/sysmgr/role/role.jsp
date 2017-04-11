@@ -99,7 +99,7 @@ body {
 			pageSize:20,
 			selectRowButtonOnly:true,
 			sortName: 'roleId', 
-			height:300,
+			height:'98%',
 			width:'100%',
 			onError: function(xrequest,textStatus,error) {
 				$.dialogBox.error(xrequest.responseText);
@@ -113,7 +113,7 @@ body {
 	});
 	function insertRole() {
 		var url = '${_CONTEXT_PATH}/jsp/sysmgr/role/roleAdd.jsp';
-		$.dialogBox.openDialog(url,{title:'新增角色',width:450,height:270});
+		$.dialogBox.openDialog(url,{title:'新增角色',width:450,height:350});
 	}
 	function deleteRole() {
 		var grid = $("#rolelist").ligerGetGridManager();
@@ -135,7 +135,7 @@ body {
 		var selected = grid.getSelectedRow();
 		if (selected) {
 			var url = '${_CONTEXT_PATH}/jsp/sysmgr/role/roleUpdate.jsp?roleid=' + selected.roleId;
-			$.dialogBox.openDialog(url,'修改角色');
+			$.dialogBox.openDialog(url,{title:'修改角色',width:450,height:350});
 		}
 		else {
 			$.dialogBox.alert("请先选择需要修改的角色");

@@ -9,6 +9,7 @@
 <title>员工维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
+.params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
 body {
 	margin-top: 5px
 }
@@ -90,16 +91,16 @@ body {
 			columns: [
 						{ display: '员工编号', name: 'staffId', width: '10%', align: 'left' },
 						{ display: '员工姓名', name: 'staffName', width: '15%',align: 'left' },
-						{ display: '所属机构名称', name: 'unitName',width: '20%', align: 'left' },
+						{ display: '所属机构名称', name: 'unitName',width: '25%', align: 'left' },
 						{ display: '员工级别', name: 'staffLevel', width: '10%',align: 'right' },
 						{ display: '员工状态', name: 'staffStatus', width: '10%' , codetype: 'valid_type'}, 
-						{ display: '性别', name: 'sex', width: '10%',align: 'left' , codetype: 'sex'},
+						{ display: '性别', name: 'sex', width: '15%',align: 'left' , codetype: 'sex'},
 						{ display: '创建人', name: 'createUser', width: '15%',align: 'left' }
 					],
 			pageSize:20,
 			sortName: 'staffId',
 			selectRowButtonOnly:true,
-			height:300,
+			height:'98%',
 			width:'100%',
 			onError: function() {
 				Utils.alert("查询数据失败");
@@ -117,8 +118,16 @@ body {
 	function insertStaff() {
 		//var url = 'staffManager!insertUI.action';
 		var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
+		
+		var p = {
+				id : "insertStaff",
+				title : '新增人员',
+				width : 500,
+				height : 450,
+				opacity : 0.07
+			}; 
 		//Utils.openTab("insertStaff","新增人员",url);
-		$.dialogBox.openDialog(url,'新增人员');
+		$.dialogBox.openDialog(url,p);
 	}
 
 	function updateStaff() {
@@ -130,8 +139,15 @@ body {
 		}
 		var staffId = selected.staffId;
 		var url = '${_CONTEXT_PATH}/sys/staff!updateUI.action?queryIn.staffId='+staffId;
+		var p = {
+				id : "updateStaff",
+				title : '修改人员',
+				width : 500,
+				height : 450,
+				opacity : 0.07
+			}; 
 		//var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
-		$.dialogBox.openDialog(url,'修改人员');
+		$.dialogBox.openDialog(url,p);
 	}
 	function deleteStaff() {
 		var grid = $("#stafflist").ligerGetGridManager();

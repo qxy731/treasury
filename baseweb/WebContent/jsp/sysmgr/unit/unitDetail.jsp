@@ -9,6 +9,9 @@
 <style type="text/css">
 body{
 	margin: 10px;
+	width:90%;
+	height:90%;
+	
 }
 
 table td{
@@ -44,7 +47,7 @@ table td{
 	</tr>
 	<tr>
 		<td>组织地址：</td>
-		<td style="width:300px;"><s:property value="unit.unitPath" /></td>
+		<td style="width:500px;"><s:property value="unit.unitPath" /></td>
 	</tr>
 	<tr>
 		<td>创建人：</td>
