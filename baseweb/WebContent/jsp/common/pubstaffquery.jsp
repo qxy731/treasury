@@ -9,56 +9,58 @@
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 body {width:600px}
-.s1-params input, .s1-params select {width:120px;}
+.s1-params input, .s1-params select {width:150px;}
 .s1-params>tbody>tr>td:first-child { width:60px;}
 </style>
 </head>
 <body>
 <n:enums keys="sex"></n:enums>
 <table>
-<tr>
-	<td style="padding-right: 10px;vertical-align: top;">
-		<form id="myform" action="${_CONTEXT_PATH}/qstaff!query.action">
-		<table class='s1-params'>
-			<tr>
-				<td nowrap="nowrap">员工编号</td>
-				<td align="left"><input type='text' id='staffId' name='staffId' /></td>
-			</tr>
-			<tr>
-				<td>员工名称</td>
-				<td align="left"><input type='text' id='staffName'
-					name='staffName' /></td>
-			</tr>
-			<tr>
-				<td>归属机构</td>
-				<td align="left"><input type='hidden' id='ownerUnitId'
-					name='ownerUnitId' style="width: 0px;" /><input type='text'
-					id='ownerUnitName' name='ownerUnitName' readonly="readonly" class="unit_select"/>
-				</td>
-			</tr>
-			<tr>
-				<td>员工级别</td>
-				<td align="left"><input type='text' id='staffLevel' name='staffLevel' /></td>
-			</tr>
-			<tr>
-				<td>员工性别</td>
-				<td><n:select codetype="sex" id="sex" name='sex' emptyOption="true" disabled="false" ></n:select>
-				</td>
-			</tr>
-			<tr>
-				<td align="center" colspan="2"><input id='query' name='query'
-					type='button' value='查询' style="width: 60px" />&nbsp;<input
-					id='reset' name='reset' type='button' value='重置'
-					style="width: 60px;" /></td>
-			</tr>
-		</table>
-		</form>
-	</td>
-	<td>
-		<div id='baselist'></div>
-	</td>
-</tr>
-</table>
+		<tr>
+			<td style="padding-right: 10px; vertical-align: top;">
+				<form id="myform" action="${_CONTEXT_PATH}/qstaff!query.action">
+					<table class='s1-params'>
+						<tr>
+							<td nowrap="nowrap">员工编号</td>
+							<td align="left"><input type='text' id='staffId'
+								name='staffId' /></td>
+						</tr>
+						<tr>
+							<td>员工名称</td>
+							<td align="left"><input type='text' id='staffName'
+								name='staffName' /></td>
+						</tr>
+						<tr>
+							<td>归属部门</td>
+							<td align="left"><input type='hidden' id='ownerUnitId'
+								name='ownerUnitId' style="width: 0px;" /><input type='text'
+								id='ownerUnitName' name='ownerUnitName' readonly="readonly"
+								class="unit_select" /></td>
+						</tr>
+						<tr>
+							<td>员工级别</td>
+							<td align="left"><input type='text' id='staffLevel'
+								name='staffLevel' /></td>
+						</tr>
+						<tr>
+							<td>员工性别</td>
+							<td><n:select codetype="sex" id="sex" name='sex'
+									emptyOption="true" disabled="false"></n:select></td>
+						</tr>
+						<tr>
+							<td align="center" colspan="2"><input id='query'
+								name='query' type='button' value='查询' style="width: 60px" />&nbsp;<input
+								id='reset' name='reset' type='button' value='重置'
+								style="width: 60px;" /></td>
+						</tr>
+					</table>
+				</form>
+			</td>
+			<td>
+				<div id='baselist'></div>
+			</td>
+		</tr>
+	</table>
 </body>
 <script type='text/javascript'>
 	var dupFlag = '${param.dup}';
@@ -75,7 +77,7 @@ body {width:600px}
                 columns: [
                 { display: '员工编号', name: 'staffId', width:100,align: 'left' },
                 { display: '员工名称', name: 'staffName',width:100, align: 'left' },
-                { display: '所属机构', name: 'ownerUnitName',width:120, align: 'left' },
+                { display: '所属部门', name: 'ownerUnitName',width:120, align: 'left' },
                 { display: '性别', name:'sex',width:70,align:'center',codetype:'sex'}
             ],
             pageSize:10,

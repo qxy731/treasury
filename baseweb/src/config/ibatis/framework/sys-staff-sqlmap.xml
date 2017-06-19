@@ -8,6 +8,17 @@
 		<result property="staffLevel" column="STAFF_LEVEL"/>
 		<result property="staffStatus" column="STAFF_STATUS"/>
 		<result property="sex" column="SEX"/>
+		
+		<result property="certNo" column="CERT_NO"/>
+		<result property="education" column="EDUCATION"/>
+		<result property="ownerDuty" column="OWNER_DUTY"/>
+		<result property="partTimeJob" column="PART_TIME_JOBDDD"/>
+		<result property="accountingPersonnel" column="ACCOUNTING_PERSONNEL"/>
+		
+		<result property="officePhone" column="OFFICE_PHONE"/>
+		<result property="mobilePhone" column="MOBILE_PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		
 		<result property="createUser" column="CREATE_USER"/>
 		<result property="createTime" column="CREATE_TIME"/>
 		<result property="lastUpdUser" column="LAST_UPD_USER"/>
@@ -31,7 +42,16 @@
            s.STAFF_LEVEL AS staffLevel,
            s.STAFF_STATUS as staffStatus,
            s.SEX AS sex,
-           s.OWNER_UNITID AS ownerUnitid
+           s.OWNER_UNITID AS ownerUnitid,
+           s.CERT_NO AS certNo,
+           s.EDUCATION education,
+           s.OWNER_DUTY ownerDuty,
+           s.PART_TIME_JOB partTimeJob,
+           s.ACCOUNTING_PERSONNEL as accountingPersonnel,
+           s.OFFICE_PHONE AS officePhone,
+           s.MOBILE_PHONE AS mobilePhone,
+           s.ADDRESS AS address
+           
 		from SYS_STAFF s left join SYS_UNIT u on (s.OWNER_UNITID=u.UNIT_ID)
 		<isNotEmpty property="staff.ownerUnitid">
 				inner join SYS_UNITMAP m on m.rela_unitid=s.OWNER_UNITID
@@ -70,13 +90,24 @@
 			<isNotNull prepend="," property="ext1">EXT1 = #ext1#</isNotNull>
 			<isNotNull prepend="," property="ext2">EXT2 = #ext2#</isNotNull>
 			<isNotNull prepend="," property="ext3">EXT3 = #ext3#</isNotNull>
+			
+			<isNotNull prepend="," property="certNo">CERT_NO = #certNo#</isNotNull>
+			<isNotNull prepend="," property="education">EDUCATION = #education#</isNotNull>
+			<isNotNull prepend="," property="ownerDuty">OWNER_DUTY = #ownerDuty#</isNotNull>
+			<isNotNull prepend="," property="partTimeJob">PART_TIME_JOB = #partTimeJob#</isNotNull>
+			<isNotNull prepend="," property="accountingPersonnel">ACCOUNTING_PERSONNEL = #accountingPersonnel#</isNotNull>
+			
+			<isNotNull prepend="," property="officePhone">OFFICE_PHONE = #officePhone#</isNotNull>
+			<isNotNull prepend="," property="mobilePhone">MOBILE_PHONE = #mobilePhone#</isNotNull>
+			<isNotNull prepend="," property="address">ADDRESS = #address#</isNotNull>
+			
 		</dynamic>
 		where 
 			STAFF_ID = #staffId#
 	</update>
 	<insert id="saveSysStaff" parameterClass="com.soule.app.sys.staff.StaffStaffPo">
-		insert into SYS_STAFF (STAFF_ID,STAFF_NAME,OWNER_UNITID,STAFF_LEVEL,STAFF_STATUS,SEX,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
-		values(#staffId:VARCHAR# ,#staffName:VARCHAR# ,#ownerUnitid:VARCHAR# ,#staffLevel:SMALLINT# ,#staffStatus:CHAR# ,#sex:CHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# ,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
+		insert into SYS_STAFF (STAFF_ID,STAFF_NAME,OWNER_UNITID,STAFF_LEVEL,STAFF_STATUS,SEX,CERT_NO,EDUCATION,OWNER_DUTY,PART_TIME_JOB,ACCOUNTING_PERSONNEL,OFFICE_PHONE,ADDRESS,MOBILE_PHONE,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
+		values(#staffId:VARCHAR# ,#staffName:VARCHAR# ,#ownerUnitid:VARCHAR# ,#staffLevel:SMALLINT# ,#staffStatus:CHAR# ,#sex:CHAR# ,#certNo:varchar#,#education:varchar#,#ownerDuty:varchar#,#partTimeJob:char#,#accountingPersonnel:char#,#officePhone:varchar#,#mobilePhone:varchar#,#address:varchar#,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# ,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
 	</insert>
 
 	<delete id="delSysStaff" parameterClass="com.soule.app.sys.staff.StaffStaffPo">

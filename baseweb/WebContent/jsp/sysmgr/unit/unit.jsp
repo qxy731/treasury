@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>组织维护</title>
+<title>部门维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 .inbox, .outbox {
@@ -44,26 +44,29 @@ body {
 						<legend>查询条件</legend>
 						<table class="params">
 							<tr>
-								<td>组织编码</td>
+								<td>部门编码</td>
 								<td><input id="unitId" type="text" name="unitId" /></td>
-								<td>组织名称</td>
+								<td>部门名称</td>
 								<td><input id="unitName" type="text" name="unitName" /></td>
-								<td>上级组织</td>
+								<td>上级部门</td>
 								<td><input id="superUnitId" type="hidden"
 									name="superUnitId" /> <input class='unit_select' type="text"
 									id="superUnitName" name="superUnitName" readonly="readonly"
 									onclick="openSelectUnit()" /></td>
 							</tr>
 							<tr>
-								<td>组织级别</td>
+								<td>部门级别</td>
 								<td><input id="unitLevel" type="text" name="unitLevel" /></td>
-								<td>组织类型</td>
+								<%-- <td>部门类型</td>
 								<td><n:select codetype="unit_kind" id="unitKind"
 										name='unitKind' emptyOption="true" disabled="false"></n:select>
-								</td>
-								<td>组织状态</td>
+								</td> --%>
+								<td>部门状态</td>
 								<td><n:select codetype="valid_type" id="unitStatus"
 										name='unitStatus' emptyOption="true" disabled="false"></n:select>
+								</td>
+								<td></td>
+								<td>
 								</td>
 							</tr>
 						</table>
@@ -91,7 +94,7 @@ body {
 		<tr>
 			<td style="width: 100%">
 				<fieldset class="outbox">
-					<legend>组织列表</legend>
+					<legend>部门列表</legend>
 					<div id='toptoolbar'></div>
 					<div id='unitlist'></div>
 				</fieldset>
@@ -130,44 +133,64 @@ body {
 			enabledSort : false,
 
 			columns : [ {
-				display : '组织编号',
+				display : '部门编号',
 				name : 'unitId',
-				width : '10%',
+				width : '5%',
 				align : 'left'
 			}, {
-				display : '组织名称',
+				display : '部门名称',
 				name : 'unitName',
-				width : '11%',
+				width : '13%',
 				align : 'left'
 			}, {
-				display : '上级组织编号',
+				display : '上级部门编号',
 				name : 'superUnitId',
 				align : 'left'
 			},
-			//{ display: '上级组织名称', name: 'superUnitName', width:'11%',align:'left'},
+			//{ display: '上级部门名称', name: 'superUnitName', width:'11%',align:'left'},
 			{
-				display : '组织级别',
+				display : '部门级别',
 				name : 'unitLevel',
-				width : '10%'
-			}, {
-				display : '组织类型',
+				width : '5%'
+			}/* , {
+				display : '部门类型',
 				name : 'unitKind',
-				width : '10%',
+				width : '5%',
 				codetype : 'unit_kind'
+			} */, {
+				display : '部门地址',
+				name : 'unitAddress',
+				width : '15%',
+				align : 'left'
 			}, {
-				display : '组织地址',
-				name : 'unitPath',
-				width : '11%',
+				display : '清算国库代码',
+				name : 'settUnitId',
+				width : '5%',
+				align : 'left'
+			}, {
+				display : '管理国库代码',
+				name : 'mgrUnitId',
+				width : '5%',
+				align : 'left'
+			}, {
+				display : '启用日期',
+				name : 'startDate',
+				width : '10%',
+				align : 'left'
+			}, {
+				display : '废止日期',
+				name : 'endDate',
+				width : '10%',
 				align : 'left'
 			}, {
 				display : '创建人',
 				name : 'createUser',
-				width : '10%',
+				width : '5%',
 				align : 'left'
 			}, {
 				display : '状态',
 				name : 'unitStatus',
-				width : '10%',
+				width : '5%',
 				codetype : 'valid_type'
 			} ],
 			enabledEdit : true,
@@ -190,10 +213,10 @@ body {
 		$("#superUnitId").val("");
 		$("#superUnitName").val("");
 		$("#unitLevel").val("");
-		$("#unitKind").val("");
+		//$("#unitKind").val("");
 		$("#unitStatus").val("");
 	}
-	//选择组织
+	//选择部门
 	function openSelectUnit() {
 		Utils.openSelectUnit('', _CREATE_ORG, setUnitIdName);
 	}
@@ -212,7 +235,7 @@ body {
 		var unitName = $("#unitName").val();
 		var superUnitId = $("#superUnitId").val();
 		var unitLevel = $("#unitLevel").val();
-		var unitKind = $("#unitKind").val();
+		//var unitKind = $("#unitKind").val();
 		var unitStatus = $("#unitStatus").val();
 		var params = {
 			dataAction : 'server',
@@ -231,10 +254,10 @@ body {
 			}, {
 				name : 'queryIn.unitLevel',
 				value : unitLevel
-			}, {
+			}/* , {
 				name : 'queryIn.unitKind',
 				value : unitKind
-			}, {
+			} */, {
 				name : 'queryIn.unitStatus',
 				value : unitStatus
 			} ]
@@ -246,7 +269,7 @@ body {
 	function insertUnit() {
 		var p = {
 			id : "insertUnitDetail",
-			title : '编辑组织信息',
+			title : '编辑部门信息',
 			width : 500,
 			height : 450,
 			opacity : 0.07
@@ -254,7 +277,7 @@ body {
 		var url = '${_CONTEXT_PATH}/jsp/sysmgr/unit/unitAdd.jsp';
 		$.dialogBox.openDialog(url, p);
 	}
-	//编辑组织信息
+	//编辑部门信息
 	function updateUnit() {
 		var grid = $("#unitlist").ligerGetGridManager();
 		var selected = grid.getSelectedRow();
@@ -265,7 +288,7 @@ body {
 		var unitId = selected.unitId;
 		var p = {
 			id : "updateUnitDetail",
-			title : '编辑组织信息',
+			title : '编辑部门信息',
 			width : 500,
 			height : 450,
 			opacity : 0.07
@@ -274,7 +297,7 @@ body {
 				+ unitId;
 		$.dialogBox.openDialog(url, p);
 	}
-	//删除组织信息
+	//删除部门信息
 	function deleteUnit() {
 		var grid = $("#unitlist").ligerGetGridManager();
 		var selected = grid.getSelectedRow();
@@ -284,7 +307,7 @@ body {
 		}
 		Utils
 				.alert(
-						"你确定要删除当前机构，如果继续，请点击“确定”按钮?",
+						"你确定要删除当前部门，如果继续，请点击“确定”按钮?",
 						'请确认',
 						function() {
 							var unitId = selected.unitId;
@@ -308,7 +331,7 @@ body {
 		var unitId = selected.unitId;
 		var p = {
 			id : "openUnitDetail",
-			title : '查看组织信息',
+			title : '查看部门信息',
 			width : 500,
 			height : 450,
 			opacity : 0.07

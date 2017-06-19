@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="dataimport">
+	<update id="updImpdateFile" parameterClass="java.util.Map">
+		update SYS_UPLOAD_FILE 
+			SET FILE_TYPE=#uploadFileType#,
+				RESULT_TYPE = '0'
+		where UPLOAD_ID = #uploadId# AND FILE_ID=#fileId#
+	</update>
+	
+	<update id="deleteImpFile" parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn">
+		update SYS_UPLOAD_FILE 
+			SET DEL_FLAG='1'
+		where UPLOAD_ID = #uploadId# AND FILE_ID=#fileId#
+	</update>
+		
+	<select id="queryFileList" 
+			parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn"
+			resultClass="com.soule.crm.pub.dataimport.DataImportPo">
+		select 
+			A.UPLOAD_ID as uploadId,
+			A.FILE_ID as fileId,
+			U.UNIT_NAME AS orgName,
+			A.FILE_NAME as fileName,
+			A.FILE_TYPE as fileType,
+			ROUND(A.FILE_SIZE/1024,1) as fileSize,
+			A.FILE_PATH as filePath,
+			A.CREATE_TIME as uploadDate,
+			A.CREATE_USER as staffId,
+			S.STAFF_NAME as staffName,
+			A.RESULT_TYPE as resultType
+		from SYS_UPLOAD_FILE A
+		LEFT JOIN SYS_STAFF S ON S.STAFF_ID=A.CREATE_USER	
+		INNER JOIN SYS_UNITMAP MP ON MP.RELA_UNITID =A.CREATE_ORG AND MP.UNIT_ID $orgCode$
+		LEFT JOIN SYS_UNIT U ON U.UNIT_ID=A.CREATE_ORG
+		where A.DEL_FLAG = '0'
+			AND A.FILE_TYPE IS NOT NULL
+			<isNotEmpty prepend=" AND " property="fileName">A.FILE_NAME like '%'||#fileName#||'%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileType">A.FILE_TYPE = #fileType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="beginDate">A.CREATE_TIME <![CDATA[>=]]> #beginDate#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="endDate">A.CREATE_TIME <![CDATA[<]]> #endDate#+1</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="staffId">A.CREATE_USER = #staffId#</isNotEmpty>
+		ORDER BY A.CREATE_TIME DESC
+	</select>
+	<select id="findFileDetailList" resultClass="java.util.HashMap" 
+		parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn" remapResults="true" >
+		SELECT A.*
+		FROM $tableName$ A
+		WHERE A.FILE_ID = #fileId#
+		<isNotEmpty prepend=" AND " property="isSuccess">A.ERR_CODE = #isSuccess#</isNotEmpty>
+		<isNotEmpty prepend="" property="inputHead.sortname">
+			ORDER BY A.$inputHead.sortname$ $inputHead.sortorder$
+		</isNotEmpty>
+	</select>
+	<insert id="insertDataTemplate" parameterClass="java.util.HashMap">
+	</insert>
+	<parameterMap id="SysUploadFileMap" class="java.util.Map">
+		<parameter property="V_FILE_ID" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="V_MONTH" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="RETCODE" mode="OUT" jdbcType="VARCHAR"/>
+		<parameter property="RETMSG" mode="OUT" jdbcType="VARCHAR"/>
+	</parameterMap>
+	<procedure id="callProcedureImp" parameterMap="SysUploadFileMap">
+		{call $PROCEDURE_NAME$(?,?,?,?)}
+	</procedure>
+	<select id="getPubImpFileByKey" parameterClass="com.soule.crm.pub.dataimport.PubImpFilePo" 
+		resultClass="com.soule.crm.pub.dataimport.PubImpFilePo">
+		select 
+			FILE_TYPE as fileType,
+			TARGET_TABLE as targetTable,
+			PROC_NAME as procName,
+			SPEC_SERVICES as specServices,
+			REMARK as remark
+		from PUB_IMP_FILE where FILE_TYPE = #fileType#
+	</select>
+	<select id="getUploadModel" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		SELECT MODEL_TYPE,
+		       INDEX_NO,
+		       TITLE_CNNAME,
+		       TITLE_NAME,
+		       IS_NOTEMPTY,
+		       IS_NUMBER,
+		       MUST_LEN,
+		       MAX_LEN,
+		       PK_FLAG,
+		       REMARK,
+		       ENUM_TYPE,
+		       VISIBLE,
+		       SPEC,
+		       FORMAT,
+		       DATA_TYPE
+		  FROM PUB_MODEL_UPLOAD T
+		 WHERE MODEL_TYPE = #value#
+		 ORDER BY INDEX_NO
+	</select>
+	<select id="checkCus" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	select a.cust_no from cus_e_base_info a where a.cust_no = #value#
+	</select>
+	<select id="checkOrg" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	select t.unit_id from sys_unit t where t.unit_id = #value#
+	</select>
+	<select id="checkAcctId" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	select t.acct_id from BIZ_DPS_INFO t where t.acct_id = #value#
+	</select>
+	<select id="checkCardNo" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	select t.org_prof from CUS_E_BASE_INFO t where t.org_prof = #value#
+	</select>
+	<select id="checkPrdCode" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+	select t.prd_code from pub_product_info t where t.prd_code = #value#
+	</select>
+</sqlMap>

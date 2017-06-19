@@ -1,6 +1,7 @@
 package com.soule.base.service;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,11 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.SqlMapClientCallback;
 
 import com.soule.crm.license.LicenseMgr;
+import com.ibatis.sqlmap.client.SqlMapExecutor;
 import com.soule.MsgConstants;
 import com.soule.base.media.DbAccessException;
 import com.soule.base.media.IMediaForIbatis;
@@ -150,4 +154,27 @@ public class DefaultService implements IDefaultService {
             throw new ServiceException(MsgConstants.E0016,e.getMessage());
         }
     }
+
+	@Override
+	public int executeBatch(final String namespace,final List paramObjects) throws ServiceException {
+		 int ret = 0;
+	        try {
+	            ret = (Integer) this.ibatisMediator.getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
+	                public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
+	                    executor.startBatch();
+	                    for (Object paramObject : paramObjects) {
+	                        executor.insert(namespace, paramObject);
+	                    }
+	                    return executor.executeBatch();
+	                }
+	            });
+	        } catch (DataAccessException e) {
+	            logger.error("DB", e);
+	            throw new ServiceException(MsgConstants.E0002, e.getMessage());
+	        } catch (DbAccessException e) {
+	            logger.error("DB", e);
+	            throw new ServiceException(MsgConstants.E0002, e.getMessage());
+	        }
+	        return ret;
+	}
 }

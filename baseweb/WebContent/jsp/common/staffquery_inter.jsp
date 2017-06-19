@@ -34,7 +34,7 @@ body {width:600px}
 					name='staffName' /></td>
 			</tr>
 			<tr>
-				<td >归属机构</td>
+				<td >归属部门</td>
 				<td ><input type='hidden' id='ownerUnitId'
 					name='ownerUnitId' style="width: 0px;" /><input type='text'
 					id='ownerUnitName' name='ownerUnitName' readonly="readonly" class="unit_select"/>
@@ -77,7 +77,7 @@ body {width:600px}
                 columns: [
                 { display: '员工编号', name: 'staffId', width:90,align: 'left' },
                 { display: '员工名称', name: 'staffName',width:90, align: 'left' },
-                { display: '所属机构', name: 'ownerUnitName',width:120, align: 'left' },
+                { display: '所属部门', name: 'ownerUnitName',width:120, align: 'left' },
                 { display: '性别', name:'sex',width:60,align:'center',codetype:'sex'}
             ],
             pageSize:10,

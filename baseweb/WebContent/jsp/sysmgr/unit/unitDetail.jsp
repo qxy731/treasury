@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新增组织</title>
+<title>新增部门</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 body{
@@ -25,29 +25,45 @@ table td{
 <form id="detailForm">
 <table>
 	<tr>
-		<td>组织编码：</td>
+		<td>部门编码：</td>
 		<td><s:property value="unit.unitId" /></td>
 	</tr>
 	<tr>
-		<td>组织名称：</td>
+		<td>部门名称：</td>
 		<td><s:property value="unit.unitName" /></td>
 	</tr>
 	<tr>
-		<td>上级组织：</td>
+		<td>上级部门：</td>
 		<td><s:property value="unit.superUnitId" /></td>
 	</tr>
 	<tr>
-		<td>组织级别：</td>
+		<td>部门级别：</td>
 		<td><s:property value="unit.unitLevel" /></td>
 	</tr>
-	<tr>
-		<td>组织类型：</td>
-		<td><s:if test="unit.unitKind==\"1\"">机构</s:if><s:elseif
+	<%-- <tr>
+		<td>部门类型：</td>
+		<td><s:if test="unit.unitKind==\"1\"">部门</s:if><s:elseif
 			test="unit.unitKind==\"2\"">部门</s:elseif> <s:else></s:else></td>
+	</tr> --%>
+	<tr>
+		<td>清算国库代码：</td>
+		<td style="width:500px;"><s:property value="unit.settUnitId" /></td>
 	</tr>
 	<tr>
-		<td>组织地址：</td>
-		<td style="width:500px;"><s:property value="unit.unitPath" /></td>
+		<td>管理国库代码：</td>
+		<td style="width:500px;"><s:property value="unit.mgrUnitId" /></td>
+	</tr>
+	<tr>
+		<td>启用日期：</td>
+		<td style="width:500px;"><s:property value="unit.startDate" /></td>
+	</tr>
+	<tr>
+		<td>废止日期：</td>
+		<td style="width:500px;"><s:property value="unit.endDate" /></td>
+	</tr>
+	<tr>
+		<td>部门地址：</td>
+		<td style="width:500px;"><s:property value="unit.unitAddress" /></td>
 	</tr>
 	<tr>
 		<td>创建人：</td>

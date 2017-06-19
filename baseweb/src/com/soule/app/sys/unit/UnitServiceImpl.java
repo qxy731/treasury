@@ -257,7 +257,7 @@ public class UnitServiceImpl implements IUnitService {
             UnitPo unit=new UnitPo();
             unit.setUnitId(in.getUnitId());
             unit.setUnitName(in.getUnitName());
-            unit.setUnitKind(in.getUnitKind());
+           // unit.setUnitKind(in.getUnitKind());
             unit.setUnitLevel(in.getUnitLevel());
             unit.setUnitStatus(in.getUnitStatus());
             unit.setSuperUnitId(in.getSuperUnitId());

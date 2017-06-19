@@ -21,6 +21,7 @@ import com.soule.base.service.ServiceResult;
 import com.soule.base.service.keygen.IKeyGenerator;
 import com.soule.comm.CommConstants;
 import com.soule.comm.enu.BizType;
+import com.soule.comm.enu.BizType1;
 import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.enu.ScopeType;
@@ -121,6 +122,12 @@ public class AppUtils {
                 } catch (Exception e) {
                     System.err.println("class[" + npo.getClass().getName() + "] no setCreateUser method");
                 }
+                String createOrg = luser.getOperUnitId();
+                try {
+                    MethodUtils.invokeExactMethod(npo, "setCreateOrg", createOrg);
+                } catch (Exception e) {
+                    System.err.println("class[" + npo.getClass().getName() + "] no setCreateUser method");
+                }
             }
             try {
                 MethodUtils.invokeExactMethod(npo, "setCreateTime", new Date());
@@ -161,11 +168,13 @@ public class AppUtils {
      * @param funcType 操作类型
      * @param result 执行结果
      * @param bizType 业务类型
+     * @return 
      * @throws ServiceException
      */
-    public void saveAuditLog(String operCode,String operName,String logDetail,BizType bizType,FunctionType funcType,
+    public String saveAuditLog(String operCode,String operName,String logDetail,BizType1 bizType,FunctionType funcType,
             ExecuteResult result) throws ServiceException {
         AuditLogInsertIn in = new AuditLogInsertIn();
+        String key = String.valueOf(keyg.getSeqence("SYS_LOG_AUDIT"));
         AuditLogLogPo alog = new AuditLogLogPo();
         in.setLog(alog);
         alog.setLogDetail(logDetail);
@@ -182,8 +191,60 @@ public class AppUtils {
         alog.setRoleName(user.getRoleName());
         alog.setFuncType(funcType.getValue());
         sAuditLog.insert(in);
+        return key;
+    }
+    
+    /**
+     * 记录审计日志
+     * 
+     * @param operCode 操作代码
+     * @param operName 操作名称
+     * @param logDetail 详细日志
+     * @param funcType 操作类型
+     * @param result 执行结果
+     * @param bizType 业务类型
+     * @return 
+     * @throws ServiceException
+     */
+    public String saveAuditLog(String operCode,String operName,String logDetail,BizType bizType,FunctionType funcType,
+            ExecuteResult result) throws ServiceException {
+        AuditLogInsertIn in = new AuditLogInsertIn();
+        String key = String.valueOf(keyg.getSeqence("SYS_LOG_AUDIT"));
+        AuditLogLogPo alog = new AuditLogLogPo();
+        in.setLog(alog);
+        alog.setLogDetail(logDetail);
+        alog.setOperCode(operCode);
+        alog.setOperName(operName);
+        alog.setBizType(bizType.toString());
+        alog.setExecResult(result.getValue());
+        alog.setId(String.valueOf(keyg.getSeqence("SYS_LOG_AUDIT")));
+        ILogonUserInfo user = getLogonUserInfo();
+        alog.setIpAddr(user.getIpAddress());
+        alog.setOperStaffid(user.getUser().getUserID());
+        alog.setOperStaffName(user.getUser().getUserName());
+        alog.setRoleId(user.getRoleId());
+        alog.setRoleName(user.getRoleName());
+        alog.setFuncType(funcType.getValue());
+        sAuditLog.insert(in);
+        return key;
     }
 
+
+    /**
+     * 记录审计日志
+     * 
+     * @param operCode 操作代码
+     * @param operName 操作名称
+     * @param logDetail 详细日志
+     * @param funcType 操作类型
+     * @param result 执行结果
+     * @param bizType 业务类型
+     * @throws ServiceException
+     */
+    public void saveAuditLog(String operCode,String operName,BizType1 bizType) throws ServiceException {
+        saveAuditLog(operCode,operName,null,bizType,FunctionType.NORMAL,ExecuteResult.SUCCESS);
+    }
+    
     /**
      * 记录审计日志
      * 
@@ -197,6 +258,21 @@ public class AppUtils {
      */
     public void saveAuditLog(String operCode,String operName,BizType bizType) throws ServiceException {
         saveAuditLog(operCode,operName,null,bizType,FunctionType.NORMAL,ExecuteResult.SUCCESS);
+    }
+    
+    /**
+     * 记录审计日志
+     * 
+     * @param operCode 操作代码
+     * @param operName 操作名称
+     * @param logDetail 详细日志
+     * @param funcType 操作类型
+     * @param result 执行结果
+     * @param bizType 业务类型
+     * @throws ServiceException
+     */
+    public String saveAuditLog(String operCode,String operName,BizType bizType, FunctionType fun, ExecuteResult exec) throws ServiceException {
+        return saveAuditLog(operCode,operName,null,bizType,fun,exec);
     }
 
 }

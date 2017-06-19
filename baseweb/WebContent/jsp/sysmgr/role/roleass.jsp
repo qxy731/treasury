@@ -150,7 +150,7 @@
 								onchange="queryByRole()" emptyOption="true" /></td>
 					</tr>
 					<tr>
-						<td>执行机构</td>
+						<td>执行部门</td>
 						<td><input type="hidden" id="operUnitid" name="operUnitid" /><input
 							id="operUnitname" name="operUnitname" readonly="readonly"
 							type='text' class="unit_select" /></td>
@@ -189,7 +189,7 @@
 
 					</tr>
 					<tr>
-						<td>所属机构</td>
+						<td>所属部门</td>
 						<td><input type='hidden' id='unitId' name='unitId' /> <input
 							id="unitname" name="unitname" readonly="readonly" type='text'
 							class="unit_select" /></td>
@@ -260,7 +260,7 @@
 				align : 'left',
 				width : '33%'
 			}, {
-				display : '操作机构',
+				display : '操作部门',
 				name : 'operUnitName',
 				align : 'left',
 				width : '34%'
@@ -288,12 +288,12 @@
 				align : 'left',
 				width : '26%'
 			}, {
-				display : '所属机构编号',
+				display : '所属部门编号',
 				name : 'unitId',
 				align : 'left',
 				width : '26%'
 			}, {
-				display : '所属机构名称',
+				display : '所属部门名称',
 				name : 'unitName',
 				align : 'left',
 				width : '26%'
@@ -323,7 +323,7 @@
 		});
 		$("#unitId").val('');
 	}
-	function queryByRole() {
+	/* function queryByRole() {
 		var url = "${_CONTEXT_PATH}/sys/roleass!queryByRole.action";
 		var roleid = $("#qRoleId").val();
 		var operUnitid = $("#operUnitid").val();
@@ -343,7 +343,7 @@
 		var gridManager = $("#roleStafflist").ligerGetGridManager();
 		gridManager.setOptions(params);
 		gridManager.loadData();
-	}
+	} */
 
 	function queryStaff() {
 		var url = "${_CONTEXT_PATH}/sys/roleass!queryStaff.action";
@@ -383,7 +383,7 @@
 			return;
 		}
 		if (!unitid) {
-			Utils.alert("请先选择一个机构");
+			Utils.alert("请先选择一个部门");
 			return;
 		}
 		var rows1 = grid1.getCheckedRows();
@@ -399,7 +399,7 @@
 		mdata['insertIn.insertsStr'] = JSON.stringify(rows1);
 
 		var url = "${_CONTEXT_PATH}/sys/roleass!insert.action";
-		Utils.ajaxSubmit(url, mdata);
+		Utils.ajaxSubmit(url, mdata, onSuccess);
 	}
 	function deleteStaff() {
 		var grid1 = $('#roleStafflist').ligerGetGridManager();
@@ -449,5 +449,39 @@
 			$("#unitname").val(unitName);
 		}
 	}
+	
+	var onSuccess = function() {
+		queryByRole();
+	}
+	function queryByRole() {
+		var url = "${_CONTEXT_PATH}/sys/roleass!queryByRole.action";
+		var roleid = $("#qRoleId").val();
+		var operUnitid = $("#operUnitid").val();
+		var staffId = $("#staffId").val();
+		var staffName = $("#staffName").val();
+		var params = {
+			dataAction : 'server',
+			dataType : 'server',
+			url : url,
+			newPage : 1,
+			parms : [ {
+				name : 'queryByRoleIn.roleId',
+				value : roleid
+			}, {
+				name : 'queryByRoleIn.operUnitid',
+				value : operUnitid
+			}, {
+				name : 'queryByRoleIn.staffId',
+				value : staffId
+			}, {
+				name : 'queryByRoleIn.staffName',
+				value : staffName
+			} ]
+		};
+		var gridManager = $("#roleStafflist").ligerGetGridManager();
+		gridManager.setOptions(params);
+		gridManager.loadData();
+	} 
+
 </script>
 </html>

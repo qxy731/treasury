@@ -12,6 +12,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soule.MsgConstants;
 import com.soule.base.action.BaseAction;
@@ -127,10 +128,15 @@ public class UnitAction extends BaseAction {
             map.put("unitId", queryIn.getUnitId());
             map.put("unitName", queryIn.getUnitName());
             map.put("superUnitId", queryIn.getSuperUnitId());
-            map.put("unitKind", queryIn.getUnitKind());
-            map.put("unitPath", queryIn.getUnitPath());
+            map.put("unitAddress", queryIn.getUnitAddress());
             map.put("unitLevel", queryIn.getUnitLevel());
             map.put("unitStatus",queryIn.getUnitStatus());
+            
+            map.put("settUnitId",queryIn.getSettUnitId());
+            map.put("mgrUnitId",queryIn.getMgrUnitId());
+            map.put("startDate",queryIn.getStartDate());
+            map.put("endDate",queryIn.getEndDate());
+            
             IUser user = (IUser) AppUtils.getLogonUserInfo().getUser();
             map.put("createUser", user.getUserID());
             map.put("createTime", new Date());
@@ -161,13 +167,17 @@ public class UnitAction extends BaseAction {
             Map paramMap = new HashMap();
             paramMap.put("unitId", queryIn.getUnitId());
             paramMap.put("unitName", queryIn.getUnitName());
-            paramMap.put("unitPath", queryIn.getUnitPath());
-            paramMap.put("unitKind", queryIn.getUnitKind());
+            paramMap.put("unitAddress", queryIn.getUnitAddress());
+            //paramMap.put("unitKind", queryIn.getUnitKind());
             IUser user = (IUser) AppUtils.getLogonUserInfo().getUser();
             paramMap.put("lastUpdUser", user.getUserID());
             paramMap.put("lastUpdTime", new Date());
             paramMap.put("unitStatus", queryIn.getUnitStatus());
             paramMap.put("superUnitId", queryIn.getSuperUnitId());
+            paramMap.put("settUnitId",queryIn.getSettUnitId());
+            paramMap.put("mgrUnitId",queryIn.getMgrUnitId());
+            paramMap.put("startDate",queryIn.getStartDate());
+            paramMap.put("endDate",queryIn.getEndDate());
             int flag = unitService.updateUnit(paramMap);
             if (flag == 1) {
                 setRetMsg(AppUtils.getMessage(MsgConstants.I0003));
@@ -184,6 +194,8 @@ public class UnitAction extends BaseAction {
         return JSON;
     }
     
+    
+    @RequestMapping(value="/FormattingTest")
     public String openUnitById() {
         try {
             this.unit = (UnitPo) unitService.getUnitById(queryIn.getUnitId());

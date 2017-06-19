@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>编辑组织信息</title>
+<title>编辑部门信息</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 body {
@@ -25,17 +25,17 @@ body {
 	<form id="updateForm" name="updateForm">
 		<table class='s1-params'>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>组织编码:</td>
+				<td nowrap="nowrap"><font color="red">*</font>部门编码:</td>
 				<td nowrap="nowrap"><input id="unitId" type="text"
 					name="unitId" value="${unit.unitId}" readonly="readonly" /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>组织名称:</td>
+				<td nowrap="nowrap"><font color="red">*</font>部门名称:</td>
 				<td nowrap="nowrap"><input id="unitName" type="text"
 					name="unitName" value="${unit.unitName}" /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>上级组织:</td>
+				<td nowrap="nowrap"><font color="red">*</font>上级部门:</td>
 				<td nowrap="nowrap"><input id="superUnitId" type="hidden"
 					name="superUnitId" value="${unit.superUnitId}" /> <input
 					type="text" id="superUnitName" name="superUnitName"
@@ -43,23 +43,44 @@ body {
 					onclick="openSelectUnit()" class='unit_select' /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>组织级别:</td>
+				<td nowrap="nowrap"><font color="red">*</font>部门级别:</td>
 				<td nowrap="nowrap"><input id="unitLevel" type="text"
 					name="unitLevel" value="${unit.unitLevel}" readonly="readonly" /></td>
 			</tr>
-			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>组织类型:</td>
+			<%-- <tr>
+				<td nowrap="nowrap"><font color="red">*</font>部门类型:</td>
 				<td nowrap="nowrap"><n:select codetype="unit_kind"
 						id="unitKind" value="%{unit.unitKind}" name='unitKind'
 						emptyOption="false" disabled="false"></n:select></td>
+			</tr> --%>
+			
+			<tr>
+				<td nowrap="nowrap">清算国库代码:</td>
+				<td nowrap="nowrap"><input id="settUnitId" type="text"
+					name="settUnitId" value="${unit.settUnitId}"  /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap">组织地址:</td>
-				<td nowrap="nowrap"><input id="unitPath" type="text"
-					name="unitPath" value="${unit.unitPath}" style="width: 300px;" /></td>
+				<td nowrap="nowrap">管理国库代码:</td>
+				<td nowrap="nowrap"><input id="mgrUnitId" type="text"
+					name="mgrUnitId" value="${unit.mgrUnitId}"/></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap">组织状态:</td>
+				<td nowrap="nowrap">启用日期:</td>
+				<td nowrap="nowrap"><input id="startDate" type="text"
+					name="startDate" value="${unit.startDate}"  /></td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap">废止日期:</td>
+				<td nowrap="nowrap"><input id="endDate" type="text"
+					name="endDate" value="${unit.endDate}" /></td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap">部门地址:</td>
+				<td nowrap="nowrap"><input id="unitAddress" type="text"
+					name="unitAddress" value="${unit.unitAddress}" style="width: 300px;" /></td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap">部门状态:</td>
 				<td nowrap="nowrap"><n:select codetype="valid_type"
 						id="unitStatus" name='unitStatus' value="%{unit.unitStatus}"
 						emptyOption="false" disabled="false" cssStyle="width:152px;"></n:select>
@@ -91,6 +112,12 @@ body {
 -->
 	</form>
 	<script type="text/javascript">
+	
+	$("#startDate").ligerDateEditor();
+	//val startDate = ${unit.startDate};
+	//$("#startDate").val(startDate)
+	//$("#startDate").setValue(${unit.startDate});
+	$("#endDate").ligerDateEditor();
 		function update() {
 			if (validate()) {
 				try {
@@ -98,11 +125,15 @@ body {
 					var paramObj = {
 						'queryIn.unitId' : $('#unitId').val(),
 						'queryIn.unitName' : $('#unitName').val(),
-						'queryIn.unitPath' : $('#unitPath').val(),
+						'queryIn.unitAddress' : $('#unitAddress').val(),
 						'queryIn.superUnitId' : $('#superUnitId').val(),
 						'queryIn.unitLevel' : $('#unitLevel').val(),
 						'queryIn.unitKind' : $('#unitKind').val(),
-						'queryIn.unitStatus' : $('#unitStatus').val()
+						'queryIn.unitStatus' : $('#unitStatus').val(),
+						'queryIn.settUnitId' : $('#settUnitId').val(),
+						'queryIn.mgrUnitId' : $('#mgrUnitId').val(),
+						'queryIn.startDate' : $('#startDate').val(),
+						'queryIn.endDate' : $('#endDate').val()
 					};
 
 					//var params = $.param(paramObj,true);
@@ -127,31 +158,31 @@ body {
 			var unitKind = $('#unitKind').val();
 			var retMsg = "";
 			if ($.trim(unitId) == "") {
-				retMsg = retMsg + "【组织编码】不能为空；<br/>";
+				retMsg = retMsg + "【部门编码】不能为空；<br/>";
 				flag = false;
 			}
 			if ($.trim(unitName) == "") {
-				retMsg = retMsg + "【组织名称】不能为空；<br/>";
+				retMsg = retMsg + "【部门名称】不能为空；<br/>";
 				flag = false;
 			}
 			if ($.trim(superUnitId) == "") {
-				retMsg = retMsg + "【上级组织】不能为空；<br/>";
+				retMsg = retMsg + "【上级部门】不能为空；<br/>";
 				flag = false;
 			}
 			if ($.trim(unitLevel) == "") {
-				retMsg = retMsg + "【组织级别】不能为空；<br/>";
+				retMsg = retMsg + "【部门级别】不能为空；<br/>";
 				flag = false;
 			}
-			if ($.trim(unitKind) == "") {
-				retMsg = retMsg + "【组织类型】不能为空；<br/>";
+			/* if ($.trim(unitKind) == "") {
+				retMsg = retMsg + "【部门类型】不能为空；<br/>";
 				flag = false;
-			}
+			} */
 			if (!flag) {
 				$.dialogBox.alert(retMsg);
 			}
 			return flag;
 		}
-		//选择组织
+		//选择部门
 		function openSelectUnit() {
 			Utils.openSelectUnit('#createOrgBtn1', '', setUnitIdAndName);
 		}

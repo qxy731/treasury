@@ -16,6 +16,9 @@
 		<result property="uploadId" column="UPLOAD_ID"/>
 		<result property="fileId" column="FILE_ID"/>
 		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileType" column="FILE_TYPE"/>
+		<result property="resultType" column="RESULT_TYPE"/>
+		<result property="createOrg" column="CREATE_ORG"/>
 		<result property="fileSize" column="FILE_SIZE"/>
 		<result property="filePath" column="FILE_PATH"/>
 		<result property="delFlag" column="DEL_FLAG"/>
@@ -54,6 +57,9 @@
 			<isNotNull prepend="," property="downNum">DOWN_NUM = #downNum#</isNotNull>
 			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
 			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+			<isNotNull prepend="," property="fileType">FILE_TYPE = #fileType#</isNotNull>
+			<isNotNull prepend="," property="resultType">RESULT_TYPE = #resultType#</isNotNull>
+			<isNotNull prepend="," property="createOrg">CREATE_ORG = #createOrg#</isNotNull>
 		</dynamic>
 		where 
 			UPLOAD_ID = #uploadId#
@@ -63,8 +69,8 @@
 		update SYS_UPLOAD_FILE set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId# AND FILE_ID = #fileId#
 	</update>
 	<insert id="saveSysUploadFile" parameterClass="com.soule.app.table.SysUploadFilePo">
-		insert into SYS_UPLOAD_FILE (UPLOAD_ID,FILE_ID,FILE_NAME,FILE_SIZE,FILE_PATH,DEL_FLAG,DOWN_NUM,CREATE_USER,CREATE_TIME)
-		values(#uploadId:VARCHAR# ,#fileId:VARCHAR# ,#fileName:VARCHAR# ,#fileSize:INTEGER# ,#filePath:VARCHAR# ,#delFlag:CHAR# ,0 ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# )
+		insert into SYS_UPLOAD_FILE (UPLOAD_ID,FILE_ID,FILE_NAME,FILE_SIZE,FILE_PATH,DEL_FLAG,DOWN_NUM,CREATE_USER,CREATE_TIME,FILE_TYPE,RESULT_TYPE,CREATE_ORG)
+		values(#uploadId:VARCHAR# ,#fileId:VARCHAR# ,#fileName:VARCHAR# ,#fileSize:INTEGER# ,#filePath:VARCHAR# ,#delFlag:CHAR# ,0 ,#createUser:VARCHAR# ,#createTime:TIMESTAMP#,#fileType:VARCHAR# ,#resultType:CHAR# ,#createOrg:VARCHAR#  )
 	</insert>
 
 	<delete id="delSysUploadFile" parameterClass="com.soule.app.sys.filetransfer.FileTransferFilePo">

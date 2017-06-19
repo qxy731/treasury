@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="Common">
+	
+	<cacheModel id="BizDateCache" type="LRU" serialize="true" readOnly="true">
+		<flushInterval hours="2"/> <!-- 业务数据当前日期 -->
+		<property name="size" value="20" /> 
+	</cacheModel>
+	<select id="getCurrDate" resultClass="java.util.Date" cacheModel="BizDateCache">
+		SELECT DATE_FORMAT(T.PARA_VALUE, '%Y-%m-%d')
+		  FROM SYS_PARAMS T
+		 WHERE T.PARA_ID = 'WORK_DATE'
+	</select>
+	
+	<cacheModel id="ExportCountCache" type="LRU" serialize="true" readOnly="true">
+		<flushInterval hours="6"/> 
+		<property name="size" value="20" /> 
+	</cacheModel>
+	<select id="getExportCount" resultClass="java.lang.Integer" cacheModel="ExportCountCache">
+		SELECT TO_NUMBER(T.PARA_VALUE)
+		  FROM SYS_PARAMS T
+		 WHERE T.PARA_ID = 'excelCount'
+	</select>
+	
+	<select id="findCustNameByEntNo" 
+			parameterClass="java.lang.String" resultClass="java.lang.String">
+			select CUST_NAME from CUS_E_BASE_INFO where CUST_NO=#custNo#
+	</select>
+
+
+	<resultMap id="SysUploadFileMap" class="com.soule.app.table.SysUploadFilePo">
+		<result property="uploadId" column="UPLOAD_ID"/>
+		<result property="fileId" column="FILE_ID"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileSize" column="FILE_SIZE"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="delFlag" column="DEL_FLAG"/>
+		<result property="downNum" column="DOWN_NUM"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+	</resultMap>
+	
+	<select id="getSysUploadFileByImport" parameterClass="java.lang.String" 
+		resultMap="SysUploadFileMap">
+		select UPLOAD_ID,
+				FILE_ID,
+				FILE_NAME,
+				FILE_SIZE,
+				FILE_PATH,
+				DEL_FLAG,
+				DOWN_NUM,
+				CREATE_USER,
+				CREATE_TIME 
+		from SYS_UPLOAD_FILE where 
+			UPLOAD_ID = #uploadId#
+	</select>
+	<!-- <select id="getRoleById" 
+			parameterClass="com.neusoft.app.sys.userinfo.UserInfoPositionPo"
+			resultClass="com.neusoft.app.common.po.RolePo">
+		select 
+			A.ROLE_ID as roleId,
+			A.ROLE_NAME as roleName,
+			A.ROLE_STATUS as roleStatus,
+			A.REMARK as remark,
+			A.PARENT_ROLE_ID as parentRoleId
+		from 
+			SYS_ROLE  A
+		where
+			A.ROLE_ID=#roleId#
+	</select>
+	
+	<select id="getUnitInfoByNull" 
+			parameterClass="com.neusoft.app.common.selectunit.SelectUnitIn"
+			resultClass="com.neusoft.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT  A
+		where
+			A.SUPER_UNITID is null order by A.UNIT_ID 
+	</select>
+	<select id="getUnitInfo" 
+			parameterClass="com.neusoft.app.common.selectunit.SelectUnitIn"
+			resultClass="com.neusoft.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT A
+		where
+			A.SUPER_UNITID = #superUnitId# order by A.UNIT_ID 
+	</select>
+	
+	<select id="getUnitInfoByUnitId" 
+			parameterClass="com.neusoft.app.common.selectunit.SelectUnitIn"
+			resultClass="com.neusoft.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT as A
+		where 1=1
+		<isNotEmpty prepend=" AND " property="unitId">
+			A.UNIT_ID = #unitId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="unitName">
+			A.UNIT_NAME like '%$unitName$%'
+		</isNotEmpty>
+		 order by A.UNIT_ID 
+	</select>
+	
+	<select id="getUnitInfoByUnitIdNext" 
+			parameterClass="com.neusoft.app.common.selectunit.SelectUnitIn"
+			resultClass="com.neusoft.app.common.selectunit.SelectUnitPo">
+		select 
+			A.UNIT_ID as unitId,
+			A.SUPER_UNITID as superUnitId,
+			A.LEAF_FLAG as leafFlag,
+			A.UNIT_NAME as unitName
+		from 
+			SYS_UNIT as A
+			INNER JOIN SYS_UNITMAP UMAP ON UMAP.RELA_UNITID=A.UNIT_ID AND UMAP.UNIT_ID=#orgId#
+		where 1=1
+		<isNotEmpty prepend=" AND " property="unitId">
+			A.UNIT_ID = #unitId#
+		</isNotEmpty>
+		<isNotEmpty prepend=" AND " property="unitName">
+			A.UNIT_NAME like '%$unitName$%'
+		</isNotEmpty>
+		 order by A.UNIT_ID 
+	</select>
+	
+	<select id="getStaffBranchOrg" parameterClass="java.util.HashMap"
+			resultClass="java.lang.String">
+	    SELECT U.MAPPING_CODE FROM SYS_UNIT U WHERE U.UNIT_ID = #unitId#
+	</select>
+	
+	<select id="queryStaffByRole"
+			parameterClass="com.neusoft.app.common.selectStaff.SelectStaffIn"
+			resultClass="com.neusoft.app.common.selectStaff.SelectStaffPo"> 
+		select * from(
+		select
+			A.STAFF_ID as staffId,
+			E.STAFF_NAME as staffName,
+			B.UNIT_ID as ownerUnitId,
+			C.UNIT_NAME as ownerUnitName,
+			B.ROLE_ID as roleId,
+			D.ROLE_NAME as roleName
+		from
+			SYS_POSI_ASSIGN  A
+			inner join SYS_POSITION  B on A.POSI_ID=B.POSI_ID
+			left join SYS_UNIT  C on B.UNIT_ID=C.UNIT_ID
+			INNER JOIN SYS_UNITMAP UMAP ON UMAP.RELA_UNITID=C.UNIT_ID AND UMAP.UNIT_ID=#ownerUnitId#
+			left join SYS_ROLE  D on B.ROLE_ID=D.ROLE_ID
+			left join SYS_STAFF  E on A.STAFF_ID=E.STAFF_ID
+		where 1=1
+			<isNotEmpty prepend="   AND   " property="roleType">B.ROLE_ID in ($roleType$)</isNotEmpty>
+			<isNotEmpty prepend="   AND   " property="staffId">A.STAFF_ID like '%$staffId$%'</isNotEmpty>
+			<isNotEmpty prepend="   AND   " property="staffName">E.STAFF_NAME like '%$staffName$%'</isNotEmpty>
+		order by ownerUnitId)
+	</select>
+	
+	<select id="getIndustryInfoByNull" 
+			parameterClass="com.neusoft.app.common.selectIndustry.SelectIndustryIn"
+			resultClass="com.neusoft.app.common.selectIndustry.SelectIndustryPo">
+		select 
+			A.INDUSTRY_CODE as id,
+			A.SUP_INDUSTRY_CODE as pid,
+			A.INDUSTRY_LEVER as leaf,
+			A.INDUSTRY_NAME as text
+		from 
+			PUB_INDUSTRY_INFO  A
+		where
+			A.SUP_INDUSTRY_CODE is null
+	</select>
+	<select id="getIndustryInfo" 
+			parameterClass="com.neusoft.app.common.selectIndustry.SelectIndustryIn"
+			resultClass="com.neusoft.app.common.selectIndustry.SelectIndustryPo">
+		select 
+			A.INDUSTRY_CODE as id,
+			A.SUP_INDUSTRY_CODE as pid,
+			A.INDUSTRY_LEVER as leaf,
+			A.INDUSTRY_NAME as text
+		from 
+			PUB_INDUSTRY_INFO A
+		where
+			A.SUP_INDUSTRY_CODE=#id#
+	</select>
+	<select id="querySysParamValue" 
+		parameterClass="java.lang.String"
+		resultClass="java.lang.String">
+		select PARA_VALUE from SYS_PARAMS where PARA_ID=#code#
+	</select>
+	
+	<resultMap id="SysUploadFileMap" class="com.neusoft.app.table.SysUploadFilePo">
+		<result property="uploadId" column="UPLOAD_ID"/>
+		<result property="fileId" column="FILE_ID"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileSize" column="FILE_SIZE"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="delFlag" column="DEL_FLAG"/>
+		<result property="downNum" column="DOWN_NUM"/>
+		<result property="createUser" column="CREATE_USER"/>
+		<result property="createTime" column="CREATE_TIME"/>
+	</resultMap>
+	<select id="getSysUploadFileByKey" parameterClass="com.neusoft.app.table.SysUploadFilePo" 
+		resultMap="SysUploadFileMap">
+		 select UPLOAD_ID,
+				FILE_ID,
+				FILE_NAME,
+				FILE_SIZE,
+				FILE_PATH,
+				DEL_FLAG,
+				DOWN_NUM,
+				CREATE_USER,
+				CREATE_TIME 
+		from SYS_UPLOAD_FILE where 
+			UPLOAD_ID = #uploadId#
+			AND FILE_ID = #fileId#
+	</select>
+	
+	<select id="getSysUploadFileByFileId" parameterClass="com.neusoft.app.table.SysUploadFilePo" 
+		resultMap="SysUploadFileMap">
+		select UPLOAD_ID,
+				FILE_ID,
+				FILE_NAME,
+				FILE_SIZE,
+				FILE_PATH,
+				DEL_FLAG,
+				DOWN_NUM,
+				CREATE_USER,
+				CREATE_TIME 
+		from SYS_UPLOAD_FILE where 
+			FILE_ID = #fileId#
+	</select>
+	
+	<select id="getSysUploadFileByImport" parameterClass="java.lang.String" 
+		resultMap="SysUploadFileMap">
+		select UPLOAD_ID,
+				FILE_ID,
+				FILE_NAME,
+				FILE_SIZE,
+				FILE_PATH,
+				DEL_FLAG,
+				DOWN_NUM,
+				CREATE_USER,
+				CREATE_TIME 
+		from SYS_UPLOAD_FILE where 
+			UPLOAD_ID = #uploadId#
+	</select>
+	
+	<select id="getSysUploadFile" parameterClass="java.util.Map" resultMap="SysUploadFileMap">
+		select UPLOAD_ID,
+				FILE_ID,
+				FILE_NAME,
+				FILE_SIZE,
+				FILE_PATH,
+				DEL_FLAG,
+				DOWN_NUM,
+				CREATE_USER,
+				CREATE_TIME 
+		from SYS_UPLOAD_FILE 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="uploadId">UPLOAD_ID = #uploadId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileId">FILE_ID = #fileId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileName">FILE_NAME = #fileName#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileSize">FILE_SIZE = #fileSize#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="filePath">FILE_PATH = #filePath#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="delFlag">DEL_FLAG = #delFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER = #createUser#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysUploadFile" parameterClass="com.neusoft.app.table.SysUploadFilePo">
+		update SYS_UPLOAD_FILE 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="fileName">FILE_NAME = #fileName#</isNotNull>
+			<isNotNull prepend="," property="fileSize">FILE_SIZE = #fileSize#</isNotNull>
+			<isNotNull prepend="," property="filePath">FILE_PATH = #filePath#</isNotNull>
+			<isNotNull prepend="," property="delFlag">DEL_FLAG = #delFlag#</isNotNull>
+			<isNotNull prepend="," property="downNum">DOWN_NUM = #downNum#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+		</dynamic>
+		where 
+			UPLOAD_ID = #uploadId#
+			AND FILE_ID = #fileId#
+	</update>
+	<update id="updateDownloadTime" parameterClass="com.neusoft.app.table.SysUploadFilePo">
+		update SYS_UPLOAD_FILE set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId# AND FILE_ID = #fileId#
+	</update>
+	<update id="updateDownloadTimeByUpLoadId" parameterClass="com.neusoft.app.table.SysUploadFilePo">
+		update SYS_UPLOAD_FILE set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId#
+	</update>
+	
+	<delete id="delSysUploadFile" parameterClass="com.neusoft.app.sys.filetransfer.FileTransferFilePo">
+		update SYS_UPLOAD_FILE set DEL_FLAG='1' where UPLOAD_ID = #uploadId# AND FILE_ID = #fileId#
+	</delete>
+	
+	
+	<select id="getStaffByCust" parameterClass="java.lang.String" resultClass="java.lang.String" >
+		select STAFF_ID from CUS_MGR_INFO where CUST_NO=#custNo#
+	</select>
+	
+	
+	<select id="getRemindStaff" parameterClass="java.util.Map" resultClass="java.lang.String" >
+		select A.STAFF_ID from SYS_POSI_ASSIGN  A,SYS_POSITION  B where A.POSI_ID=B.POSI_ID and B.UNIT_ID=#unitId# and B.ROLE_ID=#roleId#
+	</select>
+	
+	<select id="getRemindStaffTwo" parameterClass="java.util.Map" resultClass="java.lang.String" >
+		select A.STAFF_ID from SYS_POSI_ASSIGN  A,SYS_POSITION  B where A.POSI_ID=B.POSI_ID and B.ROLE_ID=#roleId#
+	</select>
+	
+	<select id="isTotalBank" parameterClass="java.lang.String" resultClass="java.lang.String" >
+		select REMARK from SYS_ROLE where ROLE_ID=#roleId#
+	</select>
+	
+	<select id="queryCustManagerInfo" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select * from CUS_MGR_INFO t where t.CUST_NO = #custNo# and  t.STAFF_ID = #staffId#
+	</select> -->
+	<!-- 
+	<select id="queryContactBooklist" parameterClass="com.neusoft.crm.pub.contactbook.ContactBookQueryIn"
+	   resultClass="com.neusoft.crm.pub.contactbook.ContactBookPo">
+		SELECT S.STAFF_ID as staffId, 
+		       S.STAFF_NAME as staffName, 
+		       S.OWNER_UNITID as  ownerUnitId,
+		       U.UNIT_NAME as ownerUnitName,
+		       E.TEL as tel
+		  FROM SYS_STAFF S
+		  LEFT JOIN SYS_STAFF_EXT E ON S.STAFF_ID = E.STAFF_ID
+		  LEFT JOIN SYS_UNIT U ON U.UNIT_ID = S.OWNER_UNITID
+		 WHERE 1 = 1
+		 <isNotEmpty prepend=" AND " property="staffId">S.STAFF_ID = #staffId#</isNotEmpty>
+		 <isNotEmpty prepend=" AND " property="staffName">S.STAFF_NAME like '%'||#staffName#||'%'</isNotEmpty>	
+	</select>
+	
+	<select id="queryContactBookFront" parameterClass="com.neusoft.crm.pub.contactbook.ContactBookQueryIn"
+	   resultClass="com.neusoft.crm.pub.contactbook.ContactBookPo">
+		SELECT S.STAFF_ID as staffId, 
+		       S.STAFF_NAME as staffName, 
+		       S.OWNER_UNITID as  ownerUnitId,
+		       U.UNIT_NAME as ownerUnitName,
+		       E.TEL as tel
+		  FROM SYS_STAFF S
+		  LEFT JOIN SYS_STAFF_EXT E ON S.STAFF_ID = E.STAFF_ID
+		  LEFT JOIN SYS_UNIT U ON U.UNIT_ID = S.OWNER_UNITID
+		 WHERE (S.STAFF_ID = #staffStr# OR  S.STAFF_NAME like '%'||#staffStr#||'%' )
+	</select>
+	 -->
+	<!-- <select id="getOrgList" parameterClass="java.lang.String"
+	   resultClass="com.neusoft.app.common.po.OrgListPo">
+		SELECT U.unit_Id as unitId,U.unit_name as unitName
+		  FROM SYS_UNIT U
+		 WHERE U.UNIT_ID IN ('$value$')
+		 ORDER BY U.UNIT_LEVEL
+	</select>
+	
+	<select  id="getEcustHostManagerCnt" parameterClass="java.util.HashMap" resultClass="java.lang.Long">
+	   SELECT COUNT(1)
+		  FROM CUS_MGR_INFO T
+		 WHERE T.STAFF_ID = #staffId#
+		   AND T.CUST_NO = #custNo#
+	</select>
+	
+	<select id="queryEnumItem" parameterClass="java.lang.String"
+		resultClass="com.neusoft.comm.enu.EnumItemPo">
+		select item_id as id,
+			   item_value as text,
+			   item_desc as pid
+		  from SYS_ENUM_ITEM
+		 where enum_id = #value#
+	</select> -->
+</sqlMap>

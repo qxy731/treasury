@@ -5,11 +5,12 @@
 <html>
 <head>
 <style type="text/css">
+body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) repeat;}
 .fileframe {margin:0;padding:0; overflow: hidden;border:none;}
 </style>
 </head>
 <body class='fileframe' onload="initload()">
-<form id='fileform' action='${_CONTEXT_PATH}/FileTransfer!upload.action' method='post' enctype='multipart/form-data' >
+<form id='fileform' action='${_CONTEXT_PATH}/sys/file-transfer!upload.action' method='post' enctype='multipart/form-data' >
 	<input type='file' id='onefile' name='onefile' onchange="uploadFile()" ></input>
 	<input type='hidden' id='uploadId' name='uploadIn.file.uploadId'></input>
 	<input type='hidden' id='filter' name='filter'></input>
@@ -61,13 +62,21 @@ function uploadFile() {
 }
 
 function addUploadedFileToParent() {
-	var file = {};
-	file.uploadId = '${uploadIn.file.uploadId}';
-	file.fileId = '${uploadIn.file.fileId}';
-	file.fileName = '${uploadIn.file.fileName}';
-	file.fileSize = '${uploadIn.file.fileSize}';
-	if (file.fileId) {
-		parent.addFile(file);
+	var result ={};
+	result.retCode = '${retCode}';
+	result.retMsg = '${retMsg}';
+	if (result.retCode && result.retCode.substr(0,1) == 'I') {
+		var file = {};
+		file.uploadId = '${uploadIn.file.uploadId}';
+		file.fileId = '${uploadIn.file.fileId}';
+		file.fileName = '${uploadIn.file.fileName}';
+		file.fileSize = '${uploadIn.file.fileSize}';
+		if (file.fileId) {
+			parent.addFile(file);
+		}
+	}
+	else if (result.retCode && result.retCode.substr(0,1) == 'E'){
+		alert(result.retMsg);
 	}
 }
 </script>

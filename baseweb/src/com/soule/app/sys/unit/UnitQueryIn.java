@@ -3,6 +3,8 @@ package com.soule.app.sys.unit;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.soule.base.service.ServiceInput;
 
 /**
@@ -17,11 +19,15 @@ public class UnitQueryIn implements Serializable {
     private String unitName;
     private String superUnitId;
     private String unitLevel;
-    private String unitKind;
+   // private String unitKind;
     private String superUnitName;
     private String unitStatus;// 组织状态
     private Integer unitIndex;// 组织索引
-    private String unitPath;// 组织路径
+    private String unitAddress;// 组织路径
+    private String settUnitId;
+    private String mgrUnitId;
+    private String startDate;
+    private String endDate;
     private String createUser;
     private Date createTime;
     private String lastUpdUser;
@@ -65,13 +71,6 @@ public class UnitQueryIn implements Serializable {
 		this.unitLevel = unitLevel;
 	}
 
-	public String getUnitKind() {
-		return unitKind;
-	}
-
-	public void setUnitKind(String unitKind) {
-		this.unitKind = unitKind;
-	}
 
 	public String getSuperUnitName() {
 		return superUnitName;
@@ -97,12 +96,64 @@ public class UnitQueryIn implements Serializable {
 		this.unitIndex = unitIndex;
 	}
 
-	public String getUnitPath() {
-		return unitPath;
+
+	public String getUnitAddress() {
+		return unitAddress;
 	}
 
-	public void setUnitPath(String unitPath) {
-		this.unitPath = unitPath;
+	public void setUnitAddress(String unitAddress) {
+		this.unitAddress = unitAddress;
+	}
+
+	public String getSettUnitId() {
+		return settUnitId;
+	}
+
+	public void setSettUnitId(String settUnitId) {
+		this.settUnitId = settUnitId;
+	}
+
+	public String getMgrUnitId() {
+		return mgrUnitId;
+	}
+
+	public void setMgrUnitId(String mgrUnitId) {
+		this.mgrUnitId = mgrUnitId;
+	}
+	
+	
+
+	/*public Date getStartDate() {
+		
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}*/
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getCreateUser() {

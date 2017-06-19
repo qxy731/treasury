@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class UnitPo implements Serializable {
     private static final long serialVersionUID = 8366881532617420996L;
     private String unitId;
@@ -26,11 +28,60 @@ public class UnitPo implements Serializable {
     private String ext5;
     private String leafFlag;
     
+    
+    private String startDate;
+    private String endDate;
+    private String unitAddress;
+    private String settUnitId;
+    private String mgrUnitId;
+    
     private List<UnitPo> subUnitList;
 
     private UnitPo parent;
 
-    public String getUnitId() {
+    
+    public String getUnitAddress() {
+		return unitAddress;
+	}
+
+	public void setUnitAddress(String unitAddress) {
+		this.unitAddress = unitAddress;
+	}
+
+	
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getSettUnitId() {
+		return settUnitId;
+	}
+
+	public void setSettUnitId(String settUnitId) {
+		this.settUnitId = settUnitId;
+	}
+
+	public String getMgrUnitId() {
+		return mgrUnitId;
+	}
+
+	public void setMgrUnitId(String mgrUnitId) {
+		this.mgrUnitId = mgrUnitId;	
+	}
+
+	public String getUnitId() {
         return unitId;
     }
 

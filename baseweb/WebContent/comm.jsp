@@ -18,6 +18,8 @@
 <script src="${_CONTEXT_PATH}/jwebui/artdialog/jquery.artDialog.source.js"></script>
 <script src="${_CONTEXT_PATH}/jwebui/artdialog/plugins/iframeTools.source.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/js/dialogBox.js" type="text/javascript"></script> 
+<%-- <script src="${_CONTEXT_PATH}/js/echarts.common.min.js" type="text/javascript"></script>  --%>
+<script src="${_CONTEXT_PATH}/js/echarts.js" type="text/javascript"></script> 
 <script src="${_CONTEXT_PATH}/js/Utils.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/js/numFormat.js" type="text/javascript"></script>
 <script type="text/javascript">

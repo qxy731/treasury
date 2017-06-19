@@ -99,7 +99,7 @@ public class NeuUrlAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws ServletException, IOException {
        SavedRequest savedRequest = requestCache.getRequest(request, response);
-       //ILogonUserInfo user = (ILogonUserInfo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       //ILogon4UserInfo user = (ILogonUserInfo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
        HttpSession session = request.getSession(false);
        if(session!=null){
     	   session.removeAttribute("SPRING_SECURITY_LAST_EXCEPTION");

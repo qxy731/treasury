@@ -37,6 +37,11 @@
 		A.UNIT_STATUS as unitStatus,
 		A.UNIT_INDEX as unitIndex,
 		A.UNIT_PATH as unitPath,
+		A.SETT_UNIT_ID as settUnitId,
+		A.MGR_UNIT_ID as mgrUnitId,
+		DATE_FORMAT(A.START_DATE,'%Y-%m-%d') as startDate,
+		DATE_FORMAT(A.END_DATE,'%Y-%m-%d') as endDate,
+		A.UNIT_ADDRESS as unitAddress,
 		A.CREATE_USER as createUser,
 		A.CREATE_TIME as createTime,
 		A.LAST_UPD_USER as lastUpdUser,
@@ -106,6 +111,11 @@
 			<isNotNull prepend="," property="unitKind">UNIT_KIND = #unitKind#</isNotNull>
 			<isNotNull prepend="," property="unitStatus">UNIT_STATUS = #unitStatus#</isNotNull>
 			<isNotNull prepend="," property="unitPath">UNIT_PATH = #unitPath#</isNotNull>
+			<isNotNull prepend="," property="unitAddress">UNIT_ADDRESS = #unitAddress#</isNotNull>
+			<isNotNull prepend="," property="settUnitId">SETT_UNIT_ID = #settUnitId#</isNotNull>
+			<isNotNull prepend="," property="mgrUnitId">MGR_UNIT_ID = #mgrUnitId#</isNotNull>
+			<isNotNull prepend="," property="startDate">START_DATE = date(#startDate#)</isNotNull>
+			<isNotNull prepend="," property="endDate">END_DATE = date(#endDate#)</isNotNull>
 			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
 			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
 			<isNotNull prepend="," property="leafFlag">LEAF_FLAG = #leafFlag#</isNotNull>
@@ -124,25 +134,29 @@
 		UNIT_ID,
 		UNIT_NAME,
 		SUPER_UNITID,
-		UNIT_KIND,
 		UNIT_LEVEL,
 		UNIT_STATUS,
-		UNIT_PATH,
+		UNIT_ADDRESS,
 		CREATE_USER,
 		CREATE_TIME,
 		LEAF_FLAG,
+		SETT_UNIT_ID,
+		MGR_UNIT_ID,
+		START_DATE,
 		LAST_UPD_TIME
 		)values(
 		#unitId#,
 		#unitName#,
 		#superUnitId#,
-		#unitKind#,
 		#unitLevel#,
 		#unitStatus#,
-		#unitPath#,
+		#unitAddress#,
 		#createUser#,
 		#createTime#,
 		#leafFlag#,
+		#settUnitId#,
+		#mgrUnitId#,
+		date(#startDate#),
 		#lastUpdTime#)		  
     </insert>
     
@@ -162,6 +176,11 @@
 		A.CREATE_TIME as createTime,
 		A.LAST_UPD_USER as lastUpdUser,
 		A.LAST_UPD_TIME as lastUpdTime,
+		A.SETT_UNIT_ID AS settUnitId,
+		A.MGR_UNIT_ID AS mgrUnitId,
+		DATE_FORMAT(A.START_DATE,'%Y-%m-%d') AS startDate,
+		DATE_FORMAT(A.END_DATE,'%Y-%m-%d') AS endDate,
+		A.UNIT_ADDRESS AS unitAddress,
 		A.EXT1 as ext1,
 		A.EXT2 as ext2,
 		A.EXT3 as ext3,

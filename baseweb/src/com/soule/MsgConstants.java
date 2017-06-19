@@ -131,4 +131,14 @@ public class MsgConstants implements Serializable {
     public static final String E_PFM_0002 = "E_PFM_0002";
 
     public static final String E_PFM_0003 = "E_PFM_0003";
+    
+    /**
+     * 导入错误
+     */
+    public static final String E5000 = "E5000";
+    
+    /**
+     * 错误不提示
+     */
+	public static final String E9999 = "E9999";
 }

@@ -105,6 +105,7 @@ public class FileTransferAction extends BaseAction {
             if (in !=null) {
                 in.getFile().setFileName(onefileFileName);
                 in.getFile().setFilePath(onefile.getAbsolutePath());
+              //  in.getFile().setFileType(onefile);
                 in.getFile().setFileSize((int)onefile.length());
                 FileTransferUploadOut result = service.upload(in);
                 ServiceResult head = result.getResultHead();

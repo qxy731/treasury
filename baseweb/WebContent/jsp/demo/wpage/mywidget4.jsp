@@ -7,7 +7,7 @@
 					  <tr>
 					    <td width="20" align="center" valign="middle">&lt;</td>
 					    <td height="100" align="center" valign="middle"><img src="images/blueblog.png" width="59" height="59" />员工聘任</td>
-					    <td align="center" valign="middle"><img src="images/blueblog.png" width="59" height="59" />机构新增</td>
+					    <td align="center" valign="middle"><img src="images/blueblog.png" width="59" height="59" />部门新增</td>
 					    <td align="center" valign="middle"><img src="images/blueblog.png" width="59" height="59" />信息变更</td>
 					    <td align="center" valign="middle"><img src="images/blueblog.png" width="59" height="59" />其他任务</td>
 					    <td width="20" align="center" valign="middle">&gt;</td>

@@ -59,6 +59,8 @@ public class FileTransferServiceImpl implements IFileTransferService {
             AppUtils.setResult(out, MsgConstants.E0010);
         }
         po.setFilePath(newFilePath);
+        po.setFileType(in.getFile().getFileType());
+       // po.setCreateOrg(createOrg);
         try {
             sDefault.getIbatisMediator().save("upload.saveSysUploadFile", po);
         } catch (DbAccessException e) {

@@ -177,7 +177,7 @@ body {
 		gridManager.loadData();
 	}
 	function doClear() {
-		$(".queryBox input[type='text']").each(function(i,item){
+		$(".queryBox input[type='text'],#roleStatus").each(function(i,item){
 			item.value ='';
 		});
 	}

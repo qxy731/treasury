@@ -6,5 +6,5 @@ package com.soule.comm.enu;
  *
  */
 public enum ResourceType {
-    MENU,URL,FUNCTION;
+	MENU,URL,FUNCTION,DATAIMP;
 }

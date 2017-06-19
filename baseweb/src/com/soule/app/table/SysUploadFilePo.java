@@ -21,7 +21,34 @@ public class SysUploadFilePo implements Serializable {
      * 文件名称
      */
     private String fileName;
-    /**
+    private String fileType;
+    private String resultType;
+    private String createOrg;
+    public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getResultType() {
+		return resultType;
+	}
+
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
+
+	public String getCreateOrg() {
+		return createOrg;
+	}
+
+	public void setCreateOrg(String createOrg) {
+		this.createOrg = createOrg;
+	}
+
+	/**
      * 文件大小
      */
     private Integer fileSize;

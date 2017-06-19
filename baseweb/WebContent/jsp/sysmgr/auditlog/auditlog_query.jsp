@@ -189,7 +189,7 @@ body {
 	}
 
 	function doClear() {
-		$(".params input[type='text']").each(function(i, item) {
+		$(".queryBox input[type='text'],#bizType,#funcType,#execResult").each(function(i, item) {
 			item.value = '';
 		});
 	}

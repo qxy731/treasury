@@ -7,7 +7,7 @@
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
      <tr class="font1">
        <td height="35" align="center" valign="middle" bgcolor="#e2e5e9">职位</td>
-       <td align="center" valign="middle" bgcolor="#e2e5e9">机构</td>
+       <td align="center" valign="middle" bgcolor="#e2e5e9">部门</td>
        <td align="center" valign="middle" bgcolor="#e2e5e9">状态</td>
        <td align="center" valign="middle" bgcolor="#e2e5e9">详情</td>
      </tr>

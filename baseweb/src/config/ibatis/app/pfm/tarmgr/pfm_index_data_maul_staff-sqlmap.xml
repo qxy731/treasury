@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="indexdatastf">
+	<resultMap id="PfmIndexDataMaulMap" class="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		<result property="indexCode" column="INDEX_CODE"/>
+		<result property="recoreDate" column="BIZ_DATE"/>
+		<result property="objectId" column="STAFF_ID"/>
+		<result property="orgCode" column="ORG_CODE"/>
+		<result property="indexVal" column="INDEX_VAL"/>
+		<result property="loadDate" column="LOAD_DATE"/>
+		<result property="createUser" column="CREATE_USER"/>
+	</resultMap>
+	<select id="getPfmIndexDataMaulByKey" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo" 
+		resultClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		select
+			INDEX_CODE as indexCode,
+			BIZ_DATE as recoreDate,
+			CUST_ID as objectId,
+			ORG_CODE as orgCode,
+			INDEX_VAL as indexVal,
+			LOAD_DATE as loadDate,
+			CREATE_USER as createUser
+		from PFM_IDX_DATA_MAUL_STF where 
+			INDEX_CODE = #indexCode#
+			AND BIZ_DATE = #recoreDate#
+			AND STAFF_ID = #objectId#
+	</select>
+	
+	<select id="getPfmIndexDataMaulByKey2" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo" 
+		resultClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		select
+			INDEX_CODE as indexCode,
+			BIZ_DATE as recoreDate,
+			CUST_ID as objectId,
+			ORG_CODE as orgCode,
+			INDEX_VAL as indexVal,
+			LOAD_DATE as loadDate,
+			CREATE_USER as createUser
+		from PFM_IDX_DATA_MAUL_STF where 
+			INDEX_CODE = (select TAR_CODE from PFM_TM_QTY_DEF where TAR_NAME = #indexName# )
+			AND BIZ_DATE = #recoreDate#
+	</select>
+	
+	
+
+	<select id="getPfmIndexDataMaul" parameterClass="java.util.Map" resultClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+	select 
+      a.INDEX_CODE as indexCode,
+      b.tar_name as indexName,
+      a.BIZ_DATE as recoreDate,
+      a.CUST_ID as objectId,
+      a.ORG_CODE as orgCode,
+      (select u.UNIT_NAME from SYS_UNIT u where a.ORG_CODE=u.UNIT_ID) as orgName,
+      a.INDEX_VAL as indexVal,
+      a.LOAD_DATE as loadDate,
+      a.CREATE_USER as createUser
+    from PFM_IDX_DATA_MAUL_STF a left join PFM_TM_QTY_DEF b on a.INDEX_CODE = b.TAR_CODE
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="indexCode">a.INDEX_CODE in ('$indexCode$')</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="objectId">a.CUST_ID in ('$objectId$')</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="orgCode">a.ORG_CODE = #orgCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="indexVal">a.INDEX_VAL = #indexVal#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="loadDate">DATE_FORMAT(a.LOAD_DATE,'%Y-%m-%d') = date(#loadDate#)</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">a.CREATE_USER = #createUser#</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+<select id="getPfmIndexDataMaulCount__" parameterClass="java.util.Map" resultClass="java.lang.Long">
+	select count(1)
+
+    from PFM_IDX_DATA_MAUL_STF a left join PFM_TM_QTY_DEF b on a.INDEX_CODE = b.tar_code
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="indexCode">a.INDEX_CODE in ('$indexCode$')</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="objectId">a.CUST_ID in ('$objectId$')</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="orgCode">a.ORG_CODE = #orgCode#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="indexVal">a.INDEX_VAL = #indexVal#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="loadDate">DATE_FORMAT(a.LOAD_DATE,'%Y-%m-%d') = date(#loadDate#)</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createUser">a.CREATE_USER = #createUser#</isNotEmpty>
+		</dynamic>
+	</select>
+	<select id="getPfmIndexData" parameterClass="java.util.Map" resultClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+	with t as 
+		(select to_date('$recoreDate$','yyyy-MM-dd') as BIZ_DATE,  STAFF_ID, STAFF_NAME,UNIT_ID,UNIT_NAME,INDEX_CODE,INDEX_NAME from 
+			(select 1 as id, TAR_CODE,TAR_NAME  from PFM_TM_QTY_DEF where tar_code in ('$indexCode$'))  a
+				join 
+			(select 1 as id ,s.STAFF_ID, s.STAFF_NAME,u.UNIT_ID,u.UNIT_NAME from SYS_STAFF s left join SYS_UNIT u on s.OWNER_UNITID=u.UNIT_ID where s.STAFF_ID in ('$objectId$'))  b
+				on a.id = b.id 
+		)
+		select t.STAFF_ID as objectId,
+		t.STAFF_NAME as objectName, 
+		t.UNIT_ID as orgCode,
+		t.UNIT_NAME as orgName,
+		t.INDEX_CODE as indexCode, 
+		t.INDEX_NAME as indexName, 
+		nvl(m.INDEX_VAL,null) as indexVal
+		from t left join ( select a1.BIZ_DATE,
+               a1.INDEX_CODE,
+               a1.CUST_ID,
+               a1.INDEX_VAL
+         	 from PFM_IDX_DATA_MAUL_STF a1
+       			 union
+        	 select a2.BIZ_DATE,
+               a2.INDEX_CODE,
+               a2.STAFF_ID,
+               a2.INDEX_VAL
+         	 from PFM_IDX_DATA_SYS_STF a2) m on t.INDEX_CODE=m.INDEX_CODE and t.STAFF_ID=m.STAFF_ID and t.BIZ_DATE=m.BIZ_DATE
+       where t.BIZ_DATE = to_date('$recoreDate$','yyyy-MM-dd')
+		order by  t.UNIT_ID, t.STAFF_ID, t.INDEX_CODE
+
+	</select>
+	
+
+	<update id="updPfmIndexDataMaul" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		update PFM_IDX_DATA_MAUL_STF 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="orgCode">ORG_CODE = #orgCode#</isNotNull>
+			<isNotNull prepend="," property="indexVal">INDEX_VAL = #indexVal#</isNotNull>
+			<isNotNull prepend="," property="loadDate">LOAD_DATE = #loadDate#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+		</dynamic>
+		where 
+			INDEX_CODE = #indexCode#
+			AND BIZ_DATE = #recoreDate#
+			AND CUST_ID = #objectId#
+	</update>
+	
+	
+	<update id="updPfmIndexDataMaulVal" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		update PFM_IDX_DATA_MAUL_STF 
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="indexVal">INDEX_VAL = #indexVal#</isNotNull>
+			<isNotNull prepend="," property="loadDate">LOAD_DATE = #loadDate#</isNotNull>
+			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
+		</dynamic>
+		where 
+			INDEX_CODE in (select TAR_CODE from PFM_TM_QTY_DEF where tar_name = #indexName# )
+			AND BIZ_DATE = #recoreDate#
+			AND CUST_ID = #objectId#
+	</update>
+	
+	<update id="updPfmIndexDataMaulOrg" >
+		update PFM_IDX_DATA_MAUL_STF a set a.ORG_CODE = (select b.owner_unitid from sys_staff b where b.staff_id = a.STAFF_ID  )
+		
+	</update>
+	
+
+	<insert id="savePfmIndexDataMaul" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		insert into PFM_IDX_DATA_MAUL_STF (INDEX_CODE,BIZ_DATE,CUST_ID,ORG_CODE,INDEX_VAL,LOAD_DATE,CREATE_USER)
+		values(#indexCode:VARCHAR# ,#recoreDate:DATE# ,#objectId:VARCHAR# ,#orgCode:VARCHAR# ,#indexVal:NUMERIC# ,#loadDate:DATE# ,#createUser:VARCHAR# )
+	</insert>
+
+	<delete id="delPfmIndexDataMaul" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
+		delete from PFM_IDX_DATA_MAUL_STF where 
+			INDEX_CODE = #indexCode#
+			AND BIZ_DATE = #recoreDate#
+			AND CUST_ID = #objectId#
+	</delete>
+</sqlMap>

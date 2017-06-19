@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>机构下拉框</title>
+<title>部门下拉框</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <script src="${_CONTEXT_PATH}/jwebui/ftext/filtertext.js"></script>
 <style type="text/css">
@@ -61,8 +61,8 @@ $(function () {
 	//输出表格
 	$("#datalist").ligerGrid({
 		columns: [
-			{ display: '机构号', name: 'unitId', align: 'center' },
-			{ display: '机构名', name: 'unitName', align: 'center' }
+			{ display: '部门编号', name: 'unitId', align: 'center' },
+			{ display: '部门名称', name: 'unitName', align: 'center' }
 		],
 		pageSize:10,
 		sortName: 'unitId',

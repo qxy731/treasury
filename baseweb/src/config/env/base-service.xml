@@ -52,6 +52,9 @@
 		scope="singleton" />
 	
 	<bean id="keyGen" class="com.soule.base.service.keygen.KeyGeneratorImpl" />
+	<bean id="dsl.IndicatorService" class="com.soule.crm.pfm.engine.service.IndicatorServiceImpl" />
+	<bean id="dsl.IParameterService" class="com.soule.crm.pfm.engine.service.ParameterServiceImpl" />
+	<bean id="dsl.IDSLService" class="com.soule.crm.pfm.datahelper.service.DSLServiceImpl" />
 	
 	<bean id="logonInfoDao" class="com.soule.base.service.logon.UserLogonDaoServiceImpl">
 		<property name="passwordEncoder">

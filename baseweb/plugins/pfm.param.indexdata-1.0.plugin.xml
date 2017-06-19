@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AppPlugIn version='0.1'>
+    <AppId>pfm.param.indexdata</AppId>
+    <AppVersion>1.0</AppVersion>
+    <CreateDate>2013-08-22 10:57</CreateDate>
+    <AppDepends>
+        <AppDepend appId='sysmgr' version='2.0'/>
+    </AppDepends>
+    <AppFiles>
+        <File htype='ACTION_JAVA' path='src/com/soule/crm/pfm/param/indexdata/IndexDataAction.java'/>
+        <File htype='IMPL_JAVA' path='src/com/soule/crm/pfm/param/indexdata/IndexDataServiceImpl.java'/>
+        <File path='src/com/soule/crm/pfm/param/indexdata/IIndexDataService.java'/>
+        <File path='src/com/soule/crm/pfm/param/indexdata/IndexDataQueryIn.java'/>
+        <File path='src/com/soule/crm/pfm/param/indexdata/IndexDataQueryOut.java'/>
+        <!-- <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之指标数据补录信息查询-IndexDataQuery --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNIndexDataQuery','指标数据补录信息查询','jsp/pfm/param/indexdata/indexdata_query.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File> -->
+        <File path='WebContent/jsp/pfm/param/indexdata/indexdata_query.jsp'/>
+        <File path='src/com/soule/crm/pfm/param/indexdata/IndexDataReadXlsFileIn.java'/>
+        <File path='src/com/soule/crm/pfm/param/indexdata/IndexDataReadXlsFileOut.java'/>
+       <!--  <File htype='INIT_SQL' path='dbscript/initdata.sql' charset='GBK'>
+            <ManualContent mode='PART'>
+                    <![CDATA[-- 菜单之解析上传文件-IndexDataReadXlsFile --
+INSERT INTO SYS_MENU(MENU_ID,NODE_ID,NODE_NAME,NODE_URL,PARENT_NODE,SEQ_ID,NODE_IMG,RELA_FLAG,NODE_TARGET,NODE_CMD,NODE_VISIBLE,NODE_TOOLTIP,HAS_CHILD_FLAG) 
+VALUES ('sys', 'PNIndexDataReadXlsFile','解析上传文件','jsp/pfm/param/indexdata/indexdata_readxlsfile.jsp', 'PNROOT' , 20 , '',    '0', '',  '', '1',  '',  '0' );
+---------------------------------------------------------------]]>
+            </ManualContent>
+        </File> -->
+        <File path='WebContent/jsp/pfm/param/indexdata/indexdata_readxlsfile.jsp'/>
+        <File path='src/com/soule/crm/pfm/param/indexdata/IndexDataRowsPo.java'/>
+    </AppFiles>
+</AppPlugIn>

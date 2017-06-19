@@ -32,8 +32,85 @@ public class StaffStaffPo implements Serializable {
     private String logonId;
     private String password;
     
+    private String certNo;
+    private String education;
+    private String ownerDuty;
+    private String partTimeJob;
+    private String accountingPersonnel;
     
-    private String unitName;
+    private String officePhone;
+    private String mobilePhone;
+    private String address;
+    
+    
+    public String getOfficePhone() {
+		return officePhone;
+	}
+
+	public void setOfficePhone(String officePhone) {
+		this.officePhone = officePhone;
+	}
+
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
+
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	
+	public String getAccountingPersonnel() {
+		return accountingPersonnel;
+	}
+
+	public void setAccountingPersonnel(String accountingPersonnel) {
+		this.accountingPersonnel = accountingPersonnel;
+	}
+
+	public String getCertNo() {
+		return certNo;
+	}
+
+	public void setCertNo(String certNo) {
+		this.certNo = certNo;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getOwnerDuty() {
+		return ownerDuty;
+	}
+
+	public void setOwnerDuty(String ownerDuty) {
+		this.ownerDuty = ownerDuty;
+	}
+
+	public String getPartTimeJob() {
+		return partTimeJob;
+	}
+
+	public void setPartTimeJob(String partTimeJob) {
+		this.partTimeJob = partTimeJob;
+	}
+
+	
+	private String unitName;
+	
     /**
      * @return 员工编号
      */

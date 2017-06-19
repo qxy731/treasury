@@ -288,7 +288,7 @@ body,html { margin: 0px; padding: 0px; }
 			<div class="part1c awidget" id="p26"></div>
 		</div>
 		<div class="part3 awidget" id="p8">
-			<fieldset class="outbox awidget_head"><legend>组织列表</legend>
+			<fieldset class="outbox awidget_head"><legend>部门列表</legend>
 				<div id='toptoolbar'></div>
 				<div id='unitlist'></div>
 			</fieldset>
@@ -314,13 +314,13 @@ body,html { margin: 0px; padding: 0px; }
             enabledSort: false,
            
             columns: [
-            { display: '组织编号', name: 'unitId',  width:'10%',align:'left'},           
-            { display: '组织名称', name: 'unitName', width:'11%',align:'left'},
-            { display: '上级组织编号', name: 'superUnitId', align:'left'},
-            //{ display: '上级组织名称', name: 'superUnitName', width:'11%',align:'left'},
-            { display: '组织级别', name: 'unitLevel', width:'10%'}, 
-            { display: '组织类型', name: 'unitKind', width: '10%',codetype:'unit_kind'}, 
-            { display: '组织地址', name: 'unitPath',width: '11%',align:'left'},
+            { display: '部门编号', name: 'unitId',  width:'10%',align:'left'},           
+            { display: '部门名称', name: 'unitName', width:'11%',align:'left'},
+            { display: '上级部门编号', name: 'superUnitId', align:'left'},
+            //{ display: '上级部门名称', name: 'superUnitName', width:'11%',align:'left'},
+            { display: '部门级别', name: 'unitLevel', width:'10%'}, 
+            { display: '部门类型', name: 'unitKind', width: '10%',codetype:'unit_kind'}, 
+            { display: '部门地址', name: 'unitPath',width: '11%',align:'left'},
             { display: '创建人', name: 'createUser',width: '10%',align:'left'},
             { display: '状态', name:'unitStatus',width:'10%',codetype:'valid_type'}
             ],
@@ -347,7 +347,7 @@ body,html { margin: 0px; padding: 0px; }
 	   $("#unitKind").val("");
 	   $("#unitStatus").val("");
    }
-   //选择组织
+   //选择部门
    function openSelectUnit(){
    }
    function setUnitIdName(unitId,unitName){
@@ -355,9 +355,9 @@ body,html { margin: 0px; padding: 0px; }
    
    function query(){}
    function insertUnit(){}
-   //编辑组织信息
+   //编辑部门信息
    function updateUnit(){}
-   //删除组织信息
+   //删除部门信息
    function deleteUnit(){}
    function detailUnit(){}
 </script>

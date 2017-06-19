@@ -53,4 +53,14 @@ public interface IDefaultService {
      *            主键对象
      */
     public Boolean deleteReocrd(String tableName, Serializable pk);
+    
+    
+    /**
+     * 批量执行
+     * @param namespace
+     * @param paramObjects
+     * @return
+     * @throws ServiceException 
+     */
+    public int executeBatch(final String namespace,final List paramObjects) throws ServiceException;
 }

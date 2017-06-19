@@ -219,8 +219,8 @@
 	
 						</tr>
 						<tr>
-							<td nowrap="nowrap">参数编码</td>
-							<td><input id='enumId' name='enumId' type="text" validate="{required:true}" /></td>
+							<td nowrap="nowrap">参数名称</td>
+							<td><input id='enumName' name='enumName' type="text" validate="{required:true}" /></td>
 						</tr>
 						<tr>
 							<td>参数描述</td>

@@ -2,6 +2,8 @@ package com.soule.comm.tools;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.lang.StringUtils;
+
 public class StringUtil {
     public static String setString(String str){
         try {
@@ -67,5 +69,24 @@ public class StringUtil {
             sb.append(val[i]);
         }
         return sb;
+    }
+    
+    /**
+     * 如果字符串不满足最大长度，前面补0
+     * @param len 最大长度
+     * @param str 字符串
+     * @return
+     */
+    public static String strFormat(int len, String str){
+        if (StringUtils.isBlank(str)){
+            return null;
+        }
+		int length = len - str.length();
+		if (str.length() < len){
+			for (int i = 0; i < length; i++){
+				str = "0" + str;
+			}
+		}
+		return str;
     }
 }

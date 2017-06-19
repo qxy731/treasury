@@ -19,9 +19,9 @@
 <tr><td>
 <form id="myform">
 <table class='params'>
-<tr><td align="right">机构号</td><td><input type="text" id="unitId" name="unitId"/><input type="hidden" id="type" name="type"/></td><td>
+<tr><td align="right">部门编号</td><td><input type="text" id="unitId" name="unitId"/><input type="hidden" id="type" name="type"/></td><td>
 <input id='query' name='query' type='button' value='查询' class='l-button'/></td></tr>
-<tr><td align="right">机构名称</td><td><input type="text" id="unitName" name="unitName"/></td><td><input id='reset' name='reset' type='button' value='重置' class='l-button'/></td></tr>
+<tr><td align="right">部门名称</td><td><input type="text" id="unitName" name="unitName"/></td><td><input id='reset' name='reset' type='button' value='重置' class='l-button'/></td></tr>
 </table>
 </form>
 </td></tr>
@@ -141,7 +141,7 @@ function select(){
 	if(rows){
 		return rows;
 	}else{
-		$.dialogBox.warn("请选择机构");
+		$.dialogBox.warn("请选择部门");
 	}
 	
 }

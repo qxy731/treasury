@@ -22,7 +22,7 @@
 			    <td align="center" valign="middle"> </td>
 			  </tr>
 			  <tr>
-			    <td height="30" align="center" valign="middle">机构变更</td>
+			    <td height="30" align="center" valign="middle">部门变更</td>
 			    <td align="center" valign="middle"> </td>
 			    <td align="center" valign="middle"> </td>
 			    <td align="center" valign="middle"> </td>

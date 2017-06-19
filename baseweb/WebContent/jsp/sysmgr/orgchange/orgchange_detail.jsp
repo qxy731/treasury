@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>员工机构变更</title>
+<title>员工部门变更</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 .inbox ,.outbox {padding: 5px;margin: 2px;border: 1px solid #ccc;}
@@ -38,8 +38,8 @@ $(function () {
 		columns: [
 			{ display: '员工编号', name: 'staffId', align: 'center',width:80 },
             { display: '员工姓名', name: 'staffName', align: 'center',width:80},
-            { display: '所属机构', name: 'ownerUnitid', align: 'center'},
-            { display: '所属机构', name: 'unitName', align: 'center',width:80},
+            { display: '所属部门', name: 'ownerUnitid', align: 'center'},
+            { display: '所属部门', name: 'unitName', align: 'center',width:80},
             { display: '修改人', name: 'updUserName', align: 'center',width:80},
             { display: '开始时间', name: 'startTime', align: 'center'},
             { display: '结束时间', name: 'endTime', align: 'center',codetype:'dateNull'}

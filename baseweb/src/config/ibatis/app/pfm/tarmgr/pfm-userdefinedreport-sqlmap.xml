@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="userdefinedreport">
+
+    <resultMap id="userDefinedReportMap" class="com.soule.app.pfm.tm.report.po.UserDefinedReportPo">
+		<result property="tarName" column="TAR_NAME"/>
+		<result property="tarCode" column="TAR_CODE"/>
+		<result property="tarValue" column="TAR_VALUE"/>
+		<result property="unitName" column="UNIT_NAME"/>
+	</resultMap>
+	
+	 <!-- 根据日期、指标代码、员工代码查询表中是否有当前记录 -->
+	 <select id="getUserDefinedReport" parameterClass="java.util.Map" resultMap="userDefinedReportMap">
+		 SELECT
+			c.UNIT_NAME,
+			a.TAR_CODE,
+			b.TAR_NAME,
+			a.TAR_VALUE
+		FROM
+			pfm_tm_qty_org a
+		 JOIN pfm_tm_qty_def b ON a.TAR_CODE = b.TAR_CODE
+		join sys_unit c on c.UNIT_ID = a.ORG_ID 
+		where a.ORG_ID  in (select unit_id From sys_unitmap a where a.RELA_UNITID= #userDefinedReport.unitId#'
+							union 
+							select RELA_UNITID as UNIT_ID From sys_unitmap a where a.UNIT_ID= #userDefinedReport.unitId#)
+			and a.STORE_DATE = #userDefinedReport.dataDate#
+	</select>
+</sqlMap>

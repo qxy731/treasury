@@ -8,6 +8,7 @@
 <title>上传下载</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
+body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) repeat;}
 .file{display:inline; border:1px solid #999; margin:5px 0 0 5px;padding:2px;float:left;overflow:hidden;}
 #fileframe{width:100%;height:30px;margin:0 10px 10px 10px;padding:0;border:none;}
 #files {margin:10px; border:1px solid #888;height: 100px;overflow:auto;}
@@ -35,13 +36,16 @@ var params = {
 /**
  * 
  */
-function initMethod(filenum,canDelete,canDownload) {
+function initMethod(filenum,canDelete,canDownload,canUpload) {
 	params.fileNum = filenum;
 	if (canDelete) {
 		params.canDelete = (canDelete == 'true');
 	}
 	if (canDelete) {
 		params.canDownload = (canDownload == 'true');
+	}
+	if (canUpload) {
+		$('#fileframe').hide();
 	}
 	try {
 		params.msg = '文件大小<5M,允许文件类型[${filter}],可上传文件数' + filenum,
@@ -57,6 +61,7 @@ function initMethod(filenum,canDelete,canDownload) {
 	}catch(e){
 	}
 }
+
 function getUploadId(){
 	return '${uploadId}';
 }
@@ -100,7 +105,7 @@ function deleteFile(obj) {
 	var data = {};
 	data.uploadId = $(obj).parent().attr('uid');
 	data.fileId = $(obj).parent().attr('fid');
-	var url = "${_CONTEXT_PATH}/FileTransfer!delete.action";
+	var url = "${_CONTEXT_PATH}/sys/file-transfer!delete.action";
 	var mdata = Utils.convertObjectData('deleteIn.delete',data);
 	Utils.ajaxSubmit(url,mdata,function(result){
 		$(obj).parent().remove();
@@ -117,7 +122,7 @@ function downloadFile(obj) {
 	data.uploadId = $(obj).parent().attr('uid');
 	data.fileId = $(obj).parent().attr('fid');
 	var mdata = Utils.convertObjectData('downloadIn.file',data);
-	var url = "${_CONTEXT_PATH}/FileTransfer!download.action?" + $.param(mdata);
+	var url = "${_CONTEXT_PATH}/sys/file-transfer!download.action?" + $.param(mdata);
 	//alert (url);
 	document.location = url;
 }

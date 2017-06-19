@@ -4,6 +4,9 @@
 <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="assist-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/assist/assist">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
 <property name="context-root" value="baseweb"/>
 <property name="java-output-path"/>
         <property name="component.inclusion.patterns" value="WEB-INF/lib/*.jar,**/*.htc,**/*.xml,**/*.properties,**/*.class,**/*.js,**/*.css,**/*.vm,**/*.png,**/*.gif,**/*.jsp,**/*.jpg,**/*.htm,**/*.html,**/*.tld,**/*.swf,**/*.ftl,**/*.xls"/>
