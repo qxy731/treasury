@@ -3,4 +3,5 @@
 <sqlMapConfig>
 	<settings useStatementNamespaces="true" cacheModelsEnabled="false" />
 	<sqlMap resource="config/ibatis/app/sys-example-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm_qtydef_sqlmap.xml" />
 </sqlMapConfig>

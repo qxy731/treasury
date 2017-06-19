@@ -80,7 +80,7 @@
             <bean class="com.soule.base.service.logon.NeuUrlAuthenticationFailureHandler">  
                 <property name="defaultFailureUrl" value="/index.jsp"></property>  
             </bean>  
-        </property>  
+        </property>
 	</bean>
 
 	<!-- 基于数据库的身份验证 -->

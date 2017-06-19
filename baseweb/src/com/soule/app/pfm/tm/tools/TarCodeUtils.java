@@ -11,10 +11,8 @@ public class TarCodeUtils {
     private static final String one="0";
 	/**
 	 * 
-	 * @param qx Q/X -定量/定性；
-	 * @param ecm E/C/M-基础指标/复合指标/手工指标；
-	 * @param slio S/L/I/O-存款/贷款/中间业务/其他
-	 * @param pahfx P/A/H/F/X-时点余额/日均余额/户数/发生额/效益指标
+	 * @param ecm E/C-基础指标/衍生指标；
+	 * @param slio F/S/P/A/O-国库资金流动指标/国库资金安全性指标/国库资金收益性指标/国库会计核算效率指标/其他
 	 * @return
 	 */
 	private IKeyGenerator keyGenerator;
@@ -23,19 +21,13 @@ public class TarCodeUtils {
 		this.keyGenerator=keyGenerator;
 		this.tableName=tableName;
 	}
-	public String gerneratedKey(String qx,String ecm,String slio,String pahfx){
+	public String gerneratedKey(String ecm,String slio){
 		StringBuilder sb=new StringBuilder(START);
-		if(qx!=null){
-			sb.append("-").append(qx);
-		}
 		if(ecm!=null){
 			sb.append("-").append(ecm);
 		}
 		if(slio!=null){
 			sb.append("-").append(slio);
-		}
-		if(pahfx!=null){
-			sb.append("-").append(pahfx);
 		}
 		if(sb.charAt(sb.length()-1)=='-'){
 		    sb.append(getSeq());
@@ -44,12 +36,7 @@ public class TarCodeUtils {
 		}
 		return sb.toString();
 	}
-	public String gerneratedKey(String qx,String slio,String pahfx){
-		return gerneratedKey(qx, null, slio, pahfx);
-	}
-	public String gerneratedKey(String qx,String pahfx){
-		return gerneratedKey(qx,null,pahfx);
-	}
+	
 	private String getSeq(){
 		try {
 			long res=keyGenerator.getSeqence(tableName);

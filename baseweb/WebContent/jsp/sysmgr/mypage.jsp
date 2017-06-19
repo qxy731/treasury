@@ -15,7 +15,7 @@
 <script src="${_CONTEXT_PATH}/jwebui/widget/calc_widget.js" type="text/javascript" ></script>
 <script src="${_CONTEXT_PATH}/jwebui/widget/rolegrid_widget.js" type="text/javascript" ></script>
 <style type="text/css">
-body { font-family:Verdana; font-size:14px; margin:0;}
+body { font-family:Verdana; font-size:12px; margin:0;}
 .bt {
 	width:50px;
 	/*background-color: #EAF2FE;*/

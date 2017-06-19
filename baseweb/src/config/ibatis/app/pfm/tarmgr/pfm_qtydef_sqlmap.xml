@@ -3,45 +3,53 @@
 
 <sqlMap namespace="qtydef">
     <typeAlias alias="QtyDefPo" type="com.soule.app.pfm.tm.qtydef.QtyDefPo"/> 
-    <typeAlias alias="PointAverRela" type="com.soule.app.pfm.tm.qtydef.PointAverRelaPo"/>
     <typeAlias alias="QtyExpDefPo" type="com.soule.app.pfm.tm.qtydef.QtyExpDefPo"/>
     <typeAlias alias="QtyExpRelaPo" type="com.soule.app.pfm.tm.qtydef.QtyExpRelaPo"/>    
 	<resultMap id="QtyDefMap" class="QtyDefPo">
-		<result column="TAR_CODE" property="tarCode" jdbcType="VARCHAR2" />
-		<result column="TAR_NAME" property="tarName" jdbcType="VARCHAR2" />
-		<result column="BS_FLAG" property="bsFlag" jdbcType="VARCHAR2" />
-		<result column="MEAS_UNIT_CODE" property="measUnitCode" jdbcType="VARCHAR2" />
-		<result column="MEAS_DEF_CODE" property="measDefCode" jdbcType="VARCHAR2" />
-		<result column="TAR_TYPE" property="tarType" jdbcType="VARCHAR2" />
-		<result column="TAR_PROPERTY" property="tarProperty" jdbcType="VARCHAR2" />
-		<result column="STAT_SCOPE_CODE" property="statScopeCode" jdbcType="VARCHAR2" />
-		<result column="PROC_DATE_CODE" property="procDateCode" jdbcType="VARCHAR2" />
-		
+		<result column="TAR_CODE" property="tarCode" jdbcType="VARCHAR" />
+		<result column="TAR_NAME" property="tarName" jdbcType="VARCHAR" />
+		<result column="BS_FLAG" property="bsFlag" jdbcType="VARCHAR" />
+		<result column="MEAS_UNIT_CODE" property="measUnitCode" jdbcType="VARCHAR" />
+		<result column="MEAS_DEF_CODE" property="measDefCode" jdbcType="VARCHAR" />
+		<result column="TAR_TYPE" property="tarType" jdbcType="VARCHAR" />
+		<result column="TAR_PROPERTY" property="tarProperty" jdbcType="VARCHAR" />
+		<result column="STAT_SCOPE_CODE" property="statScopeCode" jdbcType="VARCHAR" />
+		<result column="PROC_DATE_CODE" property="procDateCode" jdbcType="VARCHAR" />
 		<result column="TAR_PROC_DATE" property="tarProcDate" jdbcType="DATE" />
-		<result column="STORE_DATE" property="storeDate" jdbcType="VARCHAR2" />
-		<result column="PRDTYPE_CODE" property="prdtypeCode" jdbcType="VARCHAR2" />
-		<result column="SUBJ_CODE" property="subjCode" jdbcType="VARCHAR2" />
-		<result column="TAR_SCOPE" property="tarScope" jdbcType="VARCHAR2" />
-		<result column="TAR_BIZ_TYPE" property="tarBizType" jdbcType="VARCHAR2" />
-		<result column="TAR_SORT_CODE" property="tarSortCode" jdbcType="VARCHAR2" />
-		
-		<result column="TAR_CFG_CODE" property="tarCfgCode" jdbcType="VARCHAR2" />
-		<result column="TAR_STATUS" property="tarStatus" jdbcType="VARCHAR2" />
-		<result column="TAR_DESC" property="tarDesc" jdbcType="VARCHAR2" />
-		<result column="MISC" property="misc" jdbcType="VARCHAR2" />
-		<result column="REMARK" property="remark" jdbcType="VARCHAR2" />
-		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR2" />
+		<result column="STORE_DATE" property="storeDate" jdbcType="VARCHAR" />
+		<result column="PRDTYPE_CODE" property="prdtypeCode" jdbcType="VARCHAR" />
+		<result column="SUBJ_CODE" property="subjCode" jdbcType="VARCHAR" />
+		<result column="TAR_SCOPE" property="tarScope" jdbcType="VARCHAR" />
+		<result column="TAR_BIZ_TYPE" property="tarBizType" jdbcType="VARCHAR" />
+		<result column="TAR_SORT_CODE" property="tarSortCode" jdbcType="VARCHAR" />
+		<result column="TAR_STATUS" property="tarStatus" jdbcType="VARCHAR" />
+		<result column="TAR_DESC" property="tarDesc" jdbcType="VARCHAR" />
+		<result column="MISC" property="misc" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="DAY_SCOPE" property="dayScope" jdbcType="VARCHAR" />
+		<result column="ATTENTION" property="attention" jdbcType="VARCHAR" />
+		<result column="DATA_SOURCE" property="dataSource" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
 		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
-		<result column="CREATE_ORG" property="createOrg" jdbcType="VARCHAR2" />
-		<result column="LAST_UPD_USER" property="lastUpdUser" jdbcType="VARCHAR2" />
-		<result column="LAST_UPD_ORG" property="lastUpdOrg" jdbcType="VARCHAR2" />
+		<result column="CREATE_ORG" property="createOrg" jdbcType="VARCHAR" />
+		<result column="LAST_UPD_USER" property="lastUpdUser" jdbcType="VARCHAR" />
+		<result column="LAST_UPD_ORG" property="lastUpdOrg" jdbcType="VARCHAR" />
 		<result column="LAST_UPD_TIME" property="lastUpdTime" jdbcType="TIMESTAMP" />
-		<result column="DAY_SCOPE" property="dayScope" jdbcType="VARCHAR2" />
 	</resultMap>
 	
 	<select id="getQtyDef" resultClass="QtyDefPo">
-		select a.TAR_CODE as tarCode,a.TAR_NAME as tarName,b.TAR_SORT_NAME as tarSortName,a.TAR_SCOPE as tarScope,a.TAR_TYPE as tarType,c.UNIT_NAME as unitName,a.TAR_PROPERTY as tarProperty
-		from PFM_TM_QTY_DEF a left join PFM_TM_SORT b on a.TAR_SORT_CODE=b.TAR_SORT_CODE left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
+		select 
+		a.TAR_CODE as tarCode,
+		a.TAR_NAME as tarName,
+		a.TAR_SCOPE as tarScope,
+		a.TAR_TYPE as tarType,
+		a.TAR_SORT_CODE as tarSortCode,
+		c.UNIT_NAME as unitName,
+		a.TAR_PROPERTY as tarProperty,
+		a.ATTENTION as attention,
+		a.DATA_SOURCE as dataSource
+		from PFM_TM_QTY_DEF a 
+		left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
 		<dynamic prepend="where">
 			<isNotEmpty property="qtyDef.tarCode" prepend="and">
 				a.TAR_CODE=#qtyDef.tarCode#
@@ -65,7 +73,7 @@
 				a.TAR_STATUS=#qtyDef.tarStatus#
 			</isNotEmpty>
 			<isNotEmpty property="qtyDef.storeDate" prepend="and">
-				STORE_DATE=#qtyDef.storeDate#
+				a.STORE_DATE=#qtyDef.storeDate#
 			</isNotEmpty>
 			<!-- 公共部分选择 条件-->
 			<isNotEmpty property="qtyDef.tarType" prepend="and">
@@ -76,43 +84,7 @@
 			</isNotEmpty>
 		</dynamic>
 	</select>
-	<select id="getQtyDefCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from PFM_TM_QTY_DEF 
-		<dynamic prepend="where">
-			<isNotEmpty property="qtyDef.tarCode" prepend="and">
-				TAR_CODE=#qtyDef.tarCode#
-			</isNotEmpty>
-			<isNotEmpty property="qtyDef.tarName" prepend="and">
-				TAR_NAME like '%$qtyDef.tarName$%'
-			</isNotEmpty>
-			<isNotEmpty property="qtyDef.createOrg" prepend="and">
-				CREATE_ORG=#qtyDef.createOrg#
-			</isNotEmpty>
-			<isNotEmpty property="qtyDef.tarSortCode" prepend="and">
-				TAR_SORT_CODE=#qtyDef.tarSortCode#
-			</isNotEmpty>
-			<isNotEmpty property="tarScopeList" prepend="and">
-				<iterate open="(" close=")" conjunction="or"
-					property="tarScopeList">
-					TAR_SCOPE=#tarScopeList[]#
-				</iterate>
-			</isNotEmpty>
-			<isNotEmpty property="qtyDef.tarStatus" prepend="and">
-				TAR_STATUS=#qtyDef.tarStatus#
-			</isNotEmpty>
-			
-			<isNotEmpty property="qtyDef.storeDate" prepend="and">
-				STORE_DATE=#qtyDef.storeDate#
-			</isNotEmpty>
-			<!-- 公共部分选择 条件-->
-			<isNotEmpty property="qtyDef.tarType" prepend="and">
-				TAR_TYPE=#qtyDef.tarType#
-			</isNotEmpty>
-			<isNotEmpty property="dayMoney" prepend="and">
-				TAR_PROPERTY!='2'
-			</isNotEmpty>
-		</dynamic>
-	</select>
+	
 	<select id="getOneQtyDef" resultClass="QtyDefPo">
 		select 
 		a.TAR_CODE as tarCode,
@@ -127,19 +99,16 @@
 		a.TAR_PROC_DATE as tarProcDate,
 		a.STORE_DATE as storeDate,
 		a.PRDTYPE_CODE as prdtypeCode,
-		d.PRD_NAME as prdtypeName,
-		e.SUBJECT_NAME as subjName,
 		a.SUBJ_CODE as subjCode,
 		a.TAR_SCOPE as tarScope,
-		a.TAR_SCOPE,
 		a.TAR_BIZ_TYPE as tarBizType,
 		a.TAR_SORT_CODE as tarSortCode,
-		b.TAR_SORT_NAME as tarSortName,
-		a.TAR_CFG_CODE as tarCfgCode,
 		a.TAR_STATUS as tarStatus,
 		a.TAR_DESC as tarDesc,
 		a.MISC as misc,
 		a.REMARK as remark,
+		a.ATTENTION as attention,
+		a.DATA_SOURCE as dataSource,
 		a.CREATE_USER as createUser,
 		a.CREATE_TIME as createTime,
 		a.CREATE_ORG as createOrg,
@@ -148,9 +117,8 @@
 		a.LAST_UPD_ORG as lastUpdOrg,
 		a.LAST_UPD_TIME as lastUpdTime,
 		a.DAY_SCOPE as dayScope
-	    from PFM_TM_QTY_DEF a left join PFM_TM_SORT b on a.TAR_SORT_CODE=b.TAR_SORT_CODE left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
-	    left join PUB_PRODUCT d on a.PRDTYPE_CODE=d.PRD_CODE
-	    left join PUB_SUBJECT e on a.SUBJ_CODE=e.SUBJECT_ID
+	    from PFM_TM_QTY_DEF a 
+	    left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
 	    where a.TAR_CODE=#value#
 	</select>
 	<select id="getQtyDefByTarName" resultClass="QtyDefPo">
@@ -169,14 +137,14 @@
 		a.PRDTYPE_CODE as prdtypeCode,
 		a.SUBJ_CODE as subjCode,
 		a.TAR_SCOPE as tarScope,
-		a.TAR_SCOPE,
 		a.TAR_BIZ_TYPE as tarBizType,
 		a.TAR_SORT_CODE as tarSortCode,
-		a.TAR_CFG_CODE as tarCfgCode,
 		a.TAR_STATUS as tarStatus,
 		a.TAR_DESC as tarDesc,
 		a.MISC as misc,
 		a.REMARK as remark,
+		a.ATTENTION as attention,
+		a.DATA_SOURCE as dataSource,
 		a.CREATE_USER as createUser,
 		a.CREATE_TIME as createTime,
 		a.CREATE_ORG as createOrg,
@@ -184,23 +152,24 @@
 		a.LAST_UPD_ORG as lastUpdOrg,
 		a.LAST_UPD_TIME as lastUpdTime,
 		a.DAY_SCOPE as dayScope
-	    from pfm_tm_qty_def a
-	    where a.tar_status='1' and a.tar_name=#value#
+	    from PFM_TM_QTY_DEF a 
+	    where a.TAR_STATUS='1' and a.TAR_NAME=#value#
 	</select>
+	
 	<select id="getQtyDefByTarCodeIn" resultClass="QtyDefPo">
-	  select a.TAR_CODE as tarCode,a.TAR_NAME as tarName,
-	  a.TAR_SCOPE as tarScope,
-	  b.TAR_SORT_NAME as tarSortName from PFM_TM_QTY_DEF a left join PFM_TM_SORT b on
-	  a.TAR_SORT_CODE=b.TAR_SORT_CODE
-	  where a.TAR_CODE in
-				<iterate open="(" close=")" conjunction=","
-					property="tarCodeList">
-					#tarCodeList[]#
-				</iterate>
+	select a.TAR_CODE as tarCode,a.TAR_NAME as tarName,
+	a.TAR_SCOPE as tarScope from PFM_TM_QTY_DEF a
+	where a.TAR_CODE in
+		<iterate open="(" close=")" conjunction=","
+			property="tarCodeList">
+			#tarCodeList[]#
+		</iterate>
 	</select>
+	
 	<select id="getQtyDefBySort" resultMap="QtyDefMap">
 		select * from PFM_TM_QTY_DEF WHERE TAR_STATUS='1' and TAR_SORT_CODE=#value#
 	</select>
+	
 	<select id="getQtyDefByPointPtar" resultMap="QtyDefMap">
 		select * from PFM_TM_QTY_DEF
 		<dynamic prepend="where">
@@ -215,49 +184,22 @@
 			</isNotNull>
 		</dynamic>
 	</select>
-	<select id="getPointAverRela" parameterClass="java.lang.String" resultClass="PointAverRela">
-		select 
-		a.P_TARCODE as ptarCode,
-		a.A_TARCODE as atarCode,
-		a.DAY_SCOPE as dayScope
-		from PFM_TM_POINT_AVER_RELA a WHERE a.P_TARCODE=#value#
-	</select>
+	
 	<select id="getAtarCodeByPtarCode" resultClass="java.lang.String">
 		select 
 		a.A_TARCODE
 		from PFM_TM_POINT_AVER_RELA a WHERE a.P_TARCODE=#value#
 	</select>
-	<select id="getPointByPtarCodeDayScope" parameterClass="java.util.Map" resultClass="PointAverRela">
-		select 
-		a.P_TARCODE as ptarCode,
-		a.A_TARCODE as atarCode,
-		a.DAY_SCOPE as dayScope
-		from PFM_TM_POINT_AVER_RELA a
-		<dynamic prepend="where">
-			<isNotEmpty property="ptarCode" prepend="and">
-				a.P_TARCODE=#ptarCode#
-			</isNotEmpty>
-			<isNotEmpty prepend="and" property="dayScopeList">
-				<iterate open="(" close=")" conjunction="or"
-					property="dayScopeList">
-					a.DAY_SCOPE=#tarCodeList[]#
-				</iterate>
-			</isNotEmpty>
-		</dynamic>
-	</select>
+	
 	<insert id="addQtyDef" parameterClass="QtyDefPo">
 		insert into PFM_TM_QTY_DEF (TAR_CODE,TAR_NAME,BS_FLAG,MEAS_UNIT_CODE,MEAS_DEF_CODE,TAR_TYPE,
 		TAR_PROPERTY,STAT_SCOPE_CODE,PROC_DATE_CODE,TAR_PROC_DATE,STORE_DATE,PRDTYPE_CODE,SUBJ_CODE,
-		TAR_SCOPE,TAR_BIZ_TYPE,TAR_SORT_CODE,TAR_CFG_CODE,TAR_STATUS,TAR_DESC,MISC,REMARK,CREATE_USER,
-		CREATE_TIME,CREATE_ORG,LAST_UPD_USER,LAST_UPD_ORG,LAST_UPD_TIME,DAY_SCOPE)
+		TAR_SCOPE,TAR_BIZ_TYPE,TAR_SORT_CODE,TAR_STATUS,TAR_DESC,MISC,REMARK,DAY_SCOPE,DATA_SOURCE,CREATE_USER,
+		CREATE_TIME,CREATE_ORG,LAST_UPD_USER,LAST_UPD_ORG,LAST_UPD_TIME)
 		values(#tarCode:VARCHAR#,#tarName:VARCHAR#,#bsFlag:VARCHAR#,#measUnitCode:VARCHAR#,#measDefCode:VARCHAR#,#tarType:VARCHAR#,#tarProperty:VARCHAR#,
 		#statScopeCode:VARCHAR#,#procDateCode:VARCHAR#,#tarProcDate:VARCHAR#,#storeDate:VARCHAR#,#prdtypeCode:VARCHAR#,#subjCode:VARCHAR#,#tarScope:VARCHAR#,
-		#tarBizType:VARCHAR#,#tarSortCode:VARCHAR#,#tarCfgCode:VARCHAR#,#tarStatus:VARCHAR#,#tarDesc:VARCHAR#,#misc:VARCHAR#,#remark:VARCHAR#,#createUser:VARCHAR#,
-		#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#lastUpdUser:VARCHAR#,#lastUpdOrg:VARCHAR#,#lastUpdTime:TIMESTAMP#,#dayScope:VARCHAR#)
-	</insert>
-	<insert id="addPointAverRela" parameterClass="PointAverRela">
-		insert into PFM_TM_POINT_AVER_RELA (P_TARCODE,A_TARCODE,DAY_SCOPE)
-		values(#ptarCode:VARCHAR#,#atarCode:VARCHAR#,#dayScope:VARCHAR#)
+		#tarBizType:VARCHAR#,#tarSortCode:VARCHAR#,#tarStatus:VARCHAR#,#tarDesc:VARCHAR#,#misc:VARCHAR#,#remark:VARCHAR#,#dayScope:VARCHAR#,#dataSource:VARCHAR#,#createUser:VARCHAR#,
+		#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#lastUpdUser:VARCHAR#,#lastUpdOrg:VARCHAR#,#lastUpdTime:TIMESTAMP#)
 	</insert>
 	
 	<insert id="addQtyExp" parameterClass="QtyExpDefPo">
@@ -265,14 +207,6 @@
 		values(#tarCode:VARCHAR#,#tarScope:VARCHAR#,#calcExp:VARCHAR#,#sqlExp:VARCHAR#,#misc:VARCHAR#,#remark:VARCHAR#,#createUser:VARCHAR#,#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#lastUpdUser:VARCHAR#,#lastUpdTime:TIMESTAMP#,#lastUpdOrg:VARCHAR#)
 	</insert>
 	<insert id="addQtyExpRela" parameterClass="QtyExpRelaPo">
-		<!-- insert into pfm_tm_qty_exp_rela(
-		TAR_CODE,
-	    TAR_SCOPE, 
-	    RELA_TAR_CODE 
-		)values(
-		#tarCode:VARCHAR#,
-		#tarScope:VARCHAR#,
-		#relaTarCode:VARCHAR#) -->
 		insert into pfm_tm_qty_exp_rela(
 		TAR_CODE,	   
 	    RELA_TAR_CODE 
@@ -298,20 +232,19 @@
 			<isNotNull prepend="," property="tarScope">TAR_SCOPE = #tarScope#</isNotNull>
 			<isNotNull prepend="," property="tarBizType">TAR_BIZ_TYPE = #tarBizType#</isNotNull>
 			<isNotNull prepend="," property="tarSortCode">TAR_SORT_CODE = #tarSortCode#</isNotNull>
-			
-			<isNotNull prepend="," property="tarCfgCode">TAR_CFG_CODE = #tarCfgCode#</isNotNull>
 			<isNotNull prepend="," property="tarStatus">TAR_STATUS = #tarStatus#</isNotNull>
 			<isNotNull prepend="," property="tarDesc">TAR_DESC = #tarDesc#</isNotNull>
 			<isNotNull prepend="," property="misc">MISC = #misc#</isNotNull>
 			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+			<isNotNull prepend="," property="dayScope">DAY_SCOPE = #dayScope#</isNotNull>
+			<isNotNull prepend="," property="attention">ATTENTION = #attention#</isNotNull>
+			<isNotNull prepend="," property="dataSource">DATA_SOURCE = #dataSource#</isNotNull>
 			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
-			
 			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
 			<isNotNull prepend="," property="createOrg">CREATE_ORG = #createOrg#</isNotNull>
 			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
 			<isNotNull prepend="," property="lastUpdOrg">LAST_UPD_ORG = #lastUpdOrg#</isNotNull>
 			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
-			<isNotNull prepend="," property="dayScope">DAY_SCOPE = #dayScope#</isNotNull>
 		</dynamic>
 		where 
 			TAR_CODE = #tarCode#
@@ -332,25 +265,10 @@
 		</dynamic>
 	</update>
 	
-	<!-- <update id="updQtyForStatus1" parameterClass="java.util.Map">
-		update PFM_TM_QTY_DEF 
-		set TAR_STATUS = #tarStatus#
-		where tar_code in ($tarCodeList$)
-	</update> -->
-	
 	<update id="updQtyForStatusById" parameterClass="java.util.Map">
 		update PFM_TM_QTY_DEF  set TAR_STATUS=#tarStatus# where TAR_CODE=#tarCode#
 	</update>
 	
-	<delete id="delPointAverRela" parameterClass="java.lang.String">
-		delete from PFM_TM_POINT_AVER_RELA where 
-			P_TARCODE = #value#
-	</delete>
-	
-	<delete id="delPointAverRelaById" parameterClass="java.util.Map">
-		delete from PFM_TM_POINT_AVER_RELA where 
-			P_TARCODE = #pTarcode# and DAY_SCOPE=#dayScope#
-	</delete>
 	<delete id="delQtyByTarCodeIn" parameterClass="java.util.Map">
 		delete from PFM_TM_QTY_DEF WHERE
 				<iterate open="(" close=")" conjunction="or"
@@ -374,7 +292,7 @@
 		  LAST_UPD_TIME as lastUpdTime,
 		  LAST_UPD_ORG as lastUpdOrg
 		  from PFM_TM_QTY_EXP_DEF 
-		where  TAR_CODE = #value#
+		  where TAR_CODE = #value#
 	</select>
 	
 	<update id="updQtyExpDefPo" parameterClass="java.util.Map">
@@ -385,20 +303,20 @@
 		  LAST_UPD_USER = #lastUpdUser#,
 		  LAST_UPD_TIME = #lastUpdTime#,
 		  LAST_UPD_ORG = #lastUpdOrg#		
-		where  TAR_CODE = #tarCode#
+		  where TAR_CODE = #tarCode#
 	</update>
 	
 	<delete id="delQtyExpRela" parameterClass="java.lang.String">
-		delete from PFM_TM_QTY_EXP_RELA WHERE TAR_CODE = #value#			
+		delete from PFM_TM_QTY_EXP_RELA WHERE TAR_CODE = #value#
 	</delete>
 	
 	<select id="getQtyExpRela" parameterClass="java.lang.String" resultClass="java.util.Map">
 		select
-		TAR_CODE,	   
-	    RELA_TAR_CODE
-		from PFM_TM_QTY_EXP_RELA 		  
-		where TAR_CODE = #value#
+		a.TAR_CODE,
+		a.RELA_TAR_CODE
+		from PFM_TM_QTY_EXP_RELA a
+		INNER JOIN PFM_TM_QTY_DEF b on a.TAR_CODE=b.TAR_CODE and b.TAR_STATUS='1'
+		where RELA_TAR_CODE = #value#
 	</select>
 	
 </sqlMap>
-
