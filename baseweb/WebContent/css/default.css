@@ -10,7 +10,7 @@ html,body {
 	width: 100%;
 	height: 100%;
 	font-size: 12px;
-	font-family: "新宋体";
+	font-family: "鏂板畫浣?";
 	/* overflow-x: hidden;
 	overflow-y: auto; */
 }
@@ -637,7 +637,7 @@ fieldset legend {
 	background: #fff url('./../images/bar-button.gif') no-repeat right center;
 }
 
-/**日期输入框样式*/
+/**鏃ユ湡杈撳叆妗嗘牱寮?*/
 .l-text {
 	border: none;
 	width: 203px;
@@ -661,7 +661,7 @@ fieldset legend {
 	height: 100%;
 }
 
-/**普通表单样式一**/
+/**鏅?氳〃鍗曟牱寮忎竴**/
 .s1-params,.s1-button {
 	width: 100%;
 }
@@ -840,7 +840,7 @@ input[type=text] {
 	border-radius: 5px 5px 0 0;
 }
 
-/** 漂浮窗 **/
+/** 婕傛诞绐? **/
 .window_fd {
 	width: 250px;
 	border: 1px solid #fb6c02;
@@ -966,7 +966,7 @@ input:FOCUS,select:FOCUS,textarea:FOCUS{
 	background-color:#FFFFBB;
 }
 
-/** 右下角弹出窗口(开始) **/
+/** 鍙充笅瑙掑脊鍑虹獥鍙?(寮?濮?) **/
 #tipp { 
 	position: absolute; 
 	right: 0px; 
@@ -1002,4 +1002,4 @@ input:FOCUS,select:FOCUS,textarea:FOCUS{
 	color: #FFFFFF; 
 } 
 
-/** 右下角弹出窗口(结束) **/
+/** 鍙充笅瑙掑脊鍑虹獥鍙?(缁撴潫) **/

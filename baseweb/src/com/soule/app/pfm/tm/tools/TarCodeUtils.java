@@ -34,9 +34,6 @@ public class TarCodeUtils {
 		if(slio!=null){
 			sb.append("-").append(slio);
 		}
-		if(pahfx!=null){
-			sb.append("-").append(pahfx);
-		}
 		if(sb.charAt(sb.length()-1)=='-'){
 		    sb.append(getSeq());
 		}else{
@@ -44,12 +41,7 @@ public class TarCodeUtils {
 		}
 		return sb.toString();
 	}
-	public String gerneratedKey(String qx,String slio,String pahfx){
-		return gerneratedKey(qx, null, slio, pahfx);
-	}
-	public String gerneratedKey(String qx,String pahfx){
-		return gerneratedKey(qx,null,pahfx);
-	}
+	
 	private String getSeq(){
 		try {
 			long res=keyGenerator.getSeqence(tableName);

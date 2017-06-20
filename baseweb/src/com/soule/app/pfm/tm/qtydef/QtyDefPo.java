@@ -22,7 +22,7 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	//计量单位	
 	private String measUnitCode;
 	private String measUnitCodeName;
-	//数据业型	
+	//数据类型	
 	private String measDefCode;
 	//指标类型
 	private String tarType;
