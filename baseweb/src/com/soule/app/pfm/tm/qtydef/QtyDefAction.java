@@ -1,4 +1,3 @@
-
 package com.soule.app.pfm.tm.qtydef;
 import java.io.PrintWriter;
 import java.util.Date;

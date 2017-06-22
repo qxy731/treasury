@@ -50,9 +50,6 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	private String tarBizType;
 	//指标分类编码	
 	private String tarSortCode;
-	private String tarSortName;
-	//指标归集主键	
-	private String tarCfgCode;
 	//指标状态	（默认为已录入）
 	private String tarStatus=STATUS_INPUT;
 	//指标名称
@@ -62,6 +59,12 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	//杂项	
 	private String misc;
 	private String remark;
+	//日均范围	
+	private String dayScope;
+	//是否关注
+	private String attention;
+	//数据来湃
+	private String dataSource;
 	//创建人	
 	private String createUser;
 	//创建时间	
@@ -75,11 +78,6 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	private String lastUpdOrg;
 	//修改时间	
 	private Date lastUpdTime;
-	//日均范围	
-	private String dayScope;
-	
-	
-	
 	
 	public String getTarCode() {
 		return tarCode;
@@ -140,11 +138,9 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	}
 	public void setTarType(String tarType) {
 	    if(TAR_TYPE_BASE.equals(tarType)){
-	        this.tarTypeName="基础";
+	        this.tarTypeName=TAR_TYPE_BASE_NAME;
 	    }else if(TAR_TYPE_MIX.equals(tarType)){
-	        this.tarTypeName="复合";
-	    }else if(TAR_TYPE_HANDLE.equals(tarType)){
-	        this.tarTypeName="手工";
+	        this.tarTypeName=TAR_TYPE_MIX_NAME;
 	    }
 		this.tarType = tarType;
 	}
@@ -178,6 +174,7 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	public String getStoreDate() {
 		return storeDate;
 	}
+	
 	public void setStoreDate(String storeDate) {
 		if (SAVE_TYPE_DAY.equals(storeDate)) {
 			storeDateName = SAVE_TYPE_DAY_NAME;
@@ -229,18 +226,6 @@ public class QtyDefPo extends BaseTar implements Serializable{
 		this.tarSortCode = tarSortCode;
 	}
 	
-	public String getTarSortName() {
-		return tarSortName;
-	}
-	public void setTarSortName(String tarSortName) {
-		this.tarSortName = tarSortName;
-	}
-	public String getTarCfgCode() {
-		return tarCfgCode;
-	}
-	public void setTarCfgCode(String tarCfgCode) {
-		this.tarCfgCode = tarCfgCode;
-	}
 	public String getTarStatus() {
 		return tarStatus;
 	}
@@ -337,4 +322,31 @@ public class QtyDefPo extends BaseTar implements Serializable{
 		this.subjName = subjName;
 	}
 	
+	public String getDataSource() {
+		return dataSource;
+	}
+	public void setDataSource(String dataSource) {
+		this.dataSource = dataSource;
+	}
+	public void setBsFlagName(String bsFlagName) {
+		this.bsFlagName = bsFlagName;
+	}
+	public void setMeasUnitCodeName(String measUnitCodeName) {
+		this.measUnitCodeName = measUnitCodeName;
+	}
+	public void setTarTypeName(String tarTypeName) {
+		this.tarTypeName = tarTypeName;
+	}
+	public void setStoreDateName(String storeDateName) {
+		this.storeDateName = storeDateName;
+	}
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+	public String getAttention() {
+		return attention;
+	}
+	public void setAttention(String attention) {
+		this.attention = attention;
+	}
 }

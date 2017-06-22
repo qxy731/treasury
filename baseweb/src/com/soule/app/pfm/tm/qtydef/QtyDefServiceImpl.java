@@ -392,7 +392,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 		}*/
 	 
 	 /**
-	  * 保存复合指标引用关联指标
+	  * 保存衍生指标引用关联指标
 	  * @param indicator
 	  * @param calcExp
 	  * @throws ServiceException

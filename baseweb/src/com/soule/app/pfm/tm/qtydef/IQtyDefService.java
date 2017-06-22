@@ -13,7 +13,7 @@ public interface IQtyDefService {
 	 * @throws ServiceException
 	 * @throws DbAccessException
 	 */
-	public QtyDefInsertOut insert(QtyDefPo newQtyDef, List<String> dayScopeList,QtyExpDefPo qtyExp)
+	public QtyDefInsertOut insert(QtyDefPo newQtyDef, QtyExpDefPo qtyExp)
 			throws ServiceException, DbAccessException;
 
 	/**
@@ -35,7 +35,7 @@ public interface IQtyDefService {
 	 * @throws ServiceException
 	 * @throws DbAccessException
 	 */
-	public QtyDefUpdateOut update(QtyDefPo qtydef,List<String>dayScopeList,QtyExpDefPo qtyExp) throws ServiceException,
+	public QtyDefUpdateOut update(QtyDefPo qtydef,QtyExpDefPo qtyExp) throws ServiceException,
 			DbAccessException;
 
 	public QtyDefDeleteOut delete(QtydefDeleteIn in) throws ServiceException,
