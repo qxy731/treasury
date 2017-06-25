@@ -16,7 +16,7 @@ body {
 </style>
 </head>
 <body>
-<n:page action='com.soule.app.sys.staff.StaffAction' />
+<n:page action='com.soule.app.pfm.tm.model.action.ModelDefAction' />
 <n:enums keys='valid_type,sex,partime_job_type'/>
 <table class="content" cellpadding="5">
 	<tr>
@@ -107,13 +107,13 @@ body {
 	});
 	function insertStaff() {
 		//var url = 'staffManager!insertUI.action';
-		var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
+		var url = '${_CONTEXT_PATH}/jsp/pfm/target/targetModel/modelAdd.jsp';
 		
 		var p = {
 				id : "insertStaff",
-				title : '新增人员',
-				width : 500,
-				height : 600,
+				title : '新增模型',
+				height:'80%',
+				width:'80%',
 				opacity : 0.07
 			}; 
 		//Utils.openTab("insertStaff","新增人员",url);
@@ -132,8 +132,8 @@ body {
 		var p = {
 				id : "updateStaff",
 				title : '修改人员',
-				width : 500,
-				height : 450,
+				width : 600,
+				height : 500,
 				opacity : 0.07
 			}; 
 		//var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
@@ -155,21 +155,17 @@ body {
 		});
 	}
 	function query() {
-		var staffId = $("#staffId").val();
-		var staffName=$("#staffName").val();
-		var staffLevel = $("#staffLevel").val();
-		var staffStatus = $("#staffStatus").val();
-		var unitId = $("#unitId").val();
+		var modelCode = $("#modelCode").val();
+		var modelName=$("#modelName").val();
+		var modelStatus = $("#modelStatus").val();
 		var params = {
 			dataAction:'server',
 			dataType:'server',
-			url: '${_CONTEXT_PATH}/sys/staff!query.action',
+			url: '${_CONTEXT_PATH}/modelDef/model-def!query.action',
 			newPage:1,
-			parms:[{name:'queryIn.staffId',value:staffId}
-			,{name:'queryIn.staffName',value:staffName}
-			,{name:'queryIn.staffLevel',value:staffLevel}
-			,{name:'queryIn.staffStatus',value:staffStatus}
-			,{name:'queryIn.unitId',value:unitId}
+			parms:[{name:'queryIn.modelCode',value:modelCode}
+			,{name:'queryIn.modelName',value:modelName}
+			,{name:'queryIn.modelStatus',value:modelStatus}
 			]
 		};
 		var gridManager = $("#modellist").ligerGetGridManager(); 

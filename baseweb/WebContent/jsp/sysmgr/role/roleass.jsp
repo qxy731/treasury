@@ -159,9 +159,7 @@
 				</table>
 			</fieldset>
 			<table width="100%">
-				<tr>
-					<td><br /></td>
-				</tr>
+				
 				<tr>
 					<td></td>
 					<td align="center"><input id='reQuery' type='button'
@@ -200,9 +198,7 @@
 				</table>
 			</fieldset>
 			<table width="100%">
-				<tr>
-					<td><br /></td>
-				</tr>
+				
 				<tr>
 					<td></td>
 					<td align="right"><input id='queryStaff' name='query'

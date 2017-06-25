@@ -6,185 +6,420 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新增角色</title>
+<title>新增模型</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-body {
-	margin: 20px;
-	width: 90%;
-	height: 80%;
+.xcontent {
+	width: 100%;
+	height: 100%;
+	display: inline;
 }
-/*.s1-params {width:500px}*/
-#insertForm table td {
+
+.left {
+	margin: 5px 0 0 25px;
+	float: left;
+	padding: 0;
+	width: 45%;
+}
+
+.right {
+	margin: 5px 0 0 25px;
+	float: left;
+	padding: 0;
+	width: 50%;
+}
+
+.params tbody tr td {
+	background-color: #EAEFFF;
+	padding: 1px 1px 1px 10px;
 	line-height: 28px;
-	padding: 5px;
 }
 
-select, input[type=text] {
-	width: 150px;
+.params input, .params select {
+	width: 200px;
+	border: 1px solid #b3bcFF;
+	border-radius: 2px 2px 2px 2px;
+	vertical-align: bottom;
 }
 
-.div_bottom {
+.params input {
+	padding-left: 4px;
+	padding-bottom: 4px;
+	width: 141px;
+}
+
+.params select {
+	height: 22px;
+}
+
+.params input {
+	height: 16px;
+}
+
+.params {
+	width: 100%;
+}
+
+.params1 tbody tr td {
+	background-color: #EAEFFF;
+	padding: 1px 1px 1px 10px;
+	line-height: 28px;
+}
+
+.params1 input, .params select {
+	width: 200px;
+	border: 1px solid #b3bcFF;
+	border-radius: 2px 2px 2px 2px;
+	vertical-align: bottom;
+}
+
+.params1 input {
+	padding-left: 4px;
+	padding-bottom: 4px;
+	width: 141px;
+}
+
+.params1 select {
+	height: 22px;
+}
+
+.params1 input {
+	height: 16px;
+}
+
+.params1 {
+	width: 100%;
+}
+
+#operUnitname {
+	width: 198px;
+}
+
+#lefttoptoolbar {
+	wdith: 100%
+}
+
+#righttoptoolbar {
+	wdith: 100%
+}
+
+.mytoolbar {
+	height: 24px;
+	background:
+		url("${_CONTEXT_PATH}/jwebui/skins/sys/images/panel/panel-toolbar.jpg")
+		repeat-x scroll 0 0 #CEDFEF;
+	border: 1px solid #EFF7F7;
+	border-top: 1px solid #9CBAE7;
+	border-left: 1px solid #9CBAE7;
+	border-right: 1px solid #9CBAE7;
 	margin-top: 10px
 }
 
-.table_btn td {
-	padding: 1px 20px 1px 20px
+.mytoolbar .l-icon {
+	left: 2px;
+	position: absolute;
+	top: 1px;
+}
+
+.mytoolbar .l-toolbar-item-hasicon {
+	_margin-left: 4px;
+	padding-left: 20px;
+	_margin-top: 2px
+}
+
+.mytoolbar .l-toolbar-item-disable {
+	display: none
+}
+
+#staffName, #staffId, #unitname, #roleId {
+	width: 120px;
 }
 </style>
+</head>
+<n:page action='com.soule.app.sys.roleass.RoleassAction' />
+<body>
+	<div class="xcontent">
+		<div class="left">
+			<fieldset class="queryBox">
+				<legend>模型基础信息</legend>
+				<table class='params'>
+					<tr>
+						<td>模型名称</td>
+						<td><input id="modelName" name="modelName" type='text' /></td>
+					</tr>
+					<tr>
+						<td>模型描述</td>
+						<td><input id="modelDesc" name="modelDesc" type='text' /></td>
+					</tr>
 
-<script type="text/javascript">
+				</table>
+			</fieldset>
+			<table width="100%">
+				<tr>
+					<td><br /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td align="center"><input id='commit' type='button'
+						value='提&nbsp;&nbsp;交' class='l-button' /></td>
+				</tr>
+				<tr>
+					<td><br /></td>
+				</tr>
+			</table>
+			<fieldset class="detailBox">
+				<div id='lefttoptoolbar' class='mytoolbar'></div>
+				<div id='modelTarlist'></div>
+			</fieldset>
+		</div>
+		<div class="right">
+			<fieldset class="queryBox">
+				<legend>指标查询</legend>
+				<table class='params1'>
+					<tr>
+						<td align="right">指标代码</td>
+						<td><input id='tarCode' name='tarCode' type="text" /></td>
+						<td align="right">指标名称</td>
+						<td><input id='tarName' name='tarName' type="text" /></td>
+
+					</tr>
+					<tr>
+						<td align="right">建立部门</td>
+						<td>
+						<input id='createOrg' name='createOrg' type='hidden' value="${logUserInfo.operUnitId}"/>
+						<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
+						</td>
+						
+						<td align="right"></td>
+						<td>
+						</td>
+
+					</tr>
+				</table>
+			</fieldset>
+			<table width="100%">
+				<tr>
+					<td><br /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td align="right"><input id='queryTar' name='query'
+						type='button' value='查&nbsp;&nbsp;询' class='l-button' /></td>
+					<td width="5%"></td>
+					<td width="5%"></td>
+					<td align="left"><input id='reset' name='reset' type='button'
+						value='重&nbsp;&nbsp;置' class='l-button' /></td>
+					<td></td>
+
+				</tr>
+				<tr>
+					<td><br /></td>
+				</tr>
+			</table>
+			<fieldset class="detailBox">
+				<div id='righttoptoolbar' class='mytoolbar'></div>
+				<div id='tarlist'></div>
+			</fieldset>
+		</div>
+	</div>
+</body>
+<script type='text/javascript'>
 	$(function() {
-		Utils.validateInit();
-		$('#commit').bind('click', addStaff);
-		$('#cancel').bind('click', cancelDialog);
-	});
-	function addStaff(dialog) {
-		if ($("#insertForm").valid()) {
-			var url = "${_CONTEXT_PATH}/sys/staff!insert.action";
-			var data = Utils.convertFormData('insertIn', 'insertForm');
-			Utils.ajaxSubmit(url, data, function(result) {
-				$.dialogBox.info(result.retMsg, function() {
-					$.dialog.close();
-				});
-			});
-		}
-		return false;
-	}
-	function clearScreen() {
-		$('input').each(function(i, item) {
+		//输出表格
+		$("#lefttoptoolbar").ligerToolBar({
+			items : [ {
+				text : '删除指标',
+				name : 'delete_btn',
+				icon : 'delete',
+				click : deleteTar
+			} ],
+			width : '99%'
+		});
+
+		$("#righttoptoolbar").ligerToolBar({
+			items : [ {
+				text : '增加指标',
+				name : 'insert_btn',
+				icon : 'add',
+				click : insertTar
+			} ],
+			width : '99%'
+		});
+
+		$("#modelTarlist").ligerGrid({
+			columns : [ {
+				display : '指标编号',
+				name : 'tarCode',
+				align : 'left',
+				width : '50%'
+			}, {
+				display : '指标名称',
+				name : 'tarName',
+				align : 'left',
+				width : '50%'
+			} ],
+			//buttons:[
+			//{text:'删除人员',name:'delete_btn',clazz:'nbutton'}
+			//],
+			checkbox : true,
+			pageSize : 20,
+			sortName : 'tarCode',
+			height : '90%',
+			onError : function() {
+				$.dialogBox.error("查询数据失败");
+			}
+		});
+		$("#tarlist").ligerGrid({
+			columns : [ {
+				display : '指标编号',
+				name : 'tarCode',
+				align : 'left',
+				width : '50%'
+			}, {
+				display : '指标名称',
+				name : 'tarName',
+				align : 'left',
+				width : '50%'
+			}  ],
+			checkbox : true,
+			pageSize : 20,
+			sortName : 'tarCode',
+			height : '90%',
+			onError : function() {
+				$.dialogBox.error("查询数据失败");
+			}
+		});
+		$("#queryTar").bind('click', queryTar);
+		$("#reQuery").bind('click', queryByRole);
+		$("#reset").bind('click', doClear);
+		$("#delete_btn").bind('click', deleteTar);
+		$("#insert_btn").bind('click ', insertTar);
+		$("#operUnitname").bind('click ', openSelectUnit);
+		$("#unitname").bind('click ', openSelectUnit1);
+	})
+	function doClear() {
+		$(".queryBox input[type='text']").each(function(i, item) {
 			item.value = '';
 		});
+		$("#unitId").val('');
+	}
+
+	function queryTar() {
+		var tarCode = $("#tarCode").val();
+		var tarName = $("#tarName").val();
+		var tarScope = "11000000";
+		var createOrg = $("#createOrg").val();
+		var params = {
+			dataAction:'server',
+			dataType:'server',
+			url: '${_CONTEXT_PATH}/qtydefManager/qty-def!query.action',
+			newPage:1,
+			parms:[{name:'queryIn.tarCode',value:tarCode}
+			,{name:'queryIn.tarName',value:tarName}
+			,{name:'queryIn.tarScope',value:tarScope}
+			,{name:'queryIn.createOrg',value:createOrg}
+			]
+		};
+		grid = $("#tarlist").ligerGetGridManager(); 
+		grid.setOptions(params);
+		grid.loadData();
+	}
+	//将指标信息写入模型指标列表中的页面缓存中
+	function insertTar() {
+		var grid = $('#modelTarlist').ligerGetGridManager();
+		var grid1 = $('#tarlist').ligerGetGridManager();
+		var rows1 = grid1.getCheckedRows();
+		var datas = grid.getData();
+		var i =0;
+		while(i<rows1.length){
+			
+			var flag = true;
+			var j = 0 ;
+			while(j<datas.length){
+				if(datas[j].tarCode == rows1[i].tarCode && datas[j]._status!="delete"){
+					flag = false;
+					break;
+				}
+				j++
+			}
+			
+			if(flag){
+				grid.addRow(rows1[i]);
+			}
+			i++;
+		}
+	}
+	function deleteTar() {
+		var grid = $('#modelTarlist').ligerGetGridManager();
+		var rows = grid.getCheckedRows();
+		if (rows.length < 1) {
+			Utils.alert("请先选择需要删除的记录");
+			return;
+		}
+		$.dialogBox.alert('确定删除吗？', function() {
+			grid.deleteSelectedRow();
+		}, true);
+
 	}
 
 	function openSelectUnit() {
-		Utils.openSelectUnit(null, '', setUnitIdName);
+		Utils.openSelectUnit(null, _CREATE_ORG, setUnitIdName);
 	}
-
 	function setUnitIdName() {
 		var selectNode = this.iframe.contentWindow.manager.getSelected();
 		if (selectNode) {
 			var unitId = selectNode.data.unitId;
 			var unitName = selectNode.data.unitName;
-			$("#ownerUnitid").val(unitId);
-			$("#zzname").val(unitName);
+			$("#operUnitid").val(unitId);
+			$("#operUnitname").val(unitName);
+			queryByRole();
 		}
 	}
-	function cancelDialog() {
-		$.dialogBox.close();
+	function openSelectUnit1() {
+		Utils.openSelectUnit(null, _CREATE_ORG, setUnitIdName1);
 	}
+	function setUnitIdName1() {
+		var selectNode = this.iframe.contentWindow.manager.getSelected();
+		if (selectNode) {
+			var unitId = selectNode.data.unitId;
+			var unitName = selectNode.data.unitName;
+			$("#unitId").val(unitId);
+			$("#unitname").val(unitName);
+		}
+	}
+	
+	var onSuccess = function() {
+		queryByRole();
+	}
+	function queryByRole() {
+		var url = "${_CONTEXT_PATH}/sys/roleass!queryByRole.action";
+		var roleid = $("#qRoleId").val();
+		var operUnitid = $("#operUnitid").val();
+		var staffId = $("#staffId").val();
+		var staffName = $("#staffName").val();
+		var params = {
+			dataAction : 'server',
+			dataType : 'server',
+			url : url,
+			newPage : 1,
+			parms : [ {
+				name : 'queryByRoleIn.roleId',
+				value : roleid
+			}, {
+				name : 'queryByRoleIn.operUnitid',
+				value : operUnitid
+			}, {
+				name : 'queryByRoleIn.staffId',
+				value : staffId
+			}, {
+				name : 'queryByRoleIn.staffName',
+				value : staffName
+			} ]
+		};
+		var gridManager = $("#roleStafflist").ligerGetGridManager();
+		gridManager.setOptions(params);
+		gridManager.loadData();
+	} 
+
 </script>
-</head>
-<body>
-	<n:enums keys='valid_type,sex,education_type,partime_job_type' />
-	<form id="insertForm">
-		<table class='s1-params'>
-			<tr>
-				<td><font color="red">*</font>&nbsp;员工编号</td>
-				<td><input type='text' id='staffId' name='newStaff.staffId'
-					validate="{required:true,maxlength:16}" /></td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>&nbsp;登陆帐号</td>
-				<td><input type='text' id='logonId' name='newStaff.logonId'
-					validate="{required:true,maxlength:16}" /></td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>&nbsp;组&nbsp;&nbsp;&nbsp;&nbsp;织
-				</td>
-				<td nowrap><input type='text' id='zzname' name='zzname'
-					readonly="readonly" onclick="openSelectUnit()" class='unit_select' /><input
-					type="hidden" id="ownerUnitid" name="newStaff.ownerUnitid"></td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>&nbsp;登陆密码</td>
-				<td><input type='text' id='password' name='newStaff.password'
-					value="111111" / validate="{required:true,maxlength:16}"></td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>&nbsp;员工姓名</td>
-				<td><input type='text' id='staffName' name='newStaff.staffName'
-					validate="{required:true}" /></td>
-			</tr>
-			<tr>
-				<td>员工级别</td>
-				<td><input type='text' id='staffLevel'
-					name='newStaff.staffLevel' /></td>
-			</tr>
-			<tr>
-				<td>性&nbsp;&nbsp;&nbsp;&nbsp;别</td>
-				<td><n:select codetype="sex" id='sex' name='newStaff.sex'
-						emptyOption="true" value="updateIn.modifyStaff.sex"></n:select></td>
-			</tr>
-			
-			<tr>
-				<td>身份证号</td>
-				<td><input type='text' id='certNo' name='newStaff.certNo'/></td>
-			</tr>
-			
-			<tr>
-				<td>学&nbsp;&nbsp;&nbsp;&nbsp;历</td>
-				 <td><n:select codetype="education_type" id='education' name='newStaff.education'
-						emptyOption="true" value="updateIn.modifyStaff.education"></n:select></td>
-						
-				<!-- <td><input type='text' id='education' name='newStaff.education'/></td> -->
-			</tr>
-			
-			<tr>
-				<td>属&nbsp;&nbsp;&nbsp;&nbsp;性</td>
-				<td><n:select codetype="partime_job_type" id='partTimeJob' name='newStaff.partTimeJob'
-						emptyOption="true" value="updateIn.modifyStaff.partTimeJob"></n:select></td> 
-				<!-- <td><input type='text' id='partTimeJob' name='newStaff.partTimeJob'/></td> -->
-			</tr>
-			
-			<tr>
-				<td>办公电话</td>
-				<%-- <td><n:select codetype="officePhone" id='officePhone' name='newStaff.officePhone'
-						emptyOption="true" value="updateIn.modifyStaff.officePhone"></n:select></td> --%>
-				<td><input type='text' id='officePhone' name='newStaff.officePhone'/></td>
-			</tr>
-			
-			<tr>
-				<td>手&nbsp;&nbsp;&nbsp;&nbsp;机</td>
-				<%-- <td><n:select codetype="mobilePhone" id='mobilePhone' name='newStaff.mobilePhone'
-						emptyOption="true" value="updateIn.modifyStaff.mobilePhone"></n:select></td> --%>
-				<td><input type='text' id='mobilePhone' name='newStaff.mobilePhone'/></td>
-			</tr>
-			
-			<tr>
-				<td>地&nbsp;&nbsp;&nbsp;&nbsp;址</td>
-				<%-- <td><n:select codetype="address" id='address' name='newStaff.address'
-						emptyOption="true" value="updateIn.modifyStaff.address"></n:select></td> --%>
-				<td><input type='text' id='address' name='newStaff.address'/></td>
-			</tr>
-			<tr>
-				<td><font color="red">*</font>&nbsp;员工状态</td>
-				<td><n:select codetype="valid_type" id="staffStatus"
-						name='newStaff.staffStatus' emptyOption="true" value="1"
-						validate="{required:true}"></n:select></td>
-			</tr>
-		</table>
-		<div align="center" class="div_bottom">
-			<table class="table_btn">
-				<tr>
-					<td><input id="commit" type="button" value="提&nbsp;&nbsp;交"
-						class="l-button"></input></td>
-					<td><input id="cancel" type="button" value="取&nbsp;&nbsp;消"
-						class="l-button"></td>
-				</tr>
-			</table>
-		</div>
-		<!--<table class="s1-button">
-	<tr>
-		<td nowrap>
-			<input id="commit" type="button" value="提交" class="l-button"></input>
-		</td>
-		<td nowrap>
-			<input id="cancel" type="button" value="取消" class="l-button"></input>
-		</td>
-	</tr>
-</table>
--->
-	</form>
-</body>
 </html>
