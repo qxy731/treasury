@@ -45,15 +45,9 @@ public class ModelDefAction extends BaseAction {
     }
     public String query() {
         try {
-           // queryIn.getInputHead().setPageNo(this.getPage());
-           // queryIn.getInputHead().setPageSize(this.getPagesize());
+            queryIn.getInputHead().setPageNo(this.getPage());
+            queryIn.getInputHead().setPageSize(this.getPagesize());
             List<ModelDefPo> modelDef = new ArrayList<ModelDefPo>();
-            for (int i=0;i<2;i++){
-            	ModelDefPo modelDefPo = new ModelDefPo();
-            	modelDefPo.setModelCode("001"+i);
-            	modelDefPo.setModelName("name"+i);
-            	modelDef.add(modelDefPo);
-            }
             
             ModelDefQueryOut result = new ModelDefQueryOut();
             result.setModelDef(modelDef);

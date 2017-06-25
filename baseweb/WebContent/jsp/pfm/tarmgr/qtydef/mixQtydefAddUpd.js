@@ -12,7 +12,7 @@ $(function (){
 			$("#storeDate").focus();
 			return;
 		}
-		var paramsObj = {storeDate:storeDate,tarScope:tarScope};
+		var paramsObj = {storeDate:storeDate};
 		var oldText = $('#createGs').val();
 		addFace("#替代&&字符#");
 		var oldTextChange = $('#createGs').val();

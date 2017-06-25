@@ -12,7 +12,6 @@ public class TarCodeUtils {
 	/**
 	 * 
 	 * @param ecm E/C-基础指标/衍生指标；
-	 * @param slio F/S/P/A/O-国库资金流动指标/国库资金安全性指标/国库资金收益性指标/国库会计核算效率指标/其他
 	 * @return
 	 */
 	private IKeyGenerator keyGenerator;
@@ -21,18 +20,15 @@ public class TarCodeUtils {
 		this.keyGenerator=keyGenerator;
 		this.tableName=tableName;
 	}
-	public String gerneratedKey(String ecm,String slio){
+	public String gerneratedKey(String ecm){
 		StringBuilder sb=new StringBuilder(START);
 		if(ecm!=null){
-			sb.append("-").append(ecm);
-		}
-		if(slio!=null){
-			sb.append("-").append(slio);
+			sb.append(ecm);
 		}
 		if(sb.charAt(sb.length()-1)=='-'){
-		    sb.append(getSeq());
+			sb.append(getSeq());
 		}else{
-		  sb.append("-"+getSeq());
+			sb.append("-"+getSeq());
 		}
 		return sb.toString();
 	}

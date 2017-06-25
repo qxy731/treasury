@@ -2,6 +2,8 @@ package com.soule.app.pfm.tm;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.soule.app.pfm.tm.qtydef.QtyDefPo;
 
 public class BaseTar implements Serializable{
@@ -34,63 +36,55 @@ public class BaseTar implements Serializable{
 	public static final String IND_ACCU_FLOAT_FOUR = "3";//四位小数
 	
 	//指标类型tar_type
-	public static final String TAR_TYPE_BASE = "1";//基础指标
-	public static final String TAR_TYPE_MIX = "2";//衍生指标
+	public static final String TAR_TYPE_BASE = "E";//基础指标
+	public static final String TAR_TYPE_MIX = "C";//衍生指标
 	public static final String TAR_TYPE_BASE_NAME = "基础指标";
 	public static final String TAR_TYPE_MIX_NAME = "衍生指标";
 	
 	//指标分类tar_sort  F/S/P/A/O-国库资金流动指标/国库资金安全性指标/国库资金收益性指标/国库会计核算效率指标/其他
-	public static final String TAR_SORT_FLOW = "1";//国库资金流动性指标
-	public static final String TAR_SORT_SAFETY = "2";//国库资金安全性指标
-	public static final String TAR_SORT_PROFITABILITY = "3";//国库资金收益性指标
-	public static final String TAR_SORT_ACCOUNTING = "4";//国库会计核算效率指标
-	public static final String TAR_SORT_OTHER = "5";//其他
-	public static final String TAR_SORT_FLOW_F = "F";//国库资金流动性指标
-	public static final String TAR_SORT_SAFETY_S = "S";//国库资金安全性指标
-	public static final String TAR_SORT_PROFITABILITY_P = "P";//国库资金收益性指标
-	public static final String TAR_SORT_ACCOUNTING_A = "A";//国库会计核算效率指标
-	public static final String TAR_SORT_OTHER_O = "O";//其他
+	public static final String TAR_SORT_FLOW = "FLOW";//国库资金流动性指标
+	public static final String TAR_SORT_SAFE = "SAFE";//国库资金安全性指标
+	public static final String TAR_SORT_GAIN = "GAIN";//国库资金收益性指标
+	public static final String TAR_SORT_ACCOUNT = "ACCOUNT";//国库会计核算效率指标
+	public static final String TAR_SORT_OTHER = "O";//其他
 	//保存日期
 	public static final String SAVE_TYPE_DAY = "DAY";//天
 	public static final String SAVE_TYPE_TENDAYS = "TENDAYS";//旬
 	public static final String SAVE_TYPE_MONTH = "MONTH";//月	
 	public static final String SAVE_TYPE_QUARTER = "QUARTER";//季
 	public static final String SAVE_TYPE_HALFYEAR = "HALFYEAR";//半年	
-	public static final String SAVE_TYPE_YEAR = "YEAR";//年
-	
-	public static final String SAVE_TYPE_DAY_NAME = "天";//天
+	public static final String SAVE_TYPE_YEAR = "YEAR";//年	
+	/*public static final String SAVE_TYPE_DAY_NAME = "天";//天
+	public static final String SAVE_TYPE_TENDAYS_NAME = "旬";//旬
 	public static final String SAVE_TYPE_MONTH_NAME = "月";//月
 	public static final String SAVE_TYPE_QUARTER_NAME = "季";//季
-	public static final String SAVE_TYPE_TENDAYS_NAME = "旬";//旬
 	public static final String SAVE_TYPE_HALFYEAR_NAME = "半年";//半年
 	public static final String SAVE_TYPE_YEAR_NAME = "年";//年
-	
+*/	
+	//处理日期
+	public static final String PROC_TYPE_DE = "DE";//天
+	public static final String PROC_TYPE_TDE = "TDE";//旬
+	public static final String PROC_TYPE_ME = "ME";//月	
+	public static final String PROC_TYPE_QE= "QE";//季
+	public static final String PROC_TYPE_HYE = "HYE";//半年	
+	public static final String PROC_TYPE_YE = "YE";//年	
+	/*public static final String PROC_TYPE_DE_NAME = "天";//天
+	public static final String PROC_TYPE_TDE_NAME = "旬";//旬
+	public static final String PROC_TYPE_ME_NAME = "月";//月
+	public static final String PROC_TYPE_QE_NAME = "季";//季
+	public static final String PROC_TYPE_HYE_NAME = "半年";//半年
+	public static final String PROC_TYPE_YE_NAME = "年";//年
+*/	
 	//数据来源data_from
-	public static final String DATA_FROM_ONE="1";//后台
-	public static final String DATA_FROM_TWO="2";//前台导入
+	public static final String DATA_FROM_ONE="1";//系统
+	public static final String DATA_FROM_TWO="2";//手工
 	
-	//指标分类
-    public static String getSiloByTarSort(QtyDefPo qty){
-		 if(BaseTar.TAR_SORT_FLOW.equals(qty.getTarSortCode())){
-			 return BaseTar.TAR_SORT_FLOW_F;
-		 }else if(BaseTar.TAR_SORT_SAFETY.equals(qty.getTarSortCode())){
-			 return BaseTar.TAR_SORT_SAFETY_S;
-		 }else if(BaseTar.TAR_SORT_PROFITABILITY.equals(qty.getTarSortCode())){
-			 return BaseTar.TAR_SORT_PROFITABILITY_P;
-		 }else if(BaseTar.TAR_SORT_ACCOUNTING.equals(qty.getTarSortCode())){
-			 return BaseTar.TAR_SORT_ACCOUNTING_A;
-		 }
-		 return BaseTar.TAR_SORT_OTHER_O;
-	 }
-    
-     //指标类型
-	 public static String getEcmByTartype(QtyDefPo qty){
-		 if(QtyDefPo.TAR_TYPE_BASE.equals(qty.getTarType())){
-			 return "E";//生成主健时的基础指标代码
-		 }else if(QtyDefPo.TAR_TYPE_MIX.equals(qty.getTarType())){
-			 return "C";//生成主健时的复合指标代码
-		 }
-		 return "";
+	//指标类型
+	public static String getEcmByTartype(QtyDefPo qty){
+		if(StringUtils.isNotEmpty(qty.getTarType())){
+			return qty.getTarType();
+		}
+		return BaseTar.TAR_TYPE_MIX;
 	 }
 	 
 }

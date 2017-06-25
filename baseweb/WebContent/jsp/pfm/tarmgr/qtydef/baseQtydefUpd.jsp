@@ -96,31 +96,31 @@ $(function() {
 	<tr>
 		<td align="right"><font color='red'>*</font>计量单位:</td>
 		<td align="left">
-			<n:select codetype="ind_unit" id="measUnitCode" name='newQtyDef.measUnitCode' emptyOption="true" validate="{required:true}" value="${newQtyDef.measUnitCode}"/>
+			<n:select codetype="ind_unit" id="measUnitCode" name='newQtyDef.measUnitCode' emptyOption="true" validate="{required:true}" value="newQtyDef.measUnitCode"/>
 		</td>
 			<td align="right"><font color='red'>*</font>数据类型:</td>
 		<td>
-			<n:select codetype="ind_accu" id="measDefCode" name='newQtyDef.measDefCode' emptyOption="true" validate="{required:true}" value="${newQtyDef.measDefCode}"/>
+			<n:select codetype="ind_accu" id="measDefCode" name='newQtyDef.measDefCode' emptyOption="true" validate="{required:true}" value="newQtyDef.measDefCode"/>
 		</td>
 	</tr>
 	<tr>
-		<td align="right">指标业务分类</td>
+		<td align="right">指标模型分类</td>
 		<td>
-			<n:select codetype="tar_sort" id="tarSortCode" name='newQtyDef.tarSortCode' emptyOption="true" validate="{required:true}"  value="${newQtyDef.tarSortCode}"/>
+			<n:select codetype="tar_sort" id="tarSortCode" name='newQtyDef.tarSortCode' emptyOption="true" validate="{required:true}"  value="newQtyDef.tarSortCode"/>
 		</td>
 		<td align="right">数据来源</td>
 		<td>
-			<n:select codetype="data_from" id="dataSource" name='newQtyDef.dataSource' emptyOption="false" validate="{required:true}" value="${newQtyDef.dataSource}"/>
+			<n:select codetype="data_from" id="dataSource" name='newQtyDef.dataSource' emptyOption="false" validate="{required:true}" value="newQtyDef.dataSource"/>
 		</td>
 	</tr>
 	<tr>
 		<td align="right"><font color='red'>*</font>保存日期: </td> 
 		<td>
-		  <n:select codetype="save_type" id="storeDate" name='newQtyDef.storeDate' emptyOption="true" validate="{required:true}" value="${newQtyDef.storeDate}"/>
+			<n:select codetype="save_type" id="storeDate" name='newQtyDef.storeDate' emptyOption="true" validate="{required:true}" value="newQtyDef.storeDate"/>
 		</td>
 		<td align="right" valign="top"><font color='red'>*</font>处理日期:</td>
 		<td>
-		  <n:select codetype="proc_type" id="procDateCode" name='newQtyDef.procDateCode' emptyOption="true" validate="{required:true}"  value="${newQtyDef.procDateCode}"/>
+		  <n:select codetype="proc_type" id="procDateCode" name='newQtyDef.procDateCode' emptyOption="true" validate="{required:true}"  value="newQtyDef.procDateCode"/>
 		</td>
 	</tr>
 	<tr>

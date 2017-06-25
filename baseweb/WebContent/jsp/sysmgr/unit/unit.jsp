@@ -76,19 +76,15 @@ body {
 			</td>
 		</tr>
 		<tr>
-			<td><br>
-				<table width="100%">
+			<td><table width="100%">
 					<tr>
-						<td></td>
-						<td align="right"><input id='query' name='query'
-							type="button" value="查&nbsp;&nbsp;询" class="l-button" /></td>
+						<td align="right"><input id='query' name='query' type="button" value="查&nbsp;&nbsp;询" class="l-button" /></td>
 						<td width="5%"></td>
 						<td width="5%"></td>
-						<td align="left"><input id='reset' name='reset' type='button'
-							value='重&nbsp;&nbsp;置' class='l-button' /></td>
-						<td></td>
+						<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button' /></td>
 					</tr>
-				</table> <br></td>
+				</table>
+			</td>
 		</tr>
 
 		<tr>
@@ -165,12 +161,12 @@ body {
 			}, {
 				display : '清算国库代码',
 				name : 'settUnitId',
-				width : '5%',
+				width : '8%',
 				align : 'left'
 			}, {
 				display : '管理国库代码',
 				name : 'mgrUnitId',
-				width : '5%',
+				width : '8%',
 				align : 'left'
 			}, {
 				display : '启用日期',

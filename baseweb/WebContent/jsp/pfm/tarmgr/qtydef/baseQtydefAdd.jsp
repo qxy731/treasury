@@ -64,7 +64,7 @@ $(function() {
 </head>
 <body>
 <n:page action='com.soule.app.pfm.tm.qtydef.QtyDefAction' initMethod="doInitBusinessLine"/>
-<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from'/>
+<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,ind_type'/>
 <form id="insertForm" name="insertForm">
 <input id="createOrg" name="newQtyDef.createOrg" type="hidden" value="${logUserInfo.operUnitId}"/>
 <input id="tarType" name="newQtyDef.tarType" type="hidden" value="<%=BaseTar.TAR_TYPE_BASE%>"/>
@@ -95,7 +95,7 @@ $(function() {
 		</td>
 	</tr>
 	<tr>
-		<td align="right">指标业务分类</td>
+		<td align="right">指标模型分类</td>
 		<td>
 			<n:select codetype="tar_sort" id="tarSortCode" name='newQtyDef.tarSortCode' emptyOption="true"/>
 		</td>
@@ -114,7 +114,7 @@ $(function() {
 		<n:select codetype="proc_type" id="procDateCode" name='newQtyDef.procDateCode' emptyOption="true" validate="{required:true}"/>
 		</td>
    </tr>
-	<tr>
+   <tr>
 		<td align="right">备注</td>
 		<td colspan="3">
 		  <textarea rows="3" cols="40" style="width:80%" id="remark" name="newQtyDef.remark"></textarea>

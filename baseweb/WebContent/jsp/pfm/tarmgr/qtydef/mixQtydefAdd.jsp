@@ -57,7 +57,7 @@ $(function() {
 		</td>
 	</tr>
 	<tr>
-		<td align="right">指标业务分类</td>
+		<td align="right">指标模型分类</td>
 		<td>
 			<n:select codetype="tar_sort" id="tarSortCode" name='newQtyDef.tarSortCode' emptyOption="true"/>
 		</td>
