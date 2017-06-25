@@ -23,7 +23,7 @@ table td{
 </head>
 <body>
 <form id="detailForm">
-<table>
+<table  class='s1-params'>
 	<tr>
 		<td>部门编码：</td>
 		<td><s:property value="unit.unitId" /></td>
