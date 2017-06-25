@@ -5,7 +5,7 @@
     <typeAlias alias="QtyDefPo" type="com.soule.app.pfm.tm.qtydef.QtyDefPo"/> 
     <typeAlias alias="QtyExpDefPo" type="com.soule.app.pfm.tm.qtydef.QtyExpDefPo"/>
     <typeAlias alias="QtyExpRelaPo" type="com.soule.app.pfm.tm.qtydef.QtyExpRelaPo"/>    
-	<resultMap id="QtyDefMap" class="QtyDefPo">
+	<resultMap id="QtyDefMap" class="QtyDefPo">	
 		<result column="TAR_CODE" property="tarCode" jdbcType="VARCHAR" />
 		<result column="TAR_NAME" property="tarName" jdbcType="VARCHAR" />
 		<result column="BS_FLAG" property="bsFlag" jdbcType="VARCHAR" />
@@ -38,7 +38,7 @@
 	</resultMap>
 	
 	<select id="getQtyDef" resultClass="QtyDefPo">
-		select 
+		select distinct
 		a.TAR_CODE as tarCode,
 		a.TAR_NAME as tarName,
 		a.TAR_SCOPE as tarScope,
@@ -50,6 +50,7 @@
 		a.DATA_SOURCE as dataSource
 		from PFM_TM_QTY_DEF a 
 		left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
+		inner join SYS_UNITMAP d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
 		<dynamic prepend="where">
 			<isNotEmpty property="qtyDef.tarCode" prepend="and">
 				a.TAR_CODE=#qtyDef.tarCode#
@@ -121,8 +122,9 @@
 	    left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
 	    where a.TAR_CODE=#value#
 	</select>
+	
 	<select id="getQtyDefByTarName" resultClass="QtyDefPo">
-	  select 
+	  select
 	    a.TAR_CODE as tarCode,
 		a.TAR_NAME as tarName,
 		a.BS_FLAG as bsFlag,

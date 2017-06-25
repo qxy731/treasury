@@ -42,10 +42,8 @@ public class IndicatorTakeHolder implements TakeHolder {
         return indicatorID;
     }
     
-        public int getType() {
-        
-        return INDICATOR;
-    }   
-    
+    public int getType() {
+    	return INDICATOR;
+    }
 
 }

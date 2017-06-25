@@ -63,7 +63,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 		QtyDefInsertOut out = new QtyDefInsertOut();
 		String tarType = newQtyDef.getTarType();// 指标类型
 		if (!ObjectUtil.isEmpty(newQtyDef)) {
-			String tarCode = tarCodeUtils.gerneratedKey(BaseTar.getEcmByTartype(newQtyDef), BaseTar.getSiloByTarSort(newQtyDef));
+			String tarCode = tarCodeUtils.gerneratedKey(BaseTar.getEcmByTartype(newQtyDef));
 			newQtyDef.setTarCode(tarCode);
 			ILogonUserInfo logonInfo = (ILogonUserInfo)AppUtils.getLogonUserInfo();
 			newQtyDef.setCreateUser(logonInfo.getUser().getUserID());
@@ -159,43 +159,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 		}
 	}
 	
-	/**
-	 * 保存衍生指标引用关联指标
-	 * @param qtydef
-	 * @param calcExp
-	 * @throws DbAccessException 
-	 * @throws ServiceException 
-	 * @throws Exception
-	 */
-	/*private void saveQtyExpRela(QtyDefPo qtydef,String calcExp) throws DbAccessException, ServiceException{
-		try {
-			TokenParser tp=new TokenParser(new IDLLanguage());
-	        List<Token> tokens = tp.parse(calcExp);
-			if(tokens!=null&&tokens.size()>0){
-		         for(Token token : tokens){
-		             //if(token!=null&&Token.OPERAND==token.getType()){//待修改
-		        	 //token.setType(2);
-		        	 if(token!=null&&Token.OPERAND==token.getType()){
-		                 String tarExp=token.getExp();
-		                 System.out.println(tarExp);
-		                 if(tarExp.indexOf(IndicatorTakeHolder.SHARP)==0){
-		                     String tarName=tarExp.substring(1);
-		                     QtyDefPo qtyref=IndicatorEngine.getInstance().getModel(tarName);
-		                     QtyExpRelaPo expRela=new QtyExpRelaPo();
-		                     expRela.setTarCode(qtydef.getTarCode());
-		                     expRela.setTarScope(qtydef.getTarScope());
-		                     expRela.setRelaTarCode(qtyref.getTarCode());
-		                     defService.getIbatisMediator().save(INSERT_QTYEXP_RELA,expRela);
-		                 }
-		             }
-		         }
-		     }
-		} catch (Exception e) {
-			throw new ServiceException("E0001",e.getMessage());
-		}
-	}*/
-	
-    private void updateBaseTar(QtyDefPo qtydef) throws DbAccessException {
+	private void updateBaseTar(QtyDefPo qtydef) throws DbAccessException {
       defService.getIbatisMediator().update(UPD_QTYDEF, qtydef);
     }
 	/**
@@ -329,7 +293,6 @@ public class QtyDefServiceImpl implements IQtyDefService {
 		return client.executeBatch();
 	}
 
-	@SuppressWarnings("unchecked")
 	public int batchInsert(String sqlId, Collection paraCollection)	throws SQLException, DbAccessException {
 		if (paraCollection == null || paraCollection.size() == 0) {
 			return 0;

@@ -95,20 +95,20 @@ public class QtyDefPo extends BaseTar implements Serializable{
 		return bsFlag;
 	}
 	public void setBsFlag(String bsFlag) {
-		if (BSFLAG_NO.equals(tarStatus)) {
+		/*if (BSFLAG_NO.equals(tarStatus)) {
 			bsFlagName = "是";
 		} else if (STATUS_DEL.equals(tarStatus)) {
 			bsFlagName = "否";
 		}else{
 		    bsFlagName = "否";
-		}
+		}*/
 		this.bsFlag = bsFlag;
 	}
 	public String getMeasUnitCode() {
 		return measUnitCode;
 	}
 	public void setMeasUnitCode(String measUnitCode) {
-		if (IND_UNIT_Y.equals(measUnitCode)) {
+		/*if (IND_UNIT_Y.equals(measUnitCode)) {
 			measUnitCodeName = IND_UNIT_Y_NAME;
 		} else if (IND_UNIT_MY.equals(measUnitCode)) {
 			measUnitCodeName =IND_UNIT_MY_NAME;
@@ -120,7 +120,7 @@ public class QtyDefPo extends BaseTar implements Serializable{
 			measUnitCodeName =IND_UNIT_Z_NAME;
 		}else if (IND_UNIT_F.equals(measUnitCode)) {
 			measUnitCodeName =IND_UNIT_F_NAME;
-		}
+		}*/
 		this.measUnitCode = measUnitCode;
 	}
 	
@@ -137,11 +137,11 @@ public class QtyDefPo extends BaseTar implements Serializable{
 		return tarType;
 	}
 	public void setTarType(String tarType) {
-	    if(TAR_TYPE_BASE.equals(tarType)){
+	   /* if(TAR_TYPE_BASE.equals(tarType)){
 	        this.tarTypeName=TAR_TYPE_BASE_NAME;
 	    }else if(TAR_TYPE_MIX.equals(tarType)){
 	        this.tarTypeName=TAR_TYPE_MIX_NAME;
-	    }
+	    }*/
 		this.tarType = tarType;
 	}
 	public String getTarTypeName() {
@@ -176,7 +176,7 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	}
 	
 	public void setStoreDate(String storeDate) {
-		if (SAVE_TYPE_DAY.equals(storeDate)) {
+		/*if (SAVE_TYPE_DAY.equals(storeDate)) {
 			storeDateName = SAVE_TYPE_DAY_NAME;
 		} else if (SAVE_TYPE_HALFYEAR.equals(storeDate)) {
 			storeDateName =SAVE_TYPE_HALFYEAR_NAME;
@@ -188,7 +188,7 @@ public class QtyDefPo extends BaseTar implements Serializable{
 			storeDateName =SAVE_TYPE_TENDAYS_NAME;
 		}else if (SAVE_TYPE_YEAR.equals(storeDate)) {
 			storeDateName =SAVE_TYPE_YEAR_NAME;
-		}
+		}*/
 		this.storeDate = storeDate;
 	}
 	public String getStoreDateName() {
@@ -230,11 +230,11 @@ public class QtyDefPo extends BaseTar implements Serializable{
 		return tarStatus;
 	}
 	public void setTarStatus(String tarStatus) {
-		if (STATUS_INPUT.equals(tarStatus)) {
+		/*if (STATUS_INPUT.equals(tarStatus)) {
 			statusName = "已录入";
 		} else if (STATUS_DEL.equals(tarStatus)) {
 			statusName = "已删除";
-		}
+		}*/
 		this.tarStatus = tarStatus;
 	}
 	public String getTarDesc() {

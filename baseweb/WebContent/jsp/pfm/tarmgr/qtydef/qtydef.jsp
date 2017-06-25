@@ -22,27 +22,30 @@
 		<td>
 		<fieldset class="queryBox"><legend>查询条件</legend>
 		<form id="myform">
+		<input id='createOrg' name='createOrg' type='hidden'  value="${logUserInfo.operUnitId}"/>
+				<input id='creatOrgName' name='creatOrgName' type="hidden" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
 		<table class="params">
 			<tr>
 				<td align="right">指标代码</td>
 				<td><input id='tarCode' name='tarCode' type="text" /></td>
 				<td align="right">指标名称</td>
 				<td><input id='tarName' name='tarName' type="text" /></td>
-				<td align="right">建立部门</td>
-				<td>
-				<input id='createOrg' name='createOrg' type='hidden'  value="${logUserInfo.operUnitId}"/>
-				<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">指标业务分类</td>
+				<td align="right">指标规模分类</td>
 				<td>
 					<n:select codetype="tar_sort" id="tarSortCode" name='tarSortCode' emptyOption="true"/>
 				</td>
+			</tr>
+			<tr>
 			   <td align="right">指标层级属性</td>
 				<td>
 		         <n:select codetype="tar_type" id="tarType" name='tarType' emptyOption="true"/>
 		        </td>
+		        <%-- <td align="right">建立部门</td>
+				<td>
+				<input id='createOrg' name='createOrg' type='hidden'  value="${logUserInfo.operUnitId}"/>
+				<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
+				</td> --%>
+				<td></td><td></td>
 		        <td></td><td></td>
 			</tr>
 		</table>
@@ -74,7 +77,7 @@
 </table>
 </body>
 <script type="text/javascript">
-var grid;
+	var grid;
 	$(function () {
 		$("#toptoolbar").ligerToolBar({items:[
 			{text:'基础指标新增',name:'addBaseQtyBtn',icon: 'add',click:insertBaseQty},
@@ -91,7 +94,7 @@ var grid;
 			columns: [
 						{ display: '指标代码', name: 'tarCode',width:130,align:'left'},
 						{ display: '指标名称', name: 'tarName', width:340,align:'left'},
-						{ display: '指标业务分类', name: 'tarSortCode', codetype: 'tar_sort',width:140,align:'left'},
+						{ display: '指标规模分类', name: 'tarSortCode', codetype: 'tar_sort',width:140,align:'left'},
 						{ display: '指标层级属性', name: 'tarType', codetype: 'tar_type',width:80,align:'left'},
 						{ display: '数据来源', name: 'dataSource', codetype: 'data_from',width:80,align:'left'},
 						{ display: '建立部门', name: 'unitName', width:230,align:'left'}
@@ -104,11 +107,19 @@ var grid;
 			onError: function() {
 				$.dialogBox.error("查询数据失败");
 			}
+			//,onCheckRow:onCheckRow
 		});
 		$("#query").bind('click', query);
 		$("#reset").bind('click', doClear);
 		$("#creatOrgName").bind('click', openSelectUnit);
 	});
+	
+	/* function onCheckRow(checked,data,rowid,rowdata) {
+		grid = $("#qtydeflist").ligerGetGridManager();
+	    for (var rowid1 in grid.records)
+	    	grid.onUnSelectRow(rowid1); 
+	    grid.onSelectRow(rowid);
+	} */
 	
 	function updateQtyDef(){
 		if(!grid){return;}
@@ -151,9 +162,10 @@ var grid;
 			,{name:'queryIn.createOrg',value:createOrg}
 			,{name:'queryIn.tarSortCode',value:tarSortCode}]
 		};
-		grid = $("#qtydeflist").ligerGetGridManager(); 
+		grid = $("#qtydeflist").ligerGetGridManager();
 		grid.setOptions(params);
 		grid.loadData();
+		
 	}
 	
 	
