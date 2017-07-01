@@ -20,6 +20,9 @@ body{
 .l-grid-row-cell div{
 	text-align:left;
 }
+.l-grid-body-table td{
+	border:1px solid #bed5f3;
+}
 </style>
 <script type="text/javascript">
 	$(function () {
@@ -37,9 +40,6 @@ body{
 		$(".l-grid-body-table td").addClass("l-grid-row-cell");
 		$(".l-grid-body-table div").addClass("l-grid-row-cell-inner");
 		$(".l-grid-body-table div").addClass("l-grid-row-cell-inner-fixedheight");
-		
-		//$(".l-grid-row-cell div").css("text-align","right");
-
 	});
 	
 	function validate(){

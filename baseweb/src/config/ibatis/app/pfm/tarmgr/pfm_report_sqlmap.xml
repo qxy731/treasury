@@ -130,4 +130,43 @@
 				'TE_00112',
 				'TE_00113')	
 	</select>
+	
+	
+	<select id="getAccountingAnalysisOtherList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
+			SELECT	
+					d.TAR_CODE,
+					d.TAR_NAME,
+					q.TAR_VALUE
+					FROM  PFM_TM_QTY_DEF d 
+					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00069',	
+					'TE_00070',	
+					'TE_00071',	
+					'TE_00072',	
+					'TE_00073',	
+					'TE_00074',	
+					'TE_00075',	
+					'TE_00076',	
+					'TE_00077',	
+					'TE_00078',	
+					'TE_00079',	
+					'TE_00080',	
+					'TE_00081',	
+					'TE_00089',	
+					'TE_00090',	
+					'TE_00091',	
+					'TE_00092',	
+					'TE_00093',	
+					'TE_00094',	
+					'TE_00095',	
+					'TE_00096',	
+					'TE_00097',	
+					'TE_00098',	
+					'TE_00099',	
+					'TE_00100',	
+					'TE_00101',	
+					'TE_00102',	
+					'TE_00103')	
+	</select>
 </sqlMap>

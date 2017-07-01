@@ -12,5 +12,7 @@ public interface IBankFundsFlowReportService {
      * 自定义报表的查询
      */
     public BankFundsFlowReportQueryOut query(BankFundsFlowReportQueryIn in) throws ServiceException;
+    
+    public BankFundsFlowReportQueryOut query4(BankFundsFlowReportQueryIn in) throws ServiceException;
    
 }

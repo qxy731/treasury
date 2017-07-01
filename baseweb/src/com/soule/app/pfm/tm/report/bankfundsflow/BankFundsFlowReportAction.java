@@ -24,6 +24,8 @@ public class BankFundsFlowReportAction extends BaseAction {
     private List<BankFundsFlowPo> bankFundsFlowList;//资金流向分类
     private List<ReportTargetPo> treasuryFundsNatureList;//资金性质分类
     private List<ReportTargetPo> treasuryFundsSourceList;//资金来源分类
+    
+    private List<ReportTargetPo> accountingAnalysisOtherList;//国库会计分析其他数据统计表
 
     private BankFundsFlowReportQueryIn queryIn;
     
@@ -40,6 +42,20 @@ public class BankFundsFlowReportAction extends BaseAction {
             if(treasuryFundsNatureList == null)treasuryFundsNatureList = new ArrayList<ReportTargetPo>();
             treasuryFundsSourceList = result.getTreasuryFundsSourceList();
             if(treasuryFundsSourceList == null)treasuryFundsSourceList = new ArrayList<ReportTargetPo>();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
+    
+    public String query4() {
+        try{
+            BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query4(queryIn);
+            ServiceResult head = result.getResultHead();
+            accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
+            if(accountingAnalysisOtherList == null)accountingAnalysisOtherList = new ArrayList<ReportTargetPo>();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
         }catch(Exception e) {
@@ -85,6 +101,14 @@ public class BankFundsFlowReportAction extends BaseAction {
 
 	public void setTreasuryFundsSourceList(List<ReportTargetPo> treasuryFundsSourceList) {
 		this.treasuryFundsSourceList = treasuryFundsSourceList;
+	}
+
+	public List<ReportTargetPo> getAccountingAnalysisOtherList() {
+		return accountingAnalysisOtherList;
+	}
+
+	public void setAccountingAnalysisOtherList(List<ReportTargetPo> accountingAnalysisOtherList) {
+		this.accountingAnalysisOtherList = accountingAnalysisOtherList;
 	}
 	
 }

@@ -27,8 +27,9 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     private String RPT_LIST_BANKFUNDSFLOW = "bankfundsflowreport.getBankFundsFlowList";
     private String RPT_LIST_TREASURYFUNDSFLOW = "bankfundsflowreport.getTreasuryFundsNatureList";
     private String RPT_LIST_TREASURYFUNDSSOURCE = "bankfundsflowreport.getTreasuryFundsSourceList";
+    private String RPT_LIST_ACCOUNTINGANALYSISOTHER = "bankfundsflowreport.getAccountingAnalysisOtherList";
     /*
-     * 自定义报表的查询
+     * 与商业银行之间资金流动情况统计表
      */
     @SuppressWarnings("unchecked")
 	public BankFundsFlowReportQueryOut query(BankFundsFlowReportQueryIn in) throws ServiceException {
@@ -170,6 +171,28 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     	po.setTarValue(bankAllNetflow);
     	newList.add(po);
     	return newList;
+    }
+    
+    
+    /*
+     * 国库会计分析其他数据统计表
+     */
+    @SuppressWarnings("unchecked")
+	public BankFundsFlowReportQueryOut query4(BankFundsFlowReportQueryIn in) throws ServiceException {
+    	BankFundsFlowReportQueryOut out = new BankFundsFlowReportQueryOut();
+        try {
+            List<ReportTargetPo> accountingAnalysisOtherList = defService.getIbatisMediator().find(this.RPT_LIST_ACCOUNTINGANALYSISOTHER,in);
+            if(accountingAnalysisOtherList==null)accountingAnalysisOtherList=new ArrayList<ReportTargetPo>();
+            out.setAccountingAnalysisOtherList(accountingAnalysisOtherList);
+            AppUtils.setResult(out, "I0000");
+        } catch (DbAccessException e) {
+            logger.error("DB", e);
+            AppUtils.setResult(out, "E0002");
+        } catch (Exception e) {
+            logger.error("SERVICE", e);
+            AppUtils.setResult(out, "E0000");
+        }
+        return out;
     }
     
     public static void main(String[] args){
