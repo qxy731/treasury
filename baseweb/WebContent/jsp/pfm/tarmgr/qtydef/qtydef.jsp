@@ -89,7 +89,8 @@
    	 });
 		//表格初始化 
 		$("#qtydeflist").ligerGrid({
-			checkbox: true,
+			checkbox:true,
+			rownumbers:true,
 			enumlist: _enum_params ,
 			columns: [
 						{ display: '指标代码', name: 'tarCode',width:130,align:'left'},

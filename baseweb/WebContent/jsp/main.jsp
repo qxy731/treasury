@@ -25,7 +25,7 @@ $(function (){
     $("#layout1").ligerLayout({ leftWidth: 200,topHeight:64, height: '100%', bottomHeight:20,onHeightChanged: f_heightChanged,isLeftCollapse: false,allowBottomResize: false, allowTopResize:false });
     var height = $(".l-layout-center").height();
     //Tab
-    $("#framecenter").ligerTab({ height: height });
+    $("#framecenter").ligerTab({ height: height});
    //面板
     $("#accordion1").ligerAccordion({ height: height - 24, speed: null });
     $(".l-link").hover(function (){
