@@ -18,6 +18,8 @@ public class RoleassInsertIn implements Serializable {
     private ServiceInput inputHead = new ServiceInput();
 
     private List<RoleassRoleStaffPo> inserts;
+    
+    private String insertsStr;
 
     public List<RoleassRoleStaffPo> getInserts() {
         return inserts;

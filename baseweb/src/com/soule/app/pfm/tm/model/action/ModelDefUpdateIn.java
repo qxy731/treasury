@@ -1,16 +1,31 @@
 package com.soule.app.pfm.tm.model.action;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.soule.app.pfm.tm.model.po.ModelDefPo;
+import com.soule.app.pfm.tm.qtydef.QtyDefPo;
 import com.soule.base.service.ServiceInput;
+
+import net.sf.json.JSONArray;
 
 public class ModelDefUpdateIn implements Serializable{
 	
 	 private static final long serialVersionUID = 1L;
 	    private ServiceInput inputHead = new ServiceInput();
+	    
+	    private ModelDefPo modelDef;
+	    
+	    public String getUpdatesStr() {
+	        return "";
+	    }
 
-	    private String mdoelCode;
-	    private String mdoelName;
+	    public void setUpdatesStr(String input) {
+	        JSONArray jsonArray = JSONArray.fromObject(input);
+	        this.tarList = (List<QtyDefPo>) JSONArray.toList(jsonArray, QtyDefPo.class); 
+	    }
+
+	    private List<QtyDefPo> tarList;
 		public ServiceInput getInputHead() {
 			return inputHead;
 		}
@@ -18,16 +33,18 @@ public class ModelDefUpdateIn implements Serializable{
 			this.inputHead = inputHead;
 		}
 
-		public String getMdoelCode() {
-			return mdoelCode;
+		public List<QtyDefPo> getTarList() {
+			return tarList;
 		}
-		public void setMdoelCode(String mdoelCode) {
-			this.mdoelCode = mdoelCode;
+		public void setTarList(List<QtyDefPo> tarList) {
+			this.tarList = tarList;
 		}
-		public String getMdoelName() {
-			return mdoelName;
+		public ModelDefPo getModelDef() {
+			return modelDef;
 		}
-		public void setMdoelName(String mdoelName) {
-			this.mdoelName = mdoelName;
+		public void setModelDef(ModelDefPo modelDef) {
+			this.modelDef = modelDef;
 		}
+		
+		
 }

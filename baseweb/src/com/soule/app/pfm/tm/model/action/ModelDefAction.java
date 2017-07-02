@@ -3,17 +3,22 @@ package com.soule.app.pfm.tm.model.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.soule.app.pfm.tm.model.po.ModelDefPo;
+import com.soule.app.pfm.tm.model.po.ModelTarPo;
 import com.soule.app.pfm.tm.model.servcie.IModelDefService;
+import com.soule.app.pfm.tm.qtydef.QtyDefPo;
 import com.soule.app.sys.logon.ILogonInfoService;
 import com.soule.app.sys.staff.StaffDeleteIn;
 import com.soule.app.sys.staff.StaffInsertIn;
 import com.soule.app.sys.staff.StaffUpdateIn;
 import com.soule.base.action.BaseAction;
+import com.soule.base.service.IServiceResult;
 import com.soule.base.service.ServiceResult;
 
 @Namespace("/modelDef")
@@ -30,26 +35,33 @@ public class ModelDefAction extends BaseAction {
     /**
      * 修改人员信息 输入参数 
      */
-    //private StaffUpdateIn updateIn;
+    private ModelDefUpdateIn updateIn;
     /**
      * 新增人员 输入参数 
      */
-    //private StaffInsertIn insertIn;
+    private ModelDefInsertIn insertIn;
     /**
      * 删除人员 输入参数 
      */
-    //private StaffDeleteIn deleteIn;
+    private ModelDefDeleteIn deleteIn;
     
     
-    public void doInit() {
+    public ModelDefDeleteIn getDeleteIn() {
+		return deleteIn;
+	}
+	public void setDeleteIn(ModelDefDeleteIn deleteIn) {
+		this.deleteIn = deleteIn;
+	}
+	public void doInit() {
     }
     public String query() {
         try {
             queryIn.getInputHead().setPageNo(this.getPage());
             queryIn.getInputHead().setPageSize(this.getPagesize());
-            List<ModelDefPo> modelDef = new ArrayList<ModelDefPo>();
             
-            ModelDefQueryOut result = new ModelDefQueryOut();
+            
+            ModelDefQueryOut result =this.modelDef.query(queryIn);
+            List<ModelDefPo> modelDef =result.getModelDef();
             result.setModelDef(modelDef);
             ServiceResult head = result.getResultHead();
             rows = result.getModelDef();
@@ -131,6 +143,89 @@ public class ModelDefAction extends BaseAction {
         return "updateui";
     }*/
   
+    
+    public String insert() {
+    	ModelDefInsertIn in = insertIn;
+        try {
+            
+        	ModelDefInsertOut result = modelDef.insertModel(in);
+            ServiceResult head = result.getResultHead();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }
+        catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
+
+    public String delete() {
+    	ModelDefDeleteIn in = deleteIn;
+        try {
+            // TODO
+            IServiceResult result = modelDef.deleteModel(deleteIn);
+            ServiceResult head = result.getResultHead();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }
+        catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
+    
+    
+   @Action(results={@Result(name="updateui", location="/jsp/pfm/target/targetModel/modelUpdate.jsp")})
+    public String updateUI() {
+        try {
+        	ModelDefUpdateQueryOut result = modelDef.queryModelTar(queryIn);
+            ServiceResult head = result.getResultHead();
+            updateIn=new ModelDefUpdateIn();
+            updateIn.setModelDef(result.getModelDef());
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }
+        catch(Exception e) {
+            handleError(e);
+        }
+        return "updateui";
+    }
+   
+   
+   public String queryTarByCode() {
+       try {
+    	   queryIn.getInputHead().setPageNo(this.getPage());
+           queryIn.getInputHead().setPageSize(this.getPagesize());
+           
+           
+           ModelDefUpdateQueryOut result =this.modelDef.queryTarByCode(queryIn);
+           List<QtyDefPo> modelDef =result.getTarList();
+           ServiceResult head = result.getResultHead();
+           rows = result.getTarList();
+           total=(int)result.getResultHead().getTotal();
+           this.setRetCode(head.getRetCode());
+           this.setRetMsg(head.getRetMsg());
+       }
+       catch(Exception e) {
+           handleError(e);
+       }
+       return JSON;
+   }
+    
+   
+   public String update() {
+	   ModelDefUpdateIn in = updateIn;
+       try {
+           IServiceResult result = modelDef.updateModel(in);
+           ServiceResult head = result.getResultHead();
+           this.setRetCode(head.getRetCode());
+           this.setRetMsg(head.getRetMsg());
+       }
+       catch(Exception e) {
+           handleError(e);
+       }
+       return JSON;
+   }
     /**
      * 查询人员
      */
@@ -140,6 +235,18 @@ public class ModelDefAction extends BaseAction {
 	}
 	public void setQueryIn(ModelDefQueryIn queryIn) {
 		this.queryIn = queryIn;
+	}
+	public ModelDefInsertIn getInsertIn() {
+		return insertIn;
+	}
+	public void setInsertIn(ModelDefInsertIn insertIn) {
+		this.insertIn = insertIn;
+	}
+	public ModelDefUpdateIn getUpdateIn() {
+		return updateIn;
+	}
+	public void setUpdateIn(ModelDefUpdateIn updateIn) {
+		this.updateIn = updateIn;
 	}
     
     /**
@@ -181,4 +288,7 @@ public class ModelDefAction extends BaseAction {
     public void setDeleteIn(StaffDeleteIn in) {
         this.deleteIn = in;
     }*/
+	
+	
+	
 }

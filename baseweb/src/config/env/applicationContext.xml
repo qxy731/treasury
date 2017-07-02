@@ -21,9 +21,9 @@
 			destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/treasury1" />
-		<property name="user" value="root" />
-		<property name="password" value="hospital" />
+			value="jdbc:mysql://localhost:3306/treasurydb" />
+		<property name="user" value="treasury" />
+		<property name="password" value="treasury" />
 		<property name="autoCommitOnClose" value="true" />
 		<property name="checkoutTimeout" value="5000" />
 		<property name="initialPoolSize" value="20" />

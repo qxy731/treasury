@@ -63,6 +63,6 @@
 		delete from SYS_ENUM_ITEM where ENUM_ID = #value#
 	</delete>
 	<select id="loadAll" parameterClass="java.lang.String" resultMap="SysEnumItemMap">
-		select * from SYS_ENUM_ITEM order by enum_Id,seq_Id
+		select enum_id,item_id ,item_value, item_desc,seq_id from SYS_ENUM_ITEM order by enum_Id,seq_Id
 	</select>
 </sqlMap>

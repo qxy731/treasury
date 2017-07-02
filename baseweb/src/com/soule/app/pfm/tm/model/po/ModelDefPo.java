@@ -6,13 +6,11 @@ public class ModelDefPo {
 	
 	private String modelCode;
 	private String modelName;
-	private String tarCode;
-	private String tarSortCode;
 	private String modelStatus;
 	private String modelDesc;
 	private String createUser;
 	private String createOrg;
-	private Date ceateTime;
+	private Date createTime;
 	private String lastUpdUser;
 	private String  lastUpdOrg;
 	private Date lastUpdTime;
@@ -27,18 +25,6 @@ public class ModelDefPo {
 	}
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
-	}
-	public String getTarCode() {
-		return tarCode;
-	}
-	public void setTarCode(String tarCode) {
-		this.tarCode = tarCode;
-	}
-	public String getTarSortCode() {
-		return tarSortCode;
-	}
-	public void setTarSortCode(String tarSortCode) {
-		this.tarSortCode = tarSortCode;
 	}
 	public String getModelStatus() {
 		return modelStatus;
@@ -64,11 +50,13 @@ public class ModelDefPo {
 	public void setCreateOrg(String createOrg) {
 		this.createOrg = createOrg;
 	}
-	public Date getCeateTime() {
-		return ceateTime;
+	
+	
+	public Date getCreateTime() {
+		return createTime;
 	}
-	public void setCeateTime(Date ceateTime) {
-		this.ceateTime = ceateTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	public String getLastUpdUser() {
 		return lastUpdUser;

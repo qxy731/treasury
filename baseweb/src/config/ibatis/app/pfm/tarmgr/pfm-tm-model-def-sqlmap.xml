@@ -4,12 +4,9 @@
 
     <resultMap id="modelDefMap" class="com.soule.app.pfm.tm.model.po.ModelDefPo">
 		<result property="modelCode" column="MODEL_CODE"/>
-		<result property="modelName" column="MDOEL_NAME"/>
-		<result property="tarCode" column="TAR_CODE"/>
-		<result property="relTarCode" column="REL_TAR_CODE"/>
-		<result property="tarSortCode" column="TAR_SORT_CODE"/>
+		<result property="modelName" column="MODEL_NAME"/>
 		<result property="modelStatus" column="MODEL_STATUS"/>
-		<result property="modelDesc" column="MDOEL_DESC"/>
+		<result property="modelDesc" column="MODEL_DESC"/>
 		<result property="createOrg" column="CREATE_ORG"/>
 		<result property="createTime" column="CREATE_TIME"/>
 		<result property="lastUpdUser" column="LAST_UPD_USER"/>
@@ -23,7 +20,7 @@
 		 SELECT
 		 	MODEL_CODE,
 		 	MODEL_NAME,
-		 	MODEL_STAUTS,
+		 	MODEL_STATUS,
 		 	MODEL_DESC,
 		 	CREATE_USER,
 		 	CREATE_ORG,
@@ -33,10 +30,9 @@
 		 	LAST_UPD_TIME
 		FROM
 			PFM_TM_MODEL_DEF  S
-			where 1=1
+			where s.model_status='1'
 			<isNotEmpty prepend=" AND " property="modelCode">s.MODEL_CODE = #modelCode#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="modelName">s.MODEL_NAME '%$modelName$%'</isNotEmpty>
-			<isNotEmpty prepend=" AND " property="modelStatus">s.MODEL_STATUS =#modelStatus#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="modelDesc">s.MODEL_DESC =#modelDesc#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="createUser">s.CREATE_USER =#staff.ownerUnitid#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="createOrg">s.CREATE_ORG =#staff.ownerUnitid#</isNotEmpty>
@@ -48,48 +44,83 @@
 	</select>
 	
 	
-	<delete id="delMdoelDef" parameterClass="java.util.Map">
-		update pfm_tm_mdoel_Def set mode_statsu ='0' where model_code =#modelCode#
+	<delete id="delMdoelDef" parameterClass="java.lang.String">
+		update pfm_tm_model_Def set model_status ='0' where model_code =#modelCode#
 	</delete>
 	
 	
-	<delete id="delMdoelTar" parameterClass="java.util.Map">
-		delete from pfm_tm_mdoel_tar  where model_code =#modelCode# and Tar_code =#tarCode#
+	<delete id="delMdoelTar" parameterClass="java.lang.String">
+		delete from pfm_tm_model_tar  where model_code =#modelCode# 
 	</delete>
 	
 	
 	<update id="updateModelDef" parameterClass="com.soule.app.pfm.tm.model.po.ModelDefPo">
-		update pfm_tm_mdoel_Def 
+		update pfm_tm_model_Def 
 		<dynamic prepend="set">
-			<isNotNull prepend="," property="modelCode">MODEL_CODE = #modelCode#</isNotNull>
 			<isNotNull prepend="," property="modelName">MODEL_NAME = #modelName#</isNotNull>
 			<isNotNull prepend="," property="modelStatus">MODEL_STATUS = #modelStatus#</isNotNull>
-			<isNotNull prepend="," property="moedlDesc">MODEL_DESC = #moedlDesc#</isNotNull>
+			<isNotNull prepend="," property="modelDesc">MODEL_DESC = #modelDesc#</isNotNull>
 			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
 			<isNotNull prepend="," property="createOrg">CREATE_ORG = #createOrg#</isNotNull>
 			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
 			<isNotNull prepend="," property="lastUpdUser">LAST_UPD_USER = #lastUpdUser#</isNotNull>
 			<isNotNull prepend="," property="lastUpdOrg">LAST_UPD_ORG = #lastUpdOrg#</isNotNull>
 			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
-			
 		</dynamic>
+		
+		where model_code =#modelCode#
 	</update>
 	
 	<insert id="insertModelDef"  parameterClass="com.soule.app.pfm.tm.model.po.ModelDefPo">
-		insert into pfm_tm_mdoel_Def (model_code,model_name,model_status,model_desc,create_user,create_org,create_time)
+		insert into pfm_tm_model_Def (model_code,model_name,model_status,model_desc,create_user,create_org,create_time)
 		values(#modelCode:VARCHAR#,#modelName:VARCHAR#,#modelStatus:VARCHAR#,#modelDesc:VARCHAR#,#createUser:VARCHAR#,#createUser:VARCHAR#,#createTime:timestamp#)
 	</insert>
 	
 	
-	<insert id="insertModelTar"  parameterClass="com.soule.app.pfm.tm.model.po.ModelDefPo">
-		insert into pfm_tm_mdoel_tar (model_code,tar_code,rel_tar_code,tar_sort_code)
-		values(#modelCode:VARCHAR#,#tarCode:VARCHAR#,#relTarCode:VARCHAR#,#tarSortCode:VARCHAR#)
+	<insert id="insertModelTar"  parameterClass="com.soule.app.pfm.tm.model.po.ModelTarPo">
+		insert into pfm_tm_model_tar (model_code,tar_code)
+		values(#modelCode:VARCHAR#,#tarCode:VARCHAR#)
 	</insert>
 	
-	<select id="getModelTar" paramterClass="java.util.Map" resultMap="modelDefMap">
-		select model_code, TAR_CODE,REL_TAR_CODE,TAR_SORT_CODE 
-		FROM PFM_TM_MODEL_DEF
-		WHERE MODEl_CODE =#modelCode# 
+
+	<select id="getModelTarByModelCode" parameterClass="java.util.HashMap" resultClass="com.soule.app.pfm.tm.qtydef.QtyDefPo">
+		SELECT
+			a.TAR_CODE AS tarCode,
+			a.TAR_NAME AS tarName,
+			a.BS_FLAG AS bsFlag,
+			a.MEAS_UNIT_CODE AS measUnitCode,
+			a.MEAS_DEF_CODE AS measDefCode,
+			a.TAR_TYPE AS tarType,
+			a.TAR_PROPERTY AS tarProperty,
+			a.STAT_SCOPE_CODE AS statScopeCode,
+			a.PROC_DATE_CODE AS procDateCode,
+			a.TAR_PROC_DATE AS tarProcDate,
+			a.STORE_DATE AS storeDate,
+			a.PRDTYPE_CODE AS prdtypeCode,
+			a.SUBJ_CODE AS subjCode,
+			a.TAR_SCOPE AS tarScope,
+			a.TAR_BIZ_TYPE AS tarBizType,
+			a.TAR_SORT_CODE AS tarSortCode,
+			a.TAR_STATUS AS tarStatus,
+			a.TAR_DESC AS tarDesc,
+			a.MISC AS misc,
+			a.REMARK AS remark,
+			a.ATTENTION AS attention,
+			a.DATA_SOURCE AS dataSource,
+			a.CREATE_USER AS createUser,
+			a.CREATE_TIME AS createTime,
+			a.CREATE_ORG AS createOrg,
+			a.LAST_UPD_USER AS lastUpdUser,
+			a.LAST_UPD_ORG AS lastUpdOrg,
+			a.LAST_UPD_TIME AS lastUpdTime,
+			a.DAY_SCOPE AS dayScope
+		FROM
+			pfm_tm_model_tar mt
+		LEFT JOIN pfm_tm_qty_def a ON a.TAR_CODE = mt.tar_code
+		WHERE
+			mt.model_code = #modelCode#
+			
+			order by a.tar_code
 	</select>
 	
 </sqlMap>

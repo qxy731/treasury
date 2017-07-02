@@ -136,23 +136,24 @@
 }
 </style>
 </head>
-<n:page action='com.soule.app.pfm.tm.model.action.ModelDefAction' />
 <body>
 	<div class="xcontent">
 		<div class="left">
 			<fieldset class="queryBox">
 				<legend>模型基础信息</legend>
+				<form id="updateForm">
 				<table class='params'>
 					<tr>
 						<td>模型名称</td>
-						<td><input id="modelName" name="modelName" type='text' /></td>
+						<td><input id="modelName" name="modelDef.modelName" type='text' value="${updateIn.modelDef.modelName}"/><input id="modelCode" name="modelDef.modelCode" type='hidden' value="${updateIn.modelDef.modelCode}"/></td>
 					</tr>
 					<tr>
 						<td>模型描述</td>
-						<td><input id="modelDesc" name="modelDesc" type='text' /></td>
+						<td><input id="modelDesc" name="modelDef.modelDesc" type='text' value="${updateIn.modelDef.modelDesc}"/></td>
 					</tr>
 
 				</table>
+				</form>
 			</fieldset>
 			<table width="100%">
 				<tr>
@@ -247,7 +248,7 @@
 		});
 
 		$("#modelTarlist").ligerGrid({
-			columns : [{
+			columns : [ {
 				display : '指标编号',
 				name : 'tarCode',
 				align : 'left',
@@ -270,6 +271,22 @@
 				$.dialogBox.error("查询数据失败");
 			}
 		});
+		
+		//初始化已选中指标列表
+		var modelCode = $("#modelCode").val();
+		var params = {
+			dataAction:'server',
+			dataType:'server',
+			url: '${_CONTEXT_PATH}/modelDef/model-def!queryTarByCode.action',
+			newPage:1,
+			parms:[{name:'queryIn.modelCode',value:modelCode}
+			]
+		};
+		grid = $("#modelTarlist").ligerGetGridManager(); 
+		grid.setOptions(params);
+		grid.loadData();
+		
+		
 		$("#tarlist").ligerGrid({
 			columns : [ {
 				display : '指标编号',
@@ -292,7 +309,6 @@
 			}
 		});
 		$("#queryTar").bind('click', queryTar);
-		$("#reQuery").bind('click', queryByRole);
 		$("#reset").bind('click', doClear);
 		$("#delete_btn").bind('click', deleteTar);
 		$("#insert_btn").bind('click ', insertTar);
@@ -332,23 +348,15 @@
 	
 	function commit() {
 		var grid = $('#modelTarlist').ligerGetGridManager();
-		var modelName = $("#modelName").val();
-		var modelDesc = $("#modelDesc").val();
-		
 		var rows = grid.getData();
 		if (rows.length<1) {
 			Utils.alert("请先选择一个指标");
 			return;
 		}
-		var mdata = {
-			'insertIn.modelName' : modelName,
-			'insertIn.modelDesc' : modelDesc,
-			'insertIn.insertsStr' : JSON.stringify(rows)
-			
-		};
-		//mdata['insertIn.tarList'] = JSON.stringify(rows);
-
-		var url = "${_CONTEXT_PATH}/modelDef/model-def!insert.action";
+		
+		var mdata = Utils.convertFormData('updateIn', 'updateForm');
+		mdata['updateIn.updatesStr'] = JSON.stringify(rows);
+		var url = "${_CONTEXT_PATH}/modelDef/model-def!update.action";
 		Utils.ajaxSubmit(url, mdata, onSuccess);
 	}
 	//将指标信息写入模型指标列表中的页面缓存中
@@ -413,7 +421,6 @@
 			var unitName = selectNode.data.unitName;
 			$("#operUnitid").val(unitId);
 			$("#operUnitname").val(unitName);
-			queryByRole();
 		}
 	}
 	function openSelectUnit1() {
@@ -432,35 +439,7 @@
 	var onSuccess = function() {
 		$.dialogBox.close();
 	}
-	function queryByRole() {
-		var url = "${_CONTEXT_PATH}/sys/roleass!queryByRole.action";
-		var roleid = $("#qRoleId").val();
-		var operUnitid = $("#operUnitid").val();
-		var staffId = $("#staffId").val();
-		var staffName = $("#staffName").val();
-		var params = {
-			dataAction : 'server',
-			dataType : 'server',
-			url : url,
-			newPage : 1,
-			parms : [ {
-				name : 'queryByRoleIn.roleId',
-				value : roleid
-			}, {
-				name : 'queryByRoleIn.operUnitid',
-				value : operUnitid
-			}, {
-				name : 'queryByRoleIn.staffId',
-				value : staffId
-			}, {
-				name : 'queryByRoleIn.staffName',
-				value : staffName
-			} ]
-		};
-		var gridManager = $("#roleStafflist").ligerGetGridManager();
-		gridManager.setOptions(params);
-		gridManager.loadData();
-	} 
+	
 
 </script>
 </html>

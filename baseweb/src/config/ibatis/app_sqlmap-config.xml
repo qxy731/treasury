@@ -11,4 +11,5 @@
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm-model-analysis-sqlmap.xml" />
 	<!-- <sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm-model-analysis-sqlmap.xml" /> -->
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm_qtydef_sqlmap.xml" />
+	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm_report_sqlmap.xml" />
 </sqlMapConfig>

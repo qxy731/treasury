@@ -63,9 +63,9 @@ body {
 	$(function () {
 		
 		$("#toptoolbar").ligerToolBar({items:[
-		    {text:'新增',name:'insert_btn',icon:'add',click:insertStaff},
-		    {text:'修改',name:'update_btn',icon:'update',click:updateStaff},
-		    {text:'删除',name:'delete_btn',icon:'delete',click:deleteStaff}
+		    {text:'新增',name:'insert_btn',icon:'add',click:insertModel},
+		    {text:'修改',name:'update_btn',icon:'update',click:updateModel},
+		    {text:'删除',name:'delete_btn',icon:'delete',click:deleteModel}
 		    ],
 		    width:'100%'
 		});
@@ -80,15 +80,15 @@ body {
 			//	{text:'删除',name:'delete_btn',clazz:'nbutton'}
 			//],
 			columns: [
-						{ display: '模型编号', name: 'modelCode', width: '7%', align: 'left' },
-						{ display: '模型名称', name: 'modelName', width: '7%',align: 'left' },
-						{ display: '模型状态', name: 'modelStatus',width: '7%', align: 'left' },
-						{ display: '创建人', name: 'createUser', width: '7%'}, 
-						{ display: '创建部门', name: 'createOrg', width: '7%'}, 
-						{ display: '创建时间', name: 'createTime', width: '7%',align: 'right' }
+						{ display: '模型编号', name: 'modelCode', width: '15%', align: 'left' },
+						{ display: '模型名称', name: 'modelName', width: '25%',align: 'left' },
+						{ display: '模型状态', name: 'modelStatus',width: '15%', align: 'left', codetype: 'valid_type'},
+						{ display: '创建人', name: 'createUser', width: '15%'}, 
+						{ display: '创建部门', name: 'createOrg', width: '15%'}, 
+						{ display: '创建时间', name: 'createTime', width: '15%',align: 'right' }
 					],
 			pageSize:20,
-			sortName: 'staffId',
+			sortName: 'modelCode',
 			selectRowButtonOnly:true,
 			height:'98%',
 			width:'100%',
@@ -97,20 +97,19 @@ body {
 			}
 		});
 
-		$("#modellist #insert_btn").bind('click', insertStaff);
-		$("#modellist #update_btn").bind('click', updateStaff);
-		$("#modellist #delete_btn").bind('click ', deleteStaff);
-		$("#modellist #resetPwd_btn").bind('click ', updateLogonPwd);
+		$("#modellist #insert_btn").bind('click', insertModel);
+		$("#modellist #update_btn").bind('click', updateModel);
+		$("#modellist #delete_btn").bind('click ', deleteModel);
 		$("#query").bind('click', query);
 		$("#reset").bind('click', doClear);
 
 	});
-	function insertStaff() {
+	function insertModel() {
 		//var url = 'staffManager!insertUI.action';
 		var url = '${_CONTEXT_PATH}/jsp/pfm/target/targetModel/modelAdd.jsp';
 		
 		var p = {
-				id : "insertStaff",
+				id : "insertModel",
 				title : '新增模型',
 				height:'80%',
 				width:'80%',
@@ -120,26 +119,26 @@ body {
 		$.dialogBox.openDialog(url,p);
 	}
 
-	function updateStaff() {
+	function updateModel() {
 		var grid = $("#modellist").ligerGetGridManager();
 		var selected = grid.getSelectedRow();
 		if (!selected) {
 			Utils.alert("请先选择需要修改的记录");
 			return ;
 		}
-		var staffId = selected.staffId;
-		var url = '${_CONTEXT_PATH}/sys/staff!updateUI.action?queryIn.staffId='+staffId;
+		var modelCode = selected.modelCode;
+		var url = '${_CONTEXT_PATH}/modelDef/model-def!updateUI.action?queryIn.modelCode='+modelCode;
 		var p = {
-				id : "updateStaff",
+				id : "updateModel",
 				title : '修改人员',
-				width : 600,
-				height : 500,
+				height:'80%',
+				width:'80%',
 				opacity : 0.07
 			}; 
 		//var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
 		$.dialogBox.openDialog(url,p);
 	}
-	function deleteStaff() {
+	function deleteModel() {
 		var grid = $("#modellist").ligerGetGridManager();
 		var rows = grid.getCheckedRows();
 		if (rows.length < 1) {
@@ -147,7 +146,7 @@ body {
 			return ;
 		}
 		var mdata = {"deleteIn.deletesStr":JSON.stringify(rows)};
-		var url = "${_CONTEXT_PATH}/sys/staff!delete.action";
+		var url = "${_CONTEXT_PATH}/modelDef/model-def!delete.action";
 		Utils.ajaxSubmit(url,mdata, function(result){
 			Utils.alert(result.retMsg,'提示',function() {
 				query();
@@ -179,18 +178,7 @@ body {
 		});
 	}
 
-	function updateLogonPwd() {
-		var grid = $("#modellist").ligerGetGridManager();
-		var selected = grid.getSelectedRow();
-		if (!selected) {
-			Utils.alert("请先选择需要密码重置的记录");
-			return ;
-		}
-		var staffId = selected.staffId;
-		var url = '${_CONTEXT_PATH}/sys/longon!resetLogonPwd.action';
-		var mdata={"logonInfoPo.staffId":staffId};
-		Utils.ajaxSubmit(url,mdata);
-	}
+	
 	//选择部门
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
