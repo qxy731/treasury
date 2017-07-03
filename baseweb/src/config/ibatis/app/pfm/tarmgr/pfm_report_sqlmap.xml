@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="bankfundsflowreport">
+    <typeAlias alias="BankFundsFlowPo" type="com.soule.app.pfm.tm.report.bankfundsflow.BankFundsFlowPo"/> 
+    <typeAlias alias="BankFundsFlowReportQueryIn" type="com.soule.app.pfm.tm.report.bankfundsflow.BankFundsFlowReportQueryIn"/> 
+    <typeAlias alias="ReportTargetPo" type="com.soule.app.pfm.tm.report.bankfundsflow.ReportTargetPo"/>
+    
+	<resultMap id="BankFundsFlowMap" class="BankFundsFlowPo">	
+		<result column="CUST_ORG_NO" property="custOrgNo" jdbcType="VARCHAR" />
+		<result column="CUST_ORG_NAME" property="custOrgName" jdbcType="VARCHAR" />
+		<result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+		<result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+		<result column="BANK_ALL_INFLOW" property="bankAllInflow" jdbcType="BigDecimal" />
+		<result column="BANK_SPECIAL_INFLOW" property="bankSpecialInflow" jdbcType="BigDecimal" />
+		<result column="BANK_ALL_OUTFLOW" property="bankAllOutflow" jdbcType="BigDecimal" />
+		<result column="BANK_SPECIAL_OUTFLOW" property="bankSpecialOutflow" jdbcType="BigDecimal" />
+		<result column="BANK_ALL_NETFLOW" property="bankAllNetFlow" jdbcType="BigDecimal" />
+	</resultMap>
+	
+	<resultMap id="ReportTargetMap" class="ReportTargetPo">	
+		<result column="TAR_CODE" property="tarCode" jdbcType="VARCHAR" />
+		<result column="TAR_NAME" property="tarName" jdbcType="VARCHAR" />
+		<result column="TAR_VALUE" property="tarValue" jdbcType="BigDecimal" />
+	</resultMap>
+	
+	<select id="getBankFundsFlowList" parameterClass="BankFundsFlowReportQueryIn" resultMap="BankFundsFlowMap">
+		SELECT 
+		t.CUST_ORG_NO,
+		t.CUST_ORG_NAME,
+		t.UNIT_ID,
+		t.UNIT_NAME,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00003' THEN t.TAR_VALUE END),0) AS BANK_ALL_INFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00004' THEN t.TAR_VALUE END),0) AS BANK_SPECIAL_INFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00034' THEN t.TAR_VALUE END),0) AS BANK_ALL_OUTFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00035' THEN t.TAR_VALUE END),0) AS BANK_SPECIAL_OUTFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00067' THEN t.TAR_VALUE END),0) AS BANK_ALL_NETFLOW
+		FROM (
+		SELECT
+		c.CUST_ORG_NO,
+		c.CUST_ORG_NAME,
+		c.CUST_ORG_TYPE,
+		c.CUST_LEVEL,
+		u.UNIT_ID,
+		u.UNIT_NAME,
+		q.TAR_CODE,
+		q.TAR_VALUE
+		FROM  PFM_CUST_ORG c 
+		LEFT JOIN PFM_TM_QTY_CUST_ORG q ON q.CUST_ID = c.CUST_ORG_NO
+				 AND q.TAR_CODE IN ('TE_00003', 'TE_00004', 'TE_00034', 'TE_00035', 'TE_00067' )
+				 AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+		LEFT JOIN SYS_UNIT u ON u.UNIT_ID = q.ORG_ID
+		WHERE 1=1
+		AND c.CUST_ORG_NO in ('100000','100001','100002','100003','100004','100005','100007','100018','100028','100030','100050','100055')
+	)t
+		GROUP BY t.CUST_ORG_NO,t.CUST_ORG_NAME,t.UNIT_ID,t.UNIT_NAME
+		ORDER BY t.CUST_ORG_TYPE,t.CUST_LEVEL
+	</select>
+	
+	<select id="getTreasuryFundsNatureList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
+		SELECT	
+			d.TAR_CODE,
+			d.TAR_NAME,
+			q.TAR_VALUE
+			FROM  PFM_TM_QTY_DEF d 
+			LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+			AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00005',
+			'TE_00014',
+			'TE_00015',
+			'TE_00006',
+			'TE_00007',
+			'TE_00008',
+			'TE_00009',
+			'TE_00010',
+			'TE_00036',
+			'TE_00046',
+			'TE_00047',
+			'TE_00048',
+			'TE_00037',
+			'TE_00049',
+			'TE_00050',
+			'TE_00038',
+			'TE_00039',
+			'TE_00040',
+			'TE_00041',
+			'TE_00042',
+			'TE_00104',
+			'TE_00105',
+			'TE_00106',
+			'TE_00107',
+			'TE_00108',
+			'TE_00109',
+			'TE_00011',
+			'TE_00012',
+			'TE_00013',
+			'TE_00043',
+			'TE_00044',
+			'TE_00045',
+			'TE_00104',
+			'TE_00105',
+			'TE_00106',
+			'TE_00107',
+			'TE_00108',
+			'TE_00109',
+			'TE_00114',
+			'TE_00115',
+			'TE_00116')
+	</select>
+	
+	
+	<select id="getTreasuryFundsSourceList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
+			SELECT	
+					d.TAR_CODE,
+					d.TAR_NAME,
+					q.TAR_VALUE
+					FROM  PFM_TM_QTY_DEF d 
+					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00011',
+				'TE_00012',
+				'TE_00013',
+				'TE_00117',
+				'TE_00043',
+				'TE_00044',
+				'TE_00045',
+				'TE_00118',
+				'TE_00110',
+				'TE_00111',
+				'TE_00112',
+				'TE_00113')	
+	</select>
+	
+	
+	<select id="getAccountingAnalysisOtherList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
+			SELECT	
+					d.TAR_CODE,
+					d.TAR_NAME,
+					q.TAR_VALUE
+					FROM  PFM_TM_QTY_DEF d 
+					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00069',	
+					'TE_00070',	
+					'TE_00071',	
+					'TE_00072',	
+					'TE_00073',	
+					'TE_00074',	
+					'TE_00075',	
+					'TE_00076',	
+					'TE_00077',	
+					'TE_00078',	
+					'TE_00079',	
+					'TE_00080',	
+					'TE_00081',	
+					'TE_00089',	
+					'TE_00090',	
+					'TE_00091',	
+					'TE_00092',	
+					'TE_00093',	
+					'TE_00094',	
+					'TE_00095',	
+					'TE_00096',	
+					'TE_00097',	
+					'TE_00098',	
+					'TE_00099',	
+					'TE_00100',	
+					'TE_00101',	
+					'TE_00102',	
+					'TE_00103')	
+	</select>
+</sqlMap>
