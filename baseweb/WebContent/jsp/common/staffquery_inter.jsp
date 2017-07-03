@@ -46,11 +46,11 @@ body {width:600px}
 				<td>员工性别</td>
 				<td><n:select codetype="sex" id="sex" name='sex' emptyOption="true" disabled="false" ></n:select>
 				</td>
-				<td align="right"><input id='queryStaff' type='button' value='查&nbsp;&nbsp;询' class='l-button' style="width: 60px" /></td>
-				<td align="center"><input id='resetStaff' type='button' class='l-button' value='重&nbsp;&nbsp;置' style="width: 60px;" /></td>
+				<td align="right"><input id='queryStaff' type='button' value='查&nbsp;询' class='l-button' style="width: 60px" /></td>
+				<td align="center"><input id='resetStaff' type='button' class='l-button' value='重&nbsp;置' style="width: 60px;" /></td>
 				<!--<td align="center" colspan="2"><input id='queryStaff'
-					type='button' value='查&nbsp;&nbsp;询' class='l-button' style="width: 60px" />&nbsp;<input
-					id='resetStaff' type='button' class='l-button' value='重&nbsp;&nbsp;置'
+					type='button' value='查&nbsp;询' class='l-button' style="width: 60px" />&nbsp;<input
+					id='resetStaff' type='button' class='l-button' value='重&nbsp;置'
 					style="width: 60px;" /></td>-->
 			</tr>
 		</table>

@@ -44,13 +44,13 @@ body {
     <table class="table_btn">
         <tr>
            <td><input id="insert" name="insert" type="button" value="保&nbsp;&nbsp;存" class="l-button"></td>
-           <td><input id="reset" name="reset" type="button" value="重&nbsp;&nbsp;置" class="l-button"> </td>
+           <td><input id="reset" name="reset" type="button" value="重&nbsp;置" class="l-button"> </td>
         </tr>
     </table>
 </div>
 <!--<div align="center" class="div_bottom">
     <input id="insert" name="insert" type="button" value="保&nbsp;&nbsp;存" class="l-button">
-    <input id="reset" name="reset" type="button" value="重&nbsp;&nbsp;置" class="l-button"> 
+    <input id="reset" name="reset" type="button" value="重&nbsp;置" class="l-button"> 
 </div>-->
 </body>
 <script type='text/javascript'>

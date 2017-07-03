@@ -55,8 +55,8 @@
 	<tr><td>
 		<table width="100%">
 			<tr>
-				<td align="right" with="50%"><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
-				<td align="left"  with="50%"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
+				<td align="right" with="50%"><input id='query' name='query' type='button' value='查&nbsp;询' class='l-button'/></td>
+				<td align="left"  with="50%"><input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button'/></td>
 			</tr>
 		</table>
 	</td></tr>

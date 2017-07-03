@@ -101,9 +101,9 @@ body {
 		<div align="center" class="div_bottom">
 			<table class="table_btn">
 				<tr>
-					<td><input id="commit" type="button" value="提&nbsp;&nbsp;交"
+					<td><input id="commit" type="button" value="提&nbsp;交"
 						class="l-button"></td>
-					<td><input id="cancel" type="button" value="取&nbsp;&nbsp;消"
+					<td><input id="cancel" type="button" value="取&nbsp;消"
 						class="l-button"></td>
 				</tr>
 			</table>

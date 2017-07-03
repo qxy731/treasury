@@ -46,8 +46,8 @@ body {width:400px;margin-top: 10px;margin-bottom: 20px}
 <div align="center" class="div_bottom">
     <table class="table_btn">
         <tr>
-           <td><input id="modify" name='modify' type="button" value="提&nbsp;&nbsp;交" class="l-button"></input></td>
-           <td><input id='reset' name='reset' type="button" value="取&nbsp;&nbsp;消" class="l-button"> </td>
+           <td><input id="modify" name='modify' type="button" value="提&nbsp;交" class="l-button"></input></td>
+           <td><input id='reset' name='reset' type="button" value="取&nbsp;消" class="l-button"> </td>
         </tr>
     </table>
 </div>
@@ -57,7 +57,7 @@ body {width:400px;margin-top: 10px;margin-bottom: 20px}
 			<input id='modify' name='modify' type='button' value='执&nbsp;&nbsp;行' class='l-button'/>
 		</td>
 		<td>
-			<input id='reset' name='reset' type='button' value='取&nbsp;&nbsp;消' class='l-button'/>
+			<input id='reset' name='reset' type='button' value='取&nbsp;消' class='l-button'/>
 		</td>
 	</tr>
 </table>-->

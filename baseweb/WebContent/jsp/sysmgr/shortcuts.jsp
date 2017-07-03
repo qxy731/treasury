@@ -200,7 +200,7 @@ function checkQuickMenuCount(addedCount) {
 <table class='content' width="900" height="500">
 <tr>
 <td width="45%"  height="100%">
-<fieldset class="detailBox"><legend>我的功能菜单</legend>
+<fieldset class="outbox"><legend>我的功能菜单</legend>
 	<div id="tabs" style="width: 100%;height:100%;overflow:hidden; border:1px solid #A3C0E8;">
 		<div title="我的菜单" id="myMenus" style='height:100%' tabid="tabid1">
 			<ul id="tree1" class="ztree" style='height:410px;' ></ul>
@@ -221,7 +221,7 @@ function checkQuickMenuCount(addedCount) {
 </div>
 </td>
 <td width="45%" height="100%">
-	<fieldset class="detailBox"><legend>定制菜单</legend>
+	<fieldset class="outbox"><legend>定制菜单</legend>
 		<div id='menubuilder'></div>
 	</fieldset>
 </td>

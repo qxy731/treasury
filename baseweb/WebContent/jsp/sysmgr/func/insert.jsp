@@ -41,18 +41,18 @@ body {
 <div align="center" class="div_bottom">
     <table class="table_btn">
         <tr>
-           <td><input id="commit" type="button" value="提&nbsp;&nbsp;交" class="l-button"></input></td>
-           <td><input id="cancel" type="button" value="取&nbsp;&nbsp;消" class="l-button"> </td>
+           <td><input id="commit" type="button" value="提&nbsp;交" class="l-button"></input></td>
+           <td><input id="cancel" type="button" value="取&nbsp;消" class="l-button"> </td>
         </tr>
     </table>
 </div>
 <!--<table class="s1-button">
 	<tr>
 		<td>
-			<input id="commit" type="button" value="提&nbsp;&nbsp;交" class="nbutton"></input>
+			<input id="commit" type="button" value="提&nbsp;交" class="nbutton"></input>
 		</td>
 		<td>
-			<input id="cancel" type="button" value="取&nbsp;&nbsp;消" class="nbutton"></input>
+			<input id="cancel" type="button" value="取&nbsp;消" class="nbutton"></input>
 		</td>
 	</tr>
 </table>-->

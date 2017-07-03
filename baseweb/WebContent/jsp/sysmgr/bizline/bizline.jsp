@@ -25,13 +25,13 @@
 <body>
 <div class="xcontent">
 	<div class="left">
-		<fieldset class="detailBox"><legend>业务线类型</legend>
+		<fieldset class="outbox"><legend>业务线类型</legend>
 		<div id='lefttoptoolbar'  class='mytoolbar'></div>
 			<div id='bizTypelist'></div>
 		</fieldset>
 	</div>
 	<div class="right">
-		<fieldset class="detailBox"><legend>业务线分类值明细</legend>
+		<fieldset class="outbox"><legend>业务线分类值明细</legend>
 		<div id='righttoptoolbar' class='mytoolbar'></div>
 			<div id='bizVallist'></div>
 		</fieldset>

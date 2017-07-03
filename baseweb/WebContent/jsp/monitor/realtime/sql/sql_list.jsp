@@ -40,7 +40,7 @@
 	<table class="s1-button">
 			<tr>
 				<td>
-					<input id='list' name='list' type='button' value='查&nbsp;&nbsp;询' class='l-button'/>
+					<input id='list' name='list' type='button' value='查&nbsp;询' class='l-button'/>
 				</td>
 				<td>
 					<input id='resetStats' name='resetStats' type='button' value='重新统计' class='l-button'/>

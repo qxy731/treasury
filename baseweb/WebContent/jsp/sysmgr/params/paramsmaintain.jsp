@@ -50,15 +50,15 @@ body {
 <div class="btn_div" align="center">
      <table class="btn_table">
          <tr >
-           <td ><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
-           <td ><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
+           <td ><input id='query' name='query' type='button' value='查&nbsp;询' class='l-button'/></td>
+           <td ><input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button'/></td>
          </tr>
      </table>
 </div>
 
 </td></tr>
 <tr><td>
-	<fieldset class="detailBox"><legend>查询结果</legend>
+	<fieldset class="outbox"><legend>查询结果</legend>
 		<div id='toptoolbar'></div>
 		<div id='paramslist'></div>
 </fieldset>

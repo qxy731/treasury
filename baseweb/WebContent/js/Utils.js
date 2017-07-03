@@ -218,7 +218,7 @@ Utils.ajaxSubmit = function(action, data, onSuccess,onError)
  */
 Utils.openSelectUnit = function(b,unitId,okFunction,cancelFunction) {
 	var url = _CONTEXT_PATH + "/jsp/common/includeOrg.jsp?unitid=" + unitId;
-	var p = {id:"_selectUnitDialog",title:'选择组织机构',width: 400,height:400,lock:true,opacity:0.07};
+	var p = {id:"_selectUnitDialog",title:'选择组织机构',width: 360,height:400,lock:true,opacity:0.07};
 	if (b) {
 		p.follow = $(b)[0];
 	}

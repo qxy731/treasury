@@ -17,7 +17,7 @@ input[type=button] {width:80px;}
 .mytoolbar {height:24px;background: url("${_CONTEXT_PATH}/jwebui/skins/sys/images/panel/panel-toolbar.jpg") repeat-x scroll 0 0 #CEDFEF;border:1px solid #EFF7F7;  border-top:1px solid #9CBAE7; border-left: 1px solid #9CBAE7;border-right: 1px solid #9CBAE7;}
 #toptoolbar9 {width:100%;overflow: hidden;}
 
-.detailBox {margin-top: 20px}
+.outbox {margin-top: 20px}
 </style>
 </head>
 <n:page action='com.soule.app.sys.jsptree.JspTreeAction' />
@@ -39,7 +39,7 @@ input[type=button] {width:80px;}
 			</tr>
 				<tr>
 					<td>
-					<fieldset class="detailBox"><legend>可控制功能点</legend>
+					<fieldset class="outbox"><legend>可控制功能点</legend>
 					<div id='toptoolbar9' class='mytoolbar'></div>
 					<div id='recordlist'></div>
 					</fieldset>

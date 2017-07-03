@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>公司客户效能管理系统</title>
+<title>国库数据库指标系统</title>
 <link rel="shortcut icon" href="${_CONTEXT_PATH}/favicon.ico" type="image/x-icon" />
 <jsp:include page="/comm.jsp"></jsp:include>
 <script src="${_CONTEXT_PATH}/js/menuhtml.js" type="text/javascript"></script>

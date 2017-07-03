@@ -7,31 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>审计日志</title>
-<jsp:include page="/comm_debug.jsp"></jsp:include>
+<jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.params td {
-	background-color: #E2EAFF;
-	padding: 2px 2px 2px 10px;
-}
 
-.queryBox .params input[type=text], .queryBox .params .l-text {
-	
-}
-
-.s1-button {
-	margin-top: 20px;
-}
-
-#query {
-	width: 80px
-}
-
-#reset {
-	width: 80px
-} /**/
-body {
-	margin-top: 10px
-}
 </style>
 </head>
 <body>
@@ -78,10 +56,12 @@ body {
 								<td><input type='text' id='startTime' name='log.startTime' /></td>
 								<td align="center">结束时间</td>
 								<td><input type='text' id='endTime' name='log.endTime' /></td>
-								<td align="right"><input id='query' name='query'
-									type='button' value='执&nbsp;&nbsp;行' class='l-button' /></td>
-								<td align="left"><input id='reset' name='reset'
-									type='button' value='重&nbsp;&nbsp;置' class='l-button' /></td>
+								<td colspan="2">
+									<div style="float:right;">
+										<input id='query' name='query' type='button' value='执&nbsp;行' class='l-button' style="float:left;margin-right:5px;" />
+										<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;" />
+									</div>
+								</td>
 							</tr>
 						</table>
 					</fieldset>
@@ -90,7 +70,7 @@ body {
 		</tr>
 		<tr>
 			<td>
-				<fieldset class="detailBox">
+				<fieldset class="outbox">
 					<legend>查询结果</legend>
 					<div id='loglist'></div>
 				</fieldset>
@@ -149,7 +129,8 @@ body {
 							}, {
 								display : '执行时间',
 								name : 'execTime',
-								align : 'left'
+								align : 'left',
+								width: 200
 							}
 							//{ display: '详细信息', name: 'logDetail', align: 'center' },
 							//

@@ -52,14 +52,11 @@ body {overflow: hidden;}
 								</td>
 							</tr>
 							<tr>
-								<td colspan="6" align="center">
-									<table>
-										<tr>
-											<td align="right"><input id='query' type="button" value="查&nbsp;&nbsp;询" class="l-button" /></td>
-											<td width="10"></td>
-											<td align="left"><input id='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button' /></td>
-										</tr>
-									</table>
+								<td colspan="6">
+									<div style="float:right;">
+										<input id='query' type="button" value="查&nbsp;询" class="l-button" style="float:left;margin-right:5px;" />
+										<input id='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+									</div>
 								</td>
 							</tr>
 						</table>
@@ -69,7 +66,7 @@ body {overflow: hidden;}
 		</tr>
 		<tr>
 			<td>
-				<fieldset class="detailBox" style="width: 100%;">
+				<fieldset class="outbox">
 					<div id="toptoolbar"></div>
 					<div id='filelist'></div>
 				</fieldset>

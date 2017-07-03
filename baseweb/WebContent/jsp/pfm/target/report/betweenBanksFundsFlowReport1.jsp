@@ -138,10 +138,10 @@ body {
 		</tr>
 		<tr><td colspan="4">
 				<table width="100%"><tr>
-					<td align="right"><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
+					<td align="right"><input id='query' name='query' type='button' value='查&nbsp;询' class='l-button'/></td>
 					<td width="3%"></td>
 					<td width="3%"></td>
-					<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
+					<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button'/></td>
 				</tr></table>
 			</td>
 		</tr>

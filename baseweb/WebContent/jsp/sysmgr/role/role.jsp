@@ -8,72 +8,44 @@
 <title>角色维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.inbox ,.outbox {padding: 5px;margin: 2px;border: 1px solid #ccc;}
-.params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
-#reset {width: 80px;}
-#query {width: 80px;}
-body {
-	margin-top: 5px
-}
 </style>
 </head>
 <body>
 <n:page action='com.soule.app.sys.role.RoleAction' />
 <n:enums keys='valid_type'/>
-<table class="content">
+<div class="content">
+<fieldset class="queryBox"><legend>查询条件</legend>
+<form id="myform">
+<table class="params">
 	<tr>
-		<td>
-		<fieldset class="queryBox"><legend>查询条件</legend>
-		<form id="myform">
-		<table class="params">
-			<tr>
-				<td>角&nbsp;&nbsp;色ID</td>
-				<td><input id='roleId' name='roleId' type="text" /></td>
-				<td nowrap="nowrap">角色名称</td>
-				<td><input id='roleName' name='roleName'type="text" /></td>
-				
-			</tr>
-			<tr>
-				<td>状&nbsp;&nbsp;&nbsp;&nbsp;态</td>
-				<td><n:select codetype="valid_type" id="roleStatus" name='roleStatus' emptyOption="true"></n:select>
-				</td> 
-				<td>创&nbsp;建&nbsp;人</td>
-				<td><input id='createUser' type="text" ></td>
-				
-			</tr>
-		</table>
-		</form>
-		</fieldset>
+		<td>角色ID</td>
+		<td><input id='roleId' name='roleId' type="text" /></td>
+		<td nowrap="nowrap">角色名称</td>
+		<td><input id='roleName' name='roleName'type="text" /></td>
+		<td>状态</td>
+		<td><n:select codetype="valid_type" id="roleStatus" name='roleStatus' emptyOption="true"></n:select>
+		</td> 
+	</tr>
+	<tr>
+		<td>创建人</td>
+		<td><input id='createUser' type="text" ></td>
+		<td colspan="4">
+			<div style="float:right;">
+				<input id='query' name='query' type="button" value="查&nbsp;询" class="l-button" style="float:left;margin-right:5px;"/>
+				<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+			</div>
 		</td>
 	</tr>
-	
-		 <tr><td>
-<br>
-<table width="100%">
-		<tr>
-			<td></td>
-			<td align="right"><input id='query' name='query' type="button" value="查&nbsp;&nbsp;询" class="l-button"/></td>
-			<td width="5%"></td>
-			<td width="5%"></td>
-			<td  align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
-			<td></td>
-		</tr>
 </table>
-<br>
-</td></tr>
-	
-	 <tr>			
-			<td style="width:100%">
-				<fieldset class="detailBox"><legend>角色列表</legend>
-					<div id='toptoolbar'></div>
-					<div id='rolelist'></div>
-				</fieldset>
-			</td>
-		</tr>
-</table>
+</form>
+</fieldset>
+<fieldset class="outbox"><legend>角色列表</legend>
+	<div id='toptoolbar'></div>
+	<div id='rolelist'></div>
+</fieldset>
+</div>
 </body>
 <script type="text/javascript">
-        
 	$(function () {
 		 $("#toptoolbar").ligerToolBar({items:[
     	 	{text:'新增角色',name:'insert_btn',icon:'insert', click:insertRole},

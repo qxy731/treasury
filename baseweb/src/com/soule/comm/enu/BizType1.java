@@ -7,7 +7,7 @@ package com.soule.comm.enu;
  */
 public enum BizType1 {
     /**
-     * 角色，机构，员工，权限,登陆
+     * 角色，部门，员工，权限,登陆
      */
     MM("MM"),CUSM("CUSM"),MKTM("MKTM"),PUBM("PUBM"),KNM("KNM"),PFM("PFM"),SYSM("SYSM"),REPM("REPM"),BUSM("BUSM"),OPER("OPER"),NOM("NOM");
 	private String value;

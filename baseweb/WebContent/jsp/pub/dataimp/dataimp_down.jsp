@@ -24,7 +24,7 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 <table class='content'>
 <tr><td>
 
-<fieldset class="detailBox"><legend>下载模板</legend>
+<fieldset class="outbox"><legend>下载模板</legend>
 <br>
 <table class='params'>
 	<tr>

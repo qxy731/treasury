@@ -28,9 +28,8 @@
 <tr>
 <td>
 <span id="panelTd">
-<div style="width:295px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;  ">
-<ul id="unitTree">
-</ul>
+<div style="width:340px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;">
+<ul id="unitTree"></ul>
 </div>
 </span>
 </td>
@@ -82,7 +81,7 @@ function doClear() {
 
 function clearPanel(){
 	$('#panelTd').empty();
-	$('#panelTd').append("<div style='width:295px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;'><ul id='unitTree'></ul></div>");
+	$('#panelTd').append("<div style='width:340px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;'><ul id='unitTree'></ul></div>");
 	manager=$("#unitTree").ligerTree({ 
         checkbox: false, 
         idFieldName :'unitId',
@@ -90,7 +89,7 @@ function clearPanel(){
         parentIcon: null, 
         childIcon: null,
         onSelect: onSelect,
-        nodeWidth:150 
+        nodeWidth:200 
      });
 }
 
