@@ -58,7 +58,7 @@
 	</select>
 	
 	<select id="getTreasuryFundsNatureList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
-		SELECT	
+		SELECT	DISTINCT
 			d.TAR_CODE,
 			d.TAR_NAME,
 			q.TAR_VALUE
@@ -111,7 +111,7 @@
 	
 	<select id="getTreasuryFundsSourceList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
 			SELECT	
-					d.TAR_CODE,
+					DISTINCT d.TAR_CODE,
 					d.TAR_NAME,
 					q.TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
@@ -133,7 +133,7 @@
 	
 	
 	<select id="getAccountingAnalysisOtherList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
-			SELECT	
+			SELECT	DISTINCT
 					d.TAR_CODE,
 					d.TAR_NAME,
 					q.TAR_VALUE

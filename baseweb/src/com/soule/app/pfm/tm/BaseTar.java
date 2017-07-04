@@ -10,7 +10,7 @@ public class BaseTar implements Serializable{
 	private static final long serialVersionUID = -6217095323678434682L;
 	/** 适用对象 **/
 	public static String APPOBJ_ORGCODE = "10000000";
-	public static String APPOBJ_ORGNAME = "机构";
+	public static String APPOBJ_ORGNAME = "部门";
 	public static String APPOBJ_PERSONCODE = "01000000";
 	public static String APPOBJ_PERSONNAME = "个人";
 	public static String APPOBJ_ORGANDPERCODE = "11000000";

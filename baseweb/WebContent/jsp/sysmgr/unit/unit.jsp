@@ -9,98 +9,52 @@
 <title>部门维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.inbox, .outbox {
-	padding: 5px;
-	margin: 2px;
-	border: 1px solid #ccc;
-}
-
-.params td {
-	background-color: #E2EAFF;
-	padding: 2px 2px 2px 10px;
-}
-
-#reset {
-	width: 80px;
-}
-
-#query {
-	width: 80px;
-}
-
-body {
-	margin-top: 5px
-}
 </style>
 </head>
 <body>
-	<n:page action='com.soule.app.sys.unit.UnitAction' />
-	<n:enums keys='unit_kind,valid_type' />
-	<table class="content">
-		<tr>
-			<td>
-				<form id="queryForm" name="queryForm">
-					<fieldset class="queryBox">
-						<legend>查询条件</legend>
-						<table class="params">
-							<tr>
-								<td>部门编码</td>
-								<td><input id="unitId" type="text" name="unitId" /></td>
-								<td>部门名称</td>
-								<td><input id="unitName" type="text" name="unitName" /></td>
-								<td>上级部门</td>
-								<td><input id="superUnitId" type="hidden"
-									name="superUnitId" /> <input class='unit_select' type="text"
-									id="superUnitName" name="superUnitName" readonly="readonly"
-									onclick="openSelectUnit()" /></td>
-							</tr>
-							<tr>
-								<td>部门级别</td>
-								<td><input id="unitLevel" type="text" name="unitLevel" /></td>
-								<%-- <td>部门类型</td>
-								<td><n:select codetype="unit_kind" id="unitKind"
-										name='unitKind' emptyOption="true" disabled="false"></n:select>
-								</td> --%>
-								<td>部门状态</td>
-								<td><n:select codetype="valid_type" id="unitStatus"
-										name='unitStatus' emptyOption="true" disabled="false"></n:select>
-								</td>
-								<td></td>
-								<td>
-								</td>
-							</tr>
-						</table>
-
-					</fieldset>
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td><table width="100%">
-					<tr>
-						<td align="right"><input id='query' name='query' type="button" value="查&nbsp;&nbsp;询" class="l-button" /></td>
-						<td width="5%"></td>
-						<td width="5%"></td>
-						<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button' /></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-
-		<tr>
-			<td style="width: 100%">
-				<fieldset class="outbox">
-					<legend>部门列表</legend>
-					<div id='toptoolbar'></div>
-					<div id='unitlist'></div>
-				</fieldset>
-			</td>
-		</tr>
-	</table>
+<n:page action='com.soule.app.sys.unit.UnitAction' />
+<n:enums keys='unit_kind,valid_type' />
+<div class="content">
+<fieldset class="queryBox"><legend>查询条件</legend>
+<form id="queryForm" name="queryForm">
+<table class="params">
+	<tr>
+		<td>部门编码</td>
+		<td><input id="unitId" type="text" name="unitId" /></td>
+		<td>部门名称</td>
+		<td><input id="unitName" type="text" name="unitName" /></td>
+		<td>上级部门</td>
+		<td><input id="superUnitId" type="hidden"
+			name="superUnitId" /> <input class='unit_select' type="text"
+			id="superUnitName" name="superUnitName" readonly="readonly"
+			onclick="openSelectUnit()" /></td>
+</tr>
+<tr>
+	<td>部门级别</td>
+	<td><input id="unitLevel" type="text" name="unitLevel" /></td>
+	<td>部门状态</td>
+	<td><n:select codetype="valid_type" id="unitStatus"
+	name='unitStatus' emptyOption="true" disabled="false"></n:select>
+</td>
+<td colspan="2">
+	<div style="float:right;">
+		<input id='query' name='query' type="button" value="查&nbsp;询" class="l-button" style="float:left;margin:5px;"/>
+		<input id='reset' name='reset' type='button' value='重&nbsp;置' class="l-button" style="float:left;margin:5px;"/>
+	<div>
+		</td>
+	</tr>
+</table>
+</form>	
+</fieldset>
+<fieldset class="outbox">
+	<legend>部门列表</legend>
+	<div id='toptoolbar'></div>
+	<div id='unitlist'></div>
+</fieldset>
+</div>
 </body>
 <script type="text/javascript">
 	$(function() {
-
 		$("#toptoolbar").ligerToolBar({
 			items : [ {
 				text : '查看详情',
@@ -127,11 +81,10 @@ body {
 			enumlist : _enum_params,
 			checkbox : false,
 			enabledSort : false,
-
 			columns : [ {
 				display : '部门编号',
 				name : 'unitId',
-				width : '5%',
+				width : '7%',
 				align : 'left'
 			}, {
 				display : '部门名称',
@@ -156,7 +109,7 @@ body {
 			} */, {
 				display : '部门地址',
 				name : 'unitAddress',
-				width : '15%',
+				width : '13%',
 				align : 'left'
 			}, {
 				display : '清算国库代码',
@@ -190,7 +143,7 @@ body {
 				codetype : 'valid_type'
 			} ],
 			enabledEdit : true,
-			pageSize : 10,
+			pageSize : 20,
 			sortName : 'unitId',
 			height : '98%',
 			width : '100%',

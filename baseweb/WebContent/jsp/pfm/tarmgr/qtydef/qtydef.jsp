@@ -45,23 +45,16 @@
 				<input id='createOrg' name='createOrg' type='hidden'  value="${logUserInfo.operUnitId}"/>
 				<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
 				</td> --%>
-				<td></td><td></td>
-		        <td></td><td></td>
+				<td colspan="4">
+					<div style="float:right;">
+						<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;" />
+						<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;" />
+					</div>
+				</td>
 			</tr>
 		</table>
 		</form>
 		</fieldset>
-		
-		<table width="100%">
-		<tr>
-			<td></td>
-			<td align="right"><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
-			<td width="5%"></td>
-			<td width="5%"></td>
-			<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
-			<td></td>
-		</tr>
-		</table>
 		</td>
 	</tr>	
 	<tr>
@@ -69,7 +62,7 @@
 		<form>
 			<fieldset class="detailList"><legend>查询结果</legend>
 				<div id="toptoolbar"></div>
-				<div id="qtydeflist" style="overflow:auto;"></div>
+				<div id="qtydeflist"></div>
 			</fieldset>
 		</form>
 		</td>
