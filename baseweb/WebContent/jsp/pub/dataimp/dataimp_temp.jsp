@@ -18,7 +18,7 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 <table class='content2'>
 <tr><td style="padding-left: 15px; padding-right: 5px; padding-top: 15px;">
 <form id="myform" action="">
-<fieldset class="detailBox" style="width: 700px;"><legend>错误记录列表</legend>
+<fieldset class="outbox" style="width: 700px;"><legend>错误记录列表</legend>
 	<table class='params'>
 		<tr>
 			<td align="left" nowrap="nowrap" width="10%">总记录条数:</td>

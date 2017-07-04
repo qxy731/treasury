@@ -35,30 +35,20 @@ body {
 				<td>所属部门</td>
 				<td><input type='hidden' id='unitId' name='unitId' /><input id="unitName" type='text' name="unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
 				<td colspan="2">
-<!-- 				<input id='query' name='query' type="button" value="查询" class="nbutton"/>&nbsp;<input id='reset' name='reset' type="button" value='重置' class="nbutton"/> -->
+					<div style="float:right;">
+						<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;"/>
+						<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+					</div>
 				</td>
 			</tr>
 		</table>
-		
 		</form>
 		</fieldset>
-		<table width="100%">
-		<tr><td><br/></td></tr>
-		<tr>
-			<td></td>
-			<td align="right"><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
-			<td width="5%"></td>
-			<td width="5%"></td>
-			<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
-			<td></td>
-		</tr>
-		<tr><td><br/></td></tr>
-</table>
 		</td>
 	</tr>
 	<tr>
 		<td>
-		  <fieldset class="detailBox"><legend>查询结果</legend>
+		  <fieldset class="outbox"><legend>查询结果</legend>
 			<div id='toptoolbar'></div>
 		   <div id='stafflist'></div>
 		   </fieldset>

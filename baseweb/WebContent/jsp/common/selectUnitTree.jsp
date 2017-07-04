@@ -10,7 +10,7 @@
 <jsp:include page="/comm.jsp"></jsp:include>
 </head>
 <body>
-<n:page action='com.soule.app.common.selectIndustry.SelectIndustryAction'/>	
+<n:page action='com.soule.app.common.selectIndustry.SelectIndustryAction'/>
 <table >
 <tr><td>
 <form id="myform">
@@ -24,9 +24,8 @@
 <tr>
 <td>
 <span id="panelTd">
-<div style="width:295px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;  ">
-<ul id="unitTree">
-</ul>
+<div style="width:340px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;">
+		<ul id="unitTree"></ul>
 </div>
 </span>
 </td>
@@ -49,7 +48,7 @@ $(function () {
         textFieldName:'unitName',
         parentIcon: null, 
         childIcon: null,
-        nodeWidth:150,
+        nodeWidth:200,
         onSelect: onSelect 
      });
 
@@ -68,14 +67,14 @@ function doClear() {
 
 function clearPanel(){
 	$('#panelTd').empty();
-	$('#panelTd').append("<div style='width:295px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;'><ul id='unitTree'></ul></div>");
+	$('#panelTd').append("<div style='width:340px; height:320px; margin:5px; float:left; border:1px solid #ccc; overflow:auto;'><ul id='unitTree'></ul></div>");
 	manager=$("#unitTree").ligerTree({ 
         checkbox: false, 
         idFieldName :'unitId',
         textFieldName:'unitName',
         parentIcon: null, 
         childIcon: null,
-        nodeWidth:150,
+        nodeWidth:200,
         onSelect: onSelect 
      });
 }

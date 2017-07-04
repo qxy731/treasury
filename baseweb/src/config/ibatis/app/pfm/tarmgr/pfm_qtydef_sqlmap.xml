@@ -38,7 +38,8 @@
 	</resultMap>
 	
 	<select id="getQtyDef" resultClass="QtyDefPo">
-		select distinct
+		select * from
+		(select DISTINCT
 		a.TAR_CODE as tarCode,
 		a.TAR_NAME as tarName,
 		a.TAR_SCOPE as tarScope,
@@ -83,7 +84,7 @@
 			<isNotEmpty property="dayMoney" prepend="and">
 				a.TAR_PROPERTY!='2'
 			</isNotEmpty>
-		</dynamic>
+		</dynamic>)t
 	</select>
 	
 	<select id="getOneQtyDef" resultClass="QtyDefPo">

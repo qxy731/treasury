@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="n" uri="/ncrm-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,20 +8,12 @@
 <title>员工维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.params td {
-	background-color: #E2EAFF;
-	padding: 2px 2px 2px 10px;
-}
-
-body {
-	margin-top: 5px
-}
 </style>
 </head>
 <body>
 <n:page action='com.soule.app.sys.staff.StaffAction' />
 <n:enums keys='valid_type,sex,partime_job_type'/>
-<table class="content" cellpadding="5">
+<table class="content">
 	<tr>
 		<td>
 		<fieldset class="queryBox"><legend>查询条件</legend>
@@ -36,33 +27,27 @@ body {
 				<td>所属部门</td>
 				<td><input type='hidden' id='unitId' name='unitId' /><input id="unitName" type='text' name="unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
 			</tr>
+			<tr>
+				<td colspan="6">
+					<div style="float:right;">
+					<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;" />
+					<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;" />
+					</div>
+				</td>
+			</tr>
 		</table>
-		
 		</form>
 		</fieldset>
-		<table width="100%">
-			<tr><td><br/></td></tr>
-			<tr>
-				<td></td>
-				<td align="right"><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
-				<td width="3%"></td>
-				<td width="3%"></td>
-				<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
-				<td></td>
-			</tr>
-			<tr><td><br/></td></tr>
-			</table>
 		</td>
-	</tr>
-	<tr>
-		<td>
-		  <fieldset class="detailBox"><legend>查询结果</legend>
-			<div id='toptoolbar'></div>
-		   <div id='reportlist'></div>
-		   </fieldset>
-		</td>
-	</tr>
-</table>
+		</tr>
+		<tr><td>
+	  <fieldset class="outbox"><legend>查询结果</legend>
+		<div id='toptoolbar'></div>
+	   <div id='reportlist'></div>
+	   </fieldset>
+	   </td>
+	   </tr>
+	   </table>
 </body>
 <script type="text/javascript">
 	$(function () {

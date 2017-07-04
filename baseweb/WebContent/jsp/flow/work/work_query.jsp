@@ -36,10 +36,10 @@
 			<table class="s1-button">
 					<tr>
 						<td>
-							<input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/>
+							<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button'/>
 						</td>
 						<td>
-							<input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/>
+							<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button'/>
 						</td>
 					</tr>
 			</table>

@@ -82,10 +82,10 @@ body {
 			<table width="100%">
 				<tr>
 					<td align="right"><input id="commit" type="button"
-						value="提&nbsp;&nbsp;交" class="l-button"></input></td>
+						value="提&nbsp;交" class="l-button"></input></td>
 					<td width="5%"></td>
 					<td width="5%"></td>
-					<td><input id="cancel" type="button" value="取&nbsp;&nbsp;消"
+					<td><input id="cancel" type="button" value="取&nbsp;消"
 						class="l-button"></input></td>
 				</tr>
 			</table>

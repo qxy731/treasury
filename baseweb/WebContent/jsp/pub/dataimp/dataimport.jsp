@@ -55,9 +55,9 @@ body {overflow: hidden;}
 								<td colspan="6" align="center">
 									<table>
 										<tr>
-											<td align="right"><input id='query' type="button" value="查&nbsp;&nbsp;询" class="l-button" /></td>
+											<td align="right"><input id='query' type="button" value="查&nbsp;询" class="l-button" /></td>
 											<td width="10"></td>
-											<td align="left"><input id='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button' /></td>
+											<td align="left"><input id='reset' type='button' value='重&nbsp;置' class='l-button' /></td>
 										</tr>
 									</table>
 								</td>
@@ -69,7 +69,7 @@ body {overflow: hidden;}
 		</tr>
 		<tr>
 			<td>
-				<fieldset class="detailBox" style="width: 100%;">
+				<fieldset class="outbox" style="width: 100%;">
 					<div id="toptoolbar"></div>
 					<div id='filelist'></div>
 				</fieldset>

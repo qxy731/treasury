@@ -9,7 +9,7 @@
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 .content {width:100%; height: 100%;}
-.detailBox {height: 100%;}
+.outbox {height: 100%;}
 .nbutton {width:80px;}
 body {width :800px;}
 /*body {width :850px;}*/
@@ -22,7 +22,7 @@ body {width :800px;}
 	<tr>
 		<td>
 			<form id="myform" action="${_CONTEXT_PATH}/Blass!query.action">
-			<fieldset class="detailBox"><legend>当前已选人员</legend>
+			<fieldset class="outbox"><legend>当前已选人员</legend>
 				<table>
 					<tr>
 						<td>业务线类型<input id='bizTypeId' name='bizTypeId' type='hidden' value='${param.bltid}'/></td><td>${param.bltid}</td>
@@ -35,7 +35,7 @@ body {width :800px;}
 			</form>
 		</td>
 		<td>
-			<fieldset class="detailBox"><legend>操作</legend>
+			<fieldset class="outbox"><legend>操作</legend>
 				<input id='addall_btn' type='button' value='<<添加全部' class='l-button'/><br/>
 				<input id='addsel_btn' type='button' value='<添加' class='l-button'/><br/>
 				<input id='remvoesel_btn' type='button' value='>移除' class='l-button'/><br/>
@@ -43,7 +43,7 @@ body {width :800px;}
 			</fieldset>
 		</td>
 		<td>
-			<fieldset class="detailBox"><legend>待选人员</legend>
+			<fieldset class="outbox"><legend>待选人员</legend>
 			<jsp:include page="/jsp/common/staffquery_inter.jsp?dup=true"></jsp:include>
 			</fieldset>
 		</td>

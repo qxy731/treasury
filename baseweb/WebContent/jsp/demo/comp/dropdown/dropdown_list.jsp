@@ -37,7 +37,7 @@
 					<input id='list' name='list' type='button' value='执&nbsp;&nbsp;行' class='nbutton'/>
 				</td>
 				<td>
-					<input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='nbutton'/>
+					<input id='reset' name='reset' type='button' value='重&nbsp;置' class='nbutton'/>
 				</td>
 			</tr>
 	</table>

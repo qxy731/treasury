@@ -133,8 +133,8 @@ $(function() {
 <div align="center" class="div_bottom">
 	<table class="table_btn">
 		<tr>
-			<td><input id="saveBtn" type="button" value="提&nbsp;&nbsp;交" class="l-button"></td>
-			<td><input id="cancelBtn" type="button" value="取&nbsp;&nbsp;消" class="l-button"></td>
+			<td><input id="saveBtn" type="button" value="提&nbsp;交" class="l-button"></td>
+			<td><input id="cancelBtn" type="button" value="取&nbsp;消" class="l-button"></td>
 		</tr>
 	</table>
 </div>

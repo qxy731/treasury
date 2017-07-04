@@ -8,234 +8,67 @@
 <title>枚举参数维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-/* .params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
-.params1 td {background-color: #E2EAFF; padding:2px 2px 2px 2px;}
-.xcontent {
-	width: 100%;
-	
-}
-.content1 {
-    width:100%;
-}
-
-.content2 {
-    width:100%;
-}
 .left {
- padding: 10px;
+	margin: 2px 0 0 0;
+	float: left;
+	padding: 0;
+	width: 640px;
 }
 
 .right {
- padding: 10px;
-}
-.mytoolbar {
-    margin:0;
-    overflow: hidden;
-}
-.mytoolbar {height:24px;background: url("${_CONTEXT_PATH}/jwebui/skins/sys/images/panel/panel-toolbar.jpg") repeat-x scroll 0 0 #CEDFEF;border:1px solid #EFF7F7;  border-top:1px solid #9CBAE7; border-left: 1px solid #9CBAE7;border-right: 1px solid #9CBAE7;}
-.mytoolbar .l-icon {left: 2px; position: absolute; top: 1px; }
-.mytoolbar .l-toolbar-item-hasicon {_margin-left: 4px;padding-left:20px;_margin-top:2px}
-.mytoolbar .l-toolbar-item-disable{display: none} */
-
-
-.xcontent {
-	width: 100%;
-	height: 100%;
-	/* display: inline; */
-}
-
-.left {
-	margin: 5px 0 0 20px;
+	margin: 2px 0 0 5px;
 	float: left;
 	padding: 0;
-	width: 45%;
-}
-
-.right {
-	margin: 5px 0 0 20px;
-	float: left;
-	padding: 0;
-	width: 50%;
-}
-
-.params tbody tr td {
-	background-color: #EAEFFF;
-	padding: 1px 1px 1px 10px;
-	line-height: 28px;
-}
-
-.params input, .params select {
-	width: 200px;
-	border: 1px solid #b3bcFF;
-	border-radius: 2px 2px 2px 2px;
-	vertical-align: bottom;
-}
-
-.params input {
-	padding-left: 4px;
-	padding-bottom: 4px;
-	width: 141px;
-}
-
-.params select {
-	height: 22px;
-}
-
-.params input {
-	height: 16px;
-}
-
-.params {
-	width: 100%;
-}
-
-.params1 {
-	width: 100%;
-}
-.params1 tbody tr td {
-	background-color: #EAEFFF;
-	padding: 1px 1px 1px 10px;
-	line-height: 28px;
-}
-
-.params1 input, .params select {
-	width: 200px;
-	border: 1px solid #b3bcFF;
-	border-radius: 2px 2px 2px 2px;
-	vertical-align: bottom;
-}
-
-.params1 input {
-	padding-left: 4px;
-	padding-bottom: 4px;
-	width: 141px;
-}
-
-.params1 select {
-	height: 22px;
-}
-
-.params1 input {
-	height: 16px;
-}
-
-.params1 {
-	width: 100%;
-}
-
-#operUnitname {
-	width: 198px;
-}
-
-#lefttoptoolbar {
-	wdith: 100%
-}
-
-#righttoptoolbar {
-	wdith: 100%
-}
-
-.mytoolbar {
-	height: 24px;
-	background:
-		url("${_CONTEXT_PATH}/jwebui/skins/sys/images/panel/panel-toolbar.jpg")
-		repeat-x scroll 0 0 #CEDFEF;
-	border: 1px solid #EFF7F7;
-	border-top: 1px solid #9CBAE7;
-	border-left: 1px solid #9CBAE7;
-	border-right: 1px solid #9CBAE7;
-	margin-top: 10px
-}
-
-.mytoolbar .l-icon {
-	left: 2px;
-	position: absolute;
-	top: 1px;
-}
-
-.mytoolbar .l-toolbar-item-hasicon {
-	_margin-left: 4px;
-	padding-left: 20px;
-	_margin-top: 2px
-}
-
-.mytoolbar .l-toolbar-item-disable {
-	display: none
-}
-
-#staffName, #staffId, #unitname, #roleId {
-	width: 120px;
+	width: 640px;
 }
 </style>
 </head>
 <body>
-<div class="xcontent">
+<div class="content">
 		<div class="left">
-			<fieldset class="queryBox">
-				<legend>查询条件</legend>
+			<fieldset class="queryBox"><legend>查询条件</legend>
 				<table class='params'>
 					<tr>
 						<td>参数编码</td>
 						<td><input id='qenumId' name='qenumId' type="text" /></td>
-					</tr>
-					<tr>
 						<td>参数名称</td>
 						<td><input id='qenumName' name="qenumName" type="text" /></td>
 					</tr>
-
+					<tr>
+					<td colspan="4" style="height:28px;">
+						<div style="float:right;">
+							<input id='query_btn' name='query_btn'	type="button" value="查&nbsp;询" class="l-button" style="float:left;margin-right:5px;"/>
+							<input id='reset_btn' name='reset_btn'	type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+						</div>
+					</td>
+				</tr>
 				</table>
 			</fieldset>
-			<table width="100%">
-				<tr>
-					<td><br /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td align="right"><input id='query_btn' name='query_btn'
-						type="button" value="查&nbsp;&nbsp;询" class="l-button" /></td>
-					<td width="5%"></td>
-					<td width="5%"></td>
-					<td align="left"><input id='reset_btn' name='reset_btn'
-						type='button' value='重&nbsp;&nbsp;置' class='l-button' /></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><br /></td>
-				</tr>
-			</table>
-			<fieldset class="detailBox">
-				<div id='toptoolbar9' class='mytoolbar'></div>
+			<fieldset class="outbox">
+				<div id='toptoolbar'></div>
 				<div id='enumlist'></div>
 			</fieldset>
 		</div>
 		<div class="right">
-			<fieldset class="queryBox" style="width=100%;">
-				<legend>枚举参数明细</legend>
+			<fieldset class="queryBox"><legend>枚举参数明细</legend>
 				 <form id='detail'> 
-					<table class='params1'>
+					<table class='params'>
 						<tr>
 							<td nowrap="nowrap">参数编码</td>
 							<td><input id='enumId' name='enumId' type="text" validate="{required:true}" /></td>
-	
-						</tr>
-						<tr>
 							<td nowrap="nowrap">参数名称</td>
 							<td><input id='enumName' name='enumName' type="text" validate="{required:true}" /></td>
 						</tr>
 						<tr>
 							<td>参数描述</td>
 							<td><input id='enumDesc' type="text" /></td>
+							<td colspan="2"></td>
 						</tr>
 					</table>
 				 </form> 
 			</fieldset>
-			<table width="100%">
-				<tr>
-					<td><br /></td>
-				</tr>
-			</table>
-			<fieldset class="detailBox">
-				<div id='toptoolbarOther' class='mytoolbar'></div>
+			<fieldset class="outbox">
+				<div id='toptoolbarOther'></div>
 				<div id='enum_item_list'></div>
 			</fieldset>
 		</div>
@@ -244,9 +77,9 @@
 <script type="text/javascript">
     $(function () {
         Utils.validateInit();
-        $("#toptoolbar9").ligerToolBar({items:[
-       		{text:'新&nbsp;&nbsp;增',name:'insert_btn',icon:'add',click:insertEnum},
-     		{text:'删&nbsp;&nbsp;除',name:'delete_btn',icon:'delete',click:deleteEnum}
+        $("#toptoolbar").ligerToolBar({items:[
+       		{text:'新增',name:'insert_btn',icon:'add',click:insertEnum},
+     		{text:'删除',name:'delete_btn',icon:'delete',click:deleteEnum}
            ] 
 		});
         $("#enumlist").ligerGrid({
@@ -256,13 +89,13 @@
             selectRowButtonOnly:true,
             
             columns: [
-            { display: '参数编码', name: 'enumId'  , width: '30%' },
-            { display: '参数名称', name: 'enumName' , width: '30%' },
-            { display: '参数描述', name: 'enumDesc' , width: '40%'  }
+            { display: '参数编码', name: 'enumId'  ,align:'left', width: '30%' },
+            { display: '参数名称', name: 'enumName' ,align:'left', width: '30%' },
+            { display: '参数描述', name: 'enumDesc' ,align:'left', width: '37%'  }
             ],
             pageSize:20,
             sortName: 'enumId', 
-            width: '100%',
+            width: 630,
             height: '98%',
             onError: function() {
                 alert("查询数据失败");
@@ -286,15 +119,15 @@
             enumlist: _enum_params,
             checkbox: true,
             columns: [
-            { display: '顺序号', name: 'seqId',editor:{type:'int'}, width: '25%' },
-            { display: '枚举编码', name: 'itemId',editor:{type:'text'} , width: '25%'},
-            { display: '枚举名称', name: 'itemValue',editor:{type:'text'}, width: '25%'},
-            { display: '枚举描述', name: 'itemDesc',editor:{type:'text'} , width: '25%'}
+            { display: '顺序号', name: 'seqId',editor:{type:'int'},align:'left',  width: '25%' },
+            { display: '枚举编码', name: 'itemId',editor:{type:'text'} ,align:'left',  width: '25%'},
+            { display: '枚举名称', name: 'itemValue',editor:{type:'text'},align:'left',  width: '25%'},
+            { display: '枚举描述', name: 'itemDesc',editor:{type:'text'} ,align:'left',  width: '25%'}
             
             ],
             pageSize:20,
             sortName: 'seqId', 
-            width: '100%',
+            width:630,
             height: '98%',
             onError: function() {
                 alert("查询数据失败");

@@ -82,7 +82,7 @@
 		</td>
 	</tr>
 	<tr align="center">
-		<td colspan="4" align="center" style="width:100%;"><input type="button" value="取&nbsp;&nbsp;消" id="cancelBtn" class="l-button" style="margin-top:10px;"/></td>
+		<td colspan="4" align="center" style="width:100%;"><input type="button" value="取&nbsp;消" id="cancelBtn" class="l-button" style="margin-top:10px;"/></td>
 	</tr>
 </table>
 </body>

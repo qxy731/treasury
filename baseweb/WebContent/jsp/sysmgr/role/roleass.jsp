@@ -9,136 +9,27 @@
 <title>角色分配</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.xcontent {
-	width: 100%;
-	height: 100%;
-	display: inline;
+body{
+	margin:0 auto;
 }
-
 .left {
-	margin: 5px 0 0 25px;
+	margin: 2px 0 0 0;
 	float: left;
 	padding: 0;
-	width: 45%;
+	width: 640px;
 }
 
 .right {
-	margin: 5px 0 0 25px;
+	margin: 2px 0 0 5px;
 	float: left;
 	padding: 0;
-	width: 50%;
-}
-
-.params tbody tr td {
-	background-color: #EAEFFF;
-	padding: 1px 1px 1px 10px;
-	line-height: 28px;
-}
-
-.params input, .params select {
-	width: 200px;
-	border: 1px solid #b3bcFF;
-	border-radius: 2px 2px 2px 2px;
-	vertical-align: bottom;
-}
-
-.params input {
-	padding-left: 4px;
-	padding-bottom: 4px;
-	width: 141px;
-}
-
-.params select {
-	height: 22px;
-}
-
-.params input {
-	height: 16px;
-}
-
-.params {
-	width: 100%;
-}
-
-.params1 tbody tr td {
-	background-color: #EAEFFF;
-	padding: 1px 1px 1px 10px;
-	line-height: 28px;
-}
-
-.params1 input, .params select {
-	width: 200px;
-	border: 1px solid #b3bcFF;
-	border-radius: 2px 2px 2px 2px;
-	vertical-align: bottom;
-}
-
-.params1 input {
-	padding-left: 4px;
-	padding-bottom: 4px;
-	width: 141px;
-}
-
-.params1 select {
-	height: 22px;
-}
-
-.params1 input {
-	height: 16px;
-}
-
-.params1 {
-	width: 100%;
-}
-
-#operUnitname {
-	width: 198px;
-}
-
-#lefttoptoolbar {
-	wdith: 100%
-}
-
-#righttoptoolbar {
-	wdith: 100%
-}
-
-.mytoolbar {
-	height: 24px;
-	background:
-		url("${_CONTEXT_PATH}/jwebui/skins/sys/images/panel/panel-toolbar.jpg")
-		repeat-x scroll 0 0 #CEDFEF;
-	border: 1px solid #EFF7F7;
-	border-top: 1px solid #9CBAE7;
-	border-left: 1px solid #9CBAE7;
-	border-right: 1px solid #9CBAE7;
-	margin-top: 10px
-}
-
-.mytoolbar .l-icon {
-	left: 2px;
-	position: absolute;
-	top: 1px;
-}
-
-.mytoolbar .l-toolbar-item-hasicon {
-	_margin-left: 4px;
-	padding-left: 20px;
-	_margin-top: 2px
-}
-
-.mytoolbar .l-toolbar-item-disable {
-	display: none
-}
-
-#staffName, #staffId, #unitname, #roleId {
-	width: 120px;
+	width: 640px;
 }
 </style>
 </head>
 <n:page action='com.soule.app.sys.roleass.RoleassAction' />
 <body>
-	<div class="xcontent">
+	<div class="content">
 		<div class="left">
 			<fieldset class="queryBox">
 				<legend>角色人员查询</legend>
@@ -155,29 +46,24 @@
 							id="operUnitname" name="operUnitname" readonly="readonly"
 							type='text' class="unit_select" /></td>
 					</tr>
-
+					<tr>
+					<td colspan="2">
+						<div style="float:right;">
+						<input id='reQuery' type='button' value='刷&nbsp;新' class='l-button' style="float:left;margin-right:5px;"/>
+						</div>
+					</td>
+					</tr>
 				</table>
 			</fieldset>
-			<table width="100%">
-				
-				<tr>
-					<td></td>
-					<td align="center"><input id='reQuery' type='button'
-						value='刷&nbsp;&nbsp;新' class='l-button' /></td>
-				</tr>
-				<tr>
-					<td><br /></td>
-				</tr>
-			</table>
-			<fieldset class="detailBox">
-				<div id='lefttoptoolbar' class='mytoolbar'></div>
+			<fieldset class="outbox">
+				<div id='lefttoptoolbar'></div>
 				<div id='roleStafflist'></div>
 			</fieldset>
 		</div>
 		<div class="right">
 			<fieldset class="queryBox">
 				<legend>人员查询</legend>
-				<table class='params1'>
+				<table class='params'>
 					<tr>
 						<td>员工姓名</td>
 						<td><input type='text' id='staffName' name='staffName'
@@ -193,29 +79,19 @@
 							class="unit_select" /></td>
 						<td>所属角色</td>
 						<td><input type='text' id='roleId' name='roleId' /></td>
-
 					</tr>
+					<tr>
+					<td colspan="4">
+						<div style="float:right;">
+							<input id='queryStaff' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;"/>
+							<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+						</div>
+					</td>
+				</tr>
 				</table>
 			</fieldset>
-			<table width="100%">
-				
-				<tr>
-					<td></td>
-					<td align="right"><input id='queryStaff' name='query'
-						type='button' value='查&nbsp;&nbsp;询' class='l-button' /></td>
-					<td width="5%"></td>
-					<td width="5%"></td>
-					<td align="left"><input id='reset' name='reset' type='button'
-						value='重&nbsp;&nbsp;置' class='l-button' /></td>
-					<td></td>
-
-				</tr>
-				<tr>
-					<td><br /></td>
-				</tr>
-			</table>
-			<fieldset class="detailBox">
-				<div id='righttoptoolbar' class='mytoolbar'></div>
+			<fieldset class="outbox">
+				<div id='righttoptoolbar'></div>
 				<div id='stafflist'></div>
 			</fieldset>
 		</div>

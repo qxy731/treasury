@@ -84,13 +84,13 @@
 											<td></td>
 											<td align="right">
 												<input id='expBtn' type='button' value='导出模板' onclick="execute();" class='l-button' /> 
-												<!-- <input id='query' type='button' value='查&nbsp;&nbsp;询' class='l-button' style="display: none"/> -->
+												<!-- <input id='query' type='button' value='查&nbsp;询' class='l-button' style="display: none"/> -->
 											</td>
 											<td width="5%"></td>
 											<td width="5%"></td>
 											<td align="left">
 											<input id='impBtn' type='button' value='导&nbsp;&nbsp;入' onclick="upload();" class='l-button' />
-												<!-- <input id='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button' style="display: none"/> -->
+												<!-- <input id='reset' type='button' value='重&nbsp;置' class='l-button' style="display: none"/> -->
 											</td>
 											<td></td>
 										</tr>

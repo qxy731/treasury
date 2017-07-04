@@ -15,18 +15,24 @@
 <script type="text/javascript" src="${_CONTEXT_PATH}/jwebui/zTree/js/jquery.ztree.exedit-3.0.js"></script>
 <script type="text/javascript" src="${_CONTEXT_PATH}/jsp/sysmgr/menu/menu.js"></script>
 <style type="text/css">
-.params {margin:3px;}
+/* .params {margin:3px;}
 .params tbody tr td {padding-left:10px;padding:0px 2px 2px 10px;line-height: 22px;background-color: #fff;}
 #rbtnl_3,#rbtnl_4,#rbtnl_5,#rbtnl_6 {width: 16px;}
-div#rMenu {	position: absolute;	visibility: hidden;background-color: #555;text-align: center;padding: 1px;}
-div#rMenu ul li {min-width:100px;margin: 1px 0;padding: 0 5px;cursor: pointer;list-style: none outside none;background-color: #EEEEEE;}
-div#rMenu ul li:hover{background-color: #EEEE99;}
 .l-table-edit {font-size: 12px;}
 .l-table-edit-td {padding: 4px;}
 .l-button-submit,.l-button-test,.l-button-reset {width: 80px;float: left;margin-left: 10px;padding-bottom: 2px;}
 #accordion2 table tr td:first-child {text-align: left;}
 #accordion2 table tr td {padding: 4px 2px 2px 4px;}
-#accordion2 table tr td input:focus {/*border: 1px solid #ff9911;*/}
+#accordion2 table tr td input:focus {border: 1px solid grap;} */
+
+#accordion1,#accordion2{
+	border: 1px solid  #e2f5ff;
+	padding:0 2px;
+}
+
+div#rMenu {	position: absolute;	visibility:hidden;background-color: #555;text-align: center;padding: 1px;}
+div#rMenu ul li {min-width:100px;margin: 1px 0;padding: 0 5px;cursor: pointer;list-style: none outside none;background-color: #EEEEEE;}
+div#rMenu ul li:hover{background-color: #EEEE99;}
 </style>
 <script type="text/javascript">
 
@@ -42,13 +48,17 @@ $( function() {
         accordion = $("#accordion2").ligerGetAccordionManager();
         accordion.setHeight(height);
     });
+    
+    $(".l-accordion-header").unbind();
+    $(".l-accordion-toggle").hide();
+    
 });
 
 $(document).ready(function(){
     var sysZNodes = ${sysZNodes};
-    var cusZNodes = ${cusZNodes};
+    //var cusZNodes = ${cusZNodes};
     $.fn.zTree.init($("#sysTree"),setting,sysZNodes);
-    $.fn.zTree.init($("#cusTree"), setting, cusZNodes);
+    //$.fn.zTree.init($("#cusTree"), setting, cusZNodes);
 });
 
 $(function() {
@@ -76,19 +86,19 @@ function doReset() {
 }
 </script>
 </head>
-<body style="overflow: hidden;" id="mybody">
-<table cellpadding="5" width="100%" >
+<body id="mybody" style="overflow:hidden;">
+<table class="content">
 	<tr>
 		<td width="300">
 		<div title="菜单列表" id="accordion1">
 		<div title="系统菜单">
 			<ul id="sysTree" class="ztree"></ul>
 		</div>
-		<div title="自定义菜单">
+		<!-- <div title="自定义菜单">
 		<ul id="cusTree" class="ztree"></ul>
+		</div> -->
 		</div>
-		</div>
-		<div id="rMenu">
+		<div id="rMenu" >
 		<ul>
 			<li id="m_add" onclick="addTreeNode();" >增加节点</li>
 			<li id="m_del" onclick="removeTreeNode();">删除节点</li>
@@ -100,7 +110,7 @@ function doReset() {
 		<td id="accordion2">
 		<div title="菜单详情">
 		<form id="form1" method="post" action="sys/menu!saveMenu.action" name="form1">
-		<table class="params">
+		<table class="params" style="margin:2px 0;">
 		    <input id="hasChildFlag" name="hasChildFlag" type="hidden"/>
 			<tr>
 				<td nowrap="nowrap" align="left">菜单编号:</td>
@@ -138,8 +148,10 @@ function doReset() {
 			<tr>
 				<td>是否相对路径:</td>
 				<td>
-					<input id="rbtnl_3" type="radio" name="relaFlag" value="1" /><label for="rbtnl_3">是</label>
-					<input id="rbtnl_4" type="radio" name="relaFlag" value="0" /><label for="rbtnl_4">否</label>
+					<input id="rbtnl_3" type="radio" name="relaFlag" value="1" style="float:left;width:20px;line-height: 22px;margin-right:5px;"/>
+					<label for="rbtnl_3" style="float:left;width:20px;line-height: 22px;margin-right:5px;">是</label>
+					<input id="rbtnl_4" type="radio" name="relaFlag" value="0" style="float:left;width:20px;line-height: 22px;margin-right:5px;"/>
+					<label for="rbtnl_4" style="float:left;width:20px;line-height: 22px;margin-right:5px;">否</label>
 				</td>
 			</tr>
 			<tr>
@@ -153,8 +165,10 @@ function doReset() {
 			<tr>
 				<td>可视标志:</td>
 				<td>
-					<input id="rbtnl_5" type="radio" name="nodeVisible" value="1" /><label for="rbtnl_5">是</label>
-					<input id="rbtnl_6" type="radio" name="nodeVisible" value="0" /><label for="rbtnl_6">否</label>
+					<input id="rbtnl_5" type="radio" name="nodeVisible" value="1" style="float:left;width:20px;line-height: 22px;margin-right:5px;"/>
+					<label for="rbtnl_5" style="float:left;width:20px;line-height: 22px;margin-right:5px;">是</label>
+					<input id="rbtnl_6" type="radio" name="nodeVisible" value="0" style="float:left;width:20px;line-height: 22px;margin-right:5px;"/>
+					<label for="rbtnl_6" style="float:left;width:20px;line-height: 22px;margin-right:5px;">否</label>
 				</td>
 			</tr>
 			<tr>
@@ -170,19 +184,11 @@ function doReset() {
 					<input type="button" value="重置" class="l-button" onclick="doReset()"/>
 				</td>
 				-->
-				<td align="center" style="text-align: center; align: center;">
-				<div>
-				    <table>
-				       <tr>
-				         <td>
-				         <input type="button" value="提&nbsp;&nbsp;&nbsp;&nbsp;交" id="Button1" class="l-button" onclick="doSubmit();"/>
-				         </td>
-				         <td>
-				         <input type="button" value="重&nbsp;&nbsp;&nbsp;&nbsp;置" class="l-button" onclick="doReset()"/>
-				         </td>
-				      </tr>
-				     </table>
-				 </div>
+				<td height="28px">
+					<div style="float: right;line-height:28px;">
+						<input type="button" value="提&nbsp;交" id="Button1" class="l-button" onclick="doSubmit();" style="float:left;margin-right:5px;"/>
+						<input type="button" value="重&nbsp;置" class="l-button" onclick="doReset()" style="float:left;margin-right:5px;"/>
+				 	</div>
 				</td>
 			</tr>
 		</table>

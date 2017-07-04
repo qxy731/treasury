@@ -36,17 +36,9 @@ body {overflow:hidden;}
 	</tr>
 	<tr>
 		<td colspan='4'>
-			<div align="center" class="button_div">
-				<table width="100%">
-						<tr>
-							<td></td>
-							<td align="right"><input id='edit' type="button" value="编&nbsp;&nbsp;辑" class="l-button"/></td>
-							<td width="5%"></td>
-							<td width="5%"></td>
-							<td  align="left"><input id='monitor' type='button' value='监&nbsp;&nbsp;控' class='l-button'/></td>
-							<td></td>
-						</tr>
-				</table>
+			<div align="center" style="margin-left:150px;">
+				<input id='edit' type="button" value="编&nbsp;辑" class="l-button" style="float:left;margin-right:5px;"/>
+				<input id='monitor' type='button' value='监&nbsp;控' class='l-button' style="float:left;margin-right:5px;"/>
 			</div>
 		</td>
 	</tr>

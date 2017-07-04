@@ -84,7 +84,7 @@ $(function() {
    </tr>
 </table>
 </fieldset>
-<fieldset class="detailBox"><legend>创建计算公式</legend>
+<fieldset class="outbox"><legend>创建计算公式</legend>
 <table class="params1">
   <tr>
   <td>
@@ -195,7 +195,7 @@ $(function() {
  </td>
  <td width="100%">
 		<textarea rows="4" cols="60" id="createGs" name="qtyExp.calcExp" validate="{required:true}">${qtyExp.calcExp}</textarea>
-		<input type="button"" name="resetBtn" id="resetBtn" value="重&nbsp;&nbsp;置" class="l-button" style="width:80px;"/><br/>
+		<input type="button"" name="resetBtn" id="resetBtn" value="重&nbsp;置" class="l-button" style="width:80px;"/><br/>
 		<fieldset class="detailList"><legend><font color="red">复合指标公式说明</font></legend>
 				<font color="red">
 					<p>月份贷款收息率:#月份贷款实收利息/#月份贷款应收利息 * 100</p> 
@@ -213,7 +213,7 @@ $(function() {
 			<input type="button" value="确&nbsp;&nbsp;定" id="saveBtn" class="l-button" style="margin-right:10px;"/>
 		</td>
 		<td align="left">
-			<input type="button" value="取&nbsp;&nbsp;消" id="cancelBtn" class="l-button" style="margin-left:10px;"/>
+			<input type="button" value="取&nbsp;消" id="cancelBtn" class="l-button" style="margin-left:10px;"/>
 		</td>
 	</tr>
 </table>
