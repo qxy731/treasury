@@ -51,7 +51,7 @@ body{
 	
 	function query() {
 		if(validate()){
-			var url = "${_CONTEXT_PATH}/report/bank-funds-flow-report!query.action";
+			var url = "${_CONTEXT_PATH}/report/bank-funds-flow-report!query3.action";
 			var data = $('#myform').serialize();
 			Utils.ajaxSubmit(url, data, function(result) {
 				$.dialogBox.info(result.retMsg, function() {

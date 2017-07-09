@@ -66,7 +66,7 @@
 			{ display: '角色描述', name: 'remark', width: '16%',align:'left' }, 
 			{ display: '角色状态', name: 'roleStatus', width:  '15%' , codetype: 'valid_type'}, 
 			{ display: '创建人', name: 'createUser', width:  '15%'}, 
-			{ display: '创建时间', name: 'createTime', width:  '15%'}
+			{ display: '创建时间', name: 'createTime', width:  '15%',format:'YYYY-MM-DD'}
 			],
 			pageSize:20,
 			selectRowButtonOnly:true,

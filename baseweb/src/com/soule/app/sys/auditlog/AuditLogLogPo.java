@@ -2,6 +2,8 @@ package com.soule.app.sys.auditlog;
 
 import java.io.Serializable;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * 参数传递查询的类
  */
@@ -160,6 +162,7 @@ public class AuditLogLogPo implements Serializable {
     /**
      * @return 执行时间
      */
+    @JSON(format="yyyy-MM-dd HH:mm:ss")
     public java.util.Date getExecTime() {
         return execTime;
     }

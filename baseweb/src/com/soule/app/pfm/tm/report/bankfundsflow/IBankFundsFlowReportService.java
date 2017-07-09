@@ -14,5 +14,12 @@ public interface IBankFundsFlowReportService {
     public BankFundsFlowReportQueryOut query(BankFundsFlowReportQueryIn in) throws ServiceException;
     
     public BankFundsFlowReportQueryOut query4(BankFundsFlowReportQueryIn in) throws ServiceException;
+    /**
+     * 与其他国库之间资金流动那个情况 统计报表
+     * @param in
+     * @return
+     * @throws ServiceException
+     */
+    public BankFundsFlowReportQueryOut query3(BankFundsFlowReportQueryIn in) throws ServiceException;
    
 }

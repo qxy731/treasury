@@ -29,7 +29,7 @@ body{
 		Utils.validateInit();
 		$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
 		$("#query").bind('click', query);
-		//$("#reset").bind('click', doClear);
+		$("#export").bind('click', doExport);
 		$(".l-grid-header-table tr").addClass("l-grid-hd-row");
 		$(".l-grid-header-table tr").addClass("l-grid-hd-mul");
 		$(".l-grid-header-table td").addClass("l-grid-hd-cell");
@@ -71,6 +71,19 @@ body{
 			});
 		}
 	}
+	
+	function doExport(){
+		var sqlKey="";
+		var templateName="";
+		var templateNameCN="";
+		var orgCode =$("#unitId").val();
+		var reportDate=$("#dataDate").val();
+		var viewFlag ="";
+		
+		//var url = "${_CONTEXT_PATH}/report/report-base.action?sqlKey="+sqlKey+"&templateName="+templateName+"&templateNameCN="+encodeURI(encodeURI(templateNameCN))+"&params.orgCode="+orgCode+"&params.reportDate="+reportDate+"&viewFlag="+viewFlag;
+		//window.open(url);
+		
+	}
 	function doClear() {
 		$(".queryBox input[type='text'],#unitId").each(function(i,item){
 			item.value ='';
@@ -98,7 +111,9 @@ body{
 	<table class='params'>
 		<tr>
 			<td>数据日期</td>
-			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" /></td>
+			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" />
+			<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
+			</td>
 			<td></td><td></td>
 			<%-- <td>所属部门</td>
 			<td>
@@ -106,7 +121,7 @@ body{
 				<input id="unitName" type='text' name="queryIn.unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select" value="${logUserInfo.operUnitName}"/>
 			</td> --%>
 			<td align="right"><input id='query' name='query' type='button' value='查&nbsp;询' class='l-button'/></td>
-			<td align="left"><input id='reset' name='reset' type='button' value='导&nbsp;出' class='l-button'/></td>
+			<td align="left"><input id='export' name='export' type='button' value='导&nbsp;出' class='l-button'/></td>
 		</tr>
 	</table>
 	</form>
