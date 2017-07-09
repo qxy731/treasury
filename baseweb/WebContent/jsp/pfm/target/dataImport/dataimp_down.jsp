@@ -33,7 +33,7 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 			<s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" cssStyle="width: 250px;" emptyOption="false" />
 		</td>
 		<td align="left">
-			<input type="button" id="down" name="down" value="下&nbsp;&nbsp;载" class="l-button" />
+			<input type="button" id="down" name="down" value="下&nbsp;载" class="l-button" />
 		</td>
 	</tr>
 </table>

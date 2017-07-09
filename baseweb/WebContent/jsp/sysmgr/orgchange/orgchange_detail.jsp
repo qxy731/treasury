@@ -8,22 +8,19 @@
 <title>员工部门变更</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.inbox ,.outbox {padding: 5px;margin: 2px;border: 1px solid #ccc;}
+/* .inbox ,.outbox {padding: 5px;margin: 2px;border: 1px solid #ccc;}
 .params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
 #reset {width: 80px;}
 body {
 	margin-top: 10px;
-}
+} */
 </style>
 </head>
 <body>
 <n:page action='com.soule.app.sys.orgchange.OrgchangeAction' />
-
-<table class='content'>
+<table width="100%">
 <tr><td>
-	
-		<div id='orgChangelist'></div>
-    
+	<div id='orgChangelist'></div>
 </td></tr>
 </table>
 </body>
@@ -36,18 +33,18 @@ $(function () {
 	$("#orgChangelist").ligerGrid({
 		enumlist:{dateNull:[[null,'至今']]},
 		columns: [
-			{ display: '员工编号', name: 'staffId', align: 'center',width:80 },
-            { display: '员工姓名', name: 'staffName', align: 'center',width:80},
-            { display: '所属部门', name: 'ownerUnitid', align: 'center'},
+			{ display: '员工编号', name: 'staffId', align: 'center',width:50 },
+            { display: '员工姓名', name: 'staffName', align: 'center',width:70},
+            { display: '所属部门', name: 'ownerUnitid', align: 'center',width:0},
             { display: '所属部门', name: 'unitName', align: 'center',width:80},
             { display: '修改人', name: 'updUserName', align: 'center',width:80},
-            { display: '开始时间', name: 'startTime', align: 'center'},
-            { display: '结束时间', name: 'endTime', align: 'center',codetype:'dateNull'}
+            { display: '开始时间', name: 'startTime', align: 'center',width:140},
+            { display: '结束时间', name: 'endTime', align: 'center',codetype:'dateNull',width:140}
 		],
 		pageSize:10,
 		sortName: 'startTime',
-		width: '687px',
-		height: '300px',
+		width: '100%',
+		height: '320px',
 		dataAction:'server',
         dataType:'server',
         url: '${_CONTEXT_PATH}/sys/orgchange!query.action',

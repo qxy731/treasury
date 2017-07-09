@@ -179,7 +179,7 @@ public class ModelDefServiceImpl implements IModelDefService {
     	ModelDefUpdateQueryOut out = new ModelDefUpdateQueryOut();
     	String modelCode= in.getModelCode();
     	HashMap condition = new HashMap();
-    	
+    	condition.put("modelCode", in.getModelCode());
     	try {
 			List<ModelDefPo> modelList= defService.getIbatisMediator().find("modelDef.getModelDef", condition);
 			//List<QtyDefPo> tarList = defService.getIbatisMediator().find("modelDef.getModelTarByModelCode", condition);

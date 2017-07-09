@@ -46,7 +46,7 @@ fieldset legend {
 </table>
 <table style='width:100%;margin:20px auto;'>
 	<tr>
-		<td align="center"><input id='change' name='change' type='button' class='l-button' value='修&nbsp;&nbsp;改'/></td>
+		<td align="center"><input id='change' name='change' type='button' class='l-button' value='修&nbsp;改'/></td>
 	</tr>
 </table>
 </fieldset>

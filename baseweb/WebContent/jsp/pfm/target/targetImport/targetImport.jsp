@@ -21,7 +21,7 @@
 					<legend>设置模板</legend>
 					<table class='params'>
 						<tr>
-							<td ><span style="margin-left: 20px; "><font color="red">*</font>&nbsp;数据日期&nbsp;&nbsp;</span><input type='text' id='recoreDate' name='recoreDate'/></td>
+							<td ><span style="margin-left: 20px; "><font color="red">*</font>&nbsp;数据日期&nbsp;</span><input type='text' id='recoreDate' name='recoreDate'/></td>
 							<%-- <td ><span style="margin-left: 20px; "><input type='text' id='recoreDate' name='recoreDate'/></td> --%>
 							
 						</tr>
@@ -89,7 +89,7 @@
 											<td width="5%"></td>
 											<td width="5%"></td>
 											<td align="left">
-											<input id='impBtn' type='button' value='导&nbsp;&nbsp;入' onclick="upload();" class='l-button' />
+											<input id='impBtn' type='button' value='导&nbsp;入' onclick="upload();" class='l-button' />
 												<!-- <input id='reset' type='button' value='重&nbsp;置' class='l-button' style="display: none"/> -->
 											</td>
 											<td></td>
@@ -121,7 +121,7 @@
 									<s:submit id="exportBtn" method="export" value="导出模板" cssClass="l-button" style="display:none;"></s:submit>
 								</td>
 								<td align="right" width="100px;">
-									<input id="importBtn" type='button' value='导&nbsp;&nbsp;入' onclick="upload();" class='l-button' style="display: none;" />
+									<input id="importBtn" type='button' value='导&nbsp;入' onclick="upload();" class='l-button' style="display: none;" />
 								</td>
 							</tr>
 						</table>

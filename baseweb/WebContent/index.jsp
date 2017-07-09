@@ -115,12 +115,12 @@ function checkParams()
                 <td class="content">
                     <table class="logininfo">
                         <tr>
-                            <td nowrap="nowrap"><font size="2">用&nbsp;&nbsp;户：</font></td>
+                            <td nowrap="nowrap"><font size="2">用&nbsp;户：</font></td>
                             <td width="100%"><input type='text' id='j_username' name='j_username' value=""
                                 maxLength="64" /></td>
                         </tr>
                         <tr>
-                            <td nowrap="nowrap"><font size="2">密&nbsp;&nbsp;码：</font></td>
+                            <td nowrap="nowrap"><font size="2">密&nbsp;码：</font></td>
                             <td width="100%"><input type='password' id='j_password' name='j_password' value=""
                                 maxLength="6"></td>
                         </tr>

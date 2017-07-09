@@ -43,13 +43,13 @@ body {
 <div align="center" class="div_bottom">
    <table class="table_btn">
       <tr>
-         <td><input id="update" name="update" type="button" value="确&nbsp;&nbsp;定" class="l-button"></td>
+         <td><input id="update" name="update" type="button" value="确&nbsp;定" class="l-button"></td>
          <td><input id="reset" name="reset" type="button" value="重&nbsp;置" class="l-button"></td>
       </tr>
    </table>
 </div>
 <!--<div align="center" class="div_bottom">
-    <input id="update" name="update" type="button" value="确&nbsp;&nbsp;定" class="l-button">
+    <input id="update" name="update" type="button" value="确&nbsp;定" class="l-button">
     <input id="reset" name="reset" type="button" value="重&nbsp;置" class="l-button"> 
 </div>
 -->

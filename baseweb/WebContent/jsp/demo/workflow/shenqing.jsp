@@ -32,7 +32,7 @@
 		            <td>请假事由 </td><td><textarea id='reason' name='reason' >${reason}</textarea></td>
 		        </tr>
 		        <tr>
-		            <td colspan="2" nowrap><input id='save' name='save' type='button' value='创&nbsp;&nbsp;建' class='l-button'/><input id='commit' name='commit' type='button' value='提&nbsp;交' class='l-button'/>
+		            <td colspan="2" nowrap><input id='save' name='save' type='button' value='创&nbsp;建' class='l-button'/><input id='commit' name='commit' type='button' value='提&nbsp;交' class='l-button'/>
 		            </td>
 		        </tr>
 		    </table>

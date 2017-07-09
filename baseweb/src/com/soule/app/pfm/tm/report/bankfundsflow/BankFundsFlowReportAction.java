@@ -63,6 +63,22 @@ public class BankFundsFlowReportAction extends BaseAction {
         }
         return JSON;
     }
+    
+    
+    
+    public String query3() {
+        try{
+            BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query3(queryIn);
+            ServiceResult head = result.getResultHead();
+            accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
+            if(accountingAnalysisOtherList == null)accountingAnalysisOtherList = new ArrayList<ReportTargetPo>();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
    
 
     /**

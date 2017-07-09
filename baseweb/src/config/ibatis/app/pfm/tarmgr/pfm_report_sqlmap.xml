@@ -40,7 +40,6 @@
 		c.CUST_ORG_NO,
 		c.CUST_ORG_NAME,
 		c.CUST_ORG_TYPE,
-		c.CUST_LEVEL,
 		u.UNIT_ID,
 		u.UNIT_NAME,
 		q.TAR_CODE,
@@ -54,7 +53,7 @@
 		AND c.CUST_ORG_NO in ('100000','100001','100002','100003','100004','100005','100007','100018','100028','100030','100050','100055')
 	)t
 		GROUP BY t.CUST_ORG_NO,t.CUST_ORG_NAME,t.UNIT_ID,t.UNIT_NAME
-		ORDER BY t.CUST_ORG_TYPE,t.CUST_LEVEL
+		ORDER BY t.CUST_ORG_TYPE
 	</select>
 	
 	<select id="getTreasuryFundsNatureList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
@@ -169,4 +168,7 @@
 					'TE_00102',	
 					'TE_00103')	
 	</select>
+	
+	
+	
 </sqlMap>

@@ -2,6 +2,8 @@ package com.soule.app.pfm.tm.model.po;
 
 import java.util.Date;
 
+import org.apache.struts2.json.annotations.JSON;
+
 public class ModelDefPo {
 	
 	private String modelCode;
@@ -51,7 +53,7 @@ public class ModelDefPo {
 		this.createOrg = createOrg;
 	}
 	
-	
+	@JSON(format="yyyy-MM-dd HH:mm:ss")
 	public Date getCreateTime() {
 		return createTime;
 	}

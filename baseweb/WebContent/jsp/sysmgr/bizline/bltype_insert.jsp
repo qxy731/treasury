@@ -40,7 +40,7 @@ body {width:400px;margin-top: 10px;margin-bottom: 20px}
 <!--<table class="s1-button">
 	<tr>
 		<td>
-			<input id='insert' name='insert' type='button' value='执&nbsp;&nbsp;行' class='l-button'/>
+			<input id='insert' name='insert' type='button' value='执&nbsp;行' class='l-button'/>
 		</td>
 		<td>
 			<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button'/>

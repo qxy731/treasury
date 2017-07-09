@@ -6,12 +6,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>员工维护</title>
+<title>模型维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
+/* .params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
 body {
 	margin-top: 5px
+} */
+
+body {
+	margin:0 auto;
+	width:95%;
 }
 </style>
 </head>
@@ -29,32 +34,24 @@ body {
 				<td>模型名称 </td><td><input type='text' id='modelName' name='modelName'/></td>
 				<td>模型状态 </td>
 				<td><n:select codetype="valid_type" id="modelStatus" name='queryIn.modelStatus' emptyOption="true" disabled="false"></n:select></td>
+				<td>
+				<div style="float:right;">
+					<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;"/>
+					<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+				</div>				
+				</td>
 			</tr>
-			
 		</table>
-		
 		</form>
 		</fieldset>
-		<table width="100%">
-		<tr><td><br/></td></tr>
-		<tr>
-			<td></td>
-			<td align="right"><input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button'/></td>
-			<td width="5%"></td>
-			<td width="5%"></td>
-			<td align="left"><input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button'/></td>
-			<td></td>
-		</tr>
-		<tr><td><br/></td></tr>
-</table>
 		</td>
 	</tr>
 	<tr>
 		<td>
 		  <fieldset class="detailBox"><legend>查询结果</legend>
 			<div id='toptoolbar'></div>
-		   <div id='modellist'></div>
-		   </fieldset>
+		    <div id='modellist'></div>
+		  </fieldset>
 		</td>
 	</tr>
 </table>

@@ -195,6 +195,27 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
         return out;
     }
     
+    /*
+     * 国库会计分析其他数据统计表
+     */
+    @SuppressWarnings("unchecked")
+	public BankFundsFlowReportQueryOut query3(BankFundsFlowReportQueryIn in) throws ServiceException {
+    	BankFundsFlowReportQueryOut out = new BankFundsFlowReportQueryOut();
+        try {
+            List<ReportTargetPo> accountingAnalysisOtherList = defService.getIbatisMediator().find(this.RPT_LIST_ACCOUNTINGANALYSISOTHER,in);
+            if(accountingAnalysisOtherList==null)accountingAnalysisOtherList=new ArrayList<ReportTargetPo>();
+            out.setAccountingAnalysisOtherList(accountingAnalysisOtherList);
+            AppUtils.setResult(out, "I0000");
+        } catch (DbAccessException e) {
+            logger.error("DB", e);
+            AppUtils.setResult(out, "E0002");
+        } catch (Exception e) {
+            logger.error("SERVICE", e);
+            AppUtils.setResult(out, "E0000");
+        }
+        return out;
+    }
+    
     public static void main(String[] args){
     	String tarCodeInflow = "TE_00005|TE_00014|TE_00015|TE_00006|TE_00007|TE_00008|TE_00009|TE_00010";
     	String tarCode = "TE_00014";

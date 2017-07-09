@@ -1,6 +1,10 @@
 package com.soule.app.sys.role;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import org.apache.struts2.json.annotations.JSON;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 参数传递查询角色的类
@@ -15,9 +19,9 @@ public class RoleRolePo implements Serializable {
     private String roleStatus;
     private String remark;
     private String createUser;
-    private java.util.Date createTime;
+    private Date createTime;
     private String lastUpdUser;
-    private java.util.Date lastUpdTime;
+    private String lastUpdTime;
     private String ext1;
     private String ext2;
     private String ext3;
@@ -89,19 +93,7 @@ public class RoleRolePo implements Serializable {
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
-    /**
-     * @return 创建时间
-     */
-    public java.util.Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * @param createTime 创建时间
-     */
-    public void setCreateTime(java.util.Date createTime) {
-        this.createTime = createTime;
-    }
+    
     /**
      * @return 最后修改人
      */
@@ -114,19 +106,6 @@ public class RoleRolePo implements Serializable {
      */
     public void setLastUpdUser(String lastUpdUser) {
         this.lastUpdUser = lastUpdUser;
-    }
-    /**
-     * @return 最后修改时间
-     */
-    public java.util.Date getLastUpdTime() {
-        return lastUpdTime;
-    }
-
-    /**
-     * @param lastUpdTime 最后修改时间
-     */
-    public void setLastUpdTime(java.util.Date lastUpdTime) {
-        this.lastUpdTime = lastUpdTime;
     }
     /**
      * @return EXT1
@@ -188,5 +167,25 @@ public class RoleRolePo implements Serializable {
     public void setParentRoleId(String parentRoleId) {
         this.parentRoleId = parentRoleId;
     }
+
+    //@DateTimeFormat(pattern="YYYY-MM-DD HH:mm:ss")
+    @JSON(format="yyyy-MM-dd HH:mm:ss")
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getLastUpdTime() {
+		return lastUpdTime;
+	}
+
+	public void setLastUpdTime(String lastUpdTime) {
+		this.lastUpdTime = lastUpdTime;
+	}
+    
+    
     
 }

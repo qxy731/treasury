@@ -59,7 +59,7 @@ body {
 <div align="center" class="div_bottom">
     <table>
         <tr>
-           <td><input id='cancel' name='cancel' type="button" value="关&nbsp;&nbsp;闭" class="l-button"> </td>
+           <td><input id='cancel' name='cancel' type="button" value="关&nbsp;闭" class="l-button"> </td>
         </tr>
     </table>
 </div>

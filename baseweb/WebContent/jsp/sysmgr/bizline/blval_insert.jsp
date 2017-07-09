@@ -43,7 +43,7 @@ body {width:400px;margin-top: 10px;margin-bottom: 20px}
 <!--<table class="s1-button">
 	<tr>
 		<td>
-			<input id='insert' type='button' value='执&nbsp;&nbsp;行' class='l-button'/>
+			<input id='insert' type='button' value='执&nbsp;行' class='l-button'/>
 		</td>
 		<td>
 			<input id='cancel' type='button' value='取&nbsp;消' class='l-button'/>
