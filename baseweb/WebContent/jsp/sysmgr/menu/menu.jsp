@@ -15,21 +15,10 @@
 <script type="text/javascript" src="${_CONTEXT_PATH}/jwebui/zTree/js/jquery.ztree.exedit-3.0.js"></script>
 <script type="text/javascript" src="${_CONTEXT_PATH}/jsp/sysmgr/menu/menu.js"></script>
 <style type="text/css">
-/* .params {margin:3px;}
-.params tbody tr td {padding-left:10px;padding:0px 2px 2px 10px;line-height: 22px;background-color: #fff;}
-#rbtnl_3,#rbtnl_4,#rbtnl_5,#rbtnl_6 {width: 16px;}
-.l-table-edit {font-size: 12px;}
-.l-table-edit-td {padding: 4px;}
-.l-button-submit,.l-button-test,.l-button-reset {width: 80px;float: left;margin-left: 10px;padding-bottom: 2px;}
-#accordion2 table tr td:first-child {text-align: left;}
-#accordion2 table tr td {padding: 4px 2px 2px 4px;}
-#accordion2 table tr td input:focus {border: 1px solid grap;} */
-
 #accordion1,#accordion2{
 	border: 1px solid  #e2f5ff;
 	padding:0 2px;
 }
-
 div#rMenu {	position: absolute;	visibility:hidden;background-color: #555;text-align: center;padding: 1px;}
 div#rMenu ul li {min-width:100px;margin: 1px 0;padding: 0 5px;cursor: pointer;list-style: none outside none;background-color: #EEEEEE;}
 div#rMenu ul li:hover{background-color: #EEEE99;}
@@ -110,7 +99,7 @@ function doReset() {
 		<td id="accordion2">
 		<div title="菜单详情">
 		<form id="form1" method="post" action="sys/menu!saveMenu.action" name="form1">
-		<table class="params" style="margin:2px 0;">
+		<table class="params" style="margin:2px 0;width:100%;">
 		    <input id="hasChildFlag" name="hasChildFlag" type="hidden"/>
 			<tr>
 				<td nowrap="nowrap" align="left">菜单编号:</td>
@@ -177,15 +166,8 @@ function doReset() {
 					rows="3" style="width: 400px" validate="{maxlength:128}"></textarea></td>
 			</tr>
 			<tr>
-				<td align="center" style="text-align: center; align: center;"></td>
-				<!--
-				<td align="center" style="text-align: center; align: center;">
-					<input type="button" value="提交" id="Button1" class="l-button" onclick="doSubmit();"/>
-					<input type="button" value="重置" class="l-button" onclick="doReset()"/>
-				</td>
-				-->
-				<td height="28px">
-					<div style="float: right;line-height:28px;">
+				<td colspan="2">
+					<div style="margin-left:400px;line-height:28px;">
 						<input type="button" value="提&nbsp;交" id="Button1" class="l-button" onclick="doSubmit();" style="float:left;margin-right:5px;"/>
 						<input type="button" value="重&nbsp;置" class="l-button" onclick="doReset()" style="float:left;margin-right:5px;"/>
 				 	</div>
