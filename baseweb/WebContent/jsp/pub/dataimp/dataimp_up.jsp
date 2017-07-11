@@ -41,7 +41,7 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 	</tr>
 	<tr>
 		<td align="center" colspan="2">
-			<input type="button" id="up" name="up" value="上&nbsp;&nbsp;传" class="l-button" />
+			<input type="button" id="up" name="up" value="上&nbsp;传" class="l-button" />
 		</td>
 	</tr>
 </table>

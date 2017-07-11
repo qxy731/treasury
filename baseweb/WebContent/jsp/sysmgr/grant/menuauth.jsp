@@ -27,12 +27,12 @@
 						<input id='syscommit' type='button' value='保存' class="l-button"/>
 					</div>
 				</div>
-				<div title="自定义菜单">
+				<!-- <div title="自定义菜单">
 					<div id="cusmenulist"></div>
 					<div id="sysmenuctl" class="syscommit_div">
 						<input id='cuscommit' type='button' value='保存' class="l-button"/>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</td>
 	</tr>
@@ -68,12 +68,15 @@ $( function() {
 	sysmenu_mgr = $("#sysmenulist").ligerGrid(options1);
 	var options2 = initOptions();
 	options2.data=cusmenu_data;
-	cusmenu_mgr = $("#cusmenulist").ligerGrid(options2);
+	//cusmenu_mgr = $("#cusmenulist").ligerGrid(options2);
 	menumgr = sysmenu_mgr;
 
 	$('#syscommit').bind('click',doSave);
 	$('#sysrefresh').bind('click',doRefresh);
 	$('#cuscommit').bind('click',doSave);
+	
+	 $(".l-accordion-header").unbind();
+	 $(".l-accordion-toggle").hide();
 });
 
 function initOptions() {
@@ -156,7 +159,7 @@ function updateTable(data) {
 		menumgr = sysmenu_mgr;
 	}
 	else{
-		menumgr = cusmenu_mgr;
+		//menumgr = cusmenu_mgr;
 	}
 	var selectRow = menumgr.getSelectedRow();
 	menumgr.expand(selectRow);

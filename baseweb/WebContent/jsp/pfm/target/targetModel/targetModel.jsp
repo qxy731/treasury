@@ -13,6 +13,11 @@
 body {
 	margin-top: 5px
 } */
+
+body {
+	margin:0 auto;
+	width:95%;
+}
 </style>
 </head>
 <body>
@@ -29,9 +34,10 @@ body {
 				<td>模型名称 </td><td><input type='text' id='modelName' name='modelName'/></td>
 				<td>模型状态 </td>
 				<td><n:select codetype="valid_type" id="modelStatus" name='queryIn.modelStatus' emptyOption="true" disabled="false"></n:select></td>
-				<td><div style="float:right;">
-				<input id='query' name='query' type='button' value='查&nbsp;&nbsp;询' class='l-button' style="float:left;margin-right:5px;"/>
-				<input id='reset' name='reset' type='button' value='重&nbsp;&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
+				<td>
+				<div style="float:right;">
+					<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;"/>
+					<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;"/>
 				</div>				
 				</td>
 			</tr>
@@ -44,8 +50,8 @@ body {
 		<td>
 		  <fieldset class="detailBox"><legend>查询结果</legend>
 			<div id='toptoolbar'></div>
-		   <div id='modellist'></div>
-		   </fieldset>
+		    <div id='modellist'></div>
+		  </fieldset>
 		</td>
 	</tr>
 </table>

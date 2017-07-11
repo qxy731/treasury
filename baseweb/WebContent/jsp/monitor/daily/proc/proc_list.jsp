@@ -21,7 +21,7 @@
 	<table class="s1-button">
 			<tr>
 				<td>
-					<input id='list' name='list' type='button' value='刷&nbsp;&nbsp;新' class='l-button'/>
+					<input id='list' name='list' type='button' value='刷&nbsp;新' class='l-button'/>
 				</td>
 			</tr>
 	</table>

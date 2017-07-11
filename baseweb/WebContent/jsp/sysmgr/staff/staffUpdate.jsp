@@ -114,7 +114,7 @@ body {
 			</tr>
 			
 			<tr>
-				<td>学&nbsp;&nbsp;&nbsp;&nbsp;历</td>
+				<td>学&nbsp;&nbsp;历</td>
 				 <td><n:select codetype="education_type" id='education' name='modifyStaff.education' value="${updateIn.modifyStaff.education}"
 						emptyOption="true" ></n:select></td>
 						
@@ -122,7 +122,7 @@ body {
 			</tr>
 			
 			<tr>
-				<td>属&nbsp;&nbsp;&nbsp;&nbsp;性</td>
+				<td>属&nbsp;&nbsp;性</td>
 				<td><n:select codetype="partime_job_type" id='partTimeJob' name='modifyStaff.partTimeJob'
 						emptyOption="true" value="${updateIn.modifyStaff.partTimeJob}"></n:select></td> 
 				<!-- <td><input type='text' id='partTimeJob' name='newStaff.partTimeJob'/></td> -->
@@ -136,14 +136,14 @@ body {
 			</tr>
 			
 			<tr>
-				<td>手&nbsp;&nbsp;&nbsp;&nbsp;机</td>
+				<td>手&nbsp;&nbsp;机</td>
 				<%-- <td><n:select codetype="mobilePhone" id='mobilePhone' name='newStaff.mobilePhone'
 						emptyOption="true" value="updateIn.modifyStaff.mobilePhone"></n:select></td> --%>
 				<td><input type='text' id='mobilePhone' name='modifyStaff.mobilePhone'   value="${updateIn.modifyStaff.mobilePhone}"/></td>
 			</tr>
 			
 			<tr>
-				<td>地&nbsp;&nbsp;&nbsp;&nbsp;址</td>
+				<td>地&nbsp;&nbsp;址</td>
 				<%-- <td><n:select codetype="address" id='address' name='newStaff.address'
 						emptyOption="true" value="updateIn.modifyStaff.address"></n:select></td> --%>
 				<td><input type='text' id='address' name='modifyStaff.address'  value="${updateIn.modifyStaff.address}"/></td>
@@ -159,9 +159,9 @@ body {
 		<div align="center" class="div_bottom">
 			<table class="table_btn">
 				<tr>
-					<td><input id="commit" type="button" value="提&nbsp;&nbsp;交"
+					<td><input id="commit" type="button" value="提&nbsp;交"
 						class="l-button"></input></td>
-					<td><input id="cancel" type="button" value="取&nbsp;&nbsp;消"
+					<td><input id="cancel" type="button" value="取&nbsp;消"
 						class="l-button"></td>
 				</tr>
 			</table>

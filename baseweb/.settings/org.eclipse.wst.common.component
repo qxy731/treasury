@@ -7,6 +7,9 @@
         <dependent-module archiveName="assist-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/assist/assist">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="license-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/license/license">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
 <property name="context-root" value="baseweb"/>
 <property name="java-output-path"/>
         <property name="component.inclusion.patterns" value="WEB-INF/lib/*.jar,**/*.htc,**/*.xml,**/*.properties,**/*.class,**/*.js,**/*.css,**/*.vm,**/*.png,**/*.gif,**/*.jsp,**/*.jpg,**/*.htm,**/*.html,**/*.tld,**/*.swf,**/*.ftl,**/*.xls"/>

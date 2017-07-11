@@ -52,6 +52,8 @@ $( function() {
 	pathmgr = $("#jsplist").ligerGrid(options1);
 
 	$('#syscommit').bind('click',doSave);
+	$(".l-accordion-header").unbind();
+	$(".l-accordion-toggle").hide();
 });
 
 function initOptions() {

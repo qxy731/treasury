@@ -167,7 +167,7 @@ function doReset() {
 			</tr>
 			<tr>
 				<td colspan="2">
-					<div style="margin-left:400px;line-height:28px;">
+					<div style="margin:10px 10px 10px 300px;">
 						<input type="button" value="提&nbsp;交" id="Button1" class="l-button" onclick="doSubmit();" style="float:left;margin-right:5px;"/>
 						<input type="button" value="重&nbsp;置" class="l-button" onclick="doReset()" style="float:left;margin-right:5px;"/>
 				 	</div>

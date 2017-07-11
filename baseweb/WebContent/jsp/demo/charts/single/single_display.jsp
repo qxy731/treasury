@@ -33,7 +33,7 @@
 	<table class="s1-button">
 		<tr>
 			<td>
-				<input id='display' name='display' type='button' value='执&nbsp;&nbsp;行' class='nbutton'/>
+				<input id='display' name='display' type='button' value='执&nbsp;行' class='nbutton'/>
 			</td>
 			<td>
 				<input id='reset' name='reset' type='button' value='重&nbsp;置' class='nbutton'/>

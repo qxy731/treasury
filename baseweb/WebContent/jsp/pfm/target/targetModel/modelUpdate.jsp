@@ -9,25 +9,30 @@
 <title>新增模型</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
+
+.left {
+	float: left;
+	padding: 0;
+	width: 50%;
+}
+
+.right {
+	float: left;
+	padding: 0;
+	width: 50%;
+}
+
+.params input, .params select {
+	width: 150px;
+}
+/* 
 .xcontent {
 	width: 100%;
 	height: 100%;
 	display: inline;
 }
 
-.left {
-	margin: 5px 0 0 25px;
-	float: left;
-	padding: 0;
-	width: 45%;
-}
 
-.right {
-	margin: 5px 0 0 25px;
-	float: left;
-	padding: 0;
-	width: 50%;
-}
 
 .params tbody tr td {
 	background-color: #EAEFFF;
@@ -133,7 +138,7 @@
 
 #staffName, #staffId, #unitname, #roleId {
 	width: 120px;
-}
+} */
 </style>
 </head>
 <body>
@@ -162,7 +167,7 @@
 				<tr>
 					<td></td>
 					<td align="center"><input id='commit' type='button'
-						value='提&nbsp;&nbsp;交' class='l-button'  /></td>
+						value='提&nbsp;交' class='l-button'  /></td>
 				</tr>
 				<tr>
 					<td><br /></td>
@@ -176,7 +181,7 @@
 		<div class="right">
 			<fieldset class="queryBox">
 				<legend>指标查询</legend>
-				<table class='params1'>
+				<table class='params'>
 					<tr>
 						<td align="right">指标代码</td>
 						<td><input id='tarCode' name='tarCode' type="text" /></td>
@@ -205,11 +210,11 @@
 				<tr>
 					<td></td>
 					<td align="right"><input id='queryTar' name='query'
-						type='button' value='查&nbsp;&nbsp;询' class='l-button' /></td>
+						type='button' value='查&nbsp;询' class='l-button' /></td>
 					<td width="5%"></td>
 					<td width="5%"></td>
 					<td align="left"><input id='reset' name='reset' type='button'
-						value='重&nbsp;&nbsp;置' class='l-button' /></td>
+						value='重&nbsp;置' class='l-button' /></td>
 					<td></td>
 
 				</tr>
@@ -252,12 +257,12 @@
 				display : '指标编号',
 				name : 'tarCode',
 				align : 'left',
-				width : '50%'
+				width : 150
 			}, {
 				display : '指标名称',
 				name : 'tarName',
 				align : 'left',
-				width : '50%'
+				width : 200
 			} ],
 			//buttons:[
 			//{text:'删除人员',name:'delete_btn',clazz:'nbutton'}
@@ -292,12 +297,12 @@
 				display : '指标编号',
 				name : 'tarCode',
 				align : 'left',
-				width : '50%'
+				width : 150
 			}, {
 				display : '指标名称',
 				name : 'tarName',
 				align : 'left',
-				width : '50%'
+				width : 200
 			}  ],
 			checkbox : true,
 			pageSize : 20,

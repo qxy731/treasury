@@ -63,13 +63,13 @@
 				enabled : '<n:auth key='unit_detail'/>',
 				click : detailUnit
 			}, {
-				text : '新&nbsp;&nbsp;增',
+				text : '新&nbsp;增',
 				name : 'insert_btn',
 				icon : 'insert',
 				enabled : '<n:auth key='unit_insert'/>',
 				click : insertUnit
 			}, {
-				text : '修&nbsp;&nbsp;改',
+				text : '修&nbsp;改',
 				name : 'update_btn',
 				icon : 'update',
 				enabled : '<n:auth key='unit_modify'/>',
