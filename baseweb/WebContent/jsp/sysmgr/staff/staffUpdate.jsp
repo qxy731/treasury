@@ -78,12 +78,12 @@ body {
 	<form id="insertForm">
 		<table class='s1-params'>
 			<tr>
-				<td align="right"><font color="red">*</font>&nbsp;员工编号</td>
+				<td align="right"><font color="red">*</font>员工编号</td>
 				<td><input type='text' id='staffId' name='modifyStaff.staffId'
 					value="${updateIn.modifyStaff.staffId}" readonly="readonly" /></td>
 			</tr>
 			<tr>
-				<td align="right"><font color="red">*</font>&nbsp;员工姓名</td>
+				<td align="right"><font color="red">*</font>员工姓名</td>
 				<td><input type='text' id='staffName'
 					name='modifyStaff.staffName'
 					value="${updateIn.modifyStaff.staffName}" /></td>
@@ -95,7 +95,7 @@ body {
 					value="${updateIn.modifyStaff.staffLevel}" /></td>
 			</tr>
 			<tr>
-				<td align="right"><font color="red">*</font>&nbsp;所属部门</td>
+				<td align="right"><font color="red">*</font>所属部门</td>
 				<td><input type='hidden' id='ownerUnitid'
 					name='modifyStaff.ownerUnitid' value="${updateIn.modifyStaff.ownerUnitid}" /><input id="unitName"
 					name="unitName" readonly="readonly"
@@ -114,7 +114,7 @@ body {
 			</tr>
 			
 			<tr>
-				<td>学&nbsp;&nbsp;历</td>
+				<td>学历</td>
 				 <td><n:select codetype="education_type" id='education' name='modifyStaff.education' value="${updateIn.modifyStaff.education}"
 						emptyOption="true" ></n:select></td>
 						
@@ -122,7 +122,7 @@ body {
 			</tr>
 			
 			<tr>
-				<td>属&nbsp;&nbsp;性</td>
+				<td>属性</td>
 				<td><n:select codetype="partime_job_type" id='partTimeJob' name='modifyStaff.partTimeJob'
 						emptyOption="true" value="${updateIn.modifyStaff.partTimeJob}"></n:select></td> 
 				<!-- <td><input type='text' id='partTimeJob' name='newStaff.partTimeJob'/></td> -->
@@ -136,21 +136,21 @@ body {
 			</tr>
 			
 			<tr>
-				<td>手&nbsp;&nbsp;机</td>
+				<td>手机</td>
 				<%-- <td><n:select codetype="mobilePhone" id='mobilePhone' name='newStaff.mobilePhone'
 						emptyOption="true" value="updateIn.modifyStaff.mobilePhone"></n:select></td> --%>
 				<td><input type='text' id='mobilePhone' name='modifyStaff.mobilePhone'   value="${updateIn.modifyStaff.mobilePhone}"/></td>
 			</tr>
 			
 			<tr>
-				<td>地&nbsp;&nbsp;址</td>
+				<td>地址</td>
 				<%-- <td><n:select codetype="address" id='address' name='newStaff.address'
 						emptyOption="true" value="updateIn.modifyStaff.address"></n:select></td> --%>
 				<td><input type='text' id='address' name='modifyStaff.address'  value="${updateIn.modifyStaff.address}"/></td>
 			</tr>
 			
 			<tr>
-				<td align="right"><font color="red">*</font>&nbsp;员工状态</td>
+				<td align="right"><font color="red">*</font>员工状态</td>
 				<td><n:select codetype="valid_type" id="staffStatus"
 						name='modifyStaff.staffStatus' emptyOption="true"
 						value="updateIn.modifyStaff.staffStatus"></n:select></td>

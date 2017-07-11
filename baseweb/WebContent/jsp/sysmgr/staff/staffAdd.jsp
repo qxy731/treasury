@@ -80,29 +80,29 @@ select, input[type=text] {
 	<form id="insertForm">
 		<table class='s1-params'>
 			<tr>
-				<td><font color="red">*</font>&nbsp;员工编号</td>
+				<td><font color="red">*</font>员工编号</td>
 				<td><input type='text' id='staffId' name='newStaff.staffId'
 					validate="{required:true,maxlength:16}" /></td>
 			</tr>
 			<tr>
-				<td><font color="red">*</font>&nbsp;登陆帐号</td>
+				<td><font color="red">*</font>登陆帐号</td>
 				<td><input type='text' id='logonId' name='newStaff.logonId'
 					validate="{required:true,maxlength:16}" /></td>
 			</tr>
 			<tr>
-				<td><font color="red">*</font>&nbsp;组织
+				<td><font color="red">*</font>组织
 				</td>
 				<td nowrap><input type='text' id='zzname' name='zzname'
 					readonly="readonly" onclick="openSelectUnit()" class='unit_select' /><input
 					type="hidden" id="ownerUnitid" name="newStaff.ownerUnitid"></td>
 			</tr>
 			<tr>
-				<td><font color="red">*</font>&nbsp;登陆密码</td>
+				<td><font color="red">*</font>登陆密码</td>
 				<td><input type='text' id='password' name='newStaff.password'
 					value="111111" / validate="{required:true,maxlength:16}"></td>
 			</tr>
 			<tr>
-				<td><font color="red">*</font>&nbsp;员工姓名</td>
+				<td><font color="red">*</font>员工姓名</td>
 				<td><input type='text' id='staffName' name='newStaff.staffName'
 					validate="{required:true}" /></td>
 			</tr>
@@ -158,7 +158,7 @@ select, input[type=text] {
 				<td><input type='text' id='address' name='newStaff.address'/></td>
 			</tr>
 			<tr>
-				<td><font color="red">*</font>&nbsp;员工状态</td>
+				<td><font color="red">*</font>员工状态</td>
 				<td><n:select codetype="valid_type" id="staffStatus"
 						name='newStaff.staffStatus' emptyOption="true" value="1"
 						validate="{required:true}"></n:select></td>
