@@ -9,21 +9,14 @@
 <title>角色分配</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-body{
-	margin:0 auto;
-}
 .left {
-	margin: 2px 0 0 0;
 	float: left;
-	padding: 0;
-	width: 640px;
+	width: 50%;
 }
 
 .right {
-	margin: 2px 0 0 5px;
 	float: left;
-	padding: 0;
-	width: 640px;
+	width: 50%;
 }
 </style>
 </head>
