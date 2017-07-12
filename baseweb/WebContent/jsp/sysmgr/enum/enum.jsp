@@ -9,17 +9,13 @@
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 .left {
-	margin: 2px 0 0 0;
 	float: left;
-	padding: 0;
-	width: 640px;
+	width: 50%;
 }
 
 .right {
-	margin: 2px 0 0 5px;
 	float: left;
-	padding: 0;
-	width: 640px;
+	width: 50%;
 }
 </style>
 </head>
@@ -87,15 +83,14 @@
             checkbox: true,
             allowAdjustColWidth:false,
             selectRowButtonOnly:true,
-            
             columns: [
-            { display: '参数编码', name: 'enumId'  ,align:'left', width: '30%' },
-            { display: '参数名称', name: 'enumName' ,align:'left', width: '30%' },
-            { display: '参数描述', name: 'enumDesc' ,align:'left', width: '37%'  }
+            { display: '参数编码', name: 'enumId'  ,align:'left', width: 100 },
+            { display: '参数名称', name: 'enumName' ,align:'left', width: 150 },
+            { display: '参数描述', name: 'enumDesc' ,align:'left', width: 200  }
             ],
             pageSize:20,
             sortName: 'enumId', 
-            width: 630,
+            width: '100%',
             height: '98%',
             onError: function() {
                 alert("查询数据失败");
@@ -119,15 +114,15 @@
             enumlist: _enum_params,
             checkbox: true,
             columns: [
-            { display: '顺序号', name: 'seqId',editor:{type:'int'},align:'left',  width: '25%' },
-            { display: '枚举编码', name: 'itemId',editor:{type:'text'} ,align:'left',  width: '25%'},
-            { display: '枚举名称', name: 'itemValue',editor:{type:'text'},align:'left',  width: '25%'},
-            { display: '枚举描述', name: 'itemDesc',editor:{type:'text'} ,align:'left',  width: '25%'}
+            { display: '顺序号', name: 'seqId',editor:{type:'int'},align:'left',  width: 50},
+            { display: '枚举编码', name: 'itemId',editor:{type:'text'} ,align:'left',  width: 100},
+            { display: '枚举名称', name: 'itemValue',editor:{type:'text'},align:'left',  width: 150},
+            { display: '枚举描述', name: 'itemDesc',editor:{type:'text'} ,align:'left',  width: 200}
             
             ],
             pageSize:20,
             sortName: 'seqId', 
-            width:630,
+            width:'100%',
             height: '98%',
             onError: function() {
                 alert("查询数据失败");
@@ -174,7 +169,7 @@
         $.dialog.open(url,{
             id:"insert-enum",
             title:"新增枚举参数",
-            height:'35%',width: 500
+            height:'35%',width:'50%'
         });
     }
     function deleteEnum() {

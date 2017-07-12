@@ -19,7 +19,7 @@
 	border: 1px solid  #e2f5ff;
 	padding:0 2px;
 }
-div#rMenu {	position: absolute;	visibility:hidden;background-color: #555;text-align: center;padding: 1px;}
+div#rMenu {	position: absolute;	visibility:hidden;background-color: #555;text-align: center;padding: 1px;dispaly:none;}
 div#rMenu ul li {min-width:100px;margin: 1px 0;padding: 0 5px;cursor: pointer;list-style: none outside none;background-color: #EEEEEE;}
 div#rMenu ul li:hover{background-color: #EEEE99;}
 </style>
@@ -75,19 +75,16 @@ function doReset() {
 }
 </script>
 </head>
-<body id="mybody" style="overflow:hidden;">
+<body id="mybody">
 <table class="content">
 	<tr>
 		<td width="300">
 		<div title="菜单列表" id="accordion1">
-		<div title="系统菜单">
-			<ul id="sysTree" class="ztree"></ul>
+			<div title="系统菜单">
+				<ul id="sysTree" class="ztree"></ul>
+			</div>
 		</div>
-		<!-- <div title="自定义菜单">
-		<ul id="cusTree" class="ztree"></ul>
-		</div> -->
-		</div>
-		<div id="rMenu" >
+		<div id="rMenu" style="dispaly:none;">
 		<ul>
 			<li id="m_add" onclick="addTreeNode();" >增加节点</li>
 			<li id="m_del" onclick="removeTreeNode();">删除节点</li>

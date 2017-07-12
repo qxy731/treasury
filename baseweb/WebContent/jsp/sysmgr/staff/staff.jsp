@@ -9,10 +9,6 @@
 <title>员工维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">	
-.params td {background-color: #E2EAFF; padding:2px 2px 2px 10px;}
-body {
-	margin-top: 5px
-}
 </style>
 </head>
 <body>
@@ -118,8 +114,8 @@ body {
 		var p = {
 				id : "insertStaff",
 				title : '新增人员',
-				width : 500,
-				height : 600,
+				width : 575,
+				height : 270,
 				opacity : 0.07
 			}; 
 		//Utils.openTab("insertStaff","新增人员",url);
@@ -138,8 +134,8 @@ body {
 		var p = {
 				id : "updateStaff",
 				title : '修改人员',
-				width : 500,
-				height : 450,
+				width : 575,
+				height : 250,
 				opacity : 0.07
 			}; 
 		//var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
