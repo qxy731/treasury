@@ -209,7 +209,7 @@
 <table width="100%">
 	<tr>
 		<td align="right">
-			<input type="button" value="确&nbsp;&nbsp;定" id="saveBtn" class="l-button" style="margin-right:10px;"/>
+			<input type="button" value="确&nbsp;定" id="saveBtn" class="l-button" style="margin-right:10px;"/>
 		</td>
 		<td align="left">
 			<input type="button" value="取&nbsp;消" id="cancelBtn" class="l-button" style="margin-left:10px;"/>
