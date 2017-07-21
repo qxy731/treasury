@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>prdTree</title>
-<jsp:include page="/comm_debug.jsp"></jsp:include>
+<jsp:include page="/comm.jsp"></jsp:include>
 <style>
 #query,#reset {width:60px;}
 .params {width:100%;}

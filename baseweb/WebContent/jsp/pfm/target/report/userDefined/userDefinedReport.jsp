@@ -14,7 +14,7 @@
 <body>
 <n:page action='com.soule.app.sys.staff.StaffAction' />
 <n:enums keys='valid_type,sex,partime_job_type'/>
-<table class="content" style="width:93%;">
+<table class="content" width="100%">
 	<tr>
 		<td>
 		<fieldset class="queryBox"><legend>查询条件</legend>

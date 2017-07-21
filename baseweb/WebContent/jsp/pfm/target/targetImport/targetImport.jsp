@@ -21,9 +21,8 @@
 					<legend>设置模板</legend>
 					<table class='params'>
 						<tr>
-							<td ><span style="margin-left: 20px; "><font color="red">*</font>&nbsp;数据日期&nbsp;</span><input type='text' id='recoreDate' name='recoreDate'/></td>
-							<%-- <td ><span style="margin-left: 20px; "><input type='text' id='recoreDate' name='recoreDate'/></td> --%>
-							
+							<td width="60px" valign="middle"><font color="red">*</font>数据日期</td>
+							<td align="left"><input type='text' id='recoreDate' name='recoreDate'/></td>
 						</tr>
 					</table> 
 					<table class='params'>
@@ -35,15 +34,10 @@
 							</td>
 							<td  width="4%"></td>
 							<td colspan="1" width="48%">
-								<span style="margin-left: 0px;">
-									<font color="red">*</font>&nbsp;
-									已选考核指标
+								<span style="margin-left:0px;">
+									<font color="red">*</font>已选考核指标
 								</span>
 							</td>
-							
-							
-							<%-- <td colspan="2" width="40%"><span style="margin-left: 20px;"><font
-									color="red">*</font>&nbsp;考核对象清单</span></td> --%>
 						</tr>
 						<tr>
 							<td colspan="1">

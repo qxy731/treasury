@@ -62,7 +62,7 @@
 	</td></tr>
 	<tr>
 		<td>
-		<fieldset class="detailList"><legend>查询结果</legend>
+		<fieldset class="outbox"><legend>查询结果</legend>
 			<div id="qtydeflist" style="overflow:auto;"></div>
 		</fieldset>
 		</td>

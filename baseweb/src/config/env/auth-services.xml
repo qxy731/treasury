@@ -96,8 +96,7 @@
 
 	<bean id="md5PasswordEncoder" class="com.soule.base.Md5PasswordEncoder" />
 	<bean id="shaPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
-	<bean id="plaintextPasswordEncoder"
-		class="org.springframework.security.authentication.encoding.PlaintextPasswordEncoder" />
+	<bean id="plaintextPasswordEncoder" class="org.springframework.security.authentication.encoding.PlaintextPasswordEncoder" />
 
 	<bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
 		<property name="providers">

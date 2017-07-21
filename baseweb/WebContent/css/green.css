@@ -223,6 +223,6 @@ input[type="text"],.params select,textarea {
 
 .l-menu-over{background:url('../images/green/td_green.gif') repeat-x;}
 
-.glass_bg, fieldset {
-	background:url(./../images/green/bg_green.gif) repeat\9;
+.glass_bg{
+	background:url(./../images/green/bg_green.gif) repeat;
 }

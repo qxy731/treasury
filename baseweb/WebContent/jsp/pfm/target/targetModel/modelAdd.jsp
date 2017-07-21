@@ -11,136 +11,18 @@
 <style type="text/css">
 .left {
 	float: left;
-	padding: 0;
 	width: 50%;
 }
 
 .right {
 	float: left;
-	padding: 0;
 	width: 50%;
 }
-
-.params input, .params select {
-	width: 150px;
-}
-
-/* .xcontent {
-	width: 100%;
-	height: 100%;
-	display: inline;
-}
-
-.params tbody tr td {
-	background-color: #EAEFFF;
-	padding: 1px 1px 1px 10px;
-	line-height: 28px;
-}
-
-.params input, .params select {
-	width: 200px;
-	border: 1px solid #b3bcFF;
-	border-radius: 2px 2px 2px 2px;
-	vertical-align: bottom;
-}
-
-.params input {
-	padding-left: 4px;
-	padding-bottom: 4px;
-	width: 141px;
-}
-
-.params select {
-	height: 22px;
-}
-
-.params input {
-	height: 16px;
-}
-
-.params {
-	width: 100%;
-}
-
-.params1 tbody tr td {
-	background-color: #EAEFFF;
-	padding: 1px 1px 1px 10px;
-	line-height: 28px;
-}
-
-.params1 input, .params select {
-	width: 200px;
-	border: 1px solid #b3bcFF;
-	border-radius: 2px 2px 2px 2px;
-	vertical-align: bottom;
-}
-
-.params1 input {
-	padding-left: 4px;
-	padding-bottom: 4px;
-	width: 141px;
-}
-
-.params1 select {
-	height: 22px;
-}
-
-.params1 input {
-	height: 16px;
-}
-
-.params1 {
-	width: 100%;
-}
-
-#operUnitname {
-	width: 198px;
-}
-
-#lefttoptoolbar {
-	wdith: 100%
-}
-
-#righttoptoolbar {
-	wdith: 100%
-}
-
-.mytoolbar {
-	height: 24px;
-	background:
-		url("${_CONTEXT_PATH}/jwebui/skins/sys/images/panel/panel-toolbar.jpg")
-		repeat-x scroll 0 0 #CEDFEF;
-	border: 1px solid #EFF7F7;
-	border-top: 1px solid #9CBAE7;
-	border-left: 1px solid #9CBAE7;
-	border-right: 1px solid #9CBAE7;
-	margin-top: 10px
-}
-
-.mytoolbar .l-icon {
-	left: 2px;
-	position: absolute;
-	top: 1px;
-}
-
-.mytoolbar .l-toolbar-item-hasicon {
-	_margin-left: 4px;
-	padding-left: 20px;
-	_margin-top: 2px
-}
-
-.mytoolbar .l-toolbar-item-disable {
-	display: none
-}
-
-#staffName, #staffId, #unitname, #roleId {
-	width: 120px;
-} */
 </style>
 </head>
 <n:page action='com.soule.app.pfm.tm.model.action.ModelDefAction' />
 <body>
-	<div class="content">
+	<div width="100%">
 		<div class="left">
 			<fieldset class="queryBox">
 				<legend>模型基础信息</legend>
@@ -153,24 +35,13 @@
 						<td>模型描述</td>
 						<td><input id="modelDesc" name="modelDesc" type='text' /></td>
 					</tr>
-
+					<tr>
+					<td colspan="2"><input id='commit' type='button' value='提&nbsp;交' class='l-button' style="float:right;" /></td>
+				</tr>
 				</table>
 			</fieldset>
-			<table width="100%">
-				<tr>
-					<td><br /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td align="center"><input id='commit' type='button'
-						value='提&nbsp;交' class='l-button'  /></td>
-				</tr>
-				<tr>
-					<td><br /></td>
-				</tr>
-			</table>
 			<fieldset class="detailBox">
-				<div id='lefttoptoolbar' class='mytoolbar'></div>
+				<div id='lefttoptoolbar'></div>
 				<div id='modelTarlist'></div>
 			</fieldset>
 		</div>
@@ -181,9 +52,10 @@
 					<tr>
 						<td align="right">指标代码</td>
 						<td><input id='tarCode' name='tarCode' type="text" /></td>
+					</tr>
+					<tr>
 						<td align="right">指标名称</td>
 						<td><input id='tarName' name='tarName' type="text" /></td>
-
 					</tr>
 					<tr>
 						<td align="right">建立部门</td>
@@ -191,33 +63,17 @@
 						<input id='createOrg' name='createOrg' type='hidden' value="${logUserInfo.operUnitId}"/>
 						<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
 						</td>
-						<td align="right"></td>
-						<td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right">
+							<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:right;"  />
+							<input id='queryTar' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:right;" />
 						</td>
 					</tr>
 				</table>
-			</fieldset>
-			<table width="100%">
-				<tr>
-					<td><br /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td align="right"><input id='queryTar' name='query'
-						type='button' value='查&nbsp;询' class='l-button' /></td>
-					<td width="5%"></td>
-					<td width="5%"></td>
-					<td align="left"><input id='reset' name='reset' type='button'
-						value='重&nbsp;置' class='l-button' /></td>
-					<td></td>
-
-				</tr>
-				<tr>
-					<td><br /></td>
-				</tr>
-			</table>
+			</fieldset>			
 			<fieldset class="detailBox">
-				<div id='righttoptoolbar' class='mytoolbar'></div>
+				<div id='righttoptoolbar'></div>
 				<div id='tarlist'></div>
 			</fieldset>
 		</div>
@@ -251,7 +107,7 @@
 				display : '指标编号',
 				name : 'tarCode',
 				align : 'left',
-				width : 150
+				width : 100
 			}, {
 				display : '指标名称',
 				name : 'tarName',
@@ -264,7 +120,7 @@
 			checkbox : true,
 			pageSize : 20,
 			sortName : 'tarCode',
-			height : '90%',
+			height : '98%',
 			width : '100%',
 			onError : function() {
 				$.dialogBox.error("查询数据失败");
@@ -275,7 +131,7 @@
 				display : '指标编号',
 				name : 'tarCode',
 				align : 'left',
-				width : 150
+				width : 100
 			}, {
 				display : '指标名称',
 				name : 'tarName',
@@ -285,7 +141,7 @@
 			checkbox : true,
 			pageSize : 20,
 			sortName : 'tarCode',
-			height : '90%',
+			height : '98%',
 			width : '100%',
 			onError : function() {
 				$.dialogBox.error("查询数据失败");

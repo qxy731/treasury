@@ -28,8 +28,8 @@ $(function() {
 <input id="createOrg" name="newQtyDef.createOrg" type="hidden" value="${logUserInfo.operUnitId}"/>
 <input id="tarType" name="newQtyDef.tarType" type="hidden" value="<%=BaseTar.TAR_TYPE_MIX%>"/>
 <input id="tarScope" name="newQtyDef.tarScope" type="hidden" value="<%=BaseTar.APPOBJ_ORGANDPERCODE%>"/>
-<fieldset class="detailList"><legend>衍生指标新增</legend>
-<table class="params">
+<fieldset class="outbox"><legend>衍生指标新增</legend>
+<table class="params" width="100%">
 	<tr>
 		<td width="15%" align="right">指标代码:</td>
 		<td width="35%"><input  id="tarCodeText" name="newQtyDef.tarCodeText" type="text" disabled="disabled"/></td>
@@ -196,7 +196,7 @@ $(function() {
  <td width="100%">
 		<textarea rows="4" cols="60" id="createGs" name="qtyExp.calcExp" validate="{required:true}">${qtyExp.calcExp}</textarea>
 		<input type="button"" name="resetBtn" id="resetBtn" value="重&nbsp;置" class="l-button" style="width:80px;"/><br/>
-		<fieldset class="detailList"><legend><font color="red">复合指标公式说明</font></legend>
+		<fieldset class="outbox"><legend><font color="red">复合指标公式说明</font></legend>
 				<font color="red">
 					<p>月份贷款收息率:#月份贷款实收利息/#月份贷款应收利息 * 100</p> 
 					<p>月份黑金客户流失率:#月份黑金客户流失数/#取指标(#月末黑金客户数, 取周期(-1)) * 100</p> 
@@ -205,9 +205,15 @@ $(function() {
 		</fieldset>
  </td>
   </tr>
+  <tr>
+		<td colspan="2">
+			<input id="saveBtn" type="button" value="提&nbsp;交" class="l-button" style="float:left;margin-left:230px;margin-top:5px;width:80px;" />
+			<input id="cancelBtn" type="button" value="取&nbsp;消" class="l-button" style="float:left;margin-left:5px;margin-top:5px;width:80px;" />
+		</td>
+	</tr>
 </table>
 </fieldset>
-<table width="100%">
+<!-- <table width="100%">
 	<tr>
 		<td align="right">
 			<input type="button" value="确&nbsp;定" id="saveBtn" class="l-button" style="margin-right:10px;"/>
@@ -216,7 +222,7 @@ $(function() {
 			<input type="button" value="取&nbsp;消" id="cancelBtn" class="l-button" style="margin-left:10px;"/>
 		</td>
 	</tr>
-</table>
+</table> -->
 </form>
 </body>
 </html>

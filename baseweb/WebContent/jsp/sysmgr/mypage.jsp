@@ -102,7 +102,7 @@ background:#fff url('../../images/login.gif') no-repeat left center;
  color:#D65929;
 }
 .param {margin-top: 2px;}
-.param tbody tr td {ine-height: 28px;font-size:11px;padding:1px 1px 1px 10px;}
+.param tbody tr td {ine-height: 22px;font-size:11px;padding:1px 1px 1px 10px;}
 .param input[type=text],.param select { border:1px solid #b3bcFF;border-radius:2px 2px 2px 2px;vertical-align: bottom;}
 .param select {height:22px;width:138px;padding-bottom: 1px;}
 .param input[type=text] {height:16px;width:135px;}

@@ -9,22 +9,17 @@
 <title>页面和功能点授权</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.syscommit_div {margin-left: 50px;margin-top: 10px}
 </style>
 </head>
 <n:page action='com.soule.app.sys.pagegrant.PageGrantAction' />
-<body style="height: 100%; overflow: hidden;">
+<body>
 <s:actionerror />
 <form id='sysform'>
 <input type="hidden" id='roleId' value='${roleId}'></input>
-<div title="列表" id="accordion1">
-	<div title="资源权限">
-		<div id="jsplist"></div>
-		<div class="syscommit_div">
-			<input id='syscommit' type='button' class="l-button"  value='保存' />
-		</div>
-	</div>
-</div>
+<fieldset class="content outbox"><legend>页面和功能点授权</legend>
+	<div id="toptoolbar"></div>
+	<div id="jsplist"></div>
+</fieldset>
 </form>
 </body>
 <script type="text/javascript">
@@ -33,15 +28,11 @@ var pathmgr;
 var changes = [];
 
 $( function() {
-	//布局初始化
-	var height = $(window).height();
-	$("#accordion1").ligerAccordion( {height : height,speed : null});
-	$(window).resize( function() {
-		var accordion = $("#accordion1").ligerGetAccordionManager();
-		var nheight = $(window).height();
-		accordion.setHeight(nheight);
-	});
-
+	
+	$("#toptoolbar").ligerToolBar({items:[
+		{text:'保存',name:'syscommit',icon: 'save',click:doSave}
+		        ],width:'100%'
+			 });
 	//数据初始化
 	path_data={rows:${initstr}};
 	changes = [];
@@ -52,8 +43,8 @@ $( function() {
 	pathmgr = $("#jsplist").ligerGrid(options1);
 
 	$('#syscommit').bind('click',doSave);
-	$(".l-accordion-header").unbind();
-	$(".l-accordion-toggle").hide();
+	
+	
 });
 
 function initOptions() {
@@ -65,12 +56,13 @@ function initOptions() {
 			,{ display: '可分配', name: 'assFlag', width: 100, type: 'boolean', align: 'center', render: renderAssChk}
 			</n:authif> 
 		],
-		width: '99%',height:'80%',
+		width: '100%',height:'80%',
 		tree: {
 			columnName: 'nodeName',
 			isParent:isParentNode,
-			onBeforeToggle:queryData
+			idField: 'nodeId'
 		},
+		onTreeExpand:queryData,
 		enabledEdit:false,
 		enabledSort:false,
 		alternatingRow: false,
@@ -82,18 +74,15 @@ function isParentNode(rowData) {
 	return rowData.hasChild;
 }
 function renderChk(row,t) {
-	var html = "<input style='width:30px' type ='checkbox' id='" + row.nodeId + "' onclick=";
-	html += "recordChange(this,'"+ row.nodeId  + "','" + row.menuId + "') ";
+	var rowid = row['__id'];
+	var html = "<input style='margin:4px auto;' type ='checkbox' id='" + row.nodeId + "' onclick=";
+	html += "recordChange(this,'"+ row.nodeId  + "','" + row.menuId + "','"+rowid+"') ";
 	html += "chtype='"+ t +"' " ;
 	if (t == 'runFlag') {
-		if (row.runFlag == true){
-			html += " checked ";
-		}
+		if (row.runFlag == true){ html += " checked "; }
 	}
 	else{
-		if (row.assFlag == true){
-			html += " checked ";
-		}
+		if (row.assFlag == true){ html += " checked "; }
 	}
 	html += '>';
 	return html;
@@ -104,9 +93,7 @@ function renderRunChk(row) {
 function renderAssChk(row) {
 	return renderChk(row,'assFlag');
 }
-function recordChange(chk,nodeid,menuid) {
-	var xx = $(chk).parent().parent().parent();
-	var rowid = xx.attr('rowid');
+function recordChange(chk,nodeid,menuid,rowid) {
 	var rowdata = pathmgr.getRow(rowid);
 	var t = $(chk).attr('chtype');
 	rowdata[t] = chk.checked;
@@ -118,26 +105,21 @@ function recordChange(chk,nodeid,menuid) {
 	changes.push(nr);
 }
 
-function queryData(row,idx,element) {
-	if (row.children.length > 0){
+function queryData(data,e) {
+	if (data.children.length > 0){
 		return;
 	}
 	var roleid = $("#roleId").val();
-	var nodepath = row.nodePath;
-	var nodeid = row.nodeId;
+	var nodepath = data.nodePath;
+	var nodeid = data.nodeId;
 	var mdata = {"roleId":roleid,"nodePath":nodepath,"nodeId":nodeid};
 	mdata = Utils.convertObjectData('listChildIn',mdata);
 	var url = "${_CONTEXT_PATH}/sys/page-grant!listChild.action";
 	Utils.ajaxSubmit(url,mdata,function(result) {
-		var selectRow = pathmgr.getSelectedRow();
-		pathmgr.expand(selectRow);
-		var ndata = result.rows;
-		for (var i = 0 ; i < ndata.length ;i ++){
-			var rowdata = ndata[i];
-			pathmgr.appendRow(rowdata, selectRow);
-		}
+		pathmgr.append(result.rows, data);
+		e.update();
 	});
- 
+	return false;
 }
 
 function doSave() {

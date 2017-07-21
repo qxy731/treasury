@@ -10,7 +10,7 @@
 <style type="text/css">
 
 .mparams { margin:20px auto; }
-.mparams tr td { line-height: 28px;}
+.mparams tr td { line-height: 22px;}
 .mparams tr td input {  height: 20px;}
 fieldset legend {
     background: url("${_CONTEXT_PATH}/images/password.gif") no-repeat scroll 0 0 transparent;

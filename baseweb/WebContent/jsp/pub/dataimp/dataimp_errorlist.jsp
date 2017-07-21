@@ -15,7 +15,7 @@
 <table class='content2'>
 <tr><td>
 <form id="myform" action="">
-<fieldset class="detailList"><legend>错误列表</legend>
+<fieldset class="outbox"><legend>错误列表</legend>
 		<div id='errorlist' style="overflow:auto;"></div>
 </fieldset>
 </form>
