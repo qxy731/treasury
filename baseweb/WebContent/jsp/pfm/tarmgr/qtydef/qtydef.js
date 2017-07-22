@@ -21,13 +21,13 @@
 //新增基础定量指标
 function insertBaseQty() {
 	var url = _CONTEXT_PATH+'/jsp/pfm/tarmgr/qtydef/baseQtydefAdd.jsp';
-	$.dialog.open(url,{id:"insertBaseQtyTar",title:"新增基础指标",height:360,width:740});
+	$.dialog.open(url,{id:"insertBaseQtyTar",title:"新增基础指标",height:270,width:635});
 }
 
 //新增复合定量指标
 function insertMixQty() {
 	var url = _CONTEXT_PATH+'/jsp/pfm/tarmgr/qtydef/mixQtydefAdd.jsp';
-	$.dialog.open(url,{id:"insertMixQtyTar",title:"新增衍生指标",height:600,width:740});
+	$.dialog.open(url,{id:"insertMixQtyTar",title:"新增衍生指标",height:520,width:750});
 }
 
 //修改基础定量指标

@@ -79,7 +79,6 @@
 		});
 		$("#unitlist").ligerGrid({
 			enumlist : _enum_params,
-			checkbox : false,
 			enabledSort : false,
 			columns : [ {
 				display : '部门编号',
@@ -142,6 +141,7 @@
 				width : '5%',
 				codetype : 'valid_type'
 			} ],
+			checkbox:true,
 			enabledEdit : true,
 			pageSize : 20,
 			sortName : 'unitId',
@@ -151,7 +151,6 @@
 				Utils.alert("查询数据失败。");
 			}
 		});
-
 		$("#query").bind('click', query);
 		$("#reset").bind('click', doClear);
 	});

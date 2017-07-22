@@ -29,7 +29,7 @@
 <input id="lastUpdOrg" name="newQtyDef.lastUpdOrg" type="hidden" value="${logUserInfo.operUnitId}"/>
 <input id="tarType" name="newQtyDef.tarType" type="hidden" value="<%=BaseTar.TAR_TYPE_MIX%>"/>
 <input id="tarScope" name="newQtyDef.tarScope" type="hidden" value="<%=BaseTar.APPOBJ_ORGANDPERCODE%>"/>
-<fieldset class="detailList"><legend>指标信息</legend>
+<fieldset class="outbox"><legend>指标信息</legend>
 <table class="params">
 	<tr>
 		<td width="15%" align="right">指标代码 :</td>
@@ -83,7 +83,7 @@
 	</tr>
 </table>
 </fieldset>
-<fieldset class="detailList"><legend>创建计算公式</legend>
+<fieldset class="outbox"><legend>创建计算公式</legend>
 <table class="params1">
   <tr>
   <td>
@@ -195,7 +195,7 @@
 <td width="100%">
 		<textarea rows="4" cols="60" id="createGs" name="qtyExp.calcExp" validate="{required:true}">${qtyExp.calcExp}</textarea>
 		<input type="button"" name="resetBtn" id="resetBtn" value="重&nbsp;置" class="l-button" style="width:80px;"/><br/>
-		<fieldset class="detailList"><legend><font color="red">复合指标公式说明</font></legend>
+		<fieldset class="outbox"><legend><font color="red">复合指标公式说明</font></legend>
 			<font color="red">
 				<p>月份贷款收息率:#月份贷款实收利息/#月份贷款应收利息*100</p>
 				<p>月份黑金客户流失率:#月份黑金客户流失数/#取指标(#月末黑金客户数, 取周期(-1))*100</p>

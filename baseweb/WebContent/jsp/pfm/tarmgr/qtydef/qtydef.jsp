@@ -11,7 +11,6 @@
 <%@ include file="/comm.jsp" %>
 <script type="text/javascript" src="${_CONTEXT_PATH}/jsp/pfm/tarmgr/qtydef/qtydef.js"></script> 
 <style type="text/css">
-.content{width:95%;}
 </style>
 </head>
 <body>
@@ -59,12 +58,10 @@
 	</tr>	
 	<tr>
 		<td>
-		<form>
-			<fieldset class="detailList"><legend>查询结果</legend>
+			<fieldset class="outbox"><legend>查询结果</legend>
 				<div id="toptoolbar"></div>
 				<div id="qtydeflist"></div>
 			</fieldset>
-		</form>
 		</td>
 	</tr>
 </table>
@@ -84,7 +81,7 @@
 		$("#qtydeflist").ligerGrid({
 			checkbox:true,
 			rownumbers:true,
-			enumlist: _enum_params ,
+			enumlist: _enum_params , 
 			columns: [
 						{ display: '指标代码', name: 'tarCode',width:130,align:'left'},
 						{ display: '指标名称', name: 'tarName', width:340,align:'left'},
@@ -97,23 +94,20 @@
 			selectRowButtonOnly:true,
 			width:'100%',
 			height:'100%',
-			heightDiff:-20,
+			heightDiff:-20 ,
+			isSingleCheck:true,
+			onBeforeSelectRow:function(checked, data, rowid, rowdata){
+				$(rowid).addClass("l-selected");
+				return true;
+			},
 			onError: function() {
 				$.dialogBox.error("查询数据失败");
-			}
-			//,onCheckRow:onCheckRow
+			} 
 		});
 		$("#query").bind('click', query);
 		$("#reset").bind('click', doClear);
 		$("#creatOrgName").bind('click', openSelectUnit);
 	});
-	
-	/* function onCheckRow(checked,data,rowid,rowdata) {
-		grid = $("#qtydeflist").ligerGetGridManager();
-	    for (var rowid1 in grid.records)
-	    	grid.onUnSelectRow(rowid1); 
-	    grid.onSelectRow(rowid);
-	} */
 	
 	function updateQtyDef(){
 		if(!grid){return;}
@@ -166,7 +160,7 @@
 	function doClear() {
 		/* $(".queryText input[type='text'],.queryText input[type='hidden']").each(function(i,item){
 			item.value ='';
-		}); */XZ
+		}); */
 		$(".queryBox input[type='text']").each(function(i,item){
 			item.value ='';
 		});

@@ -10,7 +10,7 @@
 <title>基础指标新增</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-。params{
+/* 。params{
 	width:700px;
 }
 .div_bottom {
@@ -19,7 +19,7 @@
 
 .table_btn td {
 	padding: 1px 20px 1px 20px
-}
+} */
 </style>
 <script type="text/javascript">
 function add(){
@@ -69,7 +69,7 @@ $(function() {
 <input id="createOrg" name="newQtyDef.createOrg" type="hidden" value="${logUserInfo.operUnitId}"/>
 <input id="tarType" name="newQtyDef.tarType" type="hidden" value="<%=BaseTar.TAR_TYPE_BASE%>"/>
 <input id="tarScope" name="newQtyDef.tarScope" type="hidden" value="<%=BaseTar.APPOBJ_ORGANDPERCODE%>"/>
-<table class="params">
+<table class="params" width="100%">
 	<tr>
 		<td width="15%" align="right">指标代码</td>
 		<td width="35%"><input id="tarCodeText" name="newQtyDef.tarCodeText" type="text" disabled="disabled"/></td>
@@ -120,15 +120,13 @@ $(function() {
 		  <textarea rows="3" cols="40" style="width:80%" id="remark" name="newQtyDef.remark"></textarea>
 		</td>
 	</tr>
+	<tr>
+		<td colspan="4">
+			<input id="saveBtn" type="button" value="提&nbsp;交" class="l-button" style="float:left;margin-left:230px;margin-top:5px;" />
+			<input id="cancelBtn" type="button" value="取&nbsp;消" class="l-button" style="float:left;margin-left:5px;margin-top:5px;" />
+		</td>
+	</tr>
 </table>
-<div align="center" class="div_bottom">
-	<table class="table_btn">
-		<tr>
-			<td><input id="saveBtn" type="button" value="提&nbsp;交" class="l-button"></td>
-			<td><input id="cancelBtn" type="button" value="取&nbsp;消" class="l-button"></td>
-		</tr>
-	</table>
-</div>
 </form>
 </body>
 </html>
