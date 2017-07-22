@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="n" uri="/ncrm-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,26 +7,14 @@
 <title>与其他国库之间资金流动情况统计表</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-body{
-	width:1210px;
-	margin:0 auto;
-}
-.params td {
-	background-color: #E2EAFF;
-	padding: 2px 2px 2px 10px;
-}
-
 .l-grid-row-cell div{
 	text-align:left;
-}
-.l-grid-body-table td{
-	border:1px solid #bed5f3;
 }
 </style>
 <script type="text/javascript">
 	$(function () {
 		Utils.validateInit();
-		$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
+		//$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
 		$("#query").bind('click', query);
 		//$("#reset").bind('click', doClear);
 		$(".l-grid-header-table tr").addClass("l-grid-hd-row");
@@ -98,7 +85,7 @@ body{
 	<table class='params'>
 		<tr>
 			<td>数据日期</td>
-			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" /></td>
+			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
 			<td>所属部门</td>
 			<td>
 				<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
