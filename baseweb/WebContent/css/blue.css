@@ -158,7 +158,7 @@ a {
 }
 
 /** fieldset { border-color: #add6ff;} */
-.l-grid-row {
+/* .l-grid-row {
 	background: #eaf6ff;
 }
 
@@ -186,12 +186,12 @@ a {
 
 .l-toolbar {
 	border: 0;
-}
+} */
 
 input[type="text"],.params select,textarea {
 	border: 1px solid #CCCCEE;
 }
 
-.glass_bg,fieldset {
-	background: url(./../images/blue/bg_blue.gif) repeat\9;
+.glass_bg{
+	background: url(./../images/blue/bg_blue.gif) repeat;
 }

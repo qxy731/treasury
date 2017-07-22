@@ -1,40 +1,59 @@
 ﻿/**
-* jQuery ligerUI 1.1.0
+* jQuery ligerUI 1.3.2
 * 
-* Author leoxie [ gd_star@163.com ] 
+* http://ligerui.com
+*  
+* Author daomi 2015 [ gd_star@163.com ] 
 * 
 */
-(function($)
+(function ($)
 {
-    $.ligerDefaults = $.ligerDefaults || {};
+    $.fn.ligerSpinner = function ()
+    {
+        return $.ligerui.run.call(this, "ligerSpinner", arguments);
+    };
+    $.fn.ligerGetSpinnerManager = function ()
+    {
+        return $.ligerui.run.call(this, "ligerGetSpinnerManager", arguments);
+    };
+
     $.ligerDefaults.Spinner = {
         type: 'float',     //类型 float:浮点数 int:整数 time:时间
         isNegative: true, //是否负数
         decimalplace: 2,   //小数位 type=float时起作用
         step: 0.1,         //每次增加的值
         interval: 50,      //间隔，毫秒
+        value : null,
         onChangeValue: false,    //改变值事件
         minValue: null,        //最小值
-        maxValue: null         //最大值
+        maxValue: null,         //最大值
+        disabled: false,
+        readonly: false              //是否只读
     };
-    ///	<param name="$" type="jQuery"></param>;
-    $.fn.ligerSpinner = function(p)
+
+    $.ligerMethos.Spinner = {};
+
+    $.ligerui.controls.Spinner = function (element, options)
     {
-        return this.each(function()
+        $.ligerui.controls.Spinner.base.constructor.call(this, element, options);
+    };
+    $.ligerui.controls.Spinner.ligerExtend($.ligerui.controls.Input, {
+        __getType: function ()
         {
-            if (this.useSpinner) return;
-            if ($(this).attr("ligerui"))
-            {
-                try
-                {
-                    var attroptions = $(this).attr("ligerui");
-                    if (attroptions.indexOf('{') < 0) attroptions = "{" + attroptions + "}";
-                    eval("attroptions = " + attroptions + ";");
-                    if (attroptions) p = $.extend({}, attroptions, p || {});
-                }
-                catch (e) { }
-            }
-            p = $.extend({}, $.ligerDefaults.Spinner, p || {});
+            return 'Spinner';
+        },
+        __idPrev: function ()
+        {
+            return 'Spinner';
+        },
+        _extendMethods: function ()
+        {
+            return $.ligerMethos.Spinner;
+        },
+        _init: function ()
+        {
+            $.ligerui.controls.Spinner.base._init.call(this);
+            var p = this.options;
             if (p.type == 'float')
             {
                 p.step = 0.1;
@@ -47,155 +66,30 @@
             {
                 p.step = 1;
                 p.interval = 100;
-            }
-            var g = {
-                round: function(v, e)
-                {
-                    var t = 1;
-                    for (; e > 0; t *= 10, e--);
-                    for (; e < 0; t /= 10, e++);
-                    return Math.round(v * t) / t;
-                },
-                isInt: function(str)
-                {
-                    var strP = p.isNegative ? /^-?\d+$/ : /^\d+$/;
-                    if (!strP.test(str)) return false;
-                    if (parseFloat(str) != str) return false;
-                    return true;
-                },
-                isFloat: function(str)
-                {
-                    var strP = p.isNegative ? /^-?\d+(\.\d+)?$/ : /^\d+(\.\d+)?$/;
-                    if (!strP.test(str)) return false;
-                    if (parseFloat(str) != str) return false;
-                    return true;
-                },
-                isTime: function(str)
-                {
-                    var a = str.match(/^(\d{1,2}):(\d{1,2})$/);
-                    if (a == null) return false;
-                    if (a[1] > 24 || a[2] > 60) return false;
-                    return true;
-
-                },
-                isVerify: function(str)
-                {
-                    if (p.type == 'float')
-                    {
-                        return g.isFloat(str);
-                    } else if (p.type == 'int')
-                    {
-                        return g.isInt(str);
-                    } else if (p.type == 'time')
-                    {
-                        return g.isTime(str);
-                    }
-                    return false;
-                },
-                getVerifyValue: function(value)
-                {
-                    var newvalue = null;
-                    if (p.type == 'float')
-                    {
-                        newvalue = g.round(value, p.decimalplace);
-                    } else if (p.type == 'int')
-                    {
-                        newvalue = parseInt(value);
-                    } else if (p.type == 'time')
-                    {
-                        newvalue = value;
-                    }
-                    if (!g.isVerify(newvalue))
-                    {
-                        return g.value;
-                    } else
-                    {
-                        return newvalue;
-                    }
-                },
-                isOverValue: function(value)
-                {
-                    if (p.minValue != null && p.minValue > value) return true;
-                    if (p.maxValue != null && p.maxValue < value) return true;
-                    return false;
-                },
-                getDefaultValue: function()
-                {
-                    if (p.type == 'float' || p.type == 'int') { return 0; }
-                    else if (p.type == 'time') { return "00:00"; }
-                },
-                addValue: function(num)
-                {
-                    var value = g.inputText.val();
-                    value = parseFloat(value) + num;
-                    if (g.isOverValue(value)) return;
-                    g.inputText.val(value);
-                    g.inputText.trigger("change");
-                },
-                addTime: function(minute)
-                {
-                    var value = g.inputText.val();
-                    var a = value.match(/^(\d{1,2}):(\d{1,2})$/);
-                    newminute = parseInt(a[2]) + minute;
-                    if (newminute < 10) newminute = "0" + newminute;
-                    value = a[1] + ":" + newminute;
-                    if (g.isOverValue(value)) return;
-                    g.inputText.val(value);
-                    g.inputText.trigger("change");
-                },
-                uping: function()
-                { 
-                    if (p.type == 'float' || p.type == 'int')
-                    {
-                        g.addValue(p.step);
-                    } else if (p.type == 'time')
-                    {
-                        g.addTime(p.step);
-                    }
-                },
-                downing: function()
-                { 
-                    if (p.type == 'float' || p.type == 'int')
-                    {
-                        g.addValue(-1 * p.step);
-                    } else if (p.type == 'time')
-                    {
-                        g.addTime(-1 * p.step);
-                    }
-                },
-                isDateTime: function(dateStr)
-                {
-                    var r = dateStr.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-                    if (r == null) return false;
-                    var d = new Date(r[1], r[3] - 1, r[4]);
-                    if (d == "NaN") return false;
-                    return (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]);
-                },
-                isLongDateTime: function(dateStr)
-                {
-                    var reg = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2})$/;
-                    var r = dateStr.match(reg);
-                    if (r == null) return false;
-                    var d = new Date(r[1], r[3] - 1, r[4], r[5], r[6]);
-                    if (d == "NaN") return false;
-                    return (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4] && d.getHours() == r[5] && d.getMinutes() == r[6]);
-                },
-                interval: null,
-                inputText: null,
-                value: null,
-                textFieldID: ""
-            };
-
-            if (this.tagName.toLowerCase() == "input" && this.type && this.type == "text")
+            } else
             {
-                g.inputText = $(this);
-                if (this.id)
-                    g.textFieldID = this.id;
+                p.type = "int";
+                p.step = 1;
+                p.interval = 100;
+            }
+        },
+        _render: function ()
+        {
+            var g = this, p = this.options;
+            g.interval = null;
+            g.inputText = null;
+            g.value = null;
+            g.textFieldID = "";
+            if (this.element.tagName.toLowerCase() == "input" && this.element.type && this.element.type == "text")
+            {
+                g.inputText = $(this.element);
+                if (this.element.id)
+                    g.textFieldID = this.element.id;
             }
             else
             {
                 g.inputText = $('<input type="text"/>');
-                g.inputText.appendTo($(this));
+                g.inputText.appendTo($(this.element));
             }
             if (g.textFieldID == "" && p.textFieldID)
                 g.textFieldID = p.textFieldID;
@@ -206,89 +100,306 @@
             g.wrapper.append(g.link).after(g.selectBox).after(g.valueField);
             g.link.up = $(".l-spinner-up", g.link);
             g.link.down = $(".l-spinner-down", g.link);
-            if (!g.inputText.hasClass("l-text-field")) g.inputText.addClass("l-text-field");
+            g.inputText.addClass("l-text-field");
 
-            //数据初始化
-            if (p.width)
+            if (p.disabled)
             {
-                g.wrapper.css({ width: p.width });
-                g.inputText.css({ width: p.width - 20 });
-            }
-            if (p.height)
-            {
-                g.wrapper.height(p.height);
-                g.inputText.height(p.height - 2);
-                g.link.height(p.height - 4);
+                g.wrapper.addClass("l-text-disabled");
             }
             //初始化
-            if (!g.isVerify(g.inputText.val()))
+            if (!g._isVerify(g.inputText.val()))
             {
-                g.value = g.getDefaultValue();
-                g.inputText.val(g.value);
+                g.value = g._getDefaultValue();
+                g._showValue(g.value);
             }
             //事件
-            g.link.up.hover(function()
+            g.link.up.hover(function ()
             {
-                $(this).addClass("l-spinner-up-over");
-            }, function()
+                if (!p.disabled)
+                    $(this).addClass("l-spinner-up-over");
+            }, function ()
             {
                 clearInterval(g.interval);
-                $.fn.ligerNoSelect && $('body').ligerNoSelect(false);
+                $(document).unbind("selectstart.spinner");
                 $(this).removeClass("l-spinner-up-over");
-            }).mousedown(function()
-            {
-                g.uping();
-                g.interval = setInterval(g.uping, p.interval);
-                $.fn.ligerNoSelect && $('body').ligerNoSelect();
-            }).mouseup(function()
+            }).mousedown(function ()
+            { 
+                if (!p.disabled)
+                {
+                    g._uping.call(g);
+                    g.interval = setInterval(function ()
+                    {
+                        g._uping.call(g);
+                    }, p.interval);
+                    $(document).bind("selectstart.spinner", function () { return false; });
+                }
+            }).mouseup(function ()
             {
                 clearInterval(g.interval);
                 g.inputText.trigger("change").focus();
-                $.fn.ligerNoSelect && $('body').ligerNoSelect(false);
+                $(document).unbind("selectstart.spinner");
             });
-            g.link.down.hover(function()
+            g.link.down.hover(function ()
             {
-                $(this).addClass("l-spinner-down-over");
-            }, function()
+                if (!p.disabled)
+                    $(this).addClass("l-spinner-down-over");
+            }, function ()
             {
                 clearInterval(g.interval);
-                $.fn.ligerNoSelect && $('body').ligerNoSelect(false);
+                $(document).unbind("selectstart.spinner");
                 $(this).removeClass("l-spinner-down-over");
-            }).mousedown(function()
+            }).mousedown(function ()
             {
-                g.interval = setInterval(g.downing, p.interval);
-                $.fn.ligerNoSelect && $('body').ligerNoSelect();
-            }).mouseup(function()
+                if (!p.disabled)
+                {
+                    g.interval = setInterval(function ()
+                    {
+                        g._downing.call(g);
+                    }, p.interval);
+                    $(document).bind("selectstart.spinner", function () { return false; });
+                }
+            }).mouseup(function ()
             {
                 clearInterval(g.interval);
                 g.inputText.trigger("change").focus();
-                $.fn.ligerNoSelect && $('body').ligerNoSelect(false);
+                $(document).unbind("selectstart.spinner");
             });
 
-            g.inputText.change(function()
+            g.inputText.change(function ()
             {
                 var value = g.inputText.val();
-                g.value = g.getVerifyValue(value);
-                if (p.onChangeValue)
-                {
-                    p.onChangeValue(g.value);
-                }
-                g.inputText.val(g.value);
-            }).blur(function()
+                g.value = g._getVerifyValue(value);
+                g.trigger('changeValue', [g.value]);
+                g._showValue(g.value);
+            }).blur(function ()
             {
                 g.wrapper.removeClass("l-text-focus");
-            }).focus(function()
+            }).focus(function ()
             {
                 g.wrapper.addClass("l-text-focus");
             });
-            g.wrapper.hover(function()
+            g.wrapper.hover(function ()
             {
-                g.wrapper.addClass("l-text-over");
-            }, function()
+                if (!p.disabled)
+                    g.wrapper.addClass("l-text-over");
+            }, function ()
             {
                 g.wrapper.removeClass("l-text-over");
             });
-            this.useSpinner = true;
-        });
-    };
+            g.set(p);
+        },
+        _setValue: function (value)
+        {
+            if (value != null)
+                this.inputText.val(value);
+        },
+        _setWidth: function (value)
+        {
+            var g = this;
+            if (value > 20)
+            {
+                g.wrapper.css({ width: value });
+                g.inputText.css({ width: value - 20 });
+            }
+        },
+        _setHeight: function (value)
+        {
+            var g = this;
+            if (value > 10)
+            {
+                g.wrapper.height(value);
+                g.inputText.height(value - 2);
+                g.link.height(value - 4);
+            }
+        },
+        _setDisabled: function (value)
+        {
+            if (value)
+            {
+                this.wrapper.addClass("l-text-disabled");
+            }
+            else
+            {
+                this.wrapper.removeClass("l-text-disabled");
+            }
+        },
+        _showValue: function (value)
+        {
+            var g = this, p = this.options;
+            if (!value || value == "NaN") value = 0;
+            if (p.type == 'float')
+            {
+                value = parseFloat(value).toFixed(p.decimalplace);
+            }
+            this.inputText.val(value)
+        },
+        _setValue: function (value)
+        {
+            this._showValue(value);
+        },
+        setValue: function (value)
+        {
+            this._showValue(value);
+        },
+        getValue: function ()
+        {
+            return this.inputText.val();
+        },
+        _round: function (v, e)
+        {
+            var g = this, p = this.options;
+            var t = 1;
+            for (; e > 0; t *= 10, e--) { }
+            for (; e < 0; t /= 10, e++) { }
+            return Math.round(v * t) / t;
+        },
+        _isInt: function (str)
+        {
+            var g = this, p = this.options;
+            var strP = p.isNegative ? /^-?\d+$/ : /^\d+$/;
+            if (!strP.test(str)) return false;
+            if (parseFloat(str) != str) return false;
+            return true;
+        },
+        _isFloat: function (str)
+        {
+            var g = this, p = this.options;
+            var strP = p.isNegative ? /^-?\d+(\.\d+)?$/ : /^\d+(\.\d+)?$/;
+            if (!strP.test(str)) return false;
+            if (parseFloat(str) != str) return false;
+            return true;
+        },
+        _isTime: function (str)
+        {
+            var g = this, p = this.options;
+            var a = str.match(/^(\d{1,2}):(\d{1,2})$/);
+            if (a == null) return false;
+            if (a[1] > 24 || a[2] > 60) return false;
+            return true;
+
+        },
+        _isVerify: function (str)
+        {
+            var g = this, p = this.options;
+            if (p.type == 'float')
+            {
+                if (!g._isFloat(str)) return false;
+                var value = parseFloat(str);
+                if (p.minValue != undefined && p.minValue > value) return false;
+                if (p.maxValue != undefined && p.maxValue < value) return false;
+                return true;
+            } else if (p.type == 'int')
+            {
+                if (!g._isInt(str)) return false;
+                var value = parseInt(str);
+                if (p.minValue != undefined && p.minValue > value) return false;
+                if (p.maxValue != undefined && p.maxValue < value) return false;
+                return true;
+            } else if (p.type == 'time')
+            {
+                return g._isTime(str);
+            }
+            return false;
+        },
+        _getVerifyValue: function (value)
+        {
+            var g = this, p = this.options;
+            var newvalue = null;
+            if (p.type == 'float')
+            {
+                newvalue = g._round(value, p.decimalplace);
+            }
+            else if (p.type == 'int')
+            {
+                newvalue = parseInt(value);
+            } else if (p.type == 'time')
+            {
+                newvalue = value;
+            }
+            if (!g._isVerify(newvalue))
+            {
+                return g.value;
+            } else
+            {
+                return newvalue;
+            }
+        },
+        _isOverValue: function (value)
+        {
+            var g = this, p = this.options;
+            if (p.minValue != null && p.minValue > value) return true;
+            if (p.maxValue != null && p.maxValue < value) return true;
+            return false;
+        },
+        _getDefaultValue: function ()
+        {
+            var g = this, p = this.options;
+            if (p.type == 'float' || p.type == 'int') { return 0; }
+            else if (p.type == 'time') { return "00:00"; }
+        },
+        _addValue: function (num)
+        {
+            var g = this, p = this.options; 
+            var value = g.inputText.val();
+            value = parseFloat(value) + num;
+            if (g._isOverValue(value)) return;
+            g._showValue(value);
+            g.inputText.trigger("change");
+        },
+        _addTime: function (minute)
+        {
+            var g = this, p = this.options;
+            var value = g.inputText.val();
+            var a = value.match(/^(\d{1,2}):(\d{1,2})$/);
+            newminute = parseInt(a[2]) + minute;
+            if (newminute < 10) newminute = "0" + newminute;
+            value = a[1] + ":" + newminute;
+            if (g._isOverValue(value)) return;
+            g._showValue(value);
+            g.inputText.trigger("change");
+        },
+        _uping: function ()
+        {
+            var g = this, p = this.options;
+            if (p.type == 'float' || p.type == 'int')
+            {
+                g._addValue(p.step);
+            } else if (p.type == 'time')
+            {
+                g._addTime(p.step);
+            }
+        },
+        _downing: function ()
+        {
+            var g = this, p = this.options;
+            if (p.type == 'float' || p.type == 'int')
+            {
+                g._addValue(-1 * p.step);
+            } else if (p.type == 'time')
+            {
+                g._addTime(-1 * p.step);
+            }
+        },
+        _isDateTime: function (dateStr)
+        {
+            var g = this, p = this.options;
+            var r = dateStr.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+            if (r == null) return false;
+            var d = new Date(r[1], r[3] - 1, r[4]);
+            if (d == "NaN") return false;
+            return (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]);
+        },
+        _isLongDateTime: function (dateStr)
+        {
+            var g = this, p = this.options;
+            var reg = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2})$/;
+            var r = dateStr.match(reg);
+            if (r == null) return false;
+            var d = new Date(r[1], r[3] - 1, r[4], r[5], r[6]);
+            if (d == "NaN") return false;
+            return (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4] && d.getHours() == r[5] && d.getMinutes() == r[6]);
+        }
+    });
+
+
 })(jQuery);

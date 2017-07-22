@@ -14,16 +14,12 @@ body {
 	margin-top: 5px
 } */
 
-body {
-	margin:0 auto;
-	width:95%;
-}
 </style>
 </head>
 <body>
 <n:page action='com.soule.app.pfm.tm.model.action.ModelDefAction' />
 <n:enums keys='valid_type,sex,partime_job_type'/>
-<table class="content" cellpadding="5">
+<table class="content">
 	<tr>
 		<td>
 		<fieldset class="queryBox"><legend>查询条件</legend>
@@ -77,21 +73,21 @@ body {
 			//	{text:'删除',name:'delete_btn',clazz:'nbutton'}
 			//],
 			columns: [
-						{ display: '模型编号', name: 'modelCode', width: '15%', align: 'left' },
-						{ display: '模型名称', name: 'modelName', width: '25%',align: 'left' },
-						{ display: '模型状态', name: 'modelStatus',width: '15%', align: 'left', codetype: 'valid_type'},
-						{ display: '创建人', name: 'createUser', width: '15%'}, 
-						{ display: '创建部门', name: 'createOrg', width: '15%'}, 
-						{ display: '创建时间', name: 'createTime', width: '15%',align: 'right' }
+						{ display: '模型编号', name: 'modelCode', width: 100, align: 'left' } ,
+						{ display: '模型名称', name: 'modelName', width: 150,align: 'left' },
+						{ display: '模型状态', name: 'modelStatus',width: 100, align: 'left', codetype: 'valid_type'},
+						{ display: '创建人', name: 'createUser', width: 150}, 
+						{ display: '创建部门', name: 'createOrg', width: 150}, 
+						{ display: '创建时间', name: 'createTime', width: 180,align: 'right' }
 					],
 			pageSize:20,
 			sortName: 'modelCode',
 			selectRowButtonOnly:true,
 			height:'98%',
-			width:'100%',
+			width:'100%'/* ,
 			onError: function() {
 				Utils.alert("查询数据失败");
-			}
+			} */
 		});
 
 		$("#modellist #insert_btn").bind('click', insertModel);
@@ -104,12 +100,11 @@ body {
 	function insertModel() {
 		//var url = 'staffManager!insertUI.action';
 		var url = '${_CONTEXT_PATH}/jsp/pfm/target/targetModel/modelAdd.jsp';
-		
 		var p = {
 				id : "insertModel",
 				title : '新增模型',
-				height:'80%',
-				width:'80%',
+				height:450,
+				width:900,
 				opacity : 0.07
 			}; 
 		//Utils.openTab("insertStaff","新增人员",url);

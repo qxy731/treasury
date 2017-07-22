@@ -1,23 +1,48 @@
 ﻿/**
-* jQuery ligerUI 1.1.0
+* jQuery ligerUI 1.3.2
 * 
-* Author leoxie [ gd_star@163.com ] 
+* http://ligerui.com
+*  
+* Author daomi 2015 [ gd_star@163.com ] 
 * 
 */
 (function ($)
 {
-    ///	<param name="$" type="jQuery"></param>
-    $.fn.ligerEasyTab = function (p)
+    $.fn.ligerEasyTab = function ()
     {
-        p = p || {};
-        return this.each(function ()
+        return $.ligerui.run.call(this, "ligerEasyTab", arguments);
+    };
+    $.fn.ligerGetEasyTabManager = function ()
+    {
+        return $.ligerui.run.call(this, "ligerGetEasyTabManager", arguments);
+    };
+
+    $.ligerDefaults.EasyTab = {};
+
+    $.ligerMethos.EasyTab = {};
+
+    $.ligerui.controls.EasyTab = function (element, options)
+    {
+        $.ligerui.controls.EasyTab.base.constructor.call(this, element, options);
+    };
+    $.ligerui.controls.EasyTab.ligerExtend($.ligerui.core.UIComponent, {
+        __getType: function ()
         {
-            if (this.manager) return;
-            if ($(this).hasClass('l-hidden')) { return; }
-            var g = {};
-            this.manager = g;
-            g.tabs = $(this);
-            if (!g.tabs.hasClass("l-easytab")) g.tabs.addClass("l-easytab");
+            return 'EasyTab';
+        },
+        __idPrev: function ()
+        {
+            return 'EasyTab';
+        },
+        _extendMethods: function ()
+        {
+            return $.ligerMethos.EasyTab;
+        },
+        _render: function ()
+        {
+            var g = this, p = this.options;
+            g.tabs = $(this.element);
+            g.tabs.addClass("l-easytab");
             var selectedIndex = 0;
             if ($("> div[lselected=true]", g.tabs).length > 0)
                 selectedIndex = $("> div", g.tabs).index($("> div[lselected=true]", g.tabs));
@@ -28,14 +53,16 @@
                 if (i == selectedIndex)
                     $("span", li).addClass("l-selected");
                 if ($(box).attr("title"))
+                {
                     $("span", li).html($(box).attr("title"));
+                    $(box).removeAttr("title");
+                }
                 g.tabs.ul.append(li);
                 if (!$(box).hasClass("l-easytab-panelbox")) $(box).addClass("l-easytab-panelbox");
             });
-            g.tabs.ul.prependTo(g.tabs); 
+            g.tabs.ul.prependTo(g.tabs);
             //init  
-            $(".l-easytab-panelbox:eq(" + selectedIndex + ")",g.tabs).show().siblings(".l-easytab-panelbox").hide();
-
+            $(".l-easytab-panelbox:eq(" + selectedIndex + ")", g.tabs).show().siblings(".l-easytab-panelbox").hide();
             //add even 
             $("> ul:first span", g.tabs).click(function ()
             {
@@ -50,7 +77,8 @@
             {
                 $(this).removeClass("l-over");
             });
-        });
-    };
+            g.set(p);
+        }
+    });
 
 })(jQuery);

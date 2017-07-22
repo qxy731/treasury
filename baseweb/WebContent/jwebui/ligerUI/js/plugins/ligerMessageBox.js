@@ -1,198 +1,236 @@
 ﻿/**
-* jQuery ligerUI 1.1.0
+* jQuery ligerUI 1.3.2
 * 
-* Author leoxie [ gd_star@163.com ] 
+* http://ligerui.com
+*  
+* Author daomi 2015 [ gd_star@163.com ] 
 * 
 */
 (function ($)
 {
-    ///	<param name="$" type="jQuery"></param>
-    $.ligerMessageBox = {};
-    $.ligerMessageBox.show = function (p)
+
+    $.ligerMessageBox = function (options)
     {
-        p = p || {};
-        p.isDrag == undefined && (p.isDrag = true);
-        var messageBoxHTML = "";
-        messageBoxHTML += '<div class="l-messagebox">';
-        messageBoxHTML += '        <div class="l-messagebox-lt"></div><div class="l-messagebox-rt"></div>';
-        messageBoxHTML += '        <div class="l-messagebox-l"></div><div class="l-messagebox-r"></div> ';
-        messageBoxHTML += '        <div class="l-messagebox-image"></div>';
-        messageBoxHTML += '        <div class="l-messagebox-title">';
-        messageBoxHTML += '            <div class="l-messagebox-title-inner"></div>';
-        messageBoxHTML += '            <div class="l-messagebox-close"></div>';
-        messageBoxHTML += '        </div>';
-        messageBoxHTML += '        <div class="l-messagebox-content">';
-        messageBoxHTML += '        </div>';
-        messageBoxHTML += '        <div class="l-messagebox-buttons"><div class="l-messagebox-buttons-inner">';
-        messageBoxHTML += '        </div></div>';
-        messageBoxHTML += '    </div>';
-        var g = {
-            applyWindowMask: function ()
+        return $.ligerui.run.call(null, "ligerMessageBox", arguments, { isStatic: true });
+    };
+
+
+    $.ligerDefaults.MessageBox = {
+        isDrag: true
+    };
+
+    $.ligerMethos.MessageBox = {};
+
+    $.ligerui.controls.MessageBox = function (options)
+    {
+        $.ligerui.controls.MessageBox.base.constructor.call(this, null, options);
+    };
+    $.ligerui.controls.MessageBox.ligerExtend($.ligerui.core.UIComponent, {
+        __getType: function ()
+        {
+            return 'MessageBox';
+        },
+        __idPrev: function ()
+        {
+            return 'MessageBox';
+        },
+        _extendMethods: function ()
+        {
+            return $.ligerMethos.MessageBox;
+        },
+        _render: function ()
+        {
+            var g = this, p = this.options;
+            var messageBoxHTML = "";
+            messageBoxHTML += '<div class="l-messagebox">';
+            messageBoxHTML += '        <div class="l-messagebox-lt"></div><div class="l-messagebox-rt"></div>';
+            messageBoxHTML += '        <div class="l-messagebox-l"></div><div class="l-messagebox-r"></div> ';
+            messageBoxHTML += '        <div class="l-messagebox-image"></div>';
+            messageBoxHTML += '        <div class="l-messagebox-title">';
+            messageBoxHTML += '            <div class="l-messagebox-title-inner"></div>';
+            messageBoxHTML += '            <div class="l-messagebox-close"></div>';
+            messageBoxHTML += '        </div>';
+            messageBoxHTML += '        <div class="l-messagebox-content">';
+            messageBoxHTML += '        </div>';
+            messageBoxHTML += '        <div class="l-messagebox-buttons"><div class="l-messagebox-buttons-inner">';
+            messageBoxHTML += '        </div></div>';
+            messageBoxHTML += '    </div>';
+            g.messageBox = $(messageBoxHTML);
+            $('body').append(g.messageBox);
+            g.messageBox.close = function ()
             {
-                $(".l-window-mask").remove();
-                $("<div class='l-window-mask' style='display: block;'></div>").appendTo($("body"));
-            },
-            removeWindowMask: function ()
+                g._removeWindowMask();
+                g.messageBox.remove();
+            };
+            //设置参数属性
+            p.width && g.messageBox.width(p.width);
+            p.title && $(".l-messagebox-title-inner", g.messageBox).html(p.title);
+            p.content && $(".l-messagebox-content", g.messageBox).html(p.content);
+            if (p.buttons)
             {
-                $(".l-window-mask").remove();
-            },
-            applyDrag: function ()
-            {
-                if (p.isDrag && $.fn.ligerDrag)
-                    messageBox.ligerDrag({ handler: '.l-messagebox-title' });
-            },
-            setImage: function ()
-            {
-                if (p.type)
+                $(p.buttons).each(function (i, item)
                 {
-                    if (p.type == 'success' || p.type == 'donne')
-                    {
-                        $(".l-messagebox-image", messageBox).addClass("l-messagebox-image-donne").show();
-                        $(".l-messagebox-content", messageBox).css({ paddingLeft: 64, paddingBottom: 30 });
-                    }
-                    else if (p.type == 'error')
-                    {
-                        $(".l-messagebox-image", messageBox).addClass("l-messagebox-image-error").show();
-                        $(".l-messagebox-content", messageBox).css({ paddingLeft: 64, paddingBottom: 30 });
-                    }
-                    else if (p.type == 'warn')
-                    {
-                        $(".l-messagebox-image", messageBox).addClass("l-messagebox-image-warn").show();
-                        $(".l-messagebox-content", messageBox).css({ paddingLeft: 64, paddingBottom: 30 });
-                    }
-                    else if (p.type == 'question')
-                    {
-                        $(".l-messagebox-image", messageBox).addClass("l-messagebox-image-question").show();
-                        $(".l-messagebox-content", messageBox).css({ paddingLeft: 64, paddingBottom: 40 });
-                    }
+                    var btn = $('<div class="l-messagebox-btn"><div class="l-messagebox-btn-l"></div><div class="l-messagebox-btn-r"></div><div class="l-messagebox-btn-inner"></div></div>');
+                    $(".l-messagebox-btn-inner", btn).html(item.text);
+                    $(".l-messagebox-buttons-inner", g.messageBox).append(btn);
+                    item.width && btn.width(item.width);
+                    item.onclick && btn.click(function () { item.onclick(item, i, g.messageBox) });
+                });
+                $(".l-messagebox-buttons-inner", g.messageBox).append("<div class='l-clear'></div>");
+            }
+            var boxWidth = g.messageBox.width();
+            var sumBtnWidth = 0;
+            $(".l-messagebox-buttons-inner .l-messagebox-btn", g.messageBox).each(function ()
+            {
+                sumBtnWidth += $(this).width();
+            });
+            $(".l-messagebox-buttons-inner", g.messageBox).css({ marginLeft: parseInt((boxWidth - sumBtnWidth) * 0.5) });
+            //设置背景、拖动支持 和设置图片
+            g._applyWindowMask();
+            g._applyDrag();
+            g._setImage();
+
+            //位置初始化
+            var left = 0;
+            var top = 0;
+            var width = p.width || g.messageBox.width();
+            if (p.left != null) left = p.left;
+            else p.left = left = 0.5 * ($(window).width() - width);
+            if (p.top != null) top = p.top;
+            else p.top = top = 0.5 * ($(window).height() - g.messageBox.height()) + $(window).scrollTop() - 10;
+            if (left < 0) p.left = left = 0;
+            if (top < 0) p.top = top = 0;
+            g.messageBox.css({ left: left, top: top });
+
+            //设置事件
+            $(".l-messagebox-btn", g.messageBox).hover(function ()
+            {
+                $(this).addClass("l-messagebox-btn-over");
+            }, function ()
+            {
+                $(this).removeClass("l-messagebox-btn-over");
+            });
+            $(".l-messagebox-close", g.messageBox).hover(function ()
+            {
+                $(this).addClass("l-messagebox-close-over");
+            }, function ()
+            {
+                $(this).removeClass("l-messagebox-close-over");
+            }).click(function ()
+            {
+                g.messageBox.close();
+            });
+            g.set(p);
+        },
+        close: function ()
+        {
+            var g = this, p = this.options;
+            this.g._removeWindowMask();
+            this.messageBox.remove();
+        },
+        _applyWindowMask: function ()
+        {
+            var g = this, p = this.options;
+            $(".l-window-mask").remove();
+            $("<div class='l-window-mask' style='display: block;'></div>").appendTo($("body"));
+        },
+        _removeWindowMask: function ()
+        {
+            var g = this, p = this.options;
+            $(".l-window-mask").remove();
+        },
+        _applyDrag: function ()
+        {
+            var g = this, p = this.options;
+            if (p.isDrag && $.fn.ligerDrag)
+                g.messageBox.ligerDrag({ handler: '.l-messagebox-title-inner', animate: false });
+        },
+        _setImage: function ()
+        {
+            var g = this, p = this.options;
+            if (p.type)
+            {
+                if (p.type == 'success' || p.type == 'donne')
+                {
+                    $(".l-messagebox-image", g.messageBox).addClass("l-messagebox-image-donne").show();
+                    $(".l-messagebox-content", g.messageBox).css({ paddingLeft: 64, paddingBottom: 30 });
+                }
+                else if (p.type == 'error')
+                {
+                    $(".l-messagebox-image", g.messageBox).addClass("l-messagebox-image-error").show();
+                    $(".l-messagebox-content", g.messageBox).css({ paddingLeft: 64, paddingBottom: 30 });
+                }
+                else if (p.type == 'warn')
+                {
+                    $(".l-messagebox-image", g.messageBox).addClass("l-messagebox-image-warn").show();
+                    $(".l-messagebox-content", g.messageBox).css({ paddingLeft: 64, paddingBottom: 30 });
+                }
+                else if (p.type == 'question')
+                {
+                    $(".l-messagebox-image", g.messageBox).addClass("l-messagebox-image-question").show();
+                    $(".l-messagebox-content", g.messageBox).css({ paddingLeft: 64, paddingBottom: 40 });
                 }
             }
-        };
-        var messageBox = $(messageBoxHTML);
-        $('body').append(messageBox);
-        messageBox.close = function ()
-        {
-            g.removeWindowMask();
-            messageBox.remove();
-        };
-        //设置参数属性
-        p.width && messageBox.width(p.width);
-        p.title && $(".l-messagebox-title-inner", messageBox).html(p.title);
-        p.content && $(".l-messagebox-content", messageBox).html(p.content);
-        if (p.buttons)
-        {
-            $(p.buttons).each(function (i, item)
-            {
-                var btn = $('<div class="l-messagebox-btn"><div class="l-messagebox-btn-l"></div><div class="l-messagebox-btn-r"></div><div class="l-messagebox-btn-inner"></div></div>');
-                $(".l-messagebox-btn-inner", btn).html(item.text);
-                $(".l-messagebox-buttons-inner", messageBox).append(btn);
-                item.width && btn.width(item.width);
-                item.onclick && btn.click(function () { item.onclick(item, i, messageBox) });
-            });
-            $(".l-messagebox-buttons-inner", messageBox).append("<div class='l-clear'></div>");
         }
-        var boxWidth = messageBox.width();
-        var sumBtnWidth = 0;
-        $(".l-messagebox-buttons-inner .l-messagebox-btn", messageBox).each(function ()
-        {
-            sumBtnWidth += $(this).width();
-        });
-        $(".l-messagebox-buttons-inner", messageBox).css({ marginLeft: parseInt((boxWidth - sumBtnWidth) * 0.5) });
-        //设置背景、拖动支持 和设置图片
-        g.applyWindowMask();
-        g.applyDrag();
-        g.setImage();
-        //设置事件
-        $(".l-messagebox-btn", messageBox).hover(function ()
-        {
-            $(this).addClass("l-messagebox-btn-over");
-            $(".l-messagebox-btn-l", this).addClass("l-messagebox-btn-l-over");
-            $(".l-messagebox-btn-r", this).addClass("l-messagebox-btn-r-over");
-        }, function ()
-        {
-            $(this).removeClass("l-messagebox-btn-over");
-            $(".l-messagebox-btn-l", this).removeClass("l-messagebox-btn-l-over");
-            $(".l-messagebox-btn-r", this).removeClass("l-messagebox-btn-r-over");
-        });
-        $(".l-messagebox-close", messageBox).hover(function ()
-        {
-            $(this).addClass("l-messagebox-close-over");
-        }, function ()
-        {
-            $(this).removeClass("l-messagebox-close-over");
-        }).click(function ()
-        {
-            messageBox.close();
-        });
+    });
+
+
+    $.ligerMessageBox.show = function (p)
+    {
+        return $.ligerMessageBox(p);
     };
     $.ligerMessageBox.alert = function (title, content, type, onBtnClick)
     {
         title = title || "";
         content = content || title;
-        var g = {
-            onclick: function (item, index, messageBox)
-            {
-                messageBox.close();
-                if (onBtnClick)
-                    onBtnClick(item, index, messageBox);
-            }
+        var onclick = function (item, index, messageBox)
+        {
+            messageBox.close();
+            if (onBtnClick)
+                onBtnClick(item, index, messageBox);
         };
         p = {
             title: title,
             content: content,
-            buttons: [{ text: '确定', onclick: g.onclick}]
+            buttons: [{ text: '确定', onclick: onclick}]
         };
         if (type) p.type = type;
-        $.ligerMessageBox.show(p);
+        return $.ligerMessageBox(p);
     };
     $.ligerMessageBox.confirm = function (title, content, callback)
     {
-        var g = {
-            onclick: function (item, index, messageBox)
+        var onclick = function (item, index, messageBox)
+        {
+            messageBox.close();
+            if (callback)
             {
-                messageBox.close();
-                if (callback)
-                {
-                    callback(index == 0);
-                }
+                callback(index == 0);
             }
         };
         p = {
             type: 'question',
             title: title,
             content: content,
-            buttons: [{ text: '是', onclick: g.onclick }, { text: '否', onclick: g.onclick}]
+            buttons: [{ text: '是', onclick: onclick }, { text: '否', onclick: onclick}]
         };
-        $.ligerMessageBox.show(p);
+        return $.ligerMessageBox(p);
     };
     $.ligerMessageBox.success = function (title, content, onBtnClick)
     {
-        $.ligerMessageBox.alert(title, content, 'success', onBtnClick);
+        return $.ligerMessageBox.alert(title, content, 'success', onBtnClick);
     };
     $.ligerMessageBox.error = function (title, content, onBtnClick)
     {
-        $.ligerMessageBox.alert(title, content, 'error', onBtnClick);
+        return $.ligerMessageBox.alert(title, content, 'error', onBtnClick);
     };
     $.ligerMessageBox.warn = function (title, content, onBtnClick)
     {
-        $.ligerMessageBox.alert(title, content, 'warn', onBtnClick);
+        return $.ligerMessageBox.alert(title, content, 'warn', onBtnClick);
     };
     $.ligerMessageBox.question = function (title, content)
     {
-        $.ligerMessageBox.alert(title, content, 'question');
+        return $.ligerMessageBox.alert(title, content, 'question');
     };
 
 
-
-    function preLoadImage()
-    {
-        var imagePath = '../lib/ligerUI/skins/Aqua/images/';
-        var imageArr = ['box/box-btn-done.gif', 'box/box-btn-error.gif', 'box/box-btn-l.gif', 'box/box-btn-l-over.gif',
-             'box/box-btn-question.gif', 'box/box-btn-over.gif', 'box/box-righttop.gif', 'box/box-lefttop.gif', 'box/box-top.gif', 'box/box-btn-r.gif', 'box/box-btn-r-over.gif', 'box/box-btn-warn.gif', 'box/box-close.gif', 'box/box-close-over.gif', 'box/tabs-item-left-bg.gif'];
-        for (i = 0; i < imageArr.length; i++)
-        {
-            new Image().src = imagePath + imageArr[i];
-        }
-    }
-    //preLoadImage();
 })(jQuery);

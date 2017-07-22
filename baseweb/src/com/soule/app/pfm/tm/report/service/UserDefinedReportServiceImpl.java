@@ -42,6 +42,8 @@ public class UserDefinedReportServiceImpl implements IUserDefinedReportService {
             userDefinedReport.setDataDate(in.getDataDate());
             userDefinedReport.setUnitId(in.getUnitId());
             condition.put("userDefinedReport", userDefinedReport);
+            condition.put("unitId", in.getUnitId());
+            condition.put("dataDate", in.getDataDate());
             long total = defService.getIbatisMediator().getRecordTotal(this.RPT_USERDEFINED_LIST, condition);;
             int pagesize = in.getInputHead().getPageSize();
             if (pagesize < 0) {

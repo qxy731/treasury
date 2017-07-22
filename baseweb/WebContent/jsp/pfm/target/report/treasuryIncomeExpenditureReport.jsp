@@ -27,7 +27,7 @@ body{
 <script type="text/javascript">
 	$(function () {
 		Utils.validateInit();
-		$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
+		//$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
 		$("#query").bind('click', query);
 		$("#export").bind('click', doExport);
 		$(".l-grid-header-table tr").addClass("l-grid-hd-row");
@@ -111,7 +111,7 @@ body{
 	<table class='params'>
 		<tr>
 			<td>数据日期</td>
-			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" />
+			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/>
 			<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
 			</td>
 			<td></td><td></td>
@@ -126,7 +126,7 @@ body{
 	</table>
 	</form>
 </fieldset>
-<fieldset class="detailList">
+<fieldset class="outbox">
 	<div id="qtydeflist" class="l-panel">
 			<div class="l-panel-body">
 				<div class="l-grid">

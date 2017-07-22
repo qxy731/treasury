@@ -17,7 +17,8 @@ import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 
 import com.soule.MsgConstants;
-import com.soule.comm.tools.AppUtils;
+import com.soule.comm.CommConstants;
+import com.soule.comm.CommonResult;
 
 public class HttpSessionEmptyFilter implements Filter {
 
@@ -47,17 +48,21 @@ public class HttpSessionEmptyFilter implements Filter {
                 info=this.sessionRegistry.getSessionInformation(session.getId());
                 if (info != null) {
                     if (info.isExpired()) {
-                        httpResponse.setContentType("text/html;charset=UTF-8");
+                       /* httpResponse.setContentType("text/html;charset=UTF-8");
                         String msg = AppUtils.getMessage(MsgConstants.E0008);
                         httpResponse.getWriter().write(msg);
-                        return;
+                        return;*/
+                    	redirectIndex(httpRequest,httpResponse);
+                    	return;
                     }
                 }
             }else{
-                httpResponse.setContentType("text/html;charset=UTF-8");
+                /*httpResponse.setContentType("text/html;charset=UTF-8");
                 String msg = AppUtils.getMessage(MsgConstants.E0008);
                 httpResponse.getWriter().write(msg);
-                return;
+                return;*/
+            	redirectIndex(httpRequest,httpResponse);
+            	return;
             }
         }
         chain.doFilter(request, response);
@@ -73,4 +78,38 @@ public class HttpSessionEmptyFilter implements Filter {
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         this.sessionRegistry = sessionRegistry;
     }
+    
+    private void redirectIndex(HttpServletRequest request,HttpServletResponse response){
+		String url = request.getContextPath()+"/index.jsp";
+		PrintWriter writer = null;
+		try{
+			if (request.getHeader("accept").indexOf("application/json") > -1 
+					||(request.getHeader("X-Requested-With") != null 
+						&& request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1)
+					){
+					CommonResult<String> commonResult = new CommonResult<String>();
+					commonResult.setMessageByMsgKey(MsgConstants.E0008);
+					String json = net.sf.json.JSONObject.fromObject(commonResult).toString();
+					response.setCharacterEncoding(CommConstants.DEFAULT_CHARSET);
+					writer = response.getWriter();
+					writer.write(json);
+				}else{
+					//response.setContentType("text/html;charset=UTF-8");
+					StringBuffer sb = new StringBuffer();
+					sb.append("<html><head><script type='text/javascript'>");
+					sb.append("if(top){top.location.href='"+url+"'}");
+					sb.append("else{window.location.href='"+url+"'}");
+					sb.append("</script></head><body></body></html>");
+					writer = response.getWriter();
+					writer.write(sb.toString());
+				}
+		}catch (Exception ex) {
+			
+		}finally{
+			if(writer!=null){
+				writer.flush();
+				writer.close();
+			}
+		}
+	}
 }

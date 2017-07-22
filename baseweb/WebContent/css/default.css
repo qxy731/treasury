@@ -541,7 +541,7 @@ ul .tools_title {
 
 .params>tbody>tr>td {
 	padding: 1px 1px 1px 10px;
-	line-height: 28px;	
+	line-height: 22px;	
 }
 
 .params input,.params select {
@@ -550,17 +550,17 @@ ul .tools_title {
 }
 
 .params input {
-	padding-left: 1px;
+	/* padding-left: 1px; */
 	width: 200px;
 	height: 22px;
 	line-height:22px;
 }
 .params input[type="button"] {width:80px;}
 .params select {
-	height: 24px;
-	line-height:24px;
+	height: 22px;
+	line-height:22px;
 	width: 202px;
-	padding:2px 0;
+	/* padding:2px 0; */
 }
 .params select option {
 	line-height:24px;
@@ -582,11 +582,10 @@ body.ie6 fieldset,body.ie7 fieldset,body.ie8 fieldset{
 	flter:  progid:DXImageTransform.Microsoft.Shadow(Color='#cccccc',Strength=5,Direction=0);
 }
 
-.glass_bg , fieldset {
+.glass_bg{
 	padding: 5px;
 	border-radius: 4px;
 	box-shadow: 0 2px 6px rgba(5, 5, 5, 0.3);
-	box-shadow: 0px 0px 10px rgba(5, 5, 5, 0.3)\9;
 }
 
 fieldset legend {
@@ -667,7 +666,7 @@ fieldset legend {
 .s1-params>tbody>tr>td:first-child {
 	width: 120px;
 	text-align: right;
-	line-height: 28px;
+	line-height: 22px;
 	padding: 5px 10px 5px 5px;
 	vertical-align: center;
 }
@@ -921,7 +920,7 @@ input[type=text] {
 }
 
 .l-menu-item-text {position:relative;padding:0 8px;left:0;}
-.l-menu-item-text:hover {color:#ffff88;}
+/* .l-menu-item-text:hover {color:#ffff88;} */
 
 table, .detailBox table {border-collapse:separate;}
 

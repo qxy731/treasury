@@ -21,9 +21,17 @@
 			var url = "${_CONTEXT_PATH}/sys/staff!insert.action";
 			var data = Utils.convertFormData('insertIn', 'insertForm');
 			Utils.ajaxSubmit(url, data, function(result) {
-				$.dialogBox.info(result.retMsg, function() {
-					$.dialog.close();
-				});
+				
+				if(result.retCode=="C0001"){
+					$.dialogBox.info(result.retMsg, function() {
+					});
+					
+				}else{
+					$.dialogBox.info(result.retMsg, function() {
+						$.dialog.close();
+					});
+				}
+				
 			});
 		}
 		return false;

@@ -7,6 +7,11 @@ package com.soule.comm;
  *
  */
 public class CommConstants {
+	
+	/*
+	 * 默认字符集
+	 */
+    public final static String DEFAULT_CHARSET = "UTF-8";
 
     /**
      * 登陆用户信息

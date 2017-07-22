@@ -96,13 +96,15 @@
 	function query() {
 		var unitId = $("#unitId").val();
 		var dataDate =$("#dataDate").val();
+		var modelCode =$("#modelCode").val();
 		var params = {
 			dataAction:'server',
 			dataType:'server',
-			url: '${_CONTEXT_PATH}/report/user-report!query.action',
+			url: '${_CONTEXT_PATH}/report/model-analysis!query.action',
 			newPage:1,
 			parms:[{name:'queryIn.dataDate',value:dataDate}
 			,{name:'queryIn.unitId',value:unitId}
+			,{name:'queryIn.modelCode',value:modelCode}
 			]
 		};
 		var gridManager = $("#reportlist").ligerGetGridManager(); 
@@ -121,6 +123,8 @@
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
 	   }
+	
+	   
 	   function setUnitIdName(){
 			var selectNode=this.iframe.contentWindow.manager.getSelected();
 			if(selectNode){

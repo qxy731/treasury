@@ -5,6 +5,7 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.soule.app.pfm.tm.report.service.IModelAnalysisReportService;
 import com.soule.app.pfm.tm.report.service.IUserDefinedReportService;
 import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceResult;
@@ -17,11 +18,11 @@ public class ModelAnalysisAction extends BaseAction {
     private static final long serialVersionUID = 1295775504760653068L;
     
     @Autowired
-    private IUserDefinedReportService userDefinedReportService;
+    private IModelAnalysisReportService modelAnalysisReportService;
     /**
      * 查询人员 输入参数 
      */
-    private UserDefinedReportQueryIn queryIn;
+    private ModelAnalysisReportQueryIn queryIn;
     
     public void doInit() {
     }
@@ -30,9 +31,9 @@ public class ModelAnalysisAction extends BaseAction {
             queryIn.getInputHead().setPageNo(this.getPage());
             queryIn.getInputHead().setPageSize(this.getPagesize());
             
-            UserDefinedReportQueryOut result = userDefinedReportService.query(queryIn);
+            ModelAnalysisReportQueryOut result = modelAnalysisReportService.query(queryIn);
             ServiceResult head = result.getResultHead();
-            rows = result.getUserDefinedReport();
+            rows = result.getModelAnalysisReport();
             total=(int)result.getResultHead().getTotal();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
@@ -42,20 +43,14 @@ public class ModelAnalysisAction extends BaseAction {
         }
         return JSON;
     }
+	public ModelAnalysisReportQueryIn getQueryIn() {
+		return queryIn;
+	}
+	public void setQueryIn(ModelAnalysisReportQueryIn queryIn) {
+		this.queryIn = queryIn;
+	}
    
 
-    /**
-     * 查询人员
-     */
-    @JSON(serialize=false)
-    public UserDefinedReportQueryIn getQueryIn() {
-        return this.queryIn;
-    }
-    /**
-     * 查询人员
-     */
-    public void setQueryIn(UserDefinedReportQueryIn in) {
-        this.queryIn = in;
-    }
+  
    
 }

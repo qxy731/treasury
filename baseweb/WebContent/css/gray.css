@@ -145,7 +145,7 @@ a {
 }
 
 /** fieldset { border-color: #BABABA;} */
-.l-toolbar {
+/* .l-toolbar {
 	background: url("../images/gray/title_bg.png") repeat-x 0 -22px #CEDFEF;
 }
 
@@ -184,7 +184,7 @@ a {
 
 .l-tree .l-selected {
 	background-color: #AAAAAA;
-}
+} */
 
 .l-button {
 	background: url("../images/gray/btn_gray.gif") repeat scroll -0px -1px transparent;
@@ -219,6 +219,6 @@ input[type="text"],.params select,textarea {
 .l-accordion-header-over{color:#000;background: url('../images/gray/accordion-header-over.gif') repeat-x;}
 .l-menu-over{background:url('../images/gray/td_gray.gif') repeat-x;}
 
-.glass_bg,fieldset{
-	background:url(./../images/gray/bg_gray.gif) repeat\9;
+.glass_bg{
+	background:url(./../images/gray/bg_gray.gif) repeat;
 }

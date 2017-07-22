@@ -2,6 +2,8 @@ package com.soule.app.sys.orgchange;
 
 import java.io.Serializable;
 
+import org.apache.struts2.json.annotations.JSON;
+
 /**
  * 参数传递查询员工机构变更的类
  */
@@ -48,6 +50,7 @@ public class OrgchangeOrgChangePo implements Serializable {
     /**
      * @return 开始时间
      */
+    @JSON(format="yyyy-MM-dd HH:mm:ss")
     public java.util.Date getStartTime() {
         return startTime;
     }
@@ -61,6 +64,7 @@ public class OrgchangeOrgChangePo implements Serializable {
     /**
      * @return 结束时间
      */
+    @JSON(format="yyyy-MM-dd HH:mm:ss")
     public java.util.Date getEndTime() {
         return endTime;
     }

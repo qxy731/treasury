@@ -123,7 +123,7 @@ body{
 	</table>
 	</form>
 </fieldset>
-<fieldset class="detailList">
+<fieldset class="outbox">
 	<div id="qtydeflist" class="l-panel">
 			<div class="l-panel-body">
 				<div class="l-grid">

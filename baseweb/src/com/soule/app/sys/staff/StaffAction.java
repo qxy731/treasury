@@ -1,6 +1,8 @@
 package com.soule.app.sys.staff;
 
 
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
@@ -76,20 +78,31 @@ public class StaffAction extends BaseAction {
     public String insert() {
         //StaffInsertIn in = insertIn;
         try {
+        	
+        	StaffQueryIn qIn =new  StaffQueryIn();
+            qIn.setStaffId(insertIn.getNewStaff().getStaffId());
+            StaffQueryOut qr = staffService.query(qIn);
+            List list = qr.getStaff();
             
-            IServiceResult result = staffService.insert(insertIn);
-            if(null!=insertIn&&insertIn.getNewStaff()!=null){
-              LogonInfoPo logonInfo=new LogonInfoPo();
-              logonInfo.setStaffId(insertIn.getNewStaff().getStaffId());
-              logonInfo.setLogonId(insertIn.getNewStaff().getLogonId());
-              logonInfo.setPassword(insertIn.getNewStaff().getPassword());
-              logonInfo.setLockFlag(YesNoFlag.NO.getValue());
-              logonInfo.setValidFlag(YesNoFlag.YES.getValue());
-              logonInfoService.insert(logonInfo);
+            if(null==list || list.size()==0){
+            	
+            	 IServiceResult result = staffService.insert(insertIn);
+                 if(null!=insertIn&&insertIn.getNewStaff()!=null){
+                   LogonInfoPo logonInfo=new LogonInfoPo();
+                   logonInfo.setStaffId(insertIn.getNewStaff().getStaffId());
+                   logonInfo.setLogonId(insertIn.getNewStaff().getLogonId());
+                   logonInfo.setPassword(insertIn.getNewStaff().getPassword());
+                   logonInfo.setLockFlag(YesNoFlag.NO.getValue());
+                   logonInfo.setValidFlag(YesNoFlag.YES.getValue());
+                   logonInfoService.insert(logonInfo);
+                 }
+                 ServiceResult head = result.getResultHead();
+                 this.setRetCode(head.getRetCode());
+                 this.setRetMsg(head.getRetMsg());
+            }else{
+            	 this.setRetCode("C0001");
+                 this.setRetMsg("员工号已重复");
             }
-            ServiceResult head = result.getResultHead();
-            this.setRetCode(head.getRetCode());
-            this.setRetMsg(head.getRetMsg());
         }
         catch(Exception e) {
             handleError(e);

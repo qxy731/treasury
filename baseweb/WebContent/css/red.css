@@ -217,6 +217,6 @@ input[type="text"],.params select,textarea {
 .l-accordion-header-over{color:#000;background: url('../images/red/accordion-header-over.gif') repeat-x;}
 .l-menu-over{position:absolute;top:-24px;left:2px; z-index:102; height:22px; overflow:hidden;background:url('../images/red/td_red.gif') repeat-x;}
 
-.glass_bg, fieldset {
-	background:url(./../images/red/bg_red.gif) repeat\9;
+.glass_bg{
+	background:url(./../images/red/bg_red.gif) repeat;
 }
