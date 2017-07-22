@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="n" uri="/ncrm-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,20 +7,8 @@
 <title>大连市国库收支统计表</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-body{
-	width:1210px;
-	margin:0 auto;
-}
-.params td {
-	background-color: #E2EAFF;
-	padding: 2px 2px 2px 10px;
-}
-
 .l-grid-row-cell div{
 	text-align:left;
-}
-.l-grid-body-table td{
-	border:1px solid #bed5f3;
 }
 </style>
 <script type="text/javascript">
@@ -62,11 +49,6 @@ body{
 						$("#"+obj.tarCode).empty();
 						$("#"+obj.tarCode).append(obj.tarValue);
 					});
-					//result.treasuryFundsSourceList
-					/* $.each(result.treasuryFundsSourceList,function(index,obj){
-						$("#"+obj.tarCode).empty();
-						$("#"+obj.tarCode).append(obj.tarValue);
-					}); */
 				});
 			});
 		}
