@@ -41,7 +41,7 @@ public class ReportBaseServiceImpl implements IReportBaseService {
 	@Autowired
 	IUserManager um;
 	@Autowired
-	AppUtils appUtils;
+	private AppUtils appUtils;
 	@Autowired
 	ParamsUtil paramsUtil;
 

@@ -28,7 +28,7 @@ public class ModelAnalysisReportServiceImpl implements IModelAnalysisReportServi
     private static final Log logger = LogFactory.getLog(ModelAnalysisReportServiceImpl.class);
     private String RPT_USERDEFINED_LIST;
     public ModelAnalysisReportServiceImpl() {
-        this.RPT_USERDEFINED_LIST = "userdefinedreport.getUserDefinedReport";
+        this.RPT_USERDEFINED_LIST = "modelAnalysisreport.getModelAnalysisReport";
     }
 
     /**
@@ -41,9 +41,12 @@ public class ModelAnalysisReportServiceImpl implements IModelAnalysisReportServi
             ModelAnalysisReportPo modelAnalysisReport=new ModelAnalysisReportPo();
             modelAnalysisReport.setDataDate(in.getDataDate());
             modelAnalysisReport.setUnitId(in.getUnitId());
-            modelAnalysisReport.setModelId(in.getModelCode());
+            modelAnalysisReport.setModelCode(in.getModelCode());
             
             condition.put("modelAnalysisReport", modelAnalysisReport);
+            condition.put("unitId", in.getUnitId());
+            condition.put("dataDate", in.getDataDate());
+            condition.put("modelCode", in.getModelCode());
             long total = defService.getIbatisMediator().getRecordTotal(this.RPT_USERDEFINED_LIST, condition);;
             int pagesize = in.getInputHead().getPageSize();
             if (pagesize < 0) {

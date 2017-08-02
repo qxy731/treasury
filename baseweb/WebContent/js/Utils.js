@@ -447,7 +447,7 @@ Utils.openDialog = function(url,title,okFunction,cancelFunction) {
  */
 Utils.selectTarget = function(dup,okFunction,cancelFuntion,paramsObj){
 	var mode = false;
-	if(dup=='false'||dup==false||dup==true||du=='true'){
+	if(dup=='false'||dup==false||dup==true||dup=='true'){
 		mode = dup;
 	}
 	var str = "";
@@ -460,5 +460,31 @@ Utils.selectTarget = function(dup,okFunction,cancelFuntion,paramsObj){
 	}
 	//alert(url);
 	var p = {height:500,width:450,lock:false,opacity:0.07,title:'选择指标'};
+	$.dialogBox.openDialog(url,p,okFunction,cancelFuntion);
+};
+
+
+
+/**
+ * 选择指标
+ * dup=true多选;dup=false单选
+ * okFunction正常返回回调函数，cancelFunction异常返回回调函数
+ * paramsObj：JSON类型的参数
+ */
+Utils.selectModel = function(dup,okFunction,cancelFuntion,paramsObj){
+	var mode = false;
+	if(dup=='false'||dup==false||dup==true||dup=='true'){
+		mode = dup;
+	}
+	var str = "";
+	if(!jQuery.isEmptyObject(paramsObj)){
+		str = jQuery.param(paramsObj);
+	}
+	var url = _CONTEXT_PATH+"/jsp/common/publicmodelselect.jsp?dup="+mode;
+	if(str!=""){
+		url=url+"&"+str;
+	}
+	//alert(url);
+	var p = {height:500,width:450,lock:false,opacity:0.07,title:'选择模型'};
 	$.dialogBox.openDialog(url,p,okFunction,cancelFuntion);
 };

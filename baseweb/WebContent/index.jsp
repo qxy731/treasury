@@ -74,6 +74,14 @@ function getUrlParams()
     }
     return args;
 }
+
+
+ function keydown(){
+	if(event.keyCode == 13){
+		loginForm.submit();
+		
+	}
+} 
 function checkParams()
 {
     var args = getUrlParams();
@@ -96,7 +104,7 @@ function checkParams()
 }
 </script>
 </head>
-<body onload="initLoad()">
+<body onload="initLoad()" onkeydown="keydown()">
 <form action="j_spring_security_check" method="POST" name="loginForm" defaultfocus="j_username" >
 <div class='main'>
     <div>

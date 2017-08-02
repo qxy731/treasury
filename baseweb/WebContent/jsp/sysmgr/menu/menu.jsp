@@ -63,7 +63,7 @@ function doSubmit() {
 }
 function doReset() {
     $('#node_name').val("");
-    $('#nodeCmd').val("");
+   // $('#nodeCmd').val("");
     $('#seqId').val(0);
     $('#nodeTooltip').val("");
     $("input[name='hasChildFlag'][value=0]").attr("checked",true);
@@ -71,7 +71,7 @@ function doReset() {
     $("input[name='nodeVisible'][value=1]").attr("checked",true);
     $("input[name='relaFlag'][value=0]").attr("checked",true);
     $('#nodeImg').val('');
-    $('#nodeTarget').val('');
+   // $('#nodeTarget').val('');
 }
 </script>
 </head>
@@ -140,14 +140,14 @@ function doReset() {
 					<label for="rbtnl_4" style="float:left;width:20px;line-height: 22px;margin-right:5px;">否</label>
 				</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td>执行目标:</td>
 				<td><input id="nodeTarget" name="nodeTarget" type="text" validate="{maxlength:10}" /></td>
 			</tr>
 			<tr>
 				<td>执行命令:</td>
 				<td><input id="nodeCmd" name="nodeCmd" type="text" validate="{maxlength:128}" /></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<td>可视标志:</td>
 				<td>

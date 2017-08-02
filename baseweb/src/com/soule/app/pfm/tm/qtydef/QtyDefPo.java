@@ -9,16 +9,10 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	//指标状态（1：已启用;2：已停用）
 	public static String STATUS_DEL = "2";
 	public static String STATUS_INPUT = "1";
-	//是否存在基数指标
-	public static String BSFLAG_YES = "1";
-	public static String BSFLAG_NO = "0";
 	//指标代码	
 	private String tarCode;
 	//指标名称	
 	private String tarName;
-	//是否存在基数指标(默认为否)
-	private String bsFlag=BSFLAG_NO;
-	private String bsFlagName;
 	//计量单位	
 	private String measUnitCode;
 	private String measUnitCodeName;
@@ -90,19 +84,6 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	}
 	public void setTarName(String tarName) {
 		this.tarName = tarName;
-	}
-	public String getBsFlag() {
-		return bsFlag;
-	}
-	public void setBsFlag(String bsFlag) {
-		/*if (BSFLAG_NO.equals(tarStatus)) {
-			bsFlagName = "是";
-		} else if (STATUS_DEL.equals(tarStatus)) {
-			bsFlagName = "否";
-		}else{
-		    bsFlagName = "否";
-		}*/
-		this.bsFlag = bsFlag;
 	}
 	public String getMeasUnitCode() {
 		return measUnitCode;
@@ -306,9 +287,6 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	public String getStatusName() {
 		return statusName;
 	}
-	public String getBsFlagName() {
-		return bsFlagName;
-	}
 	public String getPrdtypeName() {
 		return prdtypeName;
 	}
@@ -327,9 +305,6 @@ public class QtyDefPo extends BaseTar implements Serializable{
 	}
 	public void setDataSource(String dataSource) {
 		this.dataSource = dataSource;
-	}
-	public void setBsFlagName(String bsFlagName) {
-		this.bsFlagName = bsFlagName;
 	}
 	public void setMeasUnitCodeName(String measUnitCodeName) {
 		this.measUnitCodeName = measUnitCodeName;

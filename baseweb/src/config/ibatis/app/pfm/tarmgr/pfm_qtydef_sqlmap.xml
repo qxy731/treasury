@@ -8,7 +8,6 @@
 	<resultMap id="QtyDefMap" class="QtyDefPo">	
 		<result column="TAR_CODE" property="tarCode" jdbcType="VARCHAR" />
 		<result column="TAR_NAME" property="tarName" jdbcType="VARCHAR" />
-		<result column="BS_FLAG" property="bsFlag" jdbcType="VARCHAR" />
 		<result column="MEAS_UNIT_CODE" property="measUnitCode" jdbcType="VARCHAR" />
 		<result column="MEAS_DEF_CODE" property="measDefCode" jdbcType="VARCHAR" />
 		<result column="TAR_TYPE" property="tarType" jdbcType="VARCHAR" />
@@ -91,7 +90,6 @@
 		select 
 		a.TAR_CODE as tarCode,
 		a.TAR_NAME as tarName,
-		a.BS_FLAG as bsFlag,
 		a.MEAS_UNIT_CODE as measUnitCode,
 		a.MEAS_DEF_CODE as measDefCode,
 		a.TAR_TYPE as tarType,
@@ -128,7 +126,6 @@
 	  select
 	    a.TAR_CODE as tarCode,
 		a.TAR_NAME as tarName,
-		a.BS_FLAG as bsFlag,
 		a.MEAS_UNIT_CODE as measUnitCode,
 		a.MEAS_DEF_CODE as measDefCode,
 		a.TAR_TYPE as tarType,
@@ -195,11 +192,11 @@
 	</select>
 	
 	<insert id="addQtyDef" parameterClass="QtyDefPo">
-		insert into PFM_TM_QTY_DEF (TAR_CODE,TAR_NAME,BS_FLAG,MEAS_UNIT_CODE,MEAS_DEF_CODE,TAR_TYPE,
+		insert into PFM_TM_QTY_DEF (TAR_CODE,TAR_NAME,MEAS_UNIT_CODE,MEAS_DEF_CODE,TAR_TYPE,
 		TAR_PROPERTY,STAT_SCOPE_CODE,PROC_DATE_CODE,TAR_PROC_DATE,STORE_DATE,PRDTYPE_CODE,SUBJ_CODE,
 		TAR_SCOPE,TAR_BIZ_TYPE,TAR_SORT_CODE,TAR_STATUS,TAR_DESC,MISC,REMARK,DAY_SCOPE,DATA_SOURCE,CREATE_USER,
 		CREATE_TIME,CREATE_ORG,LAST_UPD_USER,LAST_UPD_ORG,LAST_UPD_TIME)
-		values(#tarCode:VARCHAR#,#tarName:VARCHAR#,#bsFlag:VARCHAR#,#measUnitCode:VARCHAR#,#measDefCode:VARCHAR#,#tarType:VARCHAR#,#tarProperty:VARCHAR#,
+		values(#tarCode:VARCHAR#,#tarName:VARCHAR#,#measUnitCode:VARCHAR#,#measDefCode:VARCHAR#,#tarType:VARCHAR#,#tarProperty:VARCHAR#,
 		#statScopeCode:VARCHAR#,#procDateCode:VARCHAR#,#tarProcDate:VARCHAR#,#storeDate:VARCHAR#,#prdtypeCode:VARCHAR#,#subjCode:VARCHAR#,#tarScope:VARCHAR#,
 		#tarBizType:VARCHAR#,#tarSortCode:VARCHAR#,#tarStatus:VARCHAR#,#tarDesc:VARCHAR#,#misc:VARCHAR#,#remark:VARCHAR#,#dayScope:VARCHAR#,#dataSource:VARCHAR#,#createUser:VARCHAR#,
 		#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#lastUpdUser:VARCHAR#,#lastUpdOrg:VARCHAR#,#lastUpdTime:TIMESTAMP#)
@@ -221,7 +218,6 @@
 		update PFM_TM_QTY_DEF 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="tarName">TAR_NAME = #tarName#</isNotNull>
-			<isNotNull prepend="," property="bsFlag">BS_FLAG = #bsFlag#</isNotNull>
 			<isNotNull prepend="," property="measUnitCode">MEAS_UNIT_CODE = #measUnitCode#</isNotNull>
 			<isNotNull prepend="," property="measDefCode">MEAS_DEF_CODE = #measDefCode#</isNotNull>
 			<isNotNull prepend="," property="tarType">TAR_TYPE = #tarType#</isNotNull>

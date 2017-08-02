@@ -25,12 +25,12 @@
 			<!-- 需要由交给spring的aop来进行代理的方法的集合，如果应用有自己的方法需有由spring来进行事务控制必须添加方法-->
 
 			<!-- 读取数据方法，一般采用只读事务-->
-			<tx:method name="get*" read-only="true" />
+			<!-- <tx:method name="get*" read-only="true" />
 			<tx:method name="load*" read-only="true" />
 			<tx:method name="select*" read-only="true" />
 			<tx:method name="query*" read-only="true" />
 			<tx:method name="criteria*" read-only="true" />
-			<tx:method name="*Init*" read-only="true"/>
+			<tx:method name="*Init*" read-only="true"/> -->
 
 			<!--其他方法，如save，update，insert等对数据库进行写入操作的方法，当产生ServiceException进行回滚 -->
 			<tx:method name="init*" read-only="false" rollback-for="ServiceException" />

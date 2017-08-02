@@ -61,7 +61,7 @@ $(function () {
      });
 
 
-	var url = '${_CONTEXT_PATH}/sys/select-unit!queryUnit.action';
+	/* var url = '${_CONTEXT_PATH}/sys/select-unit!queryUnit.action';
 	Utils.ajaxSubmit(url,{"queryUnitIn.unitId":resultObj.unitId}, function(result){
 		var ndata = result.rows;
 		for (var x = 0 ; x< ndata.length ; x++) {
@@ -71,7 +71,7 @@ $(function () {
 			}
 		}
 		manager.append(null,result.rows);
-	});
+	}); */
 });
 function doClear() {
 	$(".params input[type='text'], .params select").each(function(i,item){
@@ -117,7 +117,7 @@ function execute() {
 	});
 }
 
-function onSelect(node){
+function onSelect(node,e){
  
 	if (node.data.children && node.data.children.length == 0){
 		var params = {"queryUnitIn.superUnitId":node.data.unitId};
@@ -131,6 +131,7 @@ function onSelect(node){
 				}
 			}
 			manager.append(node.target, ndata);
+			e.update();
 		});
 	}
 }

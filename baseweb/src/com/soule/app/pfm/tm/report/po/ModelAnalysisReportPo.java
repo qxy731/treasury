@@ -2,19 +2,25 @@ package com.soule.app.pfm.tm.report.po;
 
 public class ModelAnalysisReportPo {
 	private String modelName;
-	private String modelId;
+	
+	private String modelCode;
 	public String getModelName() {
 		return modelName;
 	}
+	
+	
+	
+	public String getModelCode() {
+		return modelCode;
+	}
+	public void setModelCode(String modelCode) {
+		this.modelCode = modelCode;
+	}
+
 	public void setModelName(String modelName) {
 		this.modelName = modelName;
 	}
-	public String getModelId() {
-		return modelId;
-	}
-	public void setModelId(String modelId) {
-		this.modelId = modelId;
-	}
+	
 	private String unitId;
 	private String unitName;
 	private String dataDate;
