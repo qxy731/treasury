@@ -23,7 +23,7 @@
 				<td>数据日期</td>
 				<td><input type='text' id='dataDate' name='dataDate'/></td>
 				<td>模型名称</td>
-				<td><input type='hidden' id='modelCode' name='modelCode' /><input id="modelName" type='text' name="modelName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
+				<td><input type='hidden' id='modelCode' name='modelCode' /><input id="modelName" type='text' name="modelName" readonly="readonly" onclick="openSelectModel()" class="unit_select"/></td>
 				<td>所属部门</td>
 				<td><input type='hidden' id='unitId' name='unitId' /><input id="unitName" type='text' name="unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
 			</tr>
@@ -52,25 +52,9 @@
 <script type="text/javascript">
 	$(function () {
 		$("#dataDate").ligerDateEditor();
-		/* $("#toptoolbar").ligerToolBar({items:[
-		    {text:'新增',name:'insert_btn',icon:'add',click:insertStaff},
-		    {text:'修改',name:'update_btn',icon:'update',click:updateStaff},
-		    {text:'重置密码',name:'resetPwd_btn',icon:'updatePass',click:updateLogonPwd},
-		    {text:'删除',name:'delete_btn',icon:'delete',click:deleteStaff},
-		    {text:'所属部门变更历史',name:'lookHis_btn',icon:'lookHis',click:lookOrgChangeHis}
-		    ],
-		    width:'100%'
-		});
-		 */
 		$("#reportlist").ligerGrid({
 			enumlist: _enum_params,
 			checkbox: true,
-			//buttons:[
-			//	{text:'新增',name:'insert_btn',clazz:'nbutton'},
-			//	{text:'修改',name:'update_btn',clazz:'nbutton'},
-			//	{text:'重置密码',name:'resetPwd_btn',clazz:'nbutton'},
-			//	{text:'删除',name:'delete_btn',clazz:'nbutton'}
-			//],
 			columns: [
 						{ display: '所属部门', name: 'unitName', width: '20%', align: 'left' },
 						{ display: '模型名称', name: 'modelName', width: '20%', align: 'left' },
@@ -97,6 +81,7 @@
 		var unitId = $("#unitId").val();
 		var dataDate =$("#dataDate").val();
 		var modelCode =$("#modelCode").val();
+		alert(modelCode);
 		var params = {
 			dataAction:'server',
 			dataType:'server',
@@ -118,6 +103,21 @@
 		});
 	}
 
+	//选择模型
+	function openSelectModel(){
+		Utils.selectModel(null,setModelName);
+	}
+	
+	function setModelName(){
+		var selectNode=this.iframe.contentWindow.select();
+		if(selectNode){
+			var modelCode=selectNode.modelCode;
+			var modelName=selectNode.modelName;
+	   		$("#modelCode").val(modelCode);
+	   		$("#modelName").val(modelName);
+		}
+	}
+	
 	
 	//选择部门
 	   function openSelectUnit(){

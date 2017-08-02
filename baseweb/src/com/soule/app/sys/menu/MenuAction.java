@@ -161,8 +161,8 @@ public class MenuAction extends BaseAction {
             paramMap.put("seqId", seqId);
             paramMap.put("nodeImg", nodeImg);
             paramMap.put("relaFlag", relaFlag);
-            paramMap.put("nodeTarget", nodeTarget);
-            paramMap.put("nodeCmd", nodeCmd);
+            //paramMap.put("nodeTarget", nodeTarget);
+            //paramMap.put("nodeCmd", nodeCmd);
             paramMap.put("nodeVisible", nodeVisible);
             paramMap.put("nodeTooltip", nodeTooltip);
             paramMap.put("hasChildFlag", hasChildFlag);

@@ -158,9 +158,9 @@ public class IndexDataServiceImpl implements IIndexDataService {
 				label = new jxl.write.Label(1, 0, "客户号", wcf);
 				ws.addCell(label);
 			} else if (in.getObjectType().equals("1")) {*/
-				jxl.write.Label label = new jxl.write.Label(0, 0, "客户号", wcf);
+				jxl.write.Label label = new jxl.write.Label(0, 0, "国库代码", wcf);
 				ws.addCell(label);
-				label = new jxl.write.Label(1, 0, "客户名称", wcf);
+				label = new jxl.write.Label(1, 0, "国库名称", wcf);
 				ws.addCell(label);
 			/*}*/
 
@@ -290,81 +290,32 @@ public class IndexDataServiceImpl implements IIndexDataService {
 		        }
 		        List<Map<String,Object>> resultList = ReadFromXls(file);
 		        Map<String,Object> columnsName = resultList.get(0);
-		        if(in.getObjectType().equals("1")){
-		        	//HashMap<String, String> paramMap = new HashMap<String, String>(1);
-		        	for(int i = 1; i < resultList.size(); i++) {
-			        	Map<String,Object> dataMap = resultList.get(i);
-			        	for(int j = 2; j < columnsName.size(); j++) {
-			        		String indexName = (String)columnsName.get(String.valueOf(j));
-			        		IndexDataPo indexDataPo = new IndexDataPo();
-			        		indexDataPo.setRecoreDate(getBizDate(indexName,in.getRecoreDate()));
-			        		indexDataPo.setObjectId((String)(dataMap.get(String.valueOf(0))));
-				        	indexDataPo.setIndexName(indexName);
-				        	IndexDataPo result = (IndexDataPo)sDefault.getIbatisMediator().findById("indexdataorg.getPfmIndexDataMaulByKey2", indexDataPo);
-	    					if(result == null) {
-	    						String indexCode = getMapValue(indexName,"code");
-//	    						if(indexCode == null || indexCode.trim().length()<1){
-//	    							List indexCodeList = sDefault.getIbatisMediator().find("paraminfo.getPfmParamIndexCode", indexName);
-//	    							if(indexCodeList != null && indexCodeList.size() > 0){
-//	    								ParaminfoQPo paraminfoQPo = (ParaminfoQPo)indexCodeList.get(0);
-//	    								indexCode = paraminfoQPo.getIndexCode();
-//	    								paramMap.put(indexName, indexCode);
-//	    								paramMap.put(indexCode, paraminfoQPo.getSaveDate());//保存日期类型
-//	    							}else{
-//	    								continue;
-//	    							}
-//	    						}
-	    						indexDataPo.setIndexCode(indexCode);
-	    						indexDataPo.setIndexVal((Double.valueOf((String)dataMap.get(String.valueOf(j)))));
-					        	indexDataPo.setLoadDate(new Date());
-					        	indexDataPo.setCreateUser(um.getStaffId());
-					        	sDefault.getIbatisMediator().update("indexdataorg.savePfmIndexDataMaul", indexDataPo);
-	    					}else{
-	    						result.setIndexVal((Double.valueOf((String)dataMap.get(String.valueOf(j)))));
-	    						result.setLoadDate(new Date());
-	    						result.setCreateUser(um.getStaffId());
-					        	sDefault.getIbatisMediator().update("indexdataorg.updPfmIndexDataMaul", result);
-	    					}
-		        	    }
-		        	}
-		        } else if(in.getObjectType().equals("2")){
-		        	//HashMap<String, String> paramMap = new HashMap<String, String>();
-		        	for(int i = 1; i < resultList.size(); i++) {
-			        	Map<String,Object> dataMap = resultList.get(i);
-			        	for(int j = 2; j < columnsName.size(); j++) {
-			        		String indexName = (String)columnsName.get(String.valueOf(j));
-			        		IndexDataPo indexDataPo = new IndexDataPo();
-			        		indexDataPo.setRecoreDate(getBizDate(indexName,in.getRecoreDate()));
-			        		indexDataPo.setObjectId((String)(dataMap.get(String.valueOf(0))));
-				        	indexDataPo.setIndexName(indexName);
-				        	IndexDataPo result = (IndexDataPo)sDefault.getIbatisMediator().findById("indexdatastf.getPfmIndexDataMaulByKey2", indexDataPo);
-	    					if(result == null) {
-	    						String indexCode = getMapValue(indexName,"code");
-//	    						if(indexCode == null || indexCode.trim().length()<1){
-//	    							List indexCodeList = sDefault.getIbatisMediator().find("paraminfo.getPfmParamIndexCode", indexName);
-//	    							if(indexCodeList != null && indexCodeList.size() > 0){
-//	    								indexCode = (String)indexCodeList.get(0);
-//	    								paramMap.put(indexName, indexCode);
-//	    							}else{
-//	    								continue;
-//	    							}
-//	    						}
-	    						indexDataPo.setIndexCode(indexCode);
-	    						indexDataPo.setIndexVal((Double.valueOf((String)dataMap.get(String.valueOf(j)))));
-					        	indexDataPo.setLoadDate(new Date());
-					        	indexDataPo.setCreateUser(um.getStaffId());
-					        	sDefault.getIbatisMediator().update("indexdatastf.savePfmIndexDataMaul", indexDataPo);
-	    					}else{
-	    						result.setIndexVal((Double.valueOf((String)dataMap.get(String.valueOf(j)))));
-	    						result.setLoadDate(new Date());
-	    						result.setCreateUser(um.getStaffId());
-					        	sDefault.getIbatisMediator().update("indexdatastf.updPfmIndexDataMaul", result);
-	    					}
-		        	    }
-			        }
+	        	for(int i = 1; i < resultList.size(); i++) {
+		        	Map<String,Object> dataMap = resultList.get(i);
+		        	for(int j = 2; j < columnsName.size(); j++) {
+		        		String indexName = (String)columnsName.get(String.valueOf(j));
+		        		IndexDataPo indexDataPo = new IndexDataPo();
+		        		indexDataPo.setRecoreDate(getBizDate(indexName,in.getRecoreDate()));
+		        		indexDataPo.setObjectId((String)(dataMap.get(String.valueOf(0))));
+			        	indexDataPo.setIndexName(indexName);
+			        	IndexDataPo result = (IndexDataPo)sDefault.getIbatisMediator().findById("indexdatastf.getPfmIndexDataMaulByKey2", indexDataPo);
+    					if(result == null) {
+    						String indexCode = getMapValue(indexName,"code");
+    						indexDataPo.setIndexCode(indexCode);
+    						indexDataPo.setIndexVal((Double.valueOf((String)dataMap.get(String.valueOf(j)))));
+				        	indexDataPo.setLoadDate(new Date());
+				        	indexDataPo.setCreateUser(um.getStaffId());
+				        	sDefault.getIbatisMediator().update("indexdatastf.savePfmTmQtyOrg", indexDataPo);
+    					}else{
+    						result.setIndexVal((Double.valueOf((String)dataMap.get(String.valueOf(j)))));
+    						result.setLoadDate(new Date());
+    						result.setCreateUser(um.getStaffId());
+				        	sDefault.getIbatisMediator().update("indexdatastf.updPfmTmQtyOrg", result);
+    					}
+	        	    }
+		        }
 			        //更新所属机构
 			       // sDefault.getIbatisMediator().update("indexdatastf.updPfmIndexDataMaulOrg",null);
-		        }
 				
 			}
 			AppUtils.setResult(out, MsgConstants.I0000);

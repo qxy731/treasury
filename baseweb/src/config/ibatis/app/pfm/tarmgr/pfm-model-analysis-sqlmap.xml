@@ -22,11 +22,11 @@
 			pfm_tm_qty_org a
 		 JOIN pfm_tm_qty_def b ON a.TAR_CODE = b.TAR_CODE
 		join sys_unit c on c.UNIT_ID = a.ORG_ID 
-		join pfm_tm_model_def d on d.tar_code = a.tar_code
-		where a.ORG_ID  in (select unit_id From sys_unitmap a where a.RELA_UNITID= #modelAnalysisReport.unitId#'
+		join pfm_tm_model_tar d on d.tar_code = a.tar_code 
+		JOIN pfm_tm_model_def e ON e.model_code = d.model_code
+		where a.STORE_DATE = #dataDate# and  a.ORG_ID  in (select unit_id From sys_unitmap a where a.RELA_UNITID= #unitId#
 							union 
-							select RELA_UNITID as UNIT_ID From sys_unitmap a where a.UNIT_ID= #modelAnalysisReport.unitId#)
-			and a.STORE_DATE = #modelAnalysisReport.dataDate#
-			and d.model_code =#modelAnalysis.modelCode#
+							select RELA_UNITID as UNIT_ID From sys_unitmap a where a.UNIT_ID= #unitId#)
+			and e.model_code =#modelCode#
 	</select>
 </sqlMap>

@@ -270,7 +270,7 @@ function upload() {
  		$('#templateName').val('pfm_index_data_maul_per');
  	} */
  	$('#templateName').val('pfm_index_data_maul_per')
- 	$('#sqlKey').val('indexdatastf.getPfmIndexDataMaul');
+ 	$('#sqlKey').val('indexdatastf.getPfmTmQtyOrg');
 	$('#recoreDateRep').val($('#recoreDate').val());
 	$('#indexCodeRep').val(indexCodeStr);
 	//$('#objectIdRep').val(objectStr);

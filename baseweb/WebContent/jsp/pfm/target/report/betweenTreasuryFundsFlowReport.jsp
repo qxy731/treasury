@@ -45,12 +45,12 @@
 					$("#selectDataDate").text("业务日期："+$("#dataDate").val());
 					$("#selectUnitName").text("填报单位："+$("#unitName").val());
 					//result.treasuryFundsNatureList
-					$.each(result.treasuryFundsNatureList,function(index,obj){
+					$.each(result.accountingAnalysisOtherList,function(index,obj){
 						$("#"+obj.tarCode).empty();
 						$("#"+obj.tarCode).append(obj.tarValue);
 					});
 					//result.treasuryFundsSourceList
-					$.each(result.treasuryFundsSourceList,function(index,obj){
+					$.each(result.accountingAnalysisOtherList,function(index,obj){
 						$("#"+obj.tarCode).empty();
 						$("#"+obj.tarCode).append(obj.tarValue);
 					});
