@@ -26,6 +26,7 @@ function add(){
 	if(validate()){
 		try{
 			$("#saveBtn").attr("disabled",true);
+			$("#tarScope").val(getTarScope());
 			var url = "${_CONTEXT_PATH}/qtydefManager/qty-def!insert.action";
 			var data = $('#insertForm').serialize();
 			Utils.ajaxSubmit(url, data, function(result) {
@@ -60,11 +61,23 @@ $(function() {
 	$('#saveBtn').bind('click', add);
 	$('#cancelBtn').bind('click', cancelDialog);
 });
+
+function getTarScope(){
+	var tarScope=null;
+	var orgPersonCode=$('#tarScope').val();
+	var checkedbox=$("input[name='tarScopeCheck']:checkbox:checked");
+	if(checkedbox.length==2){
+		tarScope = orgPersonCode;
+	}else if(checkedbox.length==1){
+		tarScope=checkedbox[0].value;
+	}
+	return tarScope;
+}
 </script>
 </head>
 <body>
 <n:page action='com.soule.app.pfm.tm.qtydef.QtyDefAction' initMethod="doInitBusinessLine"/>
-<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,ind_type'/>
+<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,tar_property'/>
 <form id="insertForm" name="insertForm">
 <input id="createOrg" name="newQtyDef.createOrg" type="hidden" value="${logUserInfo.operUnitId}"/>
 <input id="tarType" name="newQtyDef.tarType" type="hidden" value="<%=BaseTar.TAR_TYPE_BASE%>"/>
@@ -72,8 +85,12 @@ $(function() {
 <table class="params" width="100%">
 	<tr>
 		<td width="15%" align="right">指标代码</td>
-		<td width="35%"><input id="tarCodeText" name="newQtyDef.tarCodeText" type="text" disabled="disabled"/></td>
-		<td width="15%" ></td><td width="35%" ></td>
+		<td width="35%" ><input id="tarCodeText" name="newQtyDef.tarCodeText" type="text" disabled="disabled"/></td>
+		<td width="15%"><font color='red'>*</font>适用对象:</td>
+		<td width="35%" align="left">
+		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
+		</td>
 	</tr>
 	<tr>
 		<td align="right"><font color='red'>*</font>指标名称</td>
@@ -114,6 +131,14 @@ $(function() {
 		<n:select codetype="proc_type" id="procDateCode" name='newQtyDef.procDateCode' emptyOption="true" validate="{required:true}"/>
 		</td>
    </tr>
+   <tr>
+		<td align="right"><font color='red'>*</font>指标属性</td>
+		<td>
+         <n:select codetype="tar_property" id="tarProperty" name='newQtyDef.tarProperty' emptyOption="true" validate="{required:true}"/>
+		</td>
+		<td align="right"></td>
+		<td></td>
+	</tr>
    <tr>
 		<td align="right">备注</td>
 		<td colspan="3">

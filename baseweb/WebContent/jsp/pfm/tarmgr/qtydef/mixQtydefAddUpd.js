@@ -70,6 +70,7 @@ function add(){
 	if($("#insertForm").valid()){
 		$("#saveBtn").attr("disabled",true);
 		try{
+			$("#tarScope").val(getTarScope());
 			var url = _CONTEXT_PATH+"/qtydefManager/qty-def!insert.action";
 			var mdata = Utils.convertParam('','insertForm');
 			Utils.ajaxSubmit(url,mdata,function(result){
@@ -126,6 +127,7 @@ $(function() {
 function update(){
 	if($("#insertForm").valid()){
 		try{
+			$("#tarScope").val(getTarScope());
 			var url = _CONTEXT_PATH+"/qtydefManager/qty-def!update.action";
 			var mdata = Utils.convertParam('','insertForm');
 			Utils.ajaxSubmit(url,mdata,function(result){
@@ -138,4 +140,16 @@ function update(){
 			});			
 		}catch(e){}
 	}
+}
+
+function getTarScope(){
+	var tarScope=null;
+	var orgPersonCode=$('#tarScope').val();
+	var checkedbox=$("input[name='tarScopeCheck']:checkbox:checked");
+	if(checkedbox.length==2){
+		tarScope = orgPersonCode;
+	}else if(checkedbox.length==1){
+		tarScope=checkedbox[0].value;
+	}
+	return tarScope;
 }

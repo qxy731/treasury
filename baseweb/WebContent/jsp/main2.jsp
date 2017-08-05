@@ -187,8 +187,7 @@ function itemclick(item) {
 $(function (){
     var menuJson =${menusJson};
     $("#topmenu").ligerMenuBar(menuJson);
-    
-    $("#hh").append(allmenuhtml);
+    //$("#hh").append(allmenuhtml);
     $("#mclose").bind('click',function(){$("#hh")[0].style.display='none';});
     var root = getMenutable(menuJson);
     $("#menushowid").append(root);
