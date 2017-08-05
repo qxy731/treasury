@@ -16,25 +16,43 @@
 </style>
 <script type="text/javascript">
 	$(function() {
+		initTarscopeCheckBox();
 		$('#saveBtn').bind('click', update);
 		$('#cancelBtn').bind('click', cancelDialog);
 	});
+	
+	//当为国库和金融机构时选中复选框
+function initTarscopeCheckBox(){
+	var tarScope = $("#tarScope").val();
+	var checkObj=$("input[name='tarScopeCheck']:checkbox");
+	if(tarScope=="<%=BaseTar.APPOBJ_ORGCODE%>"){
+		$("#tarScopeCheck1").attr("checked","true");
+	}else if(tarScope=="<%=BaseTar.APPOBJ_PERSONCODE%>"){
+		$("#tarScopeCheck2").attr("checked","true");
+	}else{
+	   	$("#tarScopeCheck1").attr("checked","true");
+		$("#tarScopeCheck2").attr("checked","true");
+	}
+}
 </script>
 </head>
 <body>
 <n:page action='com.soule.app.pfm.tm.qtydef.QtyDefAction'/>
-<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from'/>
+<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,tar_property'/>
 <form id="insertForm" name="insertForm">
 <input id="tarCode" name="newQtyDef.tarCode" type="hidden" value="${newQtyDef.tarCode}"/>
 <input id="lastUpdOrg" name="newQtyDef.lastUpdOrg" type="hidden" value="${logUserInfo.operUnitId}"/>
 <input id="tarType" name="newQtyDef.tarType" type="hidden" value="<%=BaseTar.TAR_TYPE_MIX%>"/>
-<input id="tarScope" name="newQtyDef.tarScope" type="hidden" value="<%=BaseTar.APPOBJ_ORGANDPERCODE%>"/>
+<input id="tarScope" name="newQtyDef.tarScope" type="hidden" value="${newQtyDef.tarScope}"/>
 <fieldset class="outbox"><legend>指标信息</legend>
 <table class="params">
 	<tr>
 		<td width="15%" align="right">指标代码 :</td>
 		<td width="35%"><input  id="tarCodeText" name="newQtyDef.tarCodeText" type="text" value="${newQtyDef.tarCode}" disabled="disabled"/></td>
-		<td width="15%"></td><td width="35%"></td>
+		<td width="35%">
+		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck1" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck2" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
+		</td>
 	</tr>
 	<tr>
 		<td align="right"><font color='red'>*</font>指标名称: </td>
@@ -46,7 +64,7 @@
 		<td colspan="3"><input id="tarDesc" name="newQtyDef.tarDesc" style="width:80%" value="${newQtyDef.tarDesc}" size="30" type="text"/></td>
 	</tr>
 	<tr>
-		<td align="right"><font color='red'>*</font>计量单位: </td>
+		<td align="right"><font color='red'>*</font>计量单位:</td>
 		<td align="left">
 			<n:select codetype="ind_unit" id="measUnitCode" name='newQtyDef.measUnitCode' emptyOption="true" validate="{required:true}" value="newQtyDef.measUnitCode"/>
 		</td>
@@ -74,6 +92,13 @@
 		<td>
 		  <n:select codetype="proc_type" id="procDateCode" name='newQtyDef.procDateCode' emptyOption="true" validate="{required:true}"  value="newQtyDef.procDateCode"/>
 		</td>
+	</tr>
+	<tr>
+		<td align="right"><font color='red'>*</font>指标属性</td>
+		<td>
+         <n:select codetype="tar_property" id="tarProperty" name='newQtyDef.tarProperty' emptyOption="true" validate="{required:true}"/>
+		</td>
+		<td align="right"></td><td></td>
 	</tr>
 	<tr>
 		<td align="right">备注:</td>

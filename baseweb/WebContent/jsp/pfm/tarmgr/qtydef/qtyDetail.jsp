@@ -18,18 +18,37 @@
 	}
 	
 	$(function() {
+		initTarscopeCheckBox();
 		$('#cancelBtn').bind('click', cancelDialog);
 	}); 
+	
+	//当为国库和金融机构时选中复选框
+	function initTarscopeCheckBox(){
+		var tarScope = $("#tarScope").val();
+		var checkObj=$("input[name='tarScopeCheck']:checkbox");
+		if(tarScope=="<%=BaseTar.APPOBJ_ORGCODE%>"){
+			$("#tarScopeCheck1").attr("checked","true");
+		}else if(tarScope=="<%=BaseTar.APPOBJ_PERSONCODE%>"){
+			$("#tarScopeCheck2").attr("checked","true");
+		}else{
+		   	$("#tarScopeCheck1").attr("checked","true");
+			$("#tarScopeCheck2").attr("checked","true");
+		}
+	}
 </script>
 </head>
 <body>
 <n:page action='com.soule.app.pfm.tm.qtydef.QtyDefAction' initMethod="doInit"/>
-<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from'/>
+<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,tar_property'/>
 <table class="params" width="100%">
 	<tr>
 		<td width="15%" align="right">指标代码:</td>
 		<td width="35%"><input  id="tarCodeText" name="newQtyDef.tarCodeText" type="text" value="${newQtyDef.tarCode}" disabled="true"/></td>
-		<td align="right" width="15%"></td><td width="35%"></td>
+		<td width="15%">适用对象:</td>
+		<td width="35%">
+		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck1" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck2" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
+		</td>
 	</tr>
 	<tr>
 		<td align="right">指标名称: </td>
@@ -68,6 +87,13 @@
 		<td>
 		  <n:select codetype="proc_type" id="procDateCode" name='newQtyDef.procDateCode' emptyOption="true" validate="{required:true}"  disabled="true" value="newQtyDef.procDateCode"/>
 		</td>
+	</tr>
+	<tr>
+		<td align="right"><font color='red'>*</font>指标属性</td>
+		<td>
+         <n:select codetype="tar_property" id="tarProperty" name='newQtyDef.tarProperty' emptyOption="true" validate="{required:true}"/>
+		</td>
+		<td align="right"></td><td></td>
 	</tr>
 	<tr>
 		<td align="right">备注:</td>

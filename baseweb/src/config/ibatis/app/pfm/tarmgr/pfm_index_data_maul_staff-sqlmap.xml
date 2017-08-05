@@ -66,11 +66,18 @@
 		      b.tar_name as indexName,
 		      a.TAR_DATE as recoreDate,
 		      a.ORG_ID as orgCode,
+<<<<<<< HEAD
 		      u.UNIT_NAME  as orgName,
 		      a.TAR_VALUE as indexVal,
 		      a.LOAD_DATE as loadDate
 		    from pfm_tm_qty_org a left join PFM_TM_QTY_DEF b on a.TAR_CODE = b.TAR_CODE
 		    left join SYS_UNIT u on u.unit_id = a.org_id 
+=======
+		      (select u.UNIT_NAME from SYS_UNIT u where a.ORG_ID=u.UNIT_ID) as orgName,
+		      a.TAR_VALUE as indexVal,
+		      a.LOAD_DATE as loadDate
+		    from pfm_tm_qty_org a left join PFM_TM_QTY_DEF b on a.TAR_CODE = b.TAR_CODE
+>>>>>>> branch 'master' of https://github.com/qxy731/treasury.git
 			<dynamic prepend="where">
 				<isNotEmpty prepend=" AND " property="indexCode">a.TAR_CODE in ('$indexCode$')</isNotEmpty>
 				<isNotEmpty prepend=" AND " property="objectId">a.ORG_ID in ('$objectId$')</isNotEmpty>
