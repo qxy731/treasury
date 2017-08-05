@@ -81,7 +81,6 @@
 		var unitId = $("#unitId").val();
 		var dataDate =$("#dataDate").val();
 		var modelCode =$("#modelCode").val();
-		alert(modelCode);
 		var params = {
 			dataAction:'server',
 			dataType:'server',

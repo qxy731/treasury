@@ -87,7 +87,6 @@
 		SELECT
 			a.TAR_CODE AS tarCode,
 			a.TAR_NAME AS tarName,
-			a.BS_FLAG AS bsFlag,
 			a.MEAS_UNIT_CODE AS measUnitCode,
 			a.MEAS_DEF_CODE AS measDefCode,
 			a.TAR_TYPE AS tarType,

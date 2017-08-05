@@ -9,7 +9,6 @@
 	<sqlMap resource="config/ibatis/app/common/dataimport-sqlmap.xml" />
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm-userdefinedreport-sqlmap.xml" />
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm-model-analysis-sqlmap.xml" />
-	<!-- <sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm-model-analysis-sqlmap.xml" /> -->
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm_qtydef_sqlmap.xml" />
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm_report_sqlmap.xml" />
 	<sqlMap resource="config/ibatis/app/pfm/tarmgr/pfm-tm-model-def-sqlmap.xml" />

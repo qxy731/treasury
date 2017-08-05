@@ -81,6 +81,7 @@
         $("#enumlist").ligerGrid({
             enumlist: _enum_params,
             checkbox: true,
+            isSingleCheck :true,
             allowAdjustColWidth:false,
             selectRowButtonOnly:true,
             columns: [

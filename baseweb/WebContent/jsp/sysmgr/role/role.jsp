@@ -58,6 +58,7 @@
 		});
 		$("#rolelist").ligerGrid({
 			checkbox: true,
+			isSingleCheck :true,
 			enumlist: _enum_params ,
 			
 			columns: [

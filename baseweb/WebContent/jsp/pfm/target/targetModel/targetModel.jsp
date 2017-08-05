@@ -66,6 +66,7 @@ body {
 		$("#modellist").ligerGrid({
 			enumlist: _enum_params,
 			checkbox: true,
+			isSingleCheck :true,
 			//buttons:[
 			//	{text:'新增',name:'insert_btn',clazz:'nbutton'},
 			//	{text:'修改',name:'update_btn',clazz:'nbutton'},
@@ -103,8 +104,8 @@ body {
 		var p = {
 				id : "insertModel",
 				title : '新增模型',
-				height:450,
-				width:900,
+				height:'80%',
+				width:'80%',
 				opacity : 0.07
 			}; 
 		//Utils.openTab("insertStaff","新增人员",url);

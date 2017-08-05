@@ -2,13 +2,16 @@ package com.soule.app.pfm.tm.report.bankfundsflow;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.soule.base.action.BaseAction;
+import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
 
 /**
@@ -64,6 +67,27 @@ public class BankFundsFlowReportAction extends BaseAction {
         return JSON;
     }
     
+    
+    public void expor4(){
+    	BankFundsFlowReportQueryOut result;
+		try {
+			result = bankFundsFlowReportService.query4(queryIn);
+			ServiceResult head = result.getResultHead();
+	        accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
+	        if(accountingAnalysisOtherList == null){
+	        	accountingAnalysisOtherList = new ArrayList<ReportTargetPo>();
+	        }
+	        
+	       for(int index=0;index<28;index++){
+	    	   
+	       }
+	        	
+		} catch (ServiceException e) {
+			handleError(e);
+		}
+       
+    	
+    }
     
     
     public String query3() {
@@ -125,6 +149,21 @@ public class BankFundsFlowReportAction extends BaseAction {
 
 	public void setAccountingAnalysisOtherList(List<ReportTargetPo> accountingAnalysisOtherList) {
 		this.accountingAnalysisOtherList = accountingAnalysisOtherList;
+	}
+	
+	
+	
+	public static void main(String[] args){
+		List list = new ArrayList();
+		
+		Map map = new HashMap();
+		
+		map.put("a", 1);
+		map.put("b", 3);
+		
+		
+		
+		
 	}
 	
 }

@@ -80,6 +80,7 @@
 		//表格初始化 
 		$("#qtydeflist").ligerGrid({
 			checkbox:true,
+			isSingleCheck :true,
 			rownumbers:true,
 			enumlist: _enum_params , 
 			columns: [
