@@ -15,7 +15,7 @@
 </head>
 <body>
 <n:page action="com.soule.app.pfm.tm.qtydef.QtyDefAction" initMethod="initialization"></n:page>
-<n:enums keys='tar_type,app_object,tar_sort,data_from'/>
+<n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,app_object,tar_sort,data_from,tar_property'/>
 <table class="content">
 	<tr>
 		<td>
@@ -35,7 +35,7 @@
 				</td>
 			</tr>
 			<tr>
-			   <td align="right">指标层级属性</td>
+			   <td align="right">指标层级</td>
 				<td>
 		         <n:select codetype="tar_type" id="tarType" name='tarType' emptyOption="true"/>
 		        </td>
@@ -44,7 +44,11 @@
 				<input id='createOrg' name='createOrg' type='hidden'  value="${logUserInfo.operUnitId}"/>
 				<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
 				</td> --%>
-				<td colspan="4">
+				<td align="right">数据来源</td>
+				<td>
+		         <n:select codetype="data_from" id="dataSource" name='dataSource' emptyOption="true"/>
+		        </td>
+				<td colspan="2">
 					<div style="float:right;">
 						<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;" />
 						<input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="float:left;margin-right:5px;" />
@@ -80,13 +84,18 @@
 		//表格初始化 
 		$("#qtydeflist").ligerGrid({
 			checkbox:true,
+			isSingleCheck :true,
 			rownumbers:true,
 			enumlist: _enum_params , 
 			columns: [
-						{ display: '指标代码', name: 'tarCode',width:130,align:'left'},
-						{ display: '指标名称', name: 'tarName', width:340,align:'left'},
-						{ display: '指标规模分类', name: 'tarSortCode', codetype: 'tar_sort',width:140,align:'left'},
-						{ display: '指标层级属性', name: 'tarType', codetype: 'tar_type',width:80,align:'left'},
+						{ display: '指标代码', name: 'tarCode',width:80,align:'left'},
+						{ display: '指标名称', name: 'tarName', width:240,align:'left'},
+						{ display: '指标规模分类', name: 'tarSortCode', codetype: 'tar_sort',width:100,align:'left'},
+						{ display: '指标层级', name: 'tarType', codetype: 'tar_type',width:80,align:'left'},
+						{ display: '计量单位', name: 'measUnitCode', codetype: 'ind_unit',width:60,align:'left'},
+						{ display: '计算精确度', name: 'measDefCode', codetype: 'ind_accu',width:80,align:'left'},
+						{ display: '保存日期', name: 'storeDate', codetype: 'save_type',width:60,align:'left'},
+						{ display: '处理日期', name: 'procDateCode', codetype: 'proc_type',width:60,align:'left'},
 						{ display: '数据来源', name: 'dataSource', codetype: 'data_from',width:80,align:'left'},
 						{ display: '建立部门', name: 'unitName', width:230,align:'left'}
 						],
@@ -135,9 +144,10 @@
 		var tarCode = $("#tarCode").val();
 		var tarName = $("#tarName").val();
 		var tarType = $("#tarType").val();
-		var tarScope = "11000000";
+		//var tarScope = "11000000";
 		var createOrg = $("#createOrg").val();
 		var tarSortCode = $("#tarSortCode").val();
+		var dataSource = $("#dataSource").val();
 		var params = {
 			dataAction:'server',
 			dataType:'server',
@@ -146,9 +156,11 @@
 			parms:[{name:'queryIn.tarCode',value:tarCode}
 			,{name:'queryIn.tarName',value:tarName}
 			,{name:'queryIn.tarType',value:tarType}
-			,{name:'queryIn.tarScope',value:tarScope}
+			//,{name:'queryIn.tarScope',value:tarScope}
 			,{name:'queryIn.createOrg',value:createOrg}
-			,{name:'queryIn.tarSortCode',value:tarSortCode}]
+			,{name:'queryIn.tarSortCode',value:tarSortCode}
+			,{name:'queryIn.dataSource',value:dataSource}
+			]
 		};
 		grid = $("#qtydeflist").ligerGetGridManager();
 		grid.setOptions(params);
