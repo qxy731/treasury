@@ -168,7 +168,6 @@ public class QtyDefServiceImpl implements IQtyDefService {
 	public QtyDefQueryOut query(QtyDefQueryIn in) throws ServiceException {
 		QtyDefQueryOut out = new QtyDefQueryOut();
 		try {
-			//IDefaultService defService = (IDefaultService) ContextUtil.getBean("defaultService");
 			Map<String, Object> condition = new HashMap<String, Object>();
 			condition.put("createOrg", in.getCreateOrg());
 			condition.put("tarSortCode", in.getTarSortCode());
@@ -180,6 +179,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 			qtyDef.setCreateOrg(in.getCreateOrg());
 			qtyDef.setTarSortCode(in.getTarSortCode());
 			qtyDef.setTarType(in.getTarType());
+			qtyDef.setDataSource(in.getDataSource());
 			condition.put("qtyDef", qtyDef);
 			long total = defService.getIbatisMediator().getRecordTotal(GET_QTYDEF, condition);
 			int pagesize = in.getInputHead().getPageSize();

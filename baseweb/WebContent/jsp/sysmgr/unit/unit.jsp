@@ -143,6 +143,7 @@
 			} ],
 			checkbox:true,
 			enabledEdit : true,
+			isSingleCheck :true,
 			pageSize : 20,
 			sortName : 'unitId',
 			height : '98%',
@@ -253,8 +254,7 @@
 			$.dialogBox.alert("请先选择需要修改的记录");
 			return;
 		}
-		Utils
-				.alert(
+		Utils.alert(
 						"你确定要删除当前部门，如果继续，请点击“确定”按钮?",
 						'请确认',
 						function() {

@@ -37,17 +37,36 @@
 	</resultMap>
 	
 	<select id="getQtyDef" resultClass="QtyDefPo">
-		select * from
-		(select DISTINCT
+		select DISTINCT
 		a.TAR_CODE as tarCode,
 		a.TAR_NAME as tarName,
-		a.TAR_SCOPE as tarScope,
+		a.MEAS_UNIT_CODE as measUnitCode,
+		a.MEAS_DEF_CODE as measDefCode,
 		a.TAR_TYPE as tarType,
-		a.TAR_SORT_CODE as tarSortCode,
-		c.UNIT_NAME as unitName,
 		a.TAR_PROPERTY as tarProperty,
+		a.STAT_SCOPE_CODE as statScopeCode,
+		a.PROC_DATE_CODE as procDateCode,
+		a.TAR_PROC_DATE as tarProcDate,
+		a.STORE_DATE as storeDate,
+		a.PRDTYPE_CODE as prdtypeCode,
+		a.SUBJ_CODE as subjCode,
+		a.TAR_SCOPE as tarScope,
+		a.TAR_BIZ_TYPE as tarBizType,
+		a.TAR_SORT_CODE as tarSortCode,
+		a.TAR_STATUS as tarStatus,
+		a.TAR_DESC as tarDesc,
+		a.MISC as misc,
+		a.REMARK as remark,
 		a.ATTENTION as attention,
-		a.DATA_SOURCE as dataSource
+		a.DATA_SOURCE as dataSource,
+		a.CREATE_USER as createUser,
+		a.CREATE_TIME as createTime,
+		a.CREATE_ORG as createOrg,
+		c.UNIT_NAME as unitName,
+		a.LAST_UPD_USER as lastUpdUser,
+		a.LAST_UPD_ORG as lastUpdOrg,
+		a.LAST_UPD_TIME as lastUpdTime,
+		a.DAY_SCOPE as dayScope
 		from PFM_TM_QTY_DEF a 
 		left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
 		inner join SYS_UNITMAP d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
@@ -82,6 +101,82 @@
 			</isNotEmpty>
 			<isNotEmpty property="dayMoney" prepend="and">
 				a.TAR_PROPERTY!='2'
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.dataSource" prepend="and">
+				a.DATA_SOURCE=#qtyDef.dataSource#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="getQtyDefCount" resultClass="java.lang.Long">
+		select count(1) from
+		(select DISTINCT
+		a.TAR_CODE as tarCode,
+		a.TAR_NAME as tarName,
+		a.MEAS_UNIT_CODE as measUnitCode,
+		a.MEAS_DEF_CODE as measDefCode,
+		a.TAR_TYPE as tarType,
+		a.TAR_PROPERTY as tarProperty,
+		a.STAT_SCOPE_CODE as statScopeCode,
+		a.PROC_DATE_CODE as procDateCode,
+		a.TAR_PROC_DATE as tarProcDate,
+		a.STORE_DATE as storeDate,
+		a.PRDTYPE_CODE as prdtypeCode,
+		a.SUBJ_CODE as subjCode,
+		a.TAR_SCOPE as tarScope,
+		a.TAR_BIZ_TYPE as tarBizType,
+		a.TAR_SORT_CODE as tarSortCode,
+		a.TAR_STATUS as tarStatus,
+		a.TAR_DESC as tarDesc,
+		a.MISC as misc,
+		a.REMARK as remark,
+		a.ATTENTION as attention,
+		a.DATA_SOURCE as dataSource,
+		a.CREATE_USER as createUser,
+		a.CREATE_TIME as createTime,
+		a.CREATE_ORG as createOrg,
+		c.UNIT_NAME as unitName,
+		a.LAST_UPD_USER as lastUpdUser,
+		a.LAST_UPD_ORG as lastUpdOrg,
+		a.LAST_UPD_TIME as lastUpdTime,
+		a.DAY_SCOPE as dayScope
+		from PFM_TM_QTY_DEF a 
+		left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
+		inner join SYS_UNITMAP d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
+		<dynamic prepend="where">
+			<isNotEmpty property="qtyDef.tarCode" prepend="and">
+				a.TAR_CODE=#qtyDef.tarCode#
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.tarName" prepend="and">
+				a.TAR_NAME like '%$qtyDef.tarName$%'
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.createOrg" prepend="and">
+				a.CREATE_ORG=#qtyDef.createOrg#
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.tarSortCode" prepend="and">
+				a.TAR_SORT_CODE=#qtyDef.tarSortCode#
+			</isNotEmpty>
+			<isNotEmpty property="tarScopeList" prepend="and">
+				<iterate open="(" close=")" conjunction="or"
+					property="tarScopeList">
+					a.TAR_SCOPE=#tarScopeList[]#
+				</iterate>
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.tarStatus" prepend="and">
+				a.TAR_STATUS=#qtyDef.tarStatus#
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.storeDate" prepend="and">
+				a.STORE_DATE=#qtyDef.storeDate#
+			</isNotEmpty>
+			<!-- 公共部分选择 条件-->
+			<isNotEmpty property="qtyDef.tarType" prepend="and">
+				a.TAR_TYPE=#qtyDef.tarType#
+			</isNotEmpty>
+			<isNotEmpty property="dayMoney" prepend="and">
+				a.TAR_PROPERTY!='2'
+			</isNotEmpty>
+			<isNotEmpty property="qtyDef.dataSource" prepend="and">
+				a.DATA_SOURCE=#qtyDef.dataSource#
 			</isNotEmpty>
 		</dynamic>)t
 	</select>

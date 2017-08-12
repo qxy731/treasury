@@ -55,7 +55,7 @@ $(function() {
 		 <td>
          <n:select codetype="ind_unit" id="measUnitCode" name='newQtyDef.measUnitCode' emptyOption="true" validate="{required:true}"/>
         </td>
-		<td align="right"><font color='red'>*</font>数据类型:</td>
+		<td align="right"><font color='red'>*</font>计算精确度:</td>
 		<td>
           <n:select codetype="ind_accu" id="measDefCode" name='newQtyDef.measDefCode' emptyOption="true" validate="{required:true}"/>
 		</td>

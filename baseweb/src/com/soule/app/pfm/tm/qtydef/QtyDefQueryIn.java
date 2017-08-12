@@ -19,8 +19,11 @@ public class QtyDefQueryIn implements Serializable {
     private String tarScope;
 
     private String tarType;
-
+    //保存日期
     private String storeDate;
+    
+    //数据来源
+    private String dataSource;
 
     public String getTarCode() {
         return tarCode;
@@ -85,4 +88,12 @@ public class QtyDefQueryIn implements Serializable {
     public void setStoreDate(String storeDate) {
         this.storeDate = storeDate;
     }
+
+	public String getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(String dataSource) {
+		this.dataSource = dataSource;
+	}
 }

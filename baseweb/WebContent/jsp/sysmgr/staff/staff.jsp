@@ -68,6 +68,7 @@
 		$("#stafflist").ligerGrid({
 			enumlist: _enum_params,
 			checkbox: true,
+			isSingleCheck :true,
 			//buttons:[
 			//	{text:'新增',name:'insert_btn',clazz:'nbutton'},
 			//	{text:'修改',name:'update_btn',clazz:'nbutton'},
@@ -114,8 +115,8 @@
 		var p = {
 				id : "insertStaff",
 				title : '新增人员',
-				width : 575,
-				height : 270,
+				width : 620,
+				height : 230,
 				opacity : 0.07
 			}; 
 		//Utils.openTab("insertStaff","新增人员",url);
@@ -134,8 +135,8 @@
 		var p = {
 				id : "updateStaff",
 				title : '修改人员',
-				width : 575,
-				height : 250,
+				width : 620,
+				height : 204,
 				opacity : 0.07
 			}; 
 		//var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
