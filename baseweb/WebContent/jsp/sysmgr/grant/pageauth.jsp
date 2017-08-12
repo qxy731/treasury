@@ -59,9 +59,7 @@ function initOptions() {
 		width: '100%',height:'80%',
 		tree: {
 			columnName: 'nodeName',
-			isParent:function (){
-				return true;
-			},
+			isParent:isParentNode,
 			idField: 'nodeId'
 		},
 		onTreeExpand:queryData,
