@@ -44,7 +44,6 @@ body {width :800px;}
 		</td>
 		<td>
 			<fieldset class="outbox"><legend>待选人员</legend>
-			<jsp:include page="/jsp/common/staffquery_inter.jsp?dup=true"></jsp:include>
 			</fieldset>
 		</td>
 	</tr>
@@ -74,7 +73,6 @@ $(function () {
 			$.dialogBox.alert("查询数据失败");
 		}
 	});
-
 	$('#refesh_btn').bind('click', executeQuery);
 	$('#addall_btn').bind('click', addAll);
 	$('#addsel_btn').bind('click', addSelected);

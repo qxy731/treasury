@@ -1,7 +1,6 @@
 package com.soule.app.pfm.tm.qtydef;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,7 +79,6 @@ public class QtyDefAction extends BaseAction{
 		            qtyExp.setLastUpdTime(new Date());
 		            qtyExp.setLastUpdOrg(logonInfo.getOperUnitId());
 		            qtyExp.setTarCode(newQtyDef.getTarCode());
-		            qtyExp.setTarScope(newQtyDef.getTarScope());
 	                result = qtyDefService.update(newQtyDef,qtyExp);
 	            }else{
 	                result = qtyDefService.update(newQtyDef,null);

@@ -144,7 +144,7 @@ function update(){
 
 function getTarScope(){
 	var tarScope=null;
-	var orgPersonCode=$('#tarScope').val();
+	var orgPersonCode="11000000";
 	var checkedbox=$("input[name='tarScopeCheck']:checkbox:checked");
 	if(checkedbox.length==2){
 		tarScope = orgPersonCode;

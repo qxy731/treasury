@@ -36,7 +36,7 @@ function initTarscopeCheckBox(){
 }
 </script>
 </head>
-<body>
+<body style="overflow:hidden">
 <n:page action='com.soule.app.pfm.tm.qtydef.QtyDefAction'/>
 <n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,tar_property'/>
 <form id="insertForm" name="insertForm">
@@ -49,8 +49,9 @@ function initTarscopeCheckBox(){
 	<tr>
 		<td width="15%" align="right">指标代码 :</td>
 		<td width="35%"><input  id="tarCodeText" name="newQtyDef.tarCodeText" type="text" value="${newQtyDef.tarCode}" disabled="disabled"/></td>
+		<td width="15%" align="right">适用对象 :</td>
 		<td width="35%">
-		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck1" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck1" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
 		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck2" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
 		</td>
 	</tr>
@@ -229,9 +230,15 @@ function initTarscopeCheckBox(){
 		</fieldset>
  </td>
 </tr>
+ <tr>
+		<td colspan="2">
+			<input id="saveBtn" type="button" value="提&nbsp;交" class="l-button" style="float:left;margin-left:230px;margin-top:5px;width:80px;" />
+			<input id="cancelBtn" type="button" value="取&nbsp;消" class="l-button" style="float:left;margin-left:5px;margin-top:5px;width:80px;" />
+		</td>
+</tr>
 </table>
 </fieldset>
-<table width="100%">
+<!-- <table width="100%">
 	<tr>
 		<td align="right">
 			<input type="button" value="确&nbsp;定" id="saveBtn" class="l-button" style="margin-right:10px;"/>
@@ -239,8 +246,8 @@ function initTarscopeCheckBox(){
 		<td align="left">
 			<input type="button" value="取&nbsp;消" id="cancelBtn" class="l-button" style="margin-left:10px;"/>
 		</td>
-	</tr>
-</table>
+	</tr> 
+</table>-->
 </form>
 </body>
 </html>

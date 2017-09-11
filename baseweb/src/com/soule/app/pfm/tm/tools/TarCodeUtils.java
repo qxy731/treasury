@@ -4,7 +4,7 @@ import com.soule.base.service.ServiceException;
 import com.soule.base.service.keygen.IKeyGenerator;
 
 public class TarCodeUtils {
-	private static final String START="T";
+	private static final String START="TE_";
     private static final String fore="0000";
     private static final String three="000";
     private static final String tow="00";
@@ -25,10 +25,10 @@ public class TarCodeUtils {
 		if(ecm!=null){
 			sb.append(ecm);
 		}
-		if(sb.charAt(sb.length()-1)=='-'){
+		if(sb.charAt(sb.length()-1)=='_'){
 			sb.append(getSeq());
 		}else{
-			sb.append("-"+getSeq());
+			sb.append("_"+getSeq());
 		}
 		return sb.toString();
 	}

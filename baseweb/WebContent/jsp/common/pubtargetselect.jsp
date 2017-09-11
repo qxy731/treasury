@@ -14,7 +14,7 @@
 <body>
 <n:page action="com.soule.app.pfm.tm.qtydef.QtyDefAction" initMethod="initialization"></n:page>
 <n:enums keys='tar_type,app_object,tar_sort,data_from'/>
-<table class="content">
+<table width="100%">
 	<tr>
 		<td>
 		<fieldset class="queryBox"><legend>查询条件</legend>
@@ -55,8 +55,8 @@
 	<tr><td>
 		<table width="100%">
 			<tr>
-				<td align="right" with="50%"><input id='query' name='query' type='button' value='查&nbsp;询' class='l-button'/></td>
-				<td align="left"  with="50%"><input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button'/></td>
+				<td align="right" with="50%"><input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="margin-right:20px"/></td>
+				<td align="left"  with="50%"><input id='reset' name='reset' type='button' value='重&nbsp;置' class='l-button' style="margin-left:20px"/></td>
 			</tr>
 		</table>
 	</td></tr>
@@ -88,7 +88,7 @@ $(function () {
 						],
 			pageSize:20,
 			selectRowButtonOnly:true,
-			width:420,
+			width:438,
 			height:'100%',
 			heightDiff:-20,
 			onError: function() {

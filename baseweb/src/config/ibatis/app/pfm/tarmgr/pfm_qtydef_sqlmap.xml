@@ -393,10 +393,11 @@
 		update PFM_TM_QTY_EXP_DEF
 		set 
 		  CALC_EXP = #calcExp#,
-		  SQL_EXP = #sqlExp#,		  
+		  SQL_EXP = #sqlExp#,
+		  TAR_SCOPE = #tarScope#,
 		  LAST_UPD_USER = #lastUpdUser#,
 		  LAST_UPD_TIME = #lastUpdTime#,
-		  LAST_UPD_ORG = #lastUpdOrg#		
+		  LAST_UPD_ORG = #lastUpdOrg#	
 		  where TAR_CODE = #tarCode#
 	</update>
 	

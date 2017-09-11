@@ -114,7 +114,7 @@ public class Translator4 {
 		Set<String> usedRanges = container.getUsedTakeHolders(RangeTakeHolder.DOLLER);
 
 		Hashtable<String, Set<Integer>> indRef = getUnitRef(ast, periodType);
-		boolean hasAgg = indRef.get("AGG") != null;
+		//boolean hasAgg = indRef.get("AGG") != null;
 		Hashtable<String, Struct> map = getStructMap(indRef);
 
 		String formula = toFormula(ast, map, periodType);
@@ -158,18 +158,17 @@ public class Translator4 {
 		dslSql.append(" GROUP BY " + TABLE_ALIAS + IDLLanguage.DOT
 				+ IndicatorLibMetaData.OBJECT_ID_FROM_IND_LIB);
 		dslSql.append(") "+ TABLE_ALIAS);
-		
-		if (!hasAgg) {
+		return dslSql.toString();
+		/*if (!hasAgg) {
 			//return "2:" + dslSql;
-			return "1:" + dslSql;
+			return "2:" + dslSql;
 		} else {
 			if (rh.isSingleValue(usedRanges)) {
 				return "3:" + dslSql;
 			} else {
 				return "4:" + dslSql;
 			}
-		}
-
+		}*/
 	}
 	/**
 	 * 拼指标where条件

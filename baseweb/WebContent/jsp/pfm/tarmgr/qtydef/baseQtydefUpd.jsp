@@ -64,7 +64,7 @@ $(function() {
 }); 
 function getTarScope(){
 	var tarScope=null;
-	var orgPersonCode=$('#tarScope').val();
+	var orgPersonCode="11000000";
 	var checkedbox=$("input[name='tarScopeCheck']:checkbox:checked");
 	if(checkedbox.length==2){
 		tarScope = orgPersonCode;
@@ -103,7 +103,7 @@ function initTarscopeCheckBox(){
 		<td width="35%"><input  id="tarCodeText" name="newQtyDef.tarCodeText" type="text" value="${newQtyDef.tarCode}" disabled="disabled"/></td>
 		<td width="15%"><font color='red'>*</font>适用对象:</td>
 		<td width="35%">
-		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck1" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck1" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
 		  <input style="width:14px;height:14px;margin:4px;" id="tarScopeCheck2" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
 		</td>
 	</tr>

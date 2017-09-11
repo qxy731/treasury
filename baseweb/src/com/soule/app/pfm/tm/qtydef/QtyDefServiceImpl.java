@@ -38,6 +38,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 	// 添加时点指标关联日均指标
 	//private static final String INSERT_POINTAVER = "qtydef.addPointAverRela";
 	private static final String GET_QTYDEF = "qtydef.getQtyDef";
+	private static final String GET_QTYDEF_COUNT = "qtydef.getQtyDefCount";
 	private static final String GET_ONE_QTYDEF = "qtydef.getOneQtyDef";
 	private static final String UPD_QTYDEF = "qtydef.updQtyDef";
 	private static final String UPD_STATUS_DEL = "qtydef.updQtyForStatus";
@@ -63,7 +64,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 		QtyDefInsertOut out = new QtyDefInsertOut();
 		String tarType = newQtyDef.getTarType();// 指标类型
 		if (!ObjectUtil.isEmpty(newQtyDef)) {
-			String tarCode = tarCodeUtils.gerneratedKey(BaseTar.getEcmByTartype(newQtyDef));
+			String tarCode = tarCodeUtils.gerneratedKey("");
 			newQtyDef.setTarCode(tarCode);
 			ILogonUserInfo logonInfo = (ILogonUserInfo)AppUtils.getLogonUserInfo();
 			newQtyDef.setCreateUser(logonInfo.getUser().getUserID());
@@ -132,6 +133,7 @@ public class QtyDefServiceImpl implements IQtyDefService {
 		expMap.put("lastUpdTime",qtyExp.getLastUpdTime());
 		expMap.put("lastUpdUser",qtyExp.getLastUpdUser());
 		expMap.put("tarCode",qtyExp.getTarCode());
+		expMap.put("tarScope", qtydef.getTarScope());
 		defService.getIbatisMediator().update("qtydef.updQtyExpDefPo",expMap);//衍生指标定义表
 		defService.getIbatisMediator().update(UPD_QTYDEF, qtydef);//指标定义表
 		//衍生指标引用关联指标
@@ -181,7 +183,10 @@ public class QtyDefServiceImpl implements IQtyDefService {
 			qtyDef.setTarType(in.getTarType());
 			qtyDef.setDataSource(in.getDataSource());
 			condition.put("qtyDef", qtyDef);
-			long total = defService.getIbatisMediator().getRecordTotal(GET_QTYDEF, condition);
+			//long total = defService.getIbatisMediator().getRecordTotal(GET_QTYDEF, condition);
+			long total = 0;
+			List cntList = (ArrayList)defService.getIbatisMediator().find(GET_QTYDEF_COUNT, condition);
+			if(cntList!=null)total = (Long)cntList.get(0);
 			int pagesize = in.getInputHead().getPageSize();
 			if (pagesize < 0) {
 				pagesize = 10;

@@ -22,7 +22,7 @@ $(function() {
 
 </script>
 </head>
-<body>
+<body style="overflow:hidden;">
 <n:page action='com.soule.app.pfm.tm.qtydef.QtyDefAction' initMethod="doInitBusinessLine"/>
 <n:enums keys='ind_unit,ind_accu,save_type,proc_type,tar_type,tar_sort,data_from,tar_property'/>
 <form id="insertForm" name="insertForm">
@@ -36,8 +36,8 @@ $(function() {
 		<td width="35%"><input  id="tarCodeText" name="newQtyDef.tarCodeText" type="text" disabled="disabled"/></td>
 		<td width="15%"><font color='red'>*</font>适用对象:</td>
 		<td width="35%">
-		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
-		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
+		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" checked/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>" checked/><%=BaseTar.APPOBJ_PERSONNAME %>
 		</td>
 	</tr>
 	<tr>

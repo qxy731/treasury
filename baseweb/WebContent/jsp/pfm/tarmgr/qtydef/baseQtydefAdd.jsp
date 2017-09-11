@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.soule.app.pfm.tm.BaseTar"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
@@ -64,7 +63,7 @@ $(function() {
 
 function getTarScope(){
 	var tarScope=null;
-	var orgPersonCode=$('#tarScope').val();
+	var orgPersonCode="11000000";
 	var checkedbox=$("input[name='tarScopeCheck']:checkbox:checked");
 	if(checkedbox.length==2){
 		tarScope = orgPersonCode;
@@ -88,8 +87,8 @@ function getTarScope(){
 		<td width="35%" ><input id="tarCodeText" name="newQtyDef.tarCodeText" type="text" disabled="disabled"/></td>
 		<td width="15%"><font color='red'>*</font>适用对象:</td>
 		<td width="35%" align="left">
-		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" validate="{required:true}"/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
-		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>"/><%=BaseTar.APPOBJ_PERSONNAME %>
+		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_ORGCODE%>" checked/><%=BaseTar.APPOBJ_ORGNAME %>&nbsp;
+		  <input style="width:14px;height:14px;margin:4px;" name="tarScopeCheck" type="checkbox" value="<%=BaseTar.APPOBJ_PERSONCODE%>" checked/><%=BaseTar.APPOBJ_PERSONNAME %>
 		</td>
 	</tr>
 	<tr>
