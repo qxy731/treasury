@@ -48,10 +48,9 @@ body {width:600px}
 									emptyOption="true" disabled="false"></n:select></td>
 						</tr>
 						<tr>
-							<td align="center" colspan="2"><input id='query'
-								name='query' type='button' value='查询' style="width: 60px" />&nbsp;<input
-								id='reset' name='reset' type='button' value='重置'
-								style="width: 60px;" /></td>
+							<td align="center" colspan="2">
+								<input id='query' name='query' type='button' value='查询' class="l-button" />&nbsp;
+								<input id='reset' name='reset' type='button' value='重置' class="l-button" /></td>
 						</tr>
 					</table>
 				</form>
@@ -75,16 +74,16 @@ body {width:600px}
         $("#baselist").ligerGrid({
         		enumlist: _enum_params,
                 columns: [
-                { display: '员工编号', name: 'staffId', width:100,align: 'left' },
-                { display: '员工名称', name: 'staffName',width:100, align: 'left' },
+                { display: '员工编号', name: 'staffId', width:80,align: 'left' },
+                { display: '员工名称', name: 'staffName',width:60, align: 'left' },
                 { display: '所属部门', name: 'ownerUnitName',width:120, align: 'left' },
-                { display: '性别', name:'sex',width:70,align:'center',codetype:'sex'}
+                { display: '性别', name:'sex',width:40,align:'center',codetype:'sex'}
             ],
             pageSize:10,
             sortName: 'staffId',
             height:284,
-            //width:350,
-            width:420,
+            width:350,
+            //width:420,
             checkbox: (dupFlag == 'true'),
             onDblClickRow: function (data,rowindex,rowobj){
                // getStaffIdAndName(data.staffId,data.staffName);
