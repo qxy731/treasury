@@ -17,7 +17,7 @@
 		Utils.validateInit();
 		//$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
 		$("#query").bind('click', query);
-		//$("#reset").bind('click', doClear);
+		$("#reset").bind('click', doClear);
 		$(".l-grid-header-table tr").addClass("l-grid-hd-row");
 		$(".l-grid-header-table tr").addClass("l-grid-hd-mul");
 		$(".l-grid-header-table td").addClass("l-grid-hd-cell");
@@ -48,13 +48,25 @@
 					//result.bankFundsFlowList //http://caibaojian.com/jquery-each-json.html
 					var newCustOrgData = '';
 					$.each(result.bankFundsFlowList,function(index,obj){
-						var innerHTML = '<tr class="l-grid-row"><td class="l-grid-row-cell" style="width:200px"><div>'+obj.custOrgName+'</div></td>';
+						/*var innerHTML = '<tr class="l-grid-row"><td class="l-grid-row-cell" style="width:200px"><div>'+obj.custOrgName+'</div></td>';
 						innerHTML += '<td class="l-grid-row-cell" style="width:200px;" ><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankAllInflow+'</div></td>';
 						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight" >'+obj.bankSpecialInflow+'</div></td>';
 						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankAllOutflow+'</div></td>';
 						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankSpecialOutflow+'</div></td>';
 						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankAllNetFlow+'</div></td></tr>';
-						newCustOrgData += innerHTML;
+						newCustOrgData += innerHTML;*/
+						
+						$("#"+obj.custOrgNo+"_BANK_ALL_INFLOW").empty();
+						$("#"+obj.custOrgNo+"_BANK_SPECIAL_INFLOW").empty();
+						$("#"+obj.custOrgNo+"_BANK_ALL_OUTFLOW").empty();
+						$("#"+obj.custOrgNo+"_BANK_SPECIAL_OUTFLOW").empty();
+						$("#"+obj.custOrgNo+"_BANK_ALL_NETFLOW").empty();
+						$("#"+obj.custOrgNo+"_BANK_ALL_INFLOW").append(obj.bankAllInflow);
+						$("#"+obj.custOrgNo+"_BANK_SPECIAL_INFLOW").append(obj.bankSpecialInflow);
+						$("#"+obj.custOrgNo+"_BANK_ALL_OUTFLOW").append(obj.bankAllOutflow);
+						$("#"+obj.custOrgNo+"_BANK_SPECIAL_OUTFLOW").append(obj.bankSpecialOutflow);
+						$("#"+obj.custOrgNo+"_BANK_ALL_NETFLOW").append(obj.bankAllNetFlow);
+						
 					});
 					$("#custOrgData").empty();
 					$("#custOrgData").append(newCustOrgData);
@@ -73,9 +85,11 @@
 		}
 	}
 	function doClear() {
-		$(".queryBox input[type='text'],#unitId").each(function(i,item){
-			item.value ='';
-		});
+		if(validate()){
+			var dataDate =   $('#dataDate').val();
+			var unitId = $('#unitId').val();
+			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export.action?dataDate="+dataDate+"&unitId="+unitId;  
+		}
 	}
 	//选择部门
 	function openSelectUnit(){
@@ -145,110 +159,110 @@
 					<div class="l-grid-body">
 						<div class="l-grid-body-inner" style="width: 100%;">
 							<table class="l-grid-body-table" cellpadding="0" cellspacing="0">
-								<tbody id="custOrgData">
+								<tbody id="">
 									<tr>
 										<td style="width:200px"><div>国有大型商业银行</div></td>
-										<td style="width:200px"><div id="">0</div></td>
-										<td style="width:200px"><div id="">0</div></td>
-										<td style="width:200px"><div id="">0</div></td>
-										<td style="width:200px"><div id="">0</div></td>
-										<td style="width:200px"><div id="">0</div></td>
+										<td style="width:200px"><div id="100055_BANK_ALL_INFLOW">0</div></td>
+										<td style="width:200px"><div id="100055_BANK_SPECIAL_INFLOW">0</div></td>
+										<td style="width:200px"><div id="100055_BANK_ALL_OUTFLOW">0</div></td>
+										<td style="width:200px"><div id="100055_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td style="width:200px"><div id="100055_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>其中：工商银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100000_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100000_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100000_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100000_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100000_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>农业银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100001_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100001_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100001_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100001_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100001_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>中国银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100002_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100002_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100002_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100002_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100002_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>建设银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100004_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100004_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100004_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100004_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100004_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>交通银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100003_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100003_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100003_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100003_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100003_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>股份制商业银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100018_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100018_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100018_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100018_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100018_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>城市商业银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100028_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100028_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100028_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100028_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100028_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>农村金融机构</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100030_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100030_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100030_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100030_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100030_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>邮政储蓄银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100005_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100005_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100005_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100005_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100005_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>政策性银行</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100007_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100007_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100007_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100007_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100007_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>其他机构</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="100050_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="100050_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="100050_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="100050_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="100050_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 									<tr>
 										<td><div>合计</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
-										<td><div id="">0</div></td>
+										<td><div id="CustOrgNoSum_BANK_ALL_INFLOW">0</div></td>
+										<td><div id="CustOrgNoSum_BANK_SPECIAL_INFLOW">0</div></td>
+										<td><div id="CustOrgNoSum_BANK_ALL_OUTFLOW">0</div></td>
+										<td><div id="CustOrgNoSum_BANK_SPECIAL_OUTFLOW">0</div></td>
+										<td><div id="CustOrgNoSum_BANK_ALL_NETFLOW">0</div></td>
 									</tr>
 								</tbody>
 							</table>

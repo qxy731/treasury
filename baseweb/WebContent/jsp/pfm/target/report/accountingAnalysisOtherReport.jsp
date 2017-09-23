@@ -22,7 +22,7 @@ body{
 		Utils.validateInit();
 		//$("#dataDate").ligerDateEditor({format: "yyyy-MM"});
 		$("#query").bind('click', query);
-		//$("#reset").bind('click', doClear);
+		$("#reset").bind('click', doClear);
 		$(".l-grid-header-table tr").addClass("l-grid-hd-row");
 		$(".l-grid-header-table tr").addClass("l-grid-hd-mul");
 		$(".l-grid-header-table td").addClass("l-grid-hd-cell");
@@ -42,6 +42,18 @@ body{
 		return false;
 	}
 	
+	function doClear() {
+		if(validate()){
+			/* var url = "${_CONTEXT_PATH}/report/bank-funds-flow-report!export4.action";
+			var data = $('#myform').serialize();
+			
+			Utils.ajaxSubmit(url, data); */
+			var dataDate =   $('#dataDate').val();
+			var unitId = $('#unitId').val();
+			var unitName = $("#unitName").val();
+			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export4.action?dataDate="+dataDate+"&unitId="+unitId+"&unitName="+unitName;  
+		}
+	}
 	function query() {
 		if(validate()){
 			var url = "${_CONTEXT_PATH}/report/bank-funds-flow-report!query4.action";
@@ -58,11 +70,6 @@ body{
 				});
 			});
 		}
-	}
-	function doClear() {
-		$(".queryBox input[type='text'],#unitId").each(function(i,item){
-			item.value ='';
-		});
 	}
 	//选择部门
 	function openSelectUnit(){
