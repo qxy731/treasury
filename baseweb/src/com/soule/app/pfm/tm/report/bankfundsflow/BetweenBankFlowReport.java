@@ -1,15 +1,11 @@
 package com.soule.app.pfm.tm.report.bankfundsflow;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -25,7 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
 public class BetweenBankFlowReport {
 	
-	public static void Data2Excel(Map map,ByteArrayOutputStream fout){
+	public static void Data2Excel(Map<String,Object> map,ByteArrayOutputStream fout){
 		
 		 HSSFWorkbook workbook = new HSSFWorkbook();   
 	        //创建sheet页  
@@ -132,13 +128,13 @@ public class BetweenBankFlowReport {
 	        
 	        HSSFRow row2 = sheet.createRow(2);   
 	        HSSFCell c20 = row2.createCell(0);   
-	        c20.setCellValue(new HSSFRichTextString("填报单位："));
+	        c20.setCellValue(new HSSFRichTextString("填报单位："+unitName));
 	        HSSFCell c21 = row2.createCell(1);   
-	        c21.setCellValue(new HSSFRichTextString(unitName)); 
+	        c21.setCellValue(new HSSFRichTextString("")); 
 	        HSSFCell c22 = row2.createCell(2);   
-	        c22.setCellValue(new HSSFRichTextString("业务期间： ")); 
+	        c22.setCellValue(new HSSFRichTextString("业务期间： "+dataDate)); 
 	        HSSFCell c23 = row2.createCell(3);   
-	        c23.setCellValue(new HSSFRichTextString(dataDate)); 
+	        c23.setCellValue(new HSSFRichTextString("")); 
 	        HSSFCell c24 = row2.createCell(4);   
 	        c24.setCellValue(new HSSFRichTextString("单位：万元")); 
 	        HSSFCell c25 = row2.createCell(5);   
@@ -258,159 +254,159 @@ public class BetweenBankFlowReport {
 	        HSSFCell c50 = row5.createCell(0);   
 	        c50.setCellValue(new HSSFRichTextString("国有大型商业银行"));
 	        HSSFCell c51 = row5.createCell(1);   
-	        c51.setCellValue(new HSSFRichTextString(gydxsyPo.getBankAllInflow().toString())); 
+	        c51.setCellValue(new HSSFRichTextString(null ==gydxsyPo.getBankAllInflow()?"0":gydxsyPo.getBankAllInflow().toString())); 
 	        HSSFCell c52 = row5.createCell(2);   
-	        c52.setCellValue(new HSSFRichTextString(gydxsyPo.getBankSpecialInflow().toString())); 
+	        c52.setCellValue(new HSSFRichTextString(null ==gydxsyPo.getBankSpecialInflow()?"0":gydxsyPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c53 = row5.createCell(3);   
-	        c53.setCellValue(new HSSFRichTextString(gydxsyPo.getBankAllOutflow().toString())); 
+	        c53.setCellValue(new HSSFRichTextString(null ==gydxsyPo.getBankAllOutflow()?"0":gydxsyPo.getBankAllOutflow().toString())); 
 	        HSSFCell c54 = row5.createCell(4);   
-	        c54.setCellValue(new HSSFRichTextString(gydxsyPo.getBankSpecialOutflow().toString())); 
+	        c54.setCellValue(new HSSFRichTextString(null ==gydxsyPo.getBankSpecialOutflow()?"0":gydxsyPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c55 = row5.createCell(5);   
-	        c55.setCellValue(new HSSFRichTextString(gydxsyPo.getBankAllNetFlow().toEngineeringString())); 
+	        c55.setCellValue(new HSSFRichTextString(null ==gydxsyPo.getBankAllNetFlow()?"0":gydxsyPo.getBankAllNetFlow().toString())); 
 	        
 	        HSSFRow row6 = sheet.createRow(6);   
 	        HSSFCell c60 = row6.createCell(0);   
 	        c60.setCellValue(new HSSFRichTextString("其中：工商银行"));
 	        HSSFCell c61 = row6.createCell(1);   
-	        c61.setCellValue(new HSSFRichTextString(gsPo.getBankAllInflow().toString())); 
+	        c61.setCellValue(new HSSFRichTextString(null ==gsPo.getBankAllInflow()?"0":gsPo.getBankAllInflow().toString())); 
 	        HSSFCell c62 = row6.createCell(2);   
-	        c62.setCellValue(new HSSFRichTextString(gsPo.getBankSpecialInflow().toString())); 
+	        c62.setCellValue(new HSSFRichTextString(null ==gsPo.getBankSpecialInflow()?"0":gsPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c63 = row6.createCell(3);   
-	        c63.setCellValue(new HSSFRichTextString(gsPo.getBankAllOutflow().toString())); 
+	        c63.setCellValue(new HSSFRichTextString(null ==gsPo.getBankAllOutflow()?"0":gsPo.getBankAllOutflow().toString())); 
 	        HSSFCell c64 = row6.createCell(4);   
-	        c64.setCellValue(new HSSFRichTextString(gsPo.getBankSpecialOutflow().toString())); 
+	        c64.setCellValue(new HSSFRichTextString(null ==gsPo.getBankSpecialOutflow()?"0":gsPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c65 = row6.createCell(5);   
-	        c65.setCellValue(new HSSFRichTextString(gsPo.getBankAllNetFlow().toEngineeringString())); 
+	        c65.setCellValue(new HSSFRichTextString(null ==gsPo.getBankAllNetFlow()?"0":gsPo.getBankAllNetFlow().toString())); 
 	        
 	        
 	        HSSFRow row7 = sheet.createRow(7);   
 	        HSSFCell c70 = row7.createCell(0);   
 	        c70.setCellValue(new HSSFRichTextString("农业银行"));
 	        HSSFCell c71 = row7.createCell(1);   
-	        c71.setCellValue(new HSSFRichTextString(nyPo.getBankAllInflow().toString())); 
+	        c71.setCellValue(new HSSFRichTextString(null ==nyPo.getBankAllInflow()?"0":nyPo.getBankAllInflow().toString())); 
 	        HSSFCell c72 = row7.createCell(2);   
-	        c72.setCellValue(new HSSFRichTextString(nyPo.getBankSpecialInflow().toString())); 
+	        c72.setCellValue(new HSSFRichTextString(null ==nyPo.getBankSpecialInflow()?"0":nyPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c73 = row7.createCell(3);   
-	        c73.setCellValue(new HSSFRichTextString(nyPo.getBankAllOutflow().toString())); 
+	        c73.setCellValue(new HSSFRichTextString(null ==nyPo.getBankAllOutflow()?"0":nyPo.getBankAllOutflow().toString())); 
 	        HSSFCell c74 = row7.createCell(4);   
-	        c74.setCellValue(new HSSFRichTextString(nyPo.getBankSpecialOutflow().toString())); 
+	        c74.setCellValue(new HSSFRichTextString(null ==nyPo.getBankSpecialOutflow()?"0":nyPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c75 = row7.createCell(5);   
-	        c75.setCellValue(new HSSFRichTextString(nyPo.getBankAllNetFlow().toEngineeringString())); 
+	        c75.setCellValue(new HSSFRichTextString(null ==nyPo.getBankAllNetFlow()?"0":nyPo.getBankAllNetFlow().toString())); 
 	        
 	        
 	        HSSFRow row8 = sheet.createRow(8);   
 	        HSSFCell c80 = row8.createCell(0);   
 	        c80.setCellValue(new HSSFRichTextString("中国银行"));
 	        HSSFCell c81 = row8.createCell(1);   
-	        c81.setCellValue(new HSSFRichTextString(zgPo.getBankAllInflow().toString())); 
+	        c81.setCellValue(new HSSFRichTextString(null ==zgPo.getBankAllInflow()?"0":zgPo.getBankAllInflow().toString())); 
 	        HSSFCell c82 = row8.createCell(2);   
-	        c82.setCellValue(new HSSFRichTextString(zgPo.getBankSpecialInflow().toString())); 
+	        c82.setCellValue(new HSSFRichTextString(null ==zgPo.getBankSpecialInflow()?"0":zgPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c83 = row8.createCell(3);   
-	        c83.setCellValue(new HSSFRichTextString(zgPo.getBankAllOutflow().toString())); 
+	        c83.setCellValue(new HSSFRichTextString(null ==zgPo.getBankAllOutflow()?"0":zgPo.getBankAllOutflow().toString())); 
 	        HSSFCell c84 = row8.createCell(4);   
-	        c84.setCellValue(new HSSFRichTextString(zgPo.getBankSpecialOutflow().toString())); 
+	        c84.setCellValue(new HSSFRichTextString(null ==zgPo.getBankSpecialOutflow()?"0":zgPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c85 = row8.createCell(5);   
-	        c85.setCellValue(new HSSFRichTextString(zgPo.getBankAllNetFlow().toEngineeringString())); 
+	        c85.setCellValue(new HSSFRichTextString(null ==zgPo.getBankAllNetFlow()?"0":zgPo.getBankAllNetFlow().toString())); 
 	        
 	        HSSFRow row9 = sheet.createRow(9);   
 	        HSSFCell c90 = row9.createCell(0);   
 	        c90.setCellValue(new HSSFRichTextString("建设银行"));
 	        HSSFCell c91 = row9.createCell(1);   
-	        c91.setCellValue(new HSSFRichTextString(jsPo.getBankAllInflow().toString())); 
+	        c91.setCellValue(new HSSFRichTextString(null ==jsPo.getBankAllInflow()?"0":jsPo.getBankAllInflow().toString())); 
 	        HSSFCell c92 = row9.createCell(2);   
-	        c92.setCellValue(new HSSFRichTextString(jsPo.getBankSpecialInflow().toString())); 
+	        c92.setCellValue(new HSSFRichTextString(null ==jsPo.getBankSpecialInflow()?"0":jsPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c93 = row9.createCell(3);   
-	        c93.setCellValue(new HSSFRichTextString(jsPo.getBankAllOutflow().toString())); 
+	        c93.setCellValue(new HSSFRichTextString(null ==jsPo.getBankAllOutflow()?"0":jsPo.getBankAllOutflow().toString())); 
 	        HSSFCell c94 = row9.createCell(4);   
-	        c94.setCellValue(new HSSFRichTextString(jsPo.getBankSpecialOutflow().toString())); 
+	        c94.setCellValue(new HSSFRichTextString(null ==jsPo.getBankSpecialOutflow()?"0":jsPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c95 = row9.createCell(5);   
-	        c95.setCellValue(new HSSFRichTextString(jsPo.getBankAllNetFlow().toEngineeringString())); 
+	        c95.setCellValue(new HSSFRichTextString(null ==jsPo.getBankAllNetFlow()?"0":jsPo.getBankAllNetFlow().toString())); 
 	        
 	        HSSFRow row10 = sheet.createRow(10);   
 	        HSSFCell c100 = row10.createCell(0);   
 	        c100.setCellValue(new HSSFRichTextString("交通银行"));
 	        HSSFCell c101 = row10.createCell(1);   
-	        c101.setCellValue(new HSSFRichTextString(jtPo.getBankAllInflow().toString())); 
+	        c101.setCellValue(new HSSFRichTextString(null ==jtPo.getBankAllInflow()?"0":jtPo.getBankAllInflow().toString())); 
 	        HSSFCell c102 = row10.createCell(2);   
-	        c102.setCellValue(new HSSFRichTextString(jtPo.getBankSpecialInflow().toString())); 
+	        c102.setCellValue(new HSSFRichTextString(null ==jtPo.getBankSpecialInflow()?"0":jtPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c103 = row10.createCell(3);   
-	        c103.setCellValue(new HSSFRichTextString(jtPo.getBankAllOutflow().toString())); 
+	        c103.setCellValue(new HSSFRichTextString(null ==jtPo.getBankAllOutflow()?"0":jtPo.getBankAllOutflow().toString())); 
 	        HSSFCell c104 = row10.createCell(4);   
-	        c104.setCellValue(new HSSFRichTextString(jtPo.getBankSpecialOutflow().toString())); 
+	        c104.setCellValue(new HSSFRichTextString(null ==jtPo.getBankSpecialOutflow()?"0":jtPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c105 = row10.createCell(5);   
-	        c105.setCellValue(new HSSFRichTextString(jtPo.getBankAllNetFlow().toEngineeringString())); 
+	        c105.setCellValue(new HSSFRichTextString(null ==jtPo.getBankAllNetFlow()?"0":jtPo.getBankAllNetFlow().toString())); 
 	        
 	        HSSFRow row11 = sheet.createRow(11);   
 	        HSSFCell c110 = row11.createCell(0);   
 	        c110.setCellValue(new HSSFRichTextString("股份制商业银行"));
 	        HSSFCell c111 = row11.createCell(1);   
-	        c111.setCellValue(new HSSFRichTextString(gfzsyPo.getBankAllInflow().toString())); 
+	        c111.setCellValue(new HSSFRichTextString(null ==gfzsyPo.getBankAllInflow()?"0":gfzsyPo.getBankAllInflow().toString())); 
 	        HSSFCell c112 = row11.createCell(2);   
-	        c112.setCellValue(new HSSFRichTextString(gfzsyPo.getBankSpecialInflow().toString())); 
+	        c112.setCellValue(new HSSFRichTextString(null ==gfzsyPo.getBankSpecialInflow()?"0":gfzsyPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c113 = row11.createCell(3);   
-	        c113.setCellValue(new HSSFRichTextString(gfzsyPo.getBankAllOutflow().toString())); 
+	        c113.setCellValue(new HSSFRichTextString(null ==gfzsyPo.getBankAllOutflow()?"0":gfzsyPo.getBankAllOutflow().toString())); 
 	        HSSFCell c114 = row11.createCell(4);   
-	        c114.setCellValue(new HSSFRichTextString(gfzsyPo.getBankSpecialOutflow().toString())); 
+	        c114.setCellValue(new HSSFRichTextString(null ==gfzsyPo.getBankSpecialOutflow()?"0":gfzsyPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c115 = row11.createCell(5);   
-	        c115.setCellValue(new HSSFRichTextString(gfzsyPo.getBankAllNetFlow().toEngineeringString())); 
+	        c115.setCellValue(new HSSFRichTextString(null ==gfzsyPo.getBankAllNetFlow()?"0":gfzsyPo.getBankAllNetFlow().toString())); 
 	        
 	        HSSFRow row12 = sheet.createRow(12);   
 	        HSSFCell c120 = row12.createCell(0);   
 	        c120.setCellValue(new HSSFRichTextString("城市商业银行"));
 	        HSSFCell c121 = row12.createCell(1);   
-	        c121.setCellValue(new HSSFRichTextString(cssyPo.getBankAllInflow().toString())); 
+	        c121.setCellValue(new HSSFRichTextString(null ==cssyPo.getBankAllInflow()?"0":cssyPo.getBankAllInflow().toString())); 
 	        HSSFCell c122 = row12.createCell(2);   
-	        c122.setCellValue(new HSSFRichTextString(cssyPo.getBankSpecialInflow().toString())); 
+	        c122.setCellValue(new HSSFRichTextString(null ==cssyPo.getBankSpecialInflow()?"0":cssyPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c123 = row12.createCell(3);   
-	        c123.setCellValue(new HSSFRichTextString(cssyPo.getBankAllOutflow().toString())); 
+	        c123.setCellValue(new HSSFRichTextString(null ==cssyPo.getBankAllOutflow()?"0":cssyPo.getBankAllOutflow().toString())); 
 	        HSSFCell c124 = row12.createCell(4);   
-	        c124.setCellValue(new HSSFRichTextString(cssyPo.getBankSpecialOutflow().toString())); 
+	        c124.setCellValue(new HSSFRichTextString(null ==cssyPo.getBankSpecialOutflow()?"0":cssyPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c125 = row12.createCell(5);   
-	        c125.setCellValue(new HSSFRichTextString(cssyPo.getBankAllNetFlow().toEngineeringString())); 
+	        c125.setCellValue(new HSSFRichTextString(null ==cssyPo.getBankAllNetFlow()?"0":cssyPo.getBankAllNetFlow().toString())); 
 	        
 	        HSSFRow row13 = sheet.createRow(13);   
 	        HSSFCell c130 = row13.createCell(0);   
 	        c130.setCellValue(new HSSFRichTextString("农村金融机构"));
 	        HSSFCell c131 = row13.createCell(1);   
-	        c131.setCellValue(new HSSFRichTextString(cssyPo.getBankAllInflow().toString())); 
+	        c131.setCellValue(new HSSFRichTextString(null ==ncsyjgPo.getBankAllInflow()?"0":ncsyjgPo.getBankAllInflow().toString())); 
 	        HSSFCell c132 = row13.createCell(2);   
-	        c132.setCellValue(new HSSFRichTextString(cssyPo.getBankSpecialInflow().toString())); 
+	        c132.setCellValue(new HSSFRichTextString(null ==ncsyjgPo.getBankSpecialInflow()?"0":ncsyjgPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c133 = row13.createCell(3);   
-	        c133.setCellValue(new HSSFRichTextString(cssyPo.getBankAllOutflow().toString())); 
+	        c133.setCellValue(new HSSFRichTextString(null ==ncsyjgPo.getBankAllOutflow()?"0":ncsyjgPo.getBankAllOutflow().toString())); 
 	        HSSFCell c134 = row13.createCell(4);   
-	        c134.setCellValue(new HSSFRichTextString(cssyPo.getBankSpecialOutflow().toString())); 
+	        c134.setCellValue(new HSSFRichTextString(null ==ncsyjgPo.getBankSpecialOutflow()?"0":ncsyjgPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c135 = row13.createCell(5);   
-	        c135.setCellValue(new HSSFRichTextString(cssyPo.getBankAllNetFlow().toEngineeringString())); 
+	        c135.setCellValue(new HSSFRichTextString(null ==ncsyjgPo.getBankAllNetFlow()?"0":ncsyjgPo.getBankAllNetFlow().toString())); 
 	        
 	        
 	        HSSFRow row14 = sheet.createRow(14);   
 	        HSSFCell c140 = row14.createCell(0);   
 	        c140.setCellValue(new HSSFRichTextString("邮政储蓄银行"));
 	        HSSFCell c141 = row14.createCell(1);   
-	        c141.setCellValue(new HSSFRichTextString(yzcxPo.getBankAllInflow().toString())); 
+	        c141.setCellValue(new HSSFRichTextString(null ==yzcxPo.getBankAllInflow()?"0":yzcxPo.getBankAllInflow().toString())); 
 	        HSSFCell c142 = row14.createCell(2);   
-	        c142.setCellValue(new HSSFRichTextString(yzcxPo.getBankSpecialInflow().toString())); 
+	        c142.setCellValue(new HSSFRichTextString(null ==yzcxPo.getBankSpecialInflow()?"0":yzcxPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c143 = row14.createCell(3);   
-	        c143.setCellValue(new HSSFRichTextString(yzcxPo.getBankAllOutflow().toString())); 
+	        c143.setCellValue(new HSSFRichTextString(null ==yzcxPo.getBankAllOutflow()?"0":yzcxPo.getBankAllOutflow().toString())); 
 	        HSSFCell c144 = row14.createCell(4);   
-	        c144.setCellValue(new HSSFRichTextString(yzcxPo.getBankSpecialOutflow().toString())); 
+	        c144.setCellValue(new HSSFRichTextString(null ==yzcxPo.getBankSpecialOutflow()?"0":yzcxPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c145 = row14.createCell(5);   
-	        c145.setCellValue(new HSSFRichTextString(yzcxPo.getBankAllNetFlow().toEngineeringString())); 
+	        c145.setCellValue(new HSSFRichTextString(null ==yzcxPo.getBankAllNetFlow()?"0":yzcxPo.getBankAllNetFlow().toString())); 
 	        
 	        
 	        HSSFRow row15 = sheet.createRow(15);   
 	        HSSFCell c150 = row15.createCell(0);   
 	        c150.setCellValue(new HSSFRichTextString("政策性银行"));
 	        HSSFCell c151 = row15.createCell(1);   
-	        c151.setCellValue(new HSSFRichTextString(zcxPo.getBankAllInflow().toString())); 
+	        c151.setCellValue(new HSSFRichTextString(null ==zcxPo.getBankAllInflow()?"0":zcxPo.getBankAllInflow().toString())); 
 	        HSSFCell c152 = row15.createCell(2);   
-	        c152.setCellValue(new HSSFRichTextString(zcxPo.getBankSpecialInflow().toString())); 
+	        c152.setCellValue(new HSSFRichTextString(null ==zcxPo.getBankSpecialInflow()?"0":zcxPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c153 = row15.createCell(3);   
-	        c153.setCellValue(new HSSFRichTextString(zcxPo.getBankAllOutflow().toString())); 
+	        c153.setCellValue(new HSSFRichTextString(null ==zcxPo.getBankAllOutflow()?"0":zcxPo.getBankAllOutflow().toString())); 
 	        HSSFCell c154 = row15.createCell(4);   
-	        c154.setCellValue(new HSSFRichTextString(zcxPo.getBankSpecialOutflow().toString())); 
+	        c154.setCellValue(new HSSFRichTextString(null ==zcxPo.getBankSpecialOutflow()?"0":zcxPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c155 = row15.createCell(5);   
-	        c155.setCellValue(new HSSFRichTextString(zcxPo.getBankAllNetFlow().toEngineeringString())); 
+	        c155.setCellValue(new HSSFRichTextString(null ==zcxPo.getBankAllNetFlow()?"0":zcxPo.getBankAllNetFlow().toString())); 
 	        
 	        
 	        
@@ -418,33 +414,33 @@ public class BetweenBankFlowReport {
 	        HSSFCell c160 = row16.createCell(0);   
 	        c160.setCellValue(new HSSFRichTextString("其他机构"));
 	        HSSFCell c161 = row16.createCell(1);   
-	        c161.setCellValue(new HSSFRichTextString(qtjgPo.getBankAllInflow().toString())); 
+	        c161.setCellValue(new HSSFRichTextString(null ==qtjgPo.getBankAllInflow()?"0":qtjgPo.getBankAllInflow().toString())); 
 	        HSSFCell c162 = row16.createCell(2);   
-	        c162.setCellValue(new HSSFRichTextString(qtjgPo.getBankSpecialInflow().toString())); 
+	        c162.setCellValue(new HSSFRichTextString(null ==qtjgPo.getBankSpecialInflow()?"0":qtjgPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c163 = row16.createCell(3);   
-	        c163.setCellValue(new HSSFRichTextString(qtjgPo.getBankAllOutflow().toString())); 
+	        c163.setCellValue(new HSSFRichTextString(null ==qtjgPo.getBankAllOutflow()?"0":qtjgPo.getBankAllOutflow().toString())); 
 	        HSSFCell c164 = row16.createCell(4);   
-	        c164.setCellValue(new HSSFRichTextString(qtjgPo.getBankSpecialOutflow().toString())); 
+	        c164.setCellValue(new HSSFRichTextString(null ==qtjgPo.getBankSpecialOutflow()?"0":qtjgPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c165 = row16.createCell(5);   
-	        c165.setCellValue(new HSSFRichTextString(qtjgPo.getBankAllNetFlow().toEngineeringString())); 
+	        c165.setCellValue(new HSSFRichTextString(null ==qtjgPo.getBankAllNetFlow()?"0":qtjgPo.getBankAllNetFlow().toString())); 
 	        
 	        
 	        HSSFRow row17 = sheet.createRow(17);   
 	        HSSFCell c170 = row17.createCell(0);   
 	        c170.setCellValue(new HSSFRichTextString("合计"));
 	        HSSFCell c171 = row17.createCell(1);   
-	        c171.setCellValue(new HSSFRichTextString(hjPo.getBankAllInflow().toString())); 
+	        c171.setCellValue(new HSSFRichTextString(null ==hjPo.getBankAllInflow()?"0":hjPo.getBankAllInflow().toString())); 
 	        HSSFCell c172 = row17.createCell(2);   
-	        c172.setCellValue(new HSSFRichTextString(hjPo.getBankSpecialInflow().toString())); 
+	        c172.setCellValue(new HSSFRichTextString(null ==hjPo.getBankSpecialInflow()?"0":hjPo.getBankSpecialInflow().toString())); 
 	        HSSFCell c173 = row17.createCell(3);   
-	        c173.setCellValue(new HSSFRichTextString(hjPo.getBankAllOutflow().toString())); 
+	        c173.setCellValue(new HSSFRichTextString(null ==hjPo.getBankAllOutflow()?"0":hjPo.getBankAllOutflow().toString())); 
 	        HSSFCell c174 = row17.createCell(4);   
-	        c174.setCellValue(new HSSFRichTextString(hjPo.getBankSpecialOutflow().toString())); 
+	        c174.setCellValue(new HSSFRichTextString(null ==hjPo.getBankSpecialOutflow()?"0":hjPo.getBankSpecialOutflow().toString())); 
 	        HSSFCell c175 = row17.createCell(5);   
-	        c175.setCellValue(new HSSFRichTextString(hjPo.getBankAllNetFlow().toEngineeringString())); 
+	        c175.setCellValue(new HSSFRichTextString(null ==hjPo.getBankAllNetFlow()?"0":hjPo.getBankAllNetFlow().toString())); 
 	        
 	        
-	        Map map1 = ReportTargetPo2Map.po2Map(treasuryFundsNatureList);
+	        Map<String,Object> map1 = ReportTargetPo2Map.po2Map(treasuryFundsNatureList);
 	        
 	        HSSFRow row18 = sheet.createRow(18);   
 	        HSSFCell c180 = row18.createCell(0);   
@@ -729,7 +725,7 @@ public class BetweenBankFlowReport {
 	        HSSFCell c355 = row35.createCell(5);   
 	        c355.setCellValue(new HSSFRichTextString(aNet.equals(bNet)?"核对一致":"核对不一致")); 
 	        
-	        Map map2 = ReportTargetPo2Map.po2Map(treasuryFundsSourceList);
+	        Map<String,Object> map2 = ReportTargetPo2Map.po2Map(treasuryFundsSourceList);
 	        
 	        HSSFRow row36 = sheet.createRow(37);   
 	        HSSFCell c360 = row36.createCell(0);   

@@ -17,7 +17,7 @@ public interface IBankFundsFlowReportService {
     
     public BankFundsFlowReportQueryOut query4(BankFundsFlowReportQueryIn in) throws ServiceException;
     
-    public Map export4(BankFundsFlowReportQueryIn in) throws ServiceException;
+    public Map<String,Object> export4(BankFundsFlowReportQueryIn in) throws ServiceException;
     /**
      *  国库会计分析其他数据统计表
      * @param in
@@ -42,6 +42,6 @@ public interface IBankFundsFlowReportService {
      * @return
      * @throws ServiceException
      */
-    public Map export(BankFundsFlowReportQueryIn in) throws ServiceException;
+    public Map<String,Object> export(BankFundsFlowReportQueryIn in) throws ServiceException;
    
 }

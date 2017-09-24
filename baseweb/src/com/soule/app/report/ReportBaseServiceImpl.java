@@ -49,7 +49,7 @@ public class ReportBaseServiceImpl implements IReportBaseService {
 	 * 查询报表数据
 	 */
 	@SuppressWarnings("unchecked")
-	public HashMap query(HashMap in, String sqlKey) throws ServiceException {
+	public HashMap<String ,Object> query(HashMap in, String sqlKey) throws ServiceException {
 		HashMap<String, Object> context = new HashMap<String, Object>();
 		ReportOut out = new ReportOut();
 		try {

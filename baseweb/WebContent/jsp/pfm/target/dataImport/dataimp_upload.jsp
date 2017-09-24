@@ -337,7 +337,6 @@ function showRequest(formData, jqForm, options){
 			try{
 				//fval = fileTypes[i].options[fileTypes[i].selectedIndex].value;
 				fval = $(fileTypes[i]).val();
-				alert(fval);
 			}catch(e){}
 			if(fval==null||fval==undefined||fval==""||fval=="undefined"||fval=="null"){
 				msg += "\n第"+(i+1)+"行未选择文件类型！"

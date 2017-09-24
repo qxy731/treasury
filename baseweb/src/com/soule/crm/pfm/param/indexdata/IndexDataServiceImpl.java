@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +33,7 @@ import com.soule.base.media.DbAccessException;
 import com.soule.base.service.IDefaultService;
 import com.soule.base.service.ServiceException;
 import com.soule.comm.tools.AppUtils;
+import com.soule.comm.tools.DateFormatCalendar;
 import com.soule.crm.comm.IUserManager;
 import com.soule.crm.tools.TimeTool;
 import com.soule.crm.pfm.param.paraminfo.*;
@@ -236,9 +239,9 @@ public class IndexDataServiceImpl implements IIndexDataService {
 		String year = dateStr.substring(0, 4);
 		String month = dateStr.substring(4, 6);
 		String day = dateStr.substring(6);
-		if(d.equals("2")){//月
+		if(d.equals("MONTH")){//月
 			returnDate = TimeTool.paserDate(year+"-"+month+"-"+TimeTool.getLastDayOfMonth(year+"-"+month+"-"+"01"), "yyyy-MM-dd");
-		}else if(d.equals("3")){//旬
+		}else if(d.equals("TENDAYS")){//旬
 			if(Integer.parseInt(day) < 11){
 				returnDate = TimeTool.paserDate(year+"-"+month+"-10");
 			}else if(Integer.parseInt(day) < 21){
@@ -246,7 +249,7 @@ public class IndexDataServiceImpl implements IIndexDataService {
 			}else{
 				returnDate = TimeTool.paserDate(year+"-"+month+"-"+TimeTool.getLastDayOfMonth(year+"-"+month+"-"+"01"), "yyyy-MM-dd");
 			}
-		}else if(d.equals("4")){//季
+		}else if(d.equals("QUARTER")){//季
 			if(Integer.parseInt(month) < 4){
 				returnDate = TimeTool.paserDate(year+"-03-31");
 			}else if(Integer.parseInt(month) < 7){
@@ -256,19 +259,48 @@ public class IndexDataServiceImpl implements IIndexDataService {
 			}else{
 				returnDate = TimeTool.paserDate(year+"-12-31");
 			}
-		}else if(d.equals("5")){//半年
+		}else if(d.equals("HALFYEAR")){//半年
 			if(Integer.parseInt(month) < 7){
 				returnDate = TimeTool.paserDate(year+"-06-30");
 			}else{
 				returnDate = TimeTool.paserDate(year+"-12-31");
 			}
-		}else if(d.equals("6")){//年
+		}else if(d.equals("YEAR")){//年
 			returnDate = TimeTool.paserDate(year+"-12-31");
 		}else{
 			returnDate = recoreDate;
 		}
 		return returnDate;
 	}
+	
+	private Date getBizDate1(String indexName, Date recoreDate){
+		Date returnDate = null;
+		String str = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		
+		try {
+			List indexCodeList = sDefault.getIbatisMediator().find("paraminfo.getPfmParamIndexCode", indexName);
+			if(indexCodeList != null && indexCodeList.size() > 0){
+				ParaminfoQPo paraminfoQPo = (ParaminfoQPo)indexCodeList.get(0);
+				str = paraminfoQPo.getDisposeDate();
+				DateFormatCalendar.getInstance(recoreDate);
+				returnDate = sdf.parse(DateFormatCalendar.getBusinessDate(str));
+			}
+			
+			
+		} catch (DbAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return returnDate;
+	}
+	
+	
     /**
      * 解析指标数据补录文件并更新表数据
      */
@@ -295,7 +327,7 @@ public class IndexDataServiceImpl implements IIndexDataService {
 		        	for(int j = 2; j < columnsName.size(); j++) {
 		        		String indexName = (String)columnsName.get(String.valueOf(j));
 		        		IndexDataPo indexDataPo = new IndexDataPo();
-		        		indexDataPo.setRecoreDate(getBizDate(indexName,in.getRecoreDate()));
+		        		indexDataPo.setRecoreDate(getBizDate1(indexName,in.getRecoreDate()));
 		        		indexDataPo.setObjectId((String)(dataMap.get(String.valueOf(0))));
 			        	indexDataPo.setIndexName(indexName);
 			        	IndexDataPo result = (IndexDataPo)sDefault.getIbatisMediator().findById("indexdatastf.getPfmIndexDataMaulByKey2", indexDataPo);

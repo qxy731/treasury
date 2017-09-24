@@ -11,6 +11,11 @@
 .l-grid-row-cell div{
 	text-align:left;
 }
+
+body{
+	width:1200px;
+	margin:0 auto;
+}
 </style>
 <script type="text/javascript">
 	$(function () {
@@ -88,7 +93,8 @@
 		if(validate()){
 			var dataDate =   $('#dataDate').val();
 			var unitId = $('#unitId').val();
-			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export.action?dataDate="+dataDate+"&unitId="+unitId;  
+			var unitName = $('#unitName').val();
+			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export.action?dataDate="+dataDate+"&unitId="+unitId+"&unitName="+unitName;  
 		}
 	}
 	//选择部门

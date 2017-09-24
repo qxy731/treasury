@@ -25,7 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
 public class BetweenTreasuryFundsReport {
 	
-	public static void Data2Excel(Map map,ByteArrayOutputStream fout){
+	public static void Data2Excel(Map<String,Object> map,ByteArrayOutputStream fout){
 		
 		 HSSFWorkbook workbook = new HSSFWorkbook();   
 	        //创建sheet页  

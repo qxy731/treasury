@@ -42,7 +42,7 @@
 	
 	<insert id="savePfmTmQtyOrg" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
 		insert into PFM_TM_QTY_ORG (ORG_ID,TAR_CODE,TAR_DATE,TAR_VALUE,STORE_DATE,LOAD_DATE,DATA_SOR_CODE)
-		values(#objectId:VARCHAR# ,#indexCode:VARCHAR# ,#loadDate:DATE#,#indexVal:decimal# ,#loadDate:DATE# ,#loadDate:DATE#, '2' )
+		values(#objectId:VARCHAR# ,#indexCode:VARCHAR# ,#recoreDate:DATE#,#indexVal:decimal# ,#loadDate:DATE# ,#loadDate:DATE#, '2' )
 	</insert>
 	
 	<update id="updPfmTmQtyOrg" parameterClass="com.soule.crm.pfm.param.indexdata.IndexDataPo">
@@ -71,7 +71,6 @@
 		      a.LOAD_DATE as loadDate
 		    from pfm_tm_qty_org a left join PFM_TM_QTY_DEF b on a.TAR_CODE = b.TAR_CODE
 		    left join SYS_UNIT u on u.unit_id = a.org_id 
-		    from pfm_tm_qty_org a left join PFM_TM_QTY_DEF b on a.TAR_CODE = b.TAR_CODE
 
 			<dynamic prepend="where">
 				<isNotEmpty prepend=" AND " property="indexCode">a.TAR_CODE in ('$indexCode$')</isNotEmpty>
