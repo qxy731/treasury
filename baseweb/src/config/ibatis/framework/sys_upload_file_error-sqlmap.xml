@@ -4,9 +4,9 @@
 	<resultMap id="SysUploadFileErrorMap" class="com.soule.app.table.SysUploadFileErrorPo">
 		<result property="errorId" column="ERROR_ID" jdbcType="java.lang.String"/>
 		<result property="uploadId" column="UPLOAD_ID" jdbcType="java.lang.String"/>
-		<result property="totalNumber" column="TOTAL_NUMBER" jdbcType="java.lang.Integer"/>
-		<result property="successNumber" column="SUCCESS_NUMBER" jdbcType="java.lang.Integer"/>
-		<result property="failureNumber" column="FAILURE_NUMBER" jdbcType="java.lang.Integer"/>
+		<result property="totalNumber" column="TOTAL_NUMBER" jdbcType="java.lang.Long"/>
+		<result property="successNumber" column="SUCCESS_NUMBER" jdbcType="java.lang.Long"/>
+		<result property="failureNumber" column="FAILURE_NUMBER" jdbcType="java.lang.Long"/>
 		<result property="createTime" column="CREATE_TIME" jdbcType="java.util.Date"/>
 	</resultMap>
 	
@@ -40,7 +40,7 @@
 	
 	<insert id="saveSysUploadFileError" parameterClass="com.soule.app.table.SysUploadFileErrorPo">
 		insert into SYS_UPLOAD_FILE_ERROR (ERROR_ID,UPLOAD_ID,TOTAL_NUMBER,SUCCESS_NUMBER,FAILURE_NUMBER,CREATE_TIME)
-		values(#errorId:VARCHAR#,#uploadId:VARCHAR#,#totalNumber:INTEGER#,#successNumber:INTEGER#,#failureNumber:INTEGER#,#createTime:TIMESTAMP#)
+		values(#errorId:VARCHAR#,#uploadId:VARCHAR#,#totalNumber:BIGINT#,#successNumber:BIGINT#,#failureNumber:BIGINT#,#createTime:TIMESTAMP#)
 	</insert>
 	
 	<delete id="delSysUploadFileError" parameterClass="com.soule.app.table.SysUploadFileErrorPo">
