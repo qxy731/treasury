@@ -21,9 +21,8 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 <form id="myform">
 <n:page action='com.soule.crm.pub.dataimport.DataImportAction' />
 	<n:enums keys="uploadfile_type,dataimp_result"></n:enums>
-<table class='content'>
+<table width="100%">
 <tr><td>
-
 <fieldset class="outbox"><legend>下载模板</legend>
 <br>
 <table class='params'>
@@ -46,9 +45,7 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 $(function () {
 	Utils.validateInit();
 	$('#down').bind('click', downFile);
-	
-	
-  	addShadow();
+  	//addShadow();
 });
 
 function downFile() {

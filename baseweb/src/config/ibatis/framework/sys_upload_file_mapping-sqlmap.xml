@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="uploadMapping">
+	<!-- 
+		filePk
+		fileSource
+		fileType
+		fileName
+		fileFreq
+		fileTemplate
+		fileTable
+		fileNum
+		importNum
+		importStatus
+		lastUpdTime
+	-->
+	<resultMap id="SysUploadFileMappingMap" class="com.soule.app.table.SysUploadFileMappingPo">
+		<result property="filePk" column="FILE_PK"/>
+		<result property="fileSource" column="FILE_SOURCE"/>
+		<result property="fileType" column="FILE_TYPE"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileFreq" column="FILE_FREQ"/>
+		<result property="fileTemplate" column="FILE_TEMPLATE"/>
+		<result property="fileTable" column="FILE_TABLE"/>
+		<result property="fileNum" column="FILE_NUM"/>
+		<result property="importNum" column="IMPORT_NUM"/>
+		<result property="importStatus" column="IMPORT_STATUS"/>
+		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+	</resultMap>
+	
+	<select id="getSysUploadFileByKey" parameterClass="com.soule.app.table.SysUploadFileMappingPo"  resultMap="SysUploadFileMappingMap">
+		select * from SYS_UPLOAD_FILE_MAPPING where  FILE_PK = #filePk#
+	</select>
+
+	<select id="getSysUploadFileMapping" parameterClass="java.util.Map" resultMap="SysUploadFileMappingMap">
+		select * from SYS_UPLOAD_FILE_MAPPING 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="filePk">FILE_PK = #filePk#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileSource">FILE_SOURCE = #fileSource#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileType">FILE_TYPE = #fileType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileName">FILE_NAME = #fileName#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileFreq">FILE_FREQ = #fileFreq#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileTemplate">FILE_TEMPLATE = #fileTemplate#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileTable">FILE_TABLE = #fileTable#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileNum">FILE_NUM = #fileNum#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="importNum">IMPORT_NUM = #importNum#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="importStatus">IMPORT_STATUS = #importStatus#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysUploadFileMapping" parameterClass="com.soule.app.table.SysUploadFileMappingPo">
+		update SYS_UPLOAD_FILE_MAPPING
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="filePk">FILE_PK = #filePk#</isNotNull>
+			<isNotNull prepend="," property="fileSource">FILE_SOURCE = #fileSource#</isNotNull>
+			<isNotNull prepend="," property="fileType">FILE_TYPE = #fileType#</isNotNull>
+			<isNotNull prepend="," property="fileName">FILE_NAME = #fileName#</isNotNull>
+			<isNotNull prepend="," property="fileFreq">FILE_FREQ = #fileFreq#</isNotNull>
+			<isNotNull prepend="," property="fileTemplate">FILE_TEMPLATE = #fileTemplate#</isNotNull>
+			<isNotNull prepend="," property="fileTable">FILE_TABLE = #fileTable#</isNotNull>
+			<isNotNull prepend="," property="fileNum">FILE_NUM = #fileNum#</isNotNull>
+			<isNotNull prepend="," property="importNum">IMPORT_NUM = #importNum#</isNotNull>
+			<isNotNull prepend="," property="importStatus">IMPORT_STATUS = #importStatus#</isNotNull>
+			<isNotNull prepend="," property="lastUpdTime">LAST_UPD_TIME = #lastUpdTime#</isNotNull>
+		</dynamic>
+		where FILE_PK = #filePk#
+	</update>
+	
+</sqlMap>

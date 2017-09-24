@@ -5,32 +5,39 @@
 		UPLOAD_ID as uploadId,
 		FILE_ID as fileId,
 		FILE_NAME as fileName,
+		FILE_TYPE as fileType,
 		FILE_SIZE as fileSize,
 		FILE_PATH as filePath,
 		DEL_FLAG as delFlag,
 		DOWN_NUM as downNum,
+		BUSINESS_DATE as businessDate,
+		RESULT_TYPE as resultType,
 		CREATE_USER as createUser,
 		CREATE_TIME as createTime,
+		CREATE_Org as createOrg,
 	-->
 	<resultMap id="SysUploadFileMap" class="com.soule.app.table.SysUploadFilePo">
-		<result property="uploadId" column="UPLOAD_ID"/>
-		<result property="fileId" column="FILE_ID"/>
-		<result property="fileName" column="FILE_NAME"/>
-		<result property="fileType" column="FILE_TYPE"/>
-		<result property="resultType" column="RESULT_TYPE"/>
-		<result property="createOrg" column="CREATE_ORG"/>
-		<result property="fileSize" column="FILE_SIZE"/>
-		<result property="filePath" column="FILE_PATH"/>
-		<result property="delFlag" column="DEL_FLAG"/>
-		<result property="downNum" column="DOWN_NUM"/>
-		<result property="createUser" column="CREATE_USER"/>
-		<result property="createTime" column="CREATE_TIME"/>
+		<result property="uploadId" column="UPLOAD_ID" jdbcType="java.lang.String" />
+		<result property="fileId" column="FILE_ID" jdbcType="java.lang.String" />
+		<result property="fileName" column="FILE_NAME" jdbcType="java.lang.String" />
+		<result property="fileType" column="FILE_TYPE" jdbcType="java.lang.String" />
+		<result property="fileSize" column="FILE_SIZE" jdbcType="java.lang.Integer" />
+		<result property="filePath" column="FILE_PATH" jdbcType="java.lang.String" />
+		<result property="delFlag" column="DEL_FLAG" jdbcType="java.lang.String" />
+		<result property="downNum" column="DOWN_NUM" jdbcType="java.lang.Integer" />
+		<result property="businessDate" column="BUSINESS_DATE" jdbcType="java.lang.String" />
+		<result property="resultType" column="RESULT_TYPE" jdbcType="java.lang.String" />
+		<result property="createUser" column="CREATE_USER" jdbcType="java.lang.String" />
+		<result property="createTime" column="CREATE_TIME" jdbcType="java。util.Date" />
+		<result property="createOrg" column="CREATE_ORG" jdbcType="java.lang.String" />
+		<result property="uploadNo" column="UPLOAD_NO" jdbcType="java.lang.String" />
+		<result property="batchId" column="BATCH_ID" jdbcType="java.lang.String" />
+		<result property="importType" column="IMPORT_TYPE" jdbcType="java.lang.String" />
 	</resultMap>
+	
 	<select id="getSysUploadFileByKey" parameterClass="com.soule.app.table.SysUploadFilePo" 
 		resultMap="SysUploadFileMap">
-		select * from SYS_UPLOAD_FILE where 
-			UPLOAD_ID = #uploadId#
-			AND FILE_ID = #fileId#
+		select * from SYS_UPLOAD_FILE where UPLOAD_ID = #uploadId#
 	</select>
 
 	<select id="getSysUploadFile" parameterClass="java.util.Map" resultMap="SysUploadFileMap">
@@ -42,8 +49,13 @@
 			<isNotEmpty prepend=" AND " property="fileSize">FILE_SIZE = #fileSize#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="filePath">FILE_PATH = #filePath#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="delFlag">DEL_FLAG = #delFlag#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="businessDate">BUSINESS_DATE = #businessDate#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="createUser">CREATE_USER = #createUser#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createOrg">CREATE_ORG = #createOrg#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="uploadNo">UPLOAD_NO = #uploadNo#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="batchId">BATCH_ID = #batchId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="importType">IMPORT_TYPE = #importType#</isNotEmpty>
 		</dynamic>
 	</select>
 
@@ -51,29 +63,32 @@
 		update SYS_UPLOAD_FILE 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="fileName">FILE_NAME = #fileName#</isNotNull>
+			<isNotNull prepend="," property="fileType">FILE_TYPE = #fileType#</isNotNull>
 			<isNotNull prepend="," property="fileSize">FILE_SIZE = #fileSize#</isNotNull>
 			<isNotNull prepend="," property="filePath">FILE_PATH = #filePath#</isNotNull>
 			<isNotNull prepend="," property="delFlag">DEL_FLAG = #delFlag#</isNotNull>
 			<isNotNull prepend="," property="downNum">DOWN_NUM = #downNum#</isNotNull>
+			<isNotNull prepend="," property="businessDate">BUSINESS_DATE = #businessDate#</isNotNull>
+			<isNotNull prepend="," property="resultType">RESULT_TYPE = #resultType#</isNotNull>
 			<isNotNull prepend="," property="createUser">CREATE_USER = #createUser#</isNotNull>
 			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
-			<isNotNull prepend="," property="fileType">FILE_TYPE = #fileType#</isNotNull>
-			<isNotNull prepend="," property="resultType">RESULT_TYPE = #resultType#</isNotNull>
 			<isNotNull prepend="," property="createOrg">CREATE_ORG = #createOrg#</isNotNull>
+			<isNotNull prepend="," property="uploadNo">UPLOAD_NO = #uploadNo#</isNotNull>
+			<isNotNull prepend="," property="batchId">BATCH_ID = #batchId#</isNotNull>
+			<isNotNull prepend="," property="importType">IMPORT_TYPE = #importType#</isNotNull>
 		</dynamic>
 		where 
 			UPLOAD_ID = #uploadId#
-			AND FILE_ID = #fileId#
 	</update>
 	<update id="updateDownloadTime" parameterClass="com.soule.app.table.SysUploadFilePo">
-		update SYS_UPLOAD_FILE set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId# AND FILE_ID = #fileId#
+		update SYS_UPLOAD_FILE set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId#
 	</update>
 	<insert id="saveSysUploadFile" parameterClass="com.soule.app.table.SysUploadFilePo">
-		insert into SYS_UPLOAD_FILE (UPLOAD_ID,FILE_ID,FILE_NAME,FILE_SIZE,FILE_PATH,DEL_FLAG,DOWN_NUM,CREATE_USER,CREATE_TIME,FILE_TYPE,RESULT_TYPE,CREATE_ORG)
-		values(#uploadId:VARCHAR# ,#fileId:VARCHAR# ,#fileName:VARCHAR# ,#fileSize:INTEGER# ,#filePath:VARCHAR# ,#delFlag:CHAR# ,0 ,#createUser:VARCHAR# ,#createTime:TIMESTAMP#,#fileType:VARCHAR# ,#resultType:CHAR# ,#createOrg:VARCHAR#  )
+		insert into SYS_UPLOAD_FILE (UPLOAD_ID,FILE_ID,FILE_NAME,FILE_TYPE,FILE_SIZE,FILE_PATH,DEL_FLAG,DOWN_NUM,BUSINESS_DATE,RESULT_TYPE,CREATE_USER,CREATE_TIME,CREATE_ORG,UPLOAD_NO,BATCH_ID,IMPORT_TYPE)
+		values(#uploadId:VARCHAR# ,#fileId:VARCHAR# ,#fileName:VARCHAR# ,#fileType:VARCHAR# ,#fileSize:INTEGER# ,#filePath:VARCHAR# ,#delFlag:CHAR#,#downNum:INTEGER# ,#businessDate:VARCHAR# ,#resultType:CHAR#,#createUser:VARCHAR# ,#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#uploadNo:VARCHAR# ,#batchId:VARCHAR#,#importType:VARCHAR# )
 	</insert>
 
 	<delete id="delSysUploadFile" parameterClass="com.soule.app.sys.filetransfer.FileTransferFilePo">
-		update SYS_UPLOAD_FILE set DEL_FLAG='1' where UPLOAD_ID = #uploadId# AND FILE_ID = #fileId#
+		update SYS_UPLOAD_FILE set DEL_FLAG='1' where UPLOAD_ID = #uploadId#
 	</delete>
 </sqlMap>

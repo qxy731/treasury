@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FileTemplates>
+<InFileTemplate  type="CSV" table="BAT_LARGE_FROM_ACCT_LIST" desc="大额来账清单" name="BAT_LARGE_FROM_ACCT_LIST">
+<Header/>
+<Content>
+<Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
+<Field type="C" name="报文标识号" spec="" length="32" field="RPT_NO"/>
+<Field type="C" name="收款人帐号" spec="" length="32" field="PAYEE_NO"/>
+<Field type="C" name="收款人名称" spec="" length="64" field="PAYEE_NAME"/>
+<Field type="C" name="付款行行号 " spec="" length="12" field="PAYER_BANK_ID"/>
+<Field type="C" name="付款行名称" spec="" length="128" field="PAYER_BANK_NAME"/>
+<Field type="C" name="付款人帐号" spec="" length="32" field="PAYER_ACCT"/>
+<Field type="C" name="付款人名称" spec="" length="64" field="PAYER_NAME"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+<InFileTemplate type="CSV" table="BAT_DRIBLET_FROM_ACCT_LIST" desc="小额来账清单" name="BAT_DRIBLET_FROM_ACCT_LIST">
+<Header/>
+<Content>
+<Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
+<Field type="C" name="受理日期" spec="" length="8" field="DEAL_DATE"/>
+<Field type="C" name="报文标识号" spec="" length="32" field="RPT_NO"/>
+<Field type="C" name="收款人帐号" spec="" length="32" field="PAYEE_NO"/>
+<Field type="C" name="收款人名称" spec="" length="64" field="PAYEE_NAME"/>
+<Field type="C" name="付款行行号 " spec="" length="12" field="PAYER_BANK_ID"/>
+<Field type="C" name="付款行名称" spec="" length="128" field="PAYER_BANK_NAME"/>
+<Field type="C" name="付款人帐号" spec="" length="32" field="PAYER_ACCT"/>
+<Field type="C" name="付款人名称" spec="" length="64" field="PAYER_NAME"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="处理状态" spec="" length="10" field="DEAL_STATUS"/>
+<Field type="C" name="业务回执状态" spec="" length="32" field="RECEIPT_STATUS"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+<InFileTemplate type="CSV" table="BAT_LARGE_INTO_ACCT_LIST" desc="大额往账清单" name="BAT_LARGE_INTO_ACCT_LIST">
+<Header/>
+<Content>
+<Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
+<Field type="C" name="报文标识号" spec="" length="32" field="RPT_NO"/>
+<Field type="C" name="付款人帐号" spec="" length="32" field="PAYER_NO"/>
+<Field type="C" name="付款人名称" spec="" length="64" field="PAYER_NAME"/>
+<Field type="C" name="收款行行号 " spec="" length="12" field="PAYEE_BANK_ID"/>
+<Field type="C" name="收款行名称" spec="" length="128" field="PAYEE_BANK_NAME"/>
+<Field type="C" name="收款人帐号" spec="" length="32" field="PAYEE_ACCT"/>
+<Field type="C" name="收款人名称" spec="" length="64" field="PAYEE_NAME"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_DRIBLET_INTO_ACCT_LIST" desc="小额往账清单" name="BAT_DRIBLET_INTO_ACCT_LIST">
+<Header/>
+<Content>
+<Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
+<Field type="C" name="受理日期" spec="" length="8" field="DEAL_DATE"/>
+<Field type="C" name="报文标识号" spec="" length="32" field="RPT_NO"/>
+<Field type="C" name="付款人帐号" spec="" length="32" field="PAYER_NO"/>
+<Field type="C" name="付款人名称" spec="" length="64" field="PAYER_NAME"/>
+<Field type="C" name="收款行行号 " spec="" length="12" field="PAYEE_BANK_ID"/>
+<Field type="C" name="收款行名称" spec="" length="128" field="PAYEE_BANK_NAME"/>
+<Field type="C" name="收款人帐号" spec="" length="32" field="PAYEE_ACCT"/>
+<Field type="C" name="收款人名称" spec="" length="64" field="PAYEE_NAME"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="处理状态" spec="" length="10" field="DEAL_STATUS"/>
+<Field type="C" name="业务回执状态" spec="" length="32" field="RECEIPT_STATUS"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_BUDGET_M_ALL" desc="大连市分库预算收入对账月报表[全辖]" name="BAT_RPT_BUDGET_M_ALL">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_LOCAL_BUDGET_M_ALL" desc="大连市分库地方级预算收入月报表[全辖]" name="BAT_RPT_LOCAL_BUDGET_M_ALL">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL01" desc="大连市分库地市级预算收入月报表[全辖]" name="BAT_RPT_CITY_BUDGET_M_ALL01">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_BUDGET_M_ALLTAX" desc="大连市分库预算收入对账月报表[全辖-国税]" name="BAT_RPT_BUDGET_M_ALLTAX">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_CENTER_BUDGET_M_ALL" desc="大连市分库中央级预算收入月报表[全辖]" name="BAT_RPT_CENTER_BUDGET_M_ALL">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL02" desc="大连市分库地市级预算收入月报表[全辖非本级]" name="BAT_RPT_CITY_BUDGET_M_ALL02">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL03" desc="大连市分库地市级预算收入月报表[全辖非本级-预算外]" name="BAT_RPT_CITY_BUDGET_M_ALL03">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL04" desc="大连市分库地市级预算收入月报表[本级-大连市财政局]" name="BAT_RPT_CITY_BUDGET_M_ALL04">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_FINA_MISTAKE_ROLLBACK_LIST" desc="实拨资金财政错误退回清单" name="BAT_FINA_MISTAKE_ROLLBACK_LIST">
+<Header/>
+<Content>
+<Field type="C" name="交易状态" spec="" length="10" field="BIZ_STATUS"/>
+<Field type="C" name="受理日期" spec="" length="10" field="ACCEPT_DATE"/>
+<Field type="C" name="交易流水号" spec="" length="20" field="TRADE_ID"/>
+<Field type="C" name="核算主体代码" spec="" length="12" field="ACCOUNT_CODE"/>
+<Field type="C" name="国库主体代码" spec="" length="12" field="TREASURY_CODE"/>
+<Field type="C" name="账务日期" spec="" length="10" field="FINA_CODE"/>
+<Field type="C" name="凭证编号" spec="" length="5" field="PROOF_NO"/>
+<Field type="C" name="组序号" spec="" length="10" field="MAIN_NO"/>
+<Field type="C" name="分区号" spec="" length="5" field="SUB_NO"/>
+<Field type="C" name="凭证日期" spec="" length="10" field="PROOF_DATE"/>
+<Field type="C" name="借方账号" spec="" length="20" field="DEBIT_ACCT"/>
+<Field type="C" name="贷方账号" spec="" length="20" field="CREDIT_ACCT"/>
+<Field type="C" name="原凭证编号" spec="" length="5" field="O_PROOF_NO"/>
+<Field type="C" name="原受理日期" spec="" length="10" field="O_ACCEPT_DATE"/>
+<Field type="C" name="原出票单位" spec="" length="10" field="O_DRAWER_ORG"/>
+<Field type="C" name="出票单位" spec="" length="10" field="DRAWER_ORG"/>
+<Field type="C" name="预算种类" spec="" length="10" field="BUDGET_TYPE"/>
+<Field type="C" name="预算单位代码" spec="" length="20" field="BUDGET_ORG_CODE"/>
+<Field type="C" name="流水账摘要代码" spec="" length="10" field="FLOW_ID"/>
+<Field type="C" name="退回原因代码" spec="" length="10" field="ROLLBACK_CODE"/>
+<Field type="C" name="退回原因" spec="" length="256" field="ROLLBACK_COMMENT"/>
+<Field type="C" name="计划所属年度" spec="" length="5" field="PLAN_YEAR"/>
+<Field type="C" name="是否找到原信息" spec="" length="5" field="INFO_FLAG"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="调整期标志" spec="" length="10" field="ADJUST_MARK"/>
+<Field type="C" name="业务类型" spec="" length="64" field="BIZ_TYPE"/>
+<Field type="C" name="状态处理码" spec="" length="10" field="DEAL_CODE"/>
+<Field type="C" name="录入员代码" spec="" length="20" field="OPERATE_ID"/>
+<Field type="C" name="复核员代码" spec="" length="20" field="REVIEW_ID"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_CLEAR_CLLO_ACCT_INFO" desc="清算国库与收款国库对账信息（非税）" name="BAT_CLEAR_CLLO_ACCT_INFO">
+<Header/>
+<Content>
+<Field type="C" name="机构名称" spec="" length="64" field="ORG_NAME"/>
+<Field type="C" name="收款国库名称" spec="" length="128" field="PAYEE_THEASURY_NAME"/>
+<Field type="C" name="收款国库代码" spec="" length="10" field="PAYEE_THEASURY_CODE"/>
+<Field type="C" name="清算国库代码" spec="" length="10" field="CLEAR_THEASURY_CODE"/>
+<Field type="C" name="付款行名称" spec="" length="128" field="PAYER_BANK_NAME"/>
+<Field type="C" name="付款行行号" spec="" length="12" field="PAYER_BANK_ID"/>
+<Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
+<Field type="C" name="对账批次" spec="" length="8" field="CHECK_BATCH_ID"/>
+<Field type="C" name="上一批次" spec="" length="8" field="LAST_CHECK_ID"/>
+<Field type="C" name="状态" spec="" length="8" field="STATUS"/>
+<Field type="C" name="清算方式" spec="" length="8" field="SETTLE_TYPE"/>
+<Field type="N" name="笔数" spec="" length="20" field="CNT"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate skipLine="1" type="XLS" table="BAT_CLEAR_BANK_ACCT_INFO" desc="清算国库与清算银行对账单" name="BAT_CLEAR_BANK_ACCT_INFO">
+<Header/>
+<Content>
+<Field type="C" name="清算国库代码" spec="" length="10" field="CLEAR_THEASURY_CODE"/>
+<Field type="C" name="收款行行号" spec="" length="12" field="PAYEE_BANK_ID"/>
+<Field type="C" name="付款行名称" spec="" length="128" field="PAYER_BANK_NAME"/>
+<Field type="C" name="付款行行号" spec="" length="12" field="PAYER_BANK_ID"/>
+<Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
+<Field type="C" name="对账批次" spec="" length="8" field="CHECK_BATCH_ID"/>
+<Field type="C" name="上一批次" spec="" length="8" field="LAST_CHECK_ID"/>
+<Field type="C" name="状态" spec="" length="8" field="STATUS"/>
+<Field type="C" name="清算方式" spec="" length="8" field="SETTLE_TYPE"/>
+<Field type="N" name="笔数" spec="" length="20" field="CNT"/>
+<Field type="D" name="金额" spec="" length="20" field="AMT"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_AUTH_PAY_M" desc="大连市分库单一账户支出授权支付月报表" name="BAT_RPT_AUTH_PAY_M">
+<Header/>
+<Content>
+<Field type="C" name="kmdm" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="kmmc" spec="" length="64" field="SUB_NAME"/>
+<Field type="C" name="dwdm" spec="" length="10" field="ORG_CODE"/>
+<Field type="C" name="dwmc" spec="" length="64" field="ORG_NAME"/>
+<Field type="D" name="rlj" spec="" length="20" field="BAL"/>
+<Field type="D" name="ylj" spec="" length="20" field="BAL_M"/>
+<Field type="D" name="nlj" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+
+<InFileTemplate type="CSV" table="BAT_RPT_DIRECT_SPEND_M" desc="大连市分库单一账户支出直接支付月报表" name="BAT_RPT_DIRECT_SPEND_M">
+<Header/>
+<Content>
+<Field type="C" name="kmdm" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="kmmc" spec="" length="64" field="SUB_NAME"/>
+<Field type="C" name="dwdm" spec="" length="10" field="ORG_CODE"/>
+<Field type="C" name="dwmc" spec="" length="64" field="ORG_NAME"/>
+<Field type="D" name="rlj" spec="" length="20" field="BAL"/>
+<Field type="D" name="ylj" spec="" length="20" field="BAL_M"/>
+<Field type="D" name="nlj" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate skipLine="5" type="XLS" table="BAT_BALANCE_LIST_ALL" desc="大连市分库收支存明细表[全辖]" name="BAT_BALANCE_LIST_ALL">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月执行数" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计数" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="编制单位" spec="BLANK" length="32" field="BUILD_ORG"/>
+<Field type="C" name="编制时间" spec="BLANK" length="10" field="BUILD_TIME"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_BUDGET_CANL_STAT_ALL" desc="大连市分库预算收入退库统计表[全辖]" name="BAT_BUDGET_CANL_STAT_ALL">
+<Header/>
+<Content>
+<Field type="C" name="名称" spec="" length="32" field="DIM_NAME"/>
+<Field type="D" name="中央级本期执行数金额" spec="" length="20" field="CENTRE_BAL"/>
+<Field type="D" name="中央级本期执行数同比增幅（%）" spec="" length="20" field="CENTRE_UP_RANGE"/>
+<Field type="D" name="中央级本年累计数" spec="" length="20" field="CENTRE_BAL_Y"/>
+<Field type="D" name="中央级本年累计数同比增减（%）" spec="" length="20" field="CENTRE_UP_RANGE_Y"/>
+<Field type="D" name="地方级本期执行数金额" spec="" length="20" field="LOCAL_BAL"/>
+<Field type="D" name="地方级本期执行数同比增幅（%）" spec="" length="20" field="LOCAL_UP_RANGE"/>
+<Field type="D" name="地方级本年累计数" spec="" length="20" field="LOCAL_BAL_Y"/>
+<Field type="D" name="地方级本年累计数同比增减（%）" spec="" length="20" field="LOCAL_UP_RANGE_Y"/>
+<Field type="D" name="合计本期执行数金额" spec="" length="20" field="TOTAL_BAL"/>
+<Field type="D" name="合计本期执行数同比增幅（%）" spec="" length="20" field="TOTAL_UP_RANGE"/>
+<Field type="D" name="合计本年累计数" spec="" length="20" field="TOTAL_BAL_Y"/>
+<Field type="D" name="合计本年累计数同比增减（%）" spec="" length="20" field="TOTAL_UP_RANGE_Y"/>
+<Field type="C" name="编制单位" spec="BLANK" length="32" field="BUILD_ORG"/>
+<Field type="C" name="编制时间" spec="BLANK" length="10" field="BUILD_TIME"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_TIPS_FEE01" desc="TIPS手续费查询[实时扣税]" name="BAT_TIPS_FEE01">
+<Header/>
+<Content>
+<Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
+<Field type="N" name="一票一税笔数" spec="" length="10" field="TRANS_NUM"/>
+<Field type="D" name="金额" spec="" length="20" field="BAL"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_TIPS_FEE02" desc="TIPS手续费查询[银行端缴款]" name="BAT_TIPS_FEE02">
+<Header/>
+<Content>
+<Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
+<Field type="N" name="一票一税笔数" spec="" length="10" field="TRANS_NUM"/>
+<Field type="D" name="金额" spec="" length="20" field="BAL"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_TIPS_FEE03" desc="TIPS手续费查询[自缴核销]" name="BAT_TIPS_FEE03">
+<Header/>
+<Content>
+<Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
+<Field type="N" name="一票一税笔数" spec="" length="10" field="TRANS_NUM"/>
+<Field type="D" name="金额" spec="" length="20" field="BAL"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_TIPS_FEE04" desc="TIPS手续费查询[批量扣税]" name="BAT_TIPS_FEE04">
+<Header/>
+<Content>
+<Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
+<Field type="N" name="一票一税笔数" spec="" length="10" field="TRANS_NUM"/>
+<Field type="D" name="金额" spec="" length="20" field="BAL"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate skipLine="5" type="XLS" table="BAT_BALANCE_LIST" desc="大连市分库收支存明细表[本级]" name="BAT_BALANCE_LIST">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月执行数" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计数" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="编制单位" spec="BLANK" length="32" field="BUILD_ORG"/>
+<Field type="C" name="编制时间" spec="BLANK" length="10" field="BUILD_TIME"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate type="XLS" table="BAT_LOCAL_CLEARING_LIST" desc="同城票据交换明细" name="BAT_LOCAL_CLEARING_LIST">
+<Header/>
+<Content>
+<Field type="C" name="QFJH" spec="" length="5" field="QFJH"/>
+<Field type="C" name="LSH" spec="" length="10" field="LSH"/>
+<Field type="C" name="ZPH" spec="" length="10" field="ZPH"/>
+<Field type="C" name="TRHH" spec="" length="10" field="TRHH"/>
+<Field type="C" name="TCHH" spec="" length="32" field="TCHH"/>
+<Field type="C" name="ZPZH" spec="" length="12" field="ZPZH"/>
+<Field type="C" name="JYM" spec="" length="64" field="JYM"/>
+<Field type="D" name="JE" spec="" length="20" field="JE"/>
+<Field type="C" name="JPY" spec="" length="64" field="JPY"/>
+<Field type="C" name="KDH" spec="" length="64" field="KDH"/>
+<Field type="C" name="RQ" spec="" length="64" field="RQ"/>
+<Field type="C" name="CC" spec="" length="64" field="CC"/>
+<Field type="C" name="QFJHFB" spec="" length="64" field="QFJHFB"/>
+<Field type="C" name="LSHFB" spec="" length="64" field="LSHFB"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+<InFileTemplate type="CSV" table="BAT_RPT_EXPEND_M" desc="大连市分库一般预算支出月报表[本级]" name="BAT_RPT_EXPEND_M">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+<InFileTemplate type="XLS" table="BAT_RPT_BUDGET_SUB_STAT" desc="大连市分库预算收支存分科目统计表[中央]" name="BAT_RPT_BUDGET_SUB_STAT">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="SUBSTRPREFIX" length="10" field="SUB_CODE" param="--"/>
+<Field type="D" name="本月执行数" spec="" length="20" field="AMT_MONTH"/>
+<Field type="D" name="同比增速（本期）" spec="" length="20" field="ANNUAL_GROWTH_RATE"/>
+<Field type="D" name="增长贡献率（本期）" spec="" length="20" field="INCRE_CON_RATE"/>
+<Field type="D" name="占比（本期）" spec="" length="20" field="FACTOR_MONTH"/>
+<Field type="D" name="本年累计数" spec="" length="20" field="AMT_YEAR"/>
+<Field type="D" name="同比增速（本年）" spec="" length="20" field="ANNUAL_GROWTH_RATE_Y"/>
+<Field type="D" name="增长贡献率（本年）" spec="" length="20" field="INCRE_CON_RATE_Y"/>
+<Field type="D" name="占比（本年）" spec="" length="20" field="FACTOR_MONTH_Y"/>
+<Field type="C" name="subName" spec="SUBSTRSUFFIX" length="64" field="SUB_NAME"  param="--|SUB_CODE"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+<InFileTemplate skipLine="6" type="XLS" table="BAT_RPT_LOCAL_BUDGET_SUB_STAT" desc="大连市分库预算收支存分科目统计表[地方]" name="BAT_RPT_LOCAL_BUDGET_SUB_STAT">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="SUBSTRPREFIX" length="10" field="SUB_CODE" param="--"/>
+<Field type="D" name="本月执行数" spec="" length="20" field="AMT_MONTH"/>
+<Field type="D" name="同比增速（本期）" spec="" length="20" field="ANNUAL_GROWTH_RATE"/>
+<Field type="D" name="增长贡献率（本期）" spec="" length="20" field="INCRE_CON_RATE"/>
+<Field type="D" name="占比（本期）" spec="" length="20" field="FACTOR_MONTH"/>
+<Field type="D" name="本年累计数" spec="" length="20" field="AMT_YEAR"/>
+<Field type="D" name="同比增速（本年）" spec="" length="20" field="ANNUAL_GROWTH_RATE_Y"/>
+<Field type="D" name="增长贡献率（本年）" spec="" length="20" field="INCRE_CON_RATE_Y"/>
+<Field type="D" name="占比（本年）" spec="" length="20" field="FACTOR_MONTH_Y"/>
+<Field type="C" name="subName" spec="SUBSTRSUFFIX" length="64" field="SUB_NAME"  param="--|SUB_CODE"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+</FileTemplates>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="uploadFileErrorDetail">
+
+	<resultMap id="SysUploadFileErrorDetailMap" class="com.soule.app.table.SysUploadFileErrorDetailPo">
+		<result property="detailId" column="DETAIL_ID" jdbcType="java.lang.String"/>
+		<result property="errorId" column="ERROR_ID" jdbcType="java.lang.String"/>
+		<result property="errorLine" column="ERROR_LINE" jdbcType="java.lang.String"/>
+		<result property="remark" column="REMARK" jdbcType="java.lang.String"/>
+		<result property="createTime" column="CREATE_TIME" jdbcType="java.util.Date"/>
+	</resultMap>
+	
+	<select id="getSysUploadFileErrorDetailByKey" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo"  resultMap="SysUploadFileErrorDetailMap">
+		select * from SYS_UPLOAD_FILE_ERROR_DETAIL where DETAIL_ID = #detailId#
+	</select>
+
+	<select id="getSysUploadFileErrorDetail" parameterClass="java.util.Map" resultMap="SysUploadFileErrorDetailMap">
+		select * from SYS_UPLOAD_FILE_ERROR_DETAIL 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="detailId">DETAIL_ID = #detailId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="errorId">ERROR_ID = #errorId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="errorLine">ERROR_LINE = #errorLine#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="REMARK">REMARK = #remark#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysUploadFileErrorDetail" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo">
+		update SYS_UPLOAD_FILE_ERROR_DETAIL
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="errorId">ERROR_ID = #errorId#</isNotNull>
+			<isNotNull prepend="," property="errorLine">ERROR_LINE = #errorLine#</isNotNull>
+			<isNotNull prepend="," property="remark">REMARK = #remark#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+		</dynamic>
+		where DETAIL_ID = #detailId#
+	</update>
+	
+	<insert id="saveSysUploadFileErrorDetail" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo">
+		insert into SYS_UPLOAD_FILE_ERROR_DETAIL (DETAIL_ID,ERROR_ID,ERROR_LINE,REMARK,CREATE_TIME)
+		values(#detailId:VARCHAR#,#errorId:VARCHAR#,#errorLine:VARCHAR#,#remark:VARCHAR#,#createTime:TIMESTAMP#)
+	</insert>
+	
+	<delete id="delSysUploadFileErrorDetail" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo">
+		delete from SYS_UPLOAD_FILE_ERROR_DETAIL where DETAIL_ID = #detailId#
+	</delete>
+
+</sqlMap>

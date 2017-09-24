@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="uploadFileError">
+	<resultMap id="SysUploadFileErrorMap" class="com.soule.app.table.SysUploadFileErrorPo">
+		<result property="errorId" column="ERROR_ID" jdbcType="java.lang.String"/>
+		<result property="uploadId" column="UPLOAD_ID" jdbcType="java.lang.String"/>
+		<result property="totalNumber" column="TOTAL_NUMBER" jdbcType="java.lang.Integer"/>
+		<result property="successNumber" column="SUCCESS_NUMBER" jdbcType="java.lang.Integer"/>
+		<result property="failureNumber" column="FAILURE_NUMBER" jdbcType="java.lang.Integer"/>
+		<result property="createTime" column="CREATE_TIME" jdbcType="java.util.Date"/>
+	</resultMap>
+	
+	<select id="getSysUploadFileErrorByKey" parameterClass="com.soule.app.table.SysUploadFileErrorPo"  resultMap="SysUploadFileErrorMap">
+		select * from SYS_UPLOAD_FILE_ERROR where ERROR_ID = #errorId#
+	</select>
+
+	<select id="getSysUploadFileError" parameterClass="java.util.Map" resultMap="SysUploadFileErrorMap">
+		select * from SYS_UPLOAD_FILE_ERROR 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="errorId">ERROR_ID = #errorId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="uploadId">UPLOAD_ID = #uploadId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="totalNumber">TOTAL_NUMBER = #totalNumber#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="successNumber">SUCCESS_NUMBER = #successNumber#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="failureNumber">FAILURE_NUMBER = #failureNumber#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="createTime">CREATE_TIME = #createTime#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysUploadFileError" parameterClass="com.soule.app.table.SysUploadFileErrorPo">
+		update SYS_UPLOAD_FILE_ERROR
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="uploadId">UPLOAD_ID = #uploadId#</isNotNull>
+			<isNotNull prepend="," property="totalNumber">TOTAL_NUMBER = #totalNumber#</isNotNull>
+			<isNotNull prepend="," property="successNumber">SUCCESS_NUMBER = #successNumber#</isNotNull>
+			<isNotNull prepend="," property="failureNumber">FAILURE_NUMBER = #failureNumber#</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME = #createTime#</isNotNull>
+		</dynamic>
+		where ERROR_ID = #errorId#
+	</update>
+	
+	<insert id="saveSysUploadFileError" parameterClass="com.soule.app.table.SysUploadFileErrorPo">
+		insert into SYS_UPLOAD_FILE_ERROR (ERROR_ID,UPLOAD_ID,TOTAL_NUMBER,SUCCESS_NUMBER,FAILURE_NUMBER,CREATE_TIME)
+		values(#errorId:VARCHAR#,#uploadId:VARCHAR#,#totalNumber:INTEGER#,#successNumber:INTEGER#,#failureNumber:INTEGER#,#createTime:TIMESTAMP#)
+	</insert>
+	
+	<delete id="delSysUploadFileError" parameterClass="com.soule.app.table.SysUploadFileErrorPo">
+		delete from SYS_UPLOAD_FILE_ERROR where ERROR_ID = #errorId#
+	</delete>
+
+</sqlMap>

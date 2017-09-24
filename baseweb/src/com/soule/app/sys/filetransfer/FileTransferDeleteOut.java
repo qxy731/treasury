@@ -1,7 +1,6 @@
 package com.soule.app.sys.filetransfer;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.soule.base.service.IServiceResult;
 import com.soule.base.service.ServiceResult;

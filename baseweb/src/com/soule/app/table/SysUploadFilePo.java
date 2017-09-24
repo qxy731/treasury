@@ -24,29 +24,6 @@ public class SysUploadFilePo implements Serializable {
     private String fileType;
     private String resultType;
     private String createOrg;
-    public String getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
-
-	public String getResultType() {
-		return resultType;
-	}
-
-	public void setResultType(String resultType) {
-		this.resultType = resultType;
-	}
-
-	public String getCreateOrg() {
-		return createOrg;
-	}
-
-	public void setCreateOrg(String createOrg) {
-		this.createOrg = createOrg;
-	}
 
 	/**
      * 文件大小
@@ -72,7 +49,48 @@ public class SysUploadFilePo implements Serializable {
      * 创建时间
      */
     private java.util.Date createTime;
-
+    /**
+     * 数据日期
+     */
+    private String businessDate;
+    
+    /**
+     * 后续改进方向：
+     * uploadNo和batchId两个字段，以满足需求：
+     * 1：一份数据：一个文件一次上传。(一个fileId[程序处理],一个uploadNo,一个batchId)
+     * 2：一份数据：多个文件一次上传。(一个fileId[程序处理],一个uploadNo,多个batchId)
+     * 3：一份数据：多个文件多次上传。(一个fileId[程序处理],多个uploadNo,多个batchId)
+     * 当前系统已实现
+     * 1：多个文件一次上传。(一个fileId,一个uploadNo,多个batchId)
+     * 2：多个文件多次上传。(多个fileId,多个uploadNo,多个batchId)
+     * 同一个fileId[程序处理]说明：根据sys_upload_file_mapping配置信息判断(同一fileType,只有一个fileId)
+     * 
+     * 保存路径：根目录/年/月/日/系统来源/文件ID/文件名
+     * 根目录:系统文件配置
+     * 年:YYYY
+     * 月:MM
+     * 日:DD
+     * 系统来源:等于sys_upload_file_mapping表的FILE_SOURCE,如果没有默认为other
+     * 文件ID:fileId,一个batchId,不创建此目录;如果有多个batchId,创建此目录
+     * 文件名:uploadId
+     */
+    
+    /**
+     * 上传编号
+     */
+    private String uploadNo;
+    
+    /**
+     * 文件数据批次号
+     *  
+     */
+    private String batchId;
+    
+    /**
+     * 导入形式：1-覆盖，2-追加
+     */
+    private String importType;
+    
     /**
      * @return 上传编码
      */
@@ -190,5 +208,61 @@ public class SysUploadFilePo implements Serializable {
     public void setCreateTime (java.util.Date createTime) {
         this.createTime = createTime;
     }
+
+	public String getBusinessDate() {
+		return businessDate;
+	}
+
+	public void setBusinessDate(String businessDate) {
+		this.businessDate = businessDate;
+	}   
+	
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getResultType() {
+		return resultType;
+	}
+
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
+
+	public String getCreateOrg() {
+		return createOrg;
+	}
+
+	public void setCreateOrg(String createOrg) {
+		this.createOrg = createOrg;
+	}
+
+	public String getUploadNo() {
+		return uploadNo;
+	}
+
+	public void setUploadNo(String uploadNo) {
+		this.uploadNo = uploadNo;
+	}
+
+	public String getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(String batchId) {
+		this.batchId = batchId;
+	}
+
+	public String getImportType() {
+		return importType;
+	}
+
+	public void setImportType(String importType) {
+		this.importType = importType;
+	}
 
 }

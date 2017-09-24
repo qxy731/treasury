@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+<sqlMap namespace="uploadQueue">
+	<!-- 
+		QUEUE_ID as queueId,
+		UPLOAD_ID as uploadId,
+		IN_QUEUE_TIME as inQueueTime
+	-->
+	<resultMap id="SysUploadFileQueueMap" class="com.soule.app.table.SysUploadFileQueuePo">
+		<result property="queueId" column="QUEUE_ID" jdbcType="java.lang.String"/>
+		<result property="uploadId" column="UPLOAD_ID" jdbcType="java.lang.String"/>
+		<result property="inQueueTime" column="IN_QUEUE_TIME" jdbcType="java.util.Date"/>
+	</resultMap>
+	
+	<select id="getSysUploadFileQueueByKey" parameterClass="com.soule.app.table.SysUploadFileQueuePo"  resultMap="SysUploadFileQueueMap">
+		select * from SYS_UPLOAD_FILE_QUEUE where QUEUE_ID = #queueId#
+	</select>
+
+	<select id="getSysUploadFileQueue" parameterClass="java.util.Map" resultMap="SysUploadFileQueueMap">
+		select * from SYS_UPLOAD_FILE_QUEUE 
+		<dynamic prepend="where">
+			<isNotEmpty prepend=" AND " property="queueId">QUEUE_ID = #queueId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="uploadId">UPLOAD_ID = #uploadId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="inQueueTime">IN_QUEUE_TIME = #inQueueTime#</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<update id="updSysUploadFileQueue" parameterClass="com.soule.app.table.SysUploadFileQueuePo">
+		update SYS_UPLOAD_FILE_QUEUE
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="uploadId">UPLOAD_ID = #uploadId#</isNotNull>
+			<isNotNull prepend="," property="inQueueTime">IN_QUEUE_TIME = #inQueueTime#</isNotNull>
+		</dynamic>
+		where QUEUE_ID = #queueId#
+	</update>
+	
+	<insert id="saveSysUploadFileQueue" parameterClass="com.soule.app.table.SysUploadFileQueuePo">
+		insert into SYS_UPLOAD_FILE_QUEUE (QUEUE_ID,UPLOAD_ID,IN_QUEUE_TIME)
+		values(#queueId:VARCHAR# ,#uploadId:VARCHAR# ,#inQueueTime:TIMESTAMP#)
+	</insert>
+	
+	<delete id="delSysUploadFileQueue" parameterClass="com.soule.app.table.SysUploadFileQueuePo">
+		delete from SYS_UPLOAD_FILE_QUEUE where QUEUE_ID = #queueId#
+	</delete>
+
+</sqlMap>

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.soule.app.pfm.tm.BaseTar"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -85,6 +84,7 @@
 		$("#qtydeflist").ligerGrid({
 			checkbox:true,
 			isSingleCheck :true,
+			selectRowButtonOnly:true,
 			rownumbers:true,
 			enumlist: _enum_params , 
 			columns: [
@@ -100,7 +100,6 @@
 						{ display: '建立部门', name: 'unitName', width:230,align:'left'}
 						],
 			pageSize:20,
-			selectRowButtonOnly:true,
 			width:'100%',
 			height:'100%',
 			heightDiff:-20 ,

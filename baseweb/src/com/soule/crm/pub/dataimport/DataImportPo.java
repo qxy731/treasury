@@ -13,9 +13,10 @@ public class DataImportPo implements Serializable {
     private String fileId;
     private String fileType;
     private String fileName;
-    private String fileSize;
+    private Double fileSize;
     private String staffId;
     private String staffName;
+    private String businessDate;
     private String resultType;
     private java.util.Date uploadDate;
 
@@ -83,15 +84,15 @@ public class DataImportPo implements Serializable {
         this.fileName = fileName;
     }
 
-    public String getFileSize() {
-        return fileSize;
-    }
+    public Double getFileSize() {
+		return fileSize;
+	}
 
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
-    }
+	public void setFileSize(Double fileSize) {
+		this.fileSize = fileSize;
+	}
 
-    public String getStaffId() {
+	public String getStaffId() {
         return staffId;
     }
 
@@ -107,4 +108,13 @@ public class DataImportPo implements Serializable {
     public void setUploadDate(java.util.Date uploadDate) {
         this.uploadDate = uploadDate;
     }
+
+	public String getBusinessDate() {
+		return businessDate;
+	}
+
+	public void setBusinessDate(String businessDate) {
+		this.businessDate = businessDate;
+	}   
+    
 }

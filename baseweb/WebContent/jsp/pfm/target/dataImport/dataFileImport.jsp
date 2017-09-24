@@ -30,7 +30,7 @@ body {overflow: hidden;}
 								<td>
 									<input type='text' id='fileName' name='fileName' />
 								</td>
-								<td>文件上传部门</td>
+								<td>文件上传国库</td>
 								<td>
 									<input type='hidden' id='orgCode' name='orgCode'  value="${logUserInfo.operUnitId}" /> 
 									<input type='text' id='orgName' name='orgName' readonly="readonly" onclick="openSelectUnit()" class="unit_select" value="${logUserInfo.operUnitName}" />
@@ -85,35 +85,39 @@ $(function () {
     $("#toptoolbar").ligerToolBar({items:[
   	      {text:'下载模板',name:'insert_btn',icon:'export',click:btn_downmodule_click},
   		  {text:'上传文件',name:'commit_btn',icon:'submit',click:btn_upfile_click},
-  		  {text:'删除文件',name:'delete_btn',icon:'delete',click:btn_delfile_click}/* ,
-  		  {text:'上传文件查看',name:'btn_detail',icon:'detail',click:queryDetail} */
+  		  {text:'删除文件',name:'delete_btn',icon:'delete',click:btn_delfile_click},
+  		  {text:'上传文件查看',name:'btn_detail',icon:'detail',click:queryDetail},
+  		  {text:'加载文件数据',name:'btn_detail',icon:'detail',click:loadFileData}
   	],
   		  width:'99%'
   	});
 	//输出表格
 	$("#filelist").ligerGrid({
+		checkbox:true,
+		isSingleCheck :true,
+		selectRowButtonOnly:true,
 		enumlist: _enum_params ,
 		columns: [
-			{ display: '处理结果', name: 'resultType', align: 'center',codetype:'dataimp_result', width: 80 },
-			{ display: '文件类型', name: 'fileType', align: 'left',codetype:'uploadfile_type', width: 150 },
-			{ display: '文件名称', name: 'fileName', align: 'left', width: 220 },
-			{ display: '文件上传者', name: 'staffName', align: 'left', width: 80 },
-			{ display: '文件上传部门', name: 'orgName', align: 'left', width: 160 },
-			{ display: '文件大小(k)', name: 'fileSize', align: 'center',width:85 },
-			{ display: '上传日期', name: 'uploadDate', align: 'center',width:150 }
+			{ display: '处理结果', name: 'resultType', align: 'center',codetype:'dataimp_result', width: 60 },
+			{ display: '数据日期', name: 'businessDate', align: 'left', width: 60},
+			{ display: '文件类型', name: 'fileType', align: 'left',codetype:'uploadfile_type', width: 310},
+			{ display: '文件名称', name: 'fileName', align: 'left', width: 300 },
+			{ display: '文件上传者', name: 'staffName', align: 'left', width: 65 },
+			{ display: '文件上传国库', name: 'orgName', align: 'left', width: 140 },
+			{ display: '文件大小(KB)', name: 'fileSize', align: 'center',width:80 },
+			{ display: '上传日期', name: 'uploadDate', align: 'center',width:125 }
 		],
-		pageSize:10,
+		pageSize:20,
 		width: '100%',
 		height:'100%',
 		heightDiff:-20,
-		onDblClickRow:queryDetail,
+		//onDblClickRow:queryDetail,
 		onError: function(e) {
 			Utils.toIndex(e);
 		}
 	});	
-	//$("#hiddtrId").hide();
-	addShadow();
 });
+
 function chgFileType(obj){
 	var fileType = obj.value;
 	if(fileType=="07"||fileType=="09"){
@@ -138,10 +142,6 @@ function btn_delfile_click(){
 		$.dialogBox.info("请选择记录",true);
 		return;
 	}
-// 	if(rows.resultType=='0'){
-// 		$.dialogBox.warn("不能删除正在处理的文件!");
-// 		return;
-// 	}
 	if(_CREATE_USER!=rows.staffId){
 		$.dialogBox.warn("只能删除自己导入的文件!");
 		return;
@@ -150,39 +150,6 @@ function btn_delfile_click(){
 	doComAndUncomAndDel(uploadId,rows.fileId,'删除',"${_CONTEXT_PATH}/pub/data-import!deleteFile.action");
 }
 
-//上传文件
-function btn_upfile_click() {
-	var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_up.jsp";
-	$.dialogBox.openDialog(url, {title:"上传文件", width:'400px', height:'280px'});
-}
-
-function doUploadFile(uploadId,files){
-	var fileType = $("#fileType").val();
-	var url = "${_CONTEXT_PATH}/pub/data-import!uploadFile.action";
-	var monthId = $('#monthId').val();
-	Utils.ajaxSubmit(url,{"uploadId":uploadId,"monthId":monthId,"uploadFileType":fileType}, function(result){
-		$.dialogBox.confirm('文件上传成功,是否确认导入?',function(){
-			execute();
-			callProcedureFile(uploadId,fileType);
-		},true);
-	}, function(result) {
-		var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_errorlist.jsp";
-		errordata = result.rows;
-		if (result.retMsg) {
-			$.dialogBox.error(result.retMsg);
-		}
-		else {
-			$.dialogBox.openDialog(url,{title:"错误信息",width:'700px',height:'500px'},true);
-		}
-	});
-}
-var errordata = [];
-function callProcedureFile(uploadId,fileType){
-	var z = $("#monthId").val().split("-");
-	var monthId = z[0]+z[1]+z[2];
-	var url = "${_CONTEXT_PATH}/pub/data-import!callUploadData.action";
-	Utils.ajaxSubmit(url,{"uploadId":uploadId,"uploadFileType":fileType,"monthId":monthId},function(){},function(){});
-}
 function doComAndUncomAndDel(uploadId,fileId,type,url){
 	var data = {'queryIn.uploadId' : uploadId,'queryIn.fileId' : fileId};
 	$.dialogBox.confirm('您确定'+type+'吗？',function () {
@@ -197,14 +164,23 @@ function onSucc() {
 	$.dialogBox.close();
 }
 
+//上传文件
+function btn_upfile_click() {
+	var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_up.jsp";
+	$.dialogBox.openDialog(url, {title:"上传文件", width:'860px', height:'500px'});
+}
+
+
 function doClear() {
 	$(".queryBox input[type='text']").each(function(i,item){
 		item.value ='';
 	});
-	$("#staffId").val('');
 	$(".queryBox select").each(function(i,item){
 		item.value ='';
 	});
+	$("#orgCode").val(_CREATE_ORG);
+	$("#orgName").val(_CREATE_ORGNAME);
+	$("#staffId").val("");
 }
 
 function execute() {
@@ -242,6 +218,17 @@ function queryDetail(){
 		$.dialogBox.warn("请选择记录！");
 	} 
 }
+
+function loadFileData(){
+	var url = "${_CONTEXT_PATH}/pub/data-import!loadFileData.action";
+	var data = {};
+	$.dialogBox.confirm('您确定文件已上传完毕，现在开始加载文件数据吗？',function () {
+		Utils.ajaxSubmit(url, data, function(result) {
+			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
+		});
+},true);
+}
+
 //选择部门信息
 function openSelectUnit(){
 	AppUtils.openSelectUnit(null,$("#orgCode").val(),setUnitIdName);

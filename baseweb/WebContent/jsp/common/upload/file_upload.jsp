@@ -15,16 +15,13 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 .delarea,.downarea{width:18px;height:18px;float:right;cursor:pointer;}
 .delarea { background:#fff url('../../../images/delete.gif') no-repeat right center;}
 .downarea { background:#fff url('../../../images/down.gif') no-repeat right center;}
-
 </style>
 </head>
 <body style='overflow: hidden; border:none;'>
 <n:page action='com.soule.app.sys.filetransfer.FileTransferAction' initMethod="initUploadId"/>
-<div>已上传的文件</div>
 <div id="files" ></div>
 <iframe id='fileframe' src='file_inner.jsp?uid=${uploadId}&filter=${filter}' frameborder="0"></iframe>
 <div id='msg'></div>
-
 </body>
 <script type='text/javascript'>
 var params = {
@@ -48,7 +45,7 @@ function initMethod(filenum,canDelete,canDownload,canUpload) {
 		$('#fileframe').hide();
 	}
 	try {
-		params.msg = '文件大小<5M,允许文件类型[${filter}],可上传文件数' + filenum,
+		params.msg = '文件大小<5M,允许文件类型[${filter}],可上传文件数' + filenum;
 		$('#msg').html(params.msg);
 		var fileMax = params.fileNum;
 		if (fileMax == 0) {

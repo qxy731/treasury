@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Namespace;
-
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,20 +21,11 @@ import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.tools.AppUtils;
 
-/*import com.neusoft.app.sys.enums.EnumItemPo;
-import com.neusoft.base.action.BaseAction;
-import com.neusoft.base.media.DbAccessException;
-import com.neusoft.base.service.IDefaultService;
-import com.neusoft.base.service.ServiceException;
-import com.neusoft.base.service.ServiceResult;
-import com.neusoft.comm.enu.BizType;
-import com.neusoft.comm.enu.ExecuteResult;
-import com.neusoft.comm.enu.FunctionType;
-import com.neusoft.comm.tools.AppUtils;*/
 
 @Namespace("/pub")
 public class DataImportAction extends BaseAction {
-    private final static Log logger = LogFactory.getLog(DataImportAction.class);
+	private static final long serialVersionUID = 1L;
+	private final static Log logger = LogFactory.getLog(DataImportAction.class);
     @Autowired
     private IDataImportService dataImportService;
     @Autowired
@@ -59,7 +49,7 @@ public class DataImportAction extends BaseAction {
             List<EnumItemPo> list = dataImportService.queryFileTypeList(AppUtils.getLogonUserInfo());
             ActionContext.getContext().put("fileTypelist", list);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             handleError(e);
         }
     }
@@ -99,7 +89,6 @@ public class DataImportAction extends BaseAction {
         	try {
 				appUtils.saveAuditLog("testrep", "数据补录查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
             handleError(e);
@@ -209,9 +198,16 @@ public class DataImportAction extends BaseAction {
         return JSON;
     }
 
-//    public void downCustFile() throws Throwable {
-//        // FileUtils.downLoadFile(request, response,"全量客户信息.csv");
-//    }
+    
+    public String loadFileData(){
+    	/*try{
+    		LoadFileDataManager.loadData();
+    	}catch (Exception e) {
+    		e.printStackTrace();
+            handleError(e);
+        }*/
+    	return JSON;
+    }
 
     @JSON(serialize = false)
     public DataImportQueryIn getQueryIn() {

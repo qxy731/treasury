@@ -23,22 +23,23 @@
 			U.UNIT_NAME AS orgName,
 			A.FILE_NAME as fileName,
 			A.FILE_TYPE as fileType,
-			ROUND(A.FILE_SIZE/1024,1) as fileSize,
+			ROUND(A.FILE_SIZE/1024,2) as fileSize,
 			A.FILE_PATH as filePath,
 			A.CREATE_TIME as uploadDate,
 			A.CREATE_USER as staffId,
 			S.STAFF_NAME as staffName,
-			A.RESULT_TYPE as resultType
+			A.RESULT_TYPE as resultType,
+			A.BUSINESS_DATE as businessDate
 		from SYS_UPLOAD_FILE A
 		LEFT JOIN SYS_STAFF S ON S.STAFF_ID=A.CREATE_USER	
-		INNER JOIN SYS_UNITMAP MP ON MP.RELA_UNITID =A.CREATE_ORG AND MP.UNIT_ID $orgCode$
+		<!-- INNER JOIN SYS_UNITMAP MP ON MP.RELA_UNITID =A.CREATE_ORG AND MP.UNIT_ID $orgCode$ -->
 		LEFT JOIN SYS_UNIT U ON U.UNIT_ID=A.CREATE_ORG
 		where A.DEL_FLAG = '0'
 			AND A.FILE_TYPE IS NOT NULL
 			<isNotEmpty prepend=" AND " property="fileName">A.FILE_NAME like '%'||#fileName#||'%'</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="fileType">A.FILE_TYPE = #fileType#</isNotEmpty>
-			<isNotEmpty prepend=" AND " property="beginDate">A.CREATE_TIME <![CDATA[>=]]> #beginDate#</isNotEmpty>
-			<isNotEmpty prepend=" AND " property="endDate">A.CREATE_TIME <![CDATA[<]]> #endDate#+1</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="beginDate">DATE_FORMAT(A.CREATE_TIME,'%Y-%m-%d')<![CDATA[>=]]>DATE_FORMAT(#beginDate#,'%Y-%m-%d')</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="endDate">DATE_FORMAT(A.CREATE_TIME,'%Y-%m-%d')<![CDATA[<=]]>DATE_FORMAT(#endDate#,'%Y-%m-%d')</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="staffId">A.CREATE_USER = #staffId#</isNotEmpty>
 		ORDER BY A.CREATE_TIME DESC
 	</select>

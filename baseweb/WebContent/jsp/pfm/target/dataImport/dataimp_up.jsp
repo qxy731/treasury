@@ -8,157 +8,93 @@
 <title>上传文件</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-.textarea_css {width: 80%;height: 60px;}
-.font_css{color:#FF0000 }
-body {
-	width: 400px;
-}
-.button_div{margin-bottom: 10px;}
-body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) repeat;}
 </style>
 </head>
 <body>
+<div id="mask" class="l-window-mask"></div>
 <form id="myform">
 <n:page action='com.soule.crm.pub.dataimport.DataImportAction' />
-	<n:enums keys="uploadfile_type,dataimp_result"></n:enums>
-<table class='content'>
+<table width="100%">
 <tr><td>
-
 <fieldset class="outbox"><legend>上传文件</legend>
-<br>
 <table class='params'>
 	<tr>
-		<td align="right"><font color="red">*</font>&nbsp;数据日期</td>
-		<td>
-			<input name="monthId" type='text' id="monthId" class="Wdate" validate="{required:true}" />
+		<td style="width:100px;text-align:right;" ><font color="red">*</font>数据日期</td>
+		<td style="width:100px;">
+			<input id="businessDate" name="businessDate" type='text' style="width:100px;" class="Wdate" validate="{required:true}"  readonly onClick="WdatePicker({dateFmt:'yyyyMMdd'})"/>
 		</td>
-	</tr>
-	<tr>
-		<td align="right"><font color="red">*</font>&nbsp;文件类型</td>
-		<td>
-			<s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" emptyOption="false" validate="{required:true}" />
+		<td><font color="red">说明：季频度文件选择季末日期(如：20170331)；月频度文件选择月末日期(如：20170930)；日频度文件选择具体日期(如：20171008)。</font>
 		</td>
-	</tr>
-	<tr>
-		<td align="center" colspan="2">
-			<input type="button" id="up" name="up" value="上&nbsp;传" class="l-button" />
-		</td>
-	</tr>
+	</tr>	
 </table>
 </fieldset>
 </td></tr>
+<tr>
+	<td>
+		<fieldset class="outbox"><legend>选择上传文件</legend>
+			<iframe id='fileUploadFrame' src='${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_upload.jsp' frameborder="0" style="width:100%;height:280px;"></iframe>
+		</fieldset>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+		<div style="text-align:center;magin-left:350px;margin-top:5px;">
+			<input id="saveBtn" type="button" value="上&nbsp;传" class="l-button"/>
+			<input id="cancelBtn" type="button" value="取&nbsp;消" class="l-button"/>
+		</div>
+	</td>
+</tr>
 </table>
 </form>
 </body>
 <script type='text/javascript'>
+function showMask(){
+    $("#mask").css("height",$(document).height());     
+    $("#mask").css("width",$(document).width());     
+    $("#mask").show();
+}  
+//隐藏遮罩层  
+function hideMask(){     
+    $("#mask").hide();     
+}  
+
 $(function () {
 	Utils.validateInit();
-	$("#monthId").ligerDateEditor();
-	$("#monthId").bind('click', function() {
-		$(this).parent().next('.l-box-dateeditor').attr('style', 'display:block');
-	});
-	
-	$('#up').bind('click', upFile);
-	
-	$("#monthId").ligerDateEditor();
-	
-  	addShadow();
+	$("#saveBtn").bind('click', doUploadFile);
+	$("#cancelBtn").bind('click', cancelDialog);
 });
 
-function upFile() {
-	/* var fileType = $("#fileType").val();
-	if(fileType==""||fileType==null){
-		$.dialogBox.info("请选择需要上传的文件类型！");
-	    return; 
-	} */
+function doUploadFile(){
 	if (!$('#myform').valid()){
 		return;
 	}
-
-	Utils.uploadFile(doUploadFile,null,'xls','false','false',1);
+	showMask();
+	$("#saveBtn").attr({"disabled":"disabled"});
+	var params = {
+			businessDate : null //业务日期
+	};
+	var businessDate = $("#businessDate").val();
+	params.businessDate = businessDate;
+	var childWindow = $("#fileUploadFrame")[0].contentWindow;
+	//文件上传
+	$("#fileUploadFrame")[0].contentWindow.doMySubmit(params);
 }
 
-function doUploadFile(uploadId,files){
-	var fileType = $("#fileType").val();
-	var url = "${_CONTEXT_PATH}/pub/data-import!uploadFile.action";
-	var monthId = $('#monthId').val();
-// 	$.ajax({
-// 		url: url,
-// 		type: 'POST',
-// 		data: {"uploadId":uploadId,"monthId":monthId,"uploadFileType":fileType},
-// 		dataType: 'json',
-// 		async: false,
-// 		success: function(result) {
-// 			$.dialogBox.confirm('文件上传成功,是否确认导入?',function(){
-// 				callProcedureFile(uploadId,fileType);
-// 				$.dialogBox.opener.execute();
-// 			});
-// 		},
-// 		error: function(result) {
-// 			var url = "${_CONTEXT_PATH}/jsp/pub/dataimp/dataimp_errorlist.jsp";
-// 			errordata = result.rows;
-// 			if (result.retMsg) {
-// 				$.dialogBox.error(result.retMsg);
-// 			}
-// 			else {
-// 				$.dialogBox.openDialog(url,{title:"错误信息",width:'700px',height:'500px'},true);
-// 			}
-// 		}
-// 	});
-
-	Utils.ajaxSubmit(url,{"uploadId":uploadId,"monthId":monthId,"uploadFileType":fileType}, function(result){
-		$.dialogBox.confirm('文件上传成功,是否确认导入?',function(){
-			callProcedureFile(uploadId,fileType);
-			$.dialogBox.opener.execute();
-		},true);
-	}, function(result) {
-		var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_errorlist.jsp";
-		errordata = result.rows;
-		if (result.retMsg) {
-			Utils.toIndex(result);
-		}
-		else {
-			$.dialogBox.openDialog(url,{title:"错误信息",width:'700px',height:'500px'},true);
-		}
-	});
-}
-
-var errordata = [];
-function callProcedureFile(uploadId,fileType){
-	var z = $("#monthId").val().split("-");
-	var monthId = z[0]+z[1]+z[2];
-	var url = "${_CONTEXT_PATH}/pub/data-import!callUploadData.action";
-// 	$.ajax({
-// 		url: url,
-// 		type: 'POST',
-// 		data: {"uploadId":uploadId,"uploadFileType":fileType,"monthId":monthId},
-// 		dataType: 'json',
-// 		async: false,
-// 		success: function(result) {
-// 			$.dialogBox.close();
-// 		},
-// 		error: function(result) {
-// 		}
-// 	});
-
-	Utils.ajaxSubmit(url,{"uploadId":uploadId,"uploadFileType":fileType,"monthId":monthId},function(){
+function callback(responseText){
+	if(responseText.retCode.substr(0,1) == 'I') {
+		$.dialogBox.opener.execute();
 		$.dialogBox.close();
-	},function(){});
+	}else{
+		hideMask();
+		$("#saveBtn").removeAttr("disabled");
+		$.dialogBox.warn(responseText.retMsg);
+	}
 }
 
-function doComAndUncomAndDel(uploadId,fileId,type,url){
-	var data = {'queryIn.uploadId' : uploadId,'queryIn.fileId' : fileId};
-	$.dialogBox.confirm('您确定'+type+'吗？',function () {
-			Utils.ajaxSubmit(url, data, function(result) {
-				$.dialogBox.info(type+'成功',onSucc); 
-			});
-	},true);
-}
-
-function onSucc() {
-	$.dialogBox.opener.execute();
+function cancelDialog() {
 	$.dialogBox.close();
 }
+
 
 </script>
 </html>

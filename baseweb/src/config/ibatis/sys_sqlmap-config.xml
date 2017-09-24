@@ -31,4 +31,9 @@
 	<sqlMap resource="config/ibatis/table/sys_position-sqlmap.xml" />
 	<sqlMap resource="config/ibatis/table/sys_posi_assign-sqlmap.xml" />
 	<sqlMap resource="config/ibatis/framework/sys-logoninfo-sqlmap.xml" />
+	
+	<sqlMap resource="config/ibatis/framework/sys_upload_file_queue-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_upload_file_mapping-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_upload_file_error-sqlmap.xml" />
+	<sqlMap resource="config/ibatis/framework/sys_upload_file_error_detail-sqlmap.xml" />
 </sqlMapConfig>
