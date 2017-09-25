@@ -29,7 +29,8 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 	<tr>
 		<td align="right">文件类型</td>
 		<td>
-			<s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" cssStyle="width: 250px;" emptyOption="false" />
+			<%-- <s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" cssStyle="width: 250px;" emptyOption="false" /> --%>
+			<n:select id="fileType" name="fileType" codetype="uploadfile_type" cssStyle="width: 250px;" emptyOption="false" />
 		</td>
 		<td align="left">
 			<input type="button" id="down" name="down" value="下&nbsp;载" class="l-button" />
@@ -50,11 +51,23 @@ $(function () {
 
 function downFile() {
 	var fileType = $("#fileType").val();
-	if(fileType==""||fileType==null){
+	var fname = $("#fileType").find('option:selected').text();
+	if(fileType==""||fileType==null||fname==""||fname==null){
 		$.dialogBox.info("下载模板前请先在“文件类型”选择对应的值！");
 	    return; 
 	}
-	var url = '${_CONTEXT_PATH}/upload/imp_'+ fileType +'.xls';
+	//alert(fname);
+	/* var data = {
+		templateName:fname,
+		templateType:fileType
+	}
+	var url = '${_CONTEXT_PATH}/pub/data-import!downTemplate.action';
+	Utils.ajaxSubmit(url, data, function(result) {
+		$.dialogBox.info(result.retMsg);
+	},function(result){
+		$.dialogBox.error(result.retMsg);
+	}); */
+	var url = '${_CONTEXT_PATH}/upload/template/a.csv';
     window.open(url);
 }
 

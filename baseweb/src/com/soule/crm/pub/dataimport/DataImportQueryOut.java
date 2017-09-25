@@ -7,9 +7,6 @@ import java.util.List;
 import com.soule.base.service.IServiceResult;
 import com.soule.base.service.ServiceResult;
 
-/*import com.neusoft.base.service.IServiceResult;
-import com.neusoft.base.service.ServiceResult;*/
-
 public class DataImportQueryOut implements Serializable, IServiceResult {
     private static final long serialVersionUID = 1L;
 

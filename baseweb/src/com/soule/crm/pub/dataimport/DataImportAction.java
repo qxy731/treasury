@@ -1,16 +1,18 @@
 package com.soule.crm.pub.dataimport;
 
+import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.soule.app.sys.enums.EnumItemPo;
 import com.soule.base.action.BaseAction;
 import com.soule.base.media.DbAccessException;
 import com.soule.base.service.IDefaultService;
@@ -20,9 +22,13 @@ import com.soule.comm.enu.BizType;
 import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.tools.AppUtils;
+import com.soule.data.service.LoadFileDataManager;
 
 
 @Namespace("/pub")
+@Results( { 
+	@Result(name = "download", type = "stream",params={"contentType","text/plain","contentDisposition","attachment;filename=\"${templateName}\"","inputName","downloadFile"})
+	})
 public class DataImportAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	private final static Log logger = LogFactory.getLog(DataImportAction.class);
@@ -43,15 +49,32 @@ public class DataImportAction extends BaseAction {
     private String recordTotle;
     private String recordSuccess;
     private String recordError;
+    private String templateName;
+    private String templateType;
+	public String getTemplateName() {
+		return templateName;
+	}
 
-    public void doInit() {
-        try {
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
+	
+	public String getTemplateType() {
+		return templateType;
+	}
+
+	public void setTemplateType(String templateType) {
+		this.templateType = templateType;
+	}
+
+	public void doInit() {
+        /*try {
             List<EnumItemPo> list = dataImportService.queryFileTypeList(AppUtils.getLogonUserInfo());
             ActionContext.getContext().put("fileTypelist", list);
         } catch (Exception e) {
             //e.printStackTrace();
             handleError(e);
-        }
+        }*/
     }
 
     public void doInitDetail() {
@@ -197,15 +220,40 @@ public class DataImportAction extends BaseAction {
         }
         return JSON;
     }
-
+    
+    
+    public String downTemplate(){
+    	System.out.println(templateName);
+    	System.out.println(templateType);
+    	return "download";
+    }
+    
+    public InputStream getDownloadFile() {
+        try {
+        	if(StringUtils.isNotBlank(templateName)){
+        		//templateName = "大额来账清单.csv";
+            	return ServletActionContext.getServletContext().getResourceAsStream("upload/template/"+templateName);
+        	}
+            //File f = new File(path,templateName);
+            //return new FileInputStream(f);
+        } catch (Exception e) {
+            logger.error("ACTION",e);
+        }
+        return null;
+    }
     
     public String loadFileData(){
-    	/*try{
+    	try{
     		LoadFileDataManager.loadData();
+    		//dataImportService.loadData();
+    		this.retCode = "I0000";
+    		this.retMsg = "加载数据文件需要一段时间，请耐心等待。加载完成后，每个文件的加载结果信息请查看详情！";
     	}catch (Exception e) {
+    		this.retCode = "E0000";
+    		this.retMsg = "加载数据文件失败，请查看文件是否正确！";
     		e.printStackTrace();
-            handleError(e);
-        }*/
+            //handleError(e);
+        }
     	return JSON;
     }
 

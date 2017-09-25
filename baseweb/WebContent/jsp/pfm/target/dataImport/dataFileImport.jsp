@@ -24,7 +24,7 @@ body {overflow: hidden;}
 							<tr>
 								<td>文件类型</td>
 								<td>
-									<s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" emptyOption="true" />
+									<n:select id="fileType" name="fileType" codetype="uploadfile_type" emptyOption="true" />
 								</td>
 								<td>文件名称</td>
 								<td>
@@ -111,7 +111,6 @@ $(function () {
 		width: '100%',
 		height:'100%',
 		heightDiff:-20,
-		//onDblClickRow:queryDetail,
 		onError: function(e) {
 			Utils.toIndex(e);
 		}
@@ -222,7 +221,7 @@ function queryDetail(){
 function loadFileData(){
 	var url = "${_CONTEXT_PATH}/pub/data-import!loadFileData.action";
 	var data = {};
-	$.dialogBox.confirm('您确定文件已上传完毕，现在开始加载文件数据吗？',function () {
+	$.dialogBox.confirm('您确定文件已上传完毕，现在开始加载文件数据吗？加载数据文件需要一段时间，请耐心等待。加载完成后，每个文件的加载结果信息请查看详情！',function () {
 		Utils.ajaxSubmit(url, data, function(result) {
 			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
 		});
