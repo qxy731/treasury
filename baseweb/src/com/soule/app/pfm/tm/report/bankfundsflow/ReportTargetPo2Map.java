@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class ReportTargetPo2Map {
 	
-	public static Map po2Map(List<ReportTargetPo> list) {
+	public static Map<String,Object> po2Map(List<ReportTargetPo> list) {
 		
-		Map map = new HashMap();
+		Map<String,Object> map = new HashMap<String,Object>();
 		if(null!=list && list.size()>0){
 			for(ReportTargetPo po :list){
 				map.put(po.getTarCode(), po.getTarValue());

@@ -10,6 +10,11 @@
 .l-grid-row-cell div{
 	text-align:left;
 }
+
+body{
+	width:1200px;
+	margin:0 auto;
+}
 </style>
 <script type="text/javascript">
 	$(function () {

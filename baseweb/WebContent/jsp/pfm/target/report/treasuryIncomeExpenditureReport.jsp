@@ -10,6 +10,11 @@
 .l-grid-row-cell div{
 	text-align:left;
 }
+
+body{
+	width:1200px;
+	margin:0 auto;
+}
 </style>
 <script type="text/javascript">
 	$(function () {
@@ -113,7 +118,7 @@
 	<table class='params'>
 		<tr>
 			<td>数据日期</td>
-			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/>
 			<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
 			</td>
 			<td></td><td></td>
@@ -147,7 +152,7 @@
 									<tr>
 										<td rowspan="2" style="width: 200px;"><div><span>项目</span></div></td>
 										<td colspan="3" style="width: 375px;"><div><span>中央级</span></div></td>
-										<td colspan="3" style="width: 375px;"><div><span>地主级</span></div></td>
+										<td colspan="3" style="width: 375px;"><div><span>地方级</span></div></td>
 										<td colspan="2" style="width: 250px;"><div><span>合计数</span></div></td>
 									</tr>
 									<tr>

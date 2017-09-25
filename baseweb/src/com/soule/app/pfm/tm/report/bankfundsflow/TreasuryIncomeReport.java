@@ -23,10 +23,10 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
 public class TreasuryIncomeReport {
 	
-	public static void Data2Excel(Map map1,ByteArrayOutputStream fout){
+	public static void Data2Excel(Map<String,Object> map1,ByteArrayOutputStream fout){
 		
 		List<TreasuryIncomePo> list =(List<TreasuryIncomePo> ) map1.get("treasuryIncomeList");
-		Map map = new HashMap();
+		Map<String,Object> map = new HashMap<String,Object>();
 		String dataDate =(String) map1.get("dataDate");
 		for(int index=0;index<list.size();index++){
 			TreasuryIncomePo treasuryIncomePo = list.get(index);

@@ -156,7 +156,7 @@ public abstract class RepAction<IN> extends BaseAction {
         String templatePath = request.getSession().getServletContext().getRealPath("/") + "\\template\\" + temp;
         OutputStream outStream = response.getOutputStream();
         try {
-            response.setContentType("text/html; charset=GBK");
+            response.setContentType("text/html; charset=UTF-8");
             // 预览页面返回按钮
             /*
              * String s =

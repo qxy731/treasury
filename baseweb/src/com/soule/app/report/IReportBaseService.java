@@ -14,7 +14,7 @@ public interface IReportBaseService {
     /**
      * 查询报表数据
      */
-    public HashMap query(HashMap in,String sqlKey) throws ServiceException;
+    public HashMap<String ,Object> query(HashMap in,String sqlKey) throws ServiceException;
 
 	public List initSel(HashMap params);
 

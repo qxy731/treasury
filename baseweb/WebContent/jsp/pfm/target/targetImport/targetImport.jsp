@@ -58,17 +58,6 @@
 									<select id="indexCodeChoosed" name="indexCodeChoosed" style="width: 100%; height: 120px;" onchange="" size="5" multiple="multiple"> </select>
 								</span>
 							</td>
-							<%-- <td colspan="1">
-								<span style="margin-left: 20px;"> 
-									<select id="objectChoosed" name="objectChoosed" style="width: 150px; height: 120px;" onchange="" size="5" multiple="multiple"></select>
-								</span>
-							</td>
-							<td width="20%">
-								<span style="margin-left: 0px;"> 
-									<input id='addObject' type='button' value='添加' class='l-button' onclick="addObject();" style="width: 60px; margin: 6px 6px 6px 6px" /> 
-									<input id='removeObject' type='button' value='删除' class='l-button' onclick="removeObject();" style="width: 60px; margin: 6px 6px 6px 6px" />
-								</span>
-							</td> --%>
 						</tr>
 						<tr>
 							<td colspan="5">
@@ -134,7 +123,6 @@
 </body>
 <script type='text/javascript'>
 $(function () {
-	//Utils.validateInit();
 	$("#recoreDate").ligerDateEditor();
 	var today = new Date();
 	var y = today.getFullYear();
@@ -143,35 +131,20 @@ $(function () {
 	if(parseInt(d, 0)<10){
 		d = "0" + d;
 	}
-	//alert(d+'-'+m+'-'+y);
 	$("#loadDateRep").val(y+"-"+m+"-"+d);
 	initIndexCodeOption();
-	//addShadow();
-	//$("#recoreDate").val(new Date());
-// 	$('#reset').bind('click', doClear);
-// 	$('#query').bind('click', execute);
-	
-// 	$("#reportdetail").height($(document).height()-$("#myform").height()-6);
  	$('#myform').action="/report/report-base!execute.action"
-// 	$('#myform').submit();
 
 });
 function doClear() {
 	var obj = document.getElementById('indexCodeChoosed');
 	obj.options.length=0;
-	/* var obj2 = document.getElementById('objectChoosed');
-	obj2.options.length=0;
-	$('#busiLine').val('1');
-	$('#objectType').val('1'); */
 	initIndexCodeOption();
 }
 
 
 
 function execute() {
-// 	if (!$('#myform').valid()){
-// 		return;
-// 	}
 	var recoreDate = $('#recoreDate').val()
 	if(!recoreDate){
 		$.dialogBox.warn("请选择数据日期!");
@@ -185,34 +158,15 @@ function execute() {
 		return;
 	}else{
 		for(var i=0; i<obj.options.length; i++){
-// 			indexCodeStr = indexCodeStr + obj.options[i].value + "','";
 			indexCodeStr = indexCodeStr + obj.options[i].text + ",";
 		}
 		indexCodeStr = indexCodeStr.substring(0, indexCodeStr.length-1);
-		//alert(indexCodeStr);
 	}
 	
-/* 	obj = document.getElementById('objectChoosed');
-	var objectStr = "";
-	var objectNameStr = "";
-	if(obj.options.length == 0){
-		$.dialogBox.warn("请选择考核对象!");
-		return;
-	}else{
-		for(var i=0; i<obj.options.length; i++){
-			objectStr =objectStr+ obj.options[i].value + ",";
-			objectNameStr =objectNameStr+ obj.options[i].text + ",";
-		}
-		objectStr = objectStr.substring(0, objectStr.length-1);
-		objectNameStr = objectNameStr.substring(0, objectNameStr.length-1);
-	} */
 	
 	var mdata = [];
 	mdata.push({name:'queryIn.recoreDate',value:$('#recoreDate').val()});
 	mdata.push({name:'queryIn.indexCode',value:indexCodeStr});
-	//mdata.push({name:'queryIn.objectId',value:objectStr});
-	//mdata.push({name:'queryIn.objectName',value:objectNameStr});
-	//mdata.push({name:'queryIn.objectType',value:$('#objectType').val()});
 	var url = "${_CONTEXT_PATH}/pfm/param/index-data!exportTemplate.action";
 	
 	Utils.ajaxSubmit(url, mdata, 
@@ -220,8 +174,6 @@ function execute() {
 		var template = result.templateFile;
 		template = template.replace(/\\/g,'/');
 		var url = "../../../.." + template;
-		//var url = '${_CONTEXT_PATH}/upload/index_data_import.xls';
-		//alert(url);
 	 	window.open(url);
 	}, 
 	function (){
@@ -250,33 +202,11 @@ function upload() {
 		indexCodeStr = indexCodeStr.substring(0, indexCodeStr.length-3);
 	}
 	
-/* 	obj = document.getElementById('objectChoosed');
-	var objectStr = "";
-	if(obj.options.length == 0){
-		$.dialogBox.warn("请选择考核对象!");
-		return;
-	}else{
-		for(var i=0; i<obj.options.length; i++){
-			objectStr =objectStr+ obj.options[i].value + "','";
-		}
-		objectStr = objectStr.substring(0, objectStr.length-3);
-	} */
 	$('#myform').action="/report/report-base!execute.action"
- 	/* if($('#objectType').val() && $('#objectType').val() == '1'){
- 		$('#sqlKey').val('indexdataorg.getPfmIndexDataMaul');
- 		$('#templateName').val('pfm_index_data_maul_org');
- 	}else{
- 		$('#sqlKey').val('indexdatastf.getPfmIndexDataMaul');
- 		$('#templateName').val('pfm_index_data_maul_per');
- 	} */
  	$('#templateName').val('pfm_index_data_maul_per')
  	$('#sqlKey').val('indexdatastf.getPfmTmQtyOrg');
 	$('#recoreDateRep').val($('#recoreDate').val());
 	$('#indexCodeRep').val(indexCodeStr);
-	//$('#objectIdRep').val(objectStr);
-// 	document.getElementById('exportBtn').style.display='';
-// 	document.getElementById('importBtn').style.display='';
-//  	$('#myform').submit();
 	
 	Utils.uploadFile(afterUpload, null, 'xls', 'true', 'true', 1);
 }
@@ -284,10 +214,14 @@ function upload() {
 function afterUpload(uploadid, files) {
 	var mdata = [];
 	mdata.push({name:'readXlsFileIn.recoreDate',value:$('#recoreDate').val()})
-	//mdata.push({name:'readXlsFileIn.objectType',value:$('#objectType').val()});
 	mdata.push({name:'readXlsFileIn.uploadId',value:uploadid})
 	var url = "${_CONTEXT_PATH}/pfm/param/index-data!readXlsFile.action";
-	Utils.ajaxSubmit(url, mdata, importSuccess, importError);
+	if(files.length==0){
+		$.dialogBox.warn("未检测到上传文件，请上传相应文件!");
+		return;
+	}else{
+		Utils.ajaxSubmit(url, mdata, importSuccess, importError);
+	}
 }
 
 function importSuccess() {

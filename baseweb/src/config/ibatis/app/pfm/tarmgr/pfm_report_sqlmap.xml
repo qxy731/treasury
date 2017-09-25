@@ -45,11 +45,11 @@
 		t.CUST_ORG_NAME,
 		t.UNIT_ID,
 		t.UNIT_NAME,
-		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00003' THEN t.TAR_VALUE END),0) AS BANK_ALL_INFLOW,
-		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00004' THEN t.TAR_VALUE END),0) AS BANK_SPECIAL_INFLOW,
-		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00034' THEN t.TAR_VALUE END),0) AS BANK_ALL_OUTFLOW,
-		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00035' THEN t.TAR_VALUE END),0) AS BANK_SPECIAL_OUTFLOW,
-		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00067' THEN t.TAR_VALUE END),0) AS BANK_ALL_NETFLOW
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00003' THEN t.TAR_VALUE END),0)/10000 AS BANK_ALL_INFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00004' THEN t.TAR_VALUE END),0)/10000 AS BANK_SPECIAL_INFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00034' THEN t.TAR_VALUE END),0)/10000 AS BANK_ALL_OUTFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00035' THEN t.TAR_VALUE END),0)/10000 AS BANK_SPECIAL_OUTFLOW,
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00067' THEN t.TAR_VALUE END),0)/10000 AS BANK_ALL_NETFLOW
 		FROM (
 		SELECT
 		c.BANK_ID CUST_ORG_NO,
@@ -75,7 +75,7 @@
 		SELECT	DISTINCT
 			d.TAR_CODE,
 			d.TAR_NAME,
-			IFNULL(q.TAR_VALUE,0) TAR_VALUE
+			IFNULL(q.TAR_VALUE,0)/10000 TAR_VALUE
 			FROM  PFM_TM_QTY_DEF d 
 			LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
 			AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
@@ -126,7 +126,7 @@
 			SELECT	
 					DISTINCT d.TAR_CODE,
 					d.TAR_NAME,
-					IFNULL(q.TAR_VALUE,0) TAR_VALUE
+					IFNULL(q.TAR_VALUE,0)/10000 TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
 					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
 					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
@@ -148,7 +148,7 @@
 			SELECT DISTINCT
 					d.TAR_CODE,
 					d.TAR_NAME,
-					case when q.TAR_VALUE is null then 0 else q.tar_value end TAR_VALUE
+					case when q.TAR_VALUE is null then 0 else q.tar_value/10000 end TAR_VALUE
 				FROM
 					PFM_TM_QTY_DEF d
 				LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE 
@@ -252,7 +252,7 @@
 			SELECT	DISTINCT
 					d.TAR_CODE,
 					d.TAR_NAME,
-					q.TAR_VALUE
+					case when q.tar_code='TE_00069' then IfNULL(q.TAR_VALUE,0)/10000 ELSE IfNULL(q.TAR_VALUE,0) END AS TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
 					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
 					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
@@ -288,10 +288,7 @@
 	
 	<select id="exportAccountingAnalysisOtherList"  parameterClass="BankFundsFlowReportQueryIn" resultClass="java.util.HashMap">
 		select 
-			unit_id ,
-			unit_name,
-			#dataDate# dateTime,
-			sum(CASE WHEN tar_code='TE_00069' THEN tar_value ELSE 0 end)  TE_00069,
+			sum(CASE WHEN tar_code='TE_00069' THEN tar_value ELSE 0 end)/10000 TE_00069,
 			sum(CASE WHEN tar_code='TE_00070' THEN tar_value ELSE 0 end)  TE_00070,
 			sum(CASE WHEN tar_code='TE_00071' THEN tar_value ELSE 0 end)  TE_00071,
 			sum(CASE WHEN tar_code='TE_00072' THEN tar_value ELSE 0 end)  TE_00072,
@@ -321,16 +318,13 @@
 			sum(CASE WHEN tar_code='TE_00103' THEN tar_value ELSE 0 end)  TE_00103 
 		from (
 				SELECT DISTINCT
-					su.UNIT_ID,
-					su.UNIT_NAME,
 					d.TAR_CODE,
 					d.TAR_NAME,
 					q.TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
 					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
-					left join sys_unit su on su.UNIT_ID = q.ORG_ID and su.START_DATE <![CDATA[<= #dataDate# ]]>
-						and su.END_DATE <![CDATA[ >= ]]> #dataDate# AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
-					WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00069',	
+					WHERE d.TAR_STATUS = '1' AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+					and d.TAR_CODE IN ('TE_00069',	
 							'TE_00070',	
 							'TE_00071',	
 							'TE_00072',	

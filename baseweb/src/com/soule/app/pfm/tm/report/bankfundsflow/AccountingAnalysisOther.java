@@ -1,11 +1,8 @@
 package com.soule.app.pfm.tm.report.bankfundsflow;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -21,7 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
 public class AccountingAnalysisOther {
 	
-	public static void Data2Excel(Map map,ByteArrayOutputStream fout){
+	public static void Data2Excel(Map<String,Object> map,ByteArrayOutputStream fout){
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		//创建sheet页  
         HSSFSheet sheet = workbook.createSheet("国库会计分析其他数据统计表");  
@@ -98,11 +95,11 @@ public class AccountingAnalysisOther {
         
         HSSFRow row1 = sheet.createRow(2);
         HSSFCell c4 = row1.createCell(0);   
-        c4.setCellValue(new HSSFRichTextString("填报单位："+(null==map.get("unit_name")?"":map.get("unit_name").toString()))); 
+        c4.setCellValue(new HSSFRichTextString("填报单位："+(null==map.get("unitName")?"":map.get("unitName").toString()))); 
         HSSFCell c5 = row1.createCell(1);   
         c5.setCellValue(new HSSFRichTextString(""));
         HSSFCell c6 = row1.createCell(2);   
-        c6.setCellValue(new HSSFRichTextString("业务期间："+(null==map.get("dataTime")?"":map.get("dataTime").toString()))); 
+        c6.setCellValue(new HSSFRichTextString("业务期间："+(null==map.get("dataDate")?"":map.get("dataDate").toString()))); 
         HSSFCell c7 = row1.createCell(3);   
         c7.setCellValue(new HSSFRichTextString(""));
         
