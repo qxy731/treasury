@@ -8,7 +8,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +53,7 @@ public class BankFundsFlowReportAction extends BaseAction {
         	String dataDate = queryIn.getDataDate();
         	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
-        	
-        	queryIn.setDataDate(dataDate);
+        	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
         	
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query(queryIn);
             ServiceResult head = result.getResultHead();
@@ -96,7 +97,7 @@ public class BankFundsFlowReportAction extends BaseAction {
         	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
         	
-        	queryIn.setDataDate(dataDate);
+        	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query4(queryIn);
             ServiceResult head = result.getResultHead();
             accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
@@ -124,7 +125,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.replaceAll("-", ""));
+	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
 	    	queryIn.setUnitId(unitId);
 	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -137,9 +138,9 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        InputStream is = new ByteArrayInputStream(content);
 	        // 设置response参数，可以打开下载页面
 	        response.reset();
-	        response.setContentType("application/vnd.ms-excel;charset=utf-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="
-	            + new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" + "\"");
+	        response.setContentType("application/octet-stream");
+	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -195,7 +196,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.replaceAll("-", ""));
+	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
 	    	queryIn.setUnitId(unitId);
 	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -209,9 +210,9 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        InputStream is = new ByteArrayInputStream(content);
 	        // 设置response参数，可以打开下载页面
 	        response.reset();
-	        response.setContentType("application/vnd.ms-excel;charset=utf-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="
-	            + new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" + "\"");
+	        response.setContentType("application/octet-stream");
+	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -255,7 +256,7 @@ public class BankFundsFlowReportAction extends BaseAction {
         	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
         	
-        	queryIn.setDataDate(dataDate);
+        	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query3(queryIn);
             ServiceResult head = result.getResultHead();
             accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
@@ -298,9 +299,9 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        InputStream is = new ByteArrayInputStream(content);
 	        // 设置response参数，可以打开下载页面
 	        response.reset();
-	        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="
-	            +new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" + "\"");
+	        response.setContentType("application/octet-stream");
+	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -356,7 +357,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.replaceAll("-", ""));
+	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
 	    	queryIn.setUnitId(unitId);
 	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -372,9 +373,10 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        InputStream is = new ByteArrayInputStream(content);
 	        // 设置response参数，可以打开下载页面
 	        response.reset();
-	        response.setContentType("application/vnd.ms-excel;charset=utf-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="
-	            + new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" + "\"");
+	        response.setContentType("application/octet-stream");
+	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
+	        
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -463,6 +465,12 @@ public class BankFundsFlowReportAction extends BaseAction {
 
 	public void setTreasuryIncomList(List<TreasuryIncomePo> treasuryIncomList) {
 		this.treasuryIncomList = treasuryIncomList;
+	}
+	
+	public static void main(String[] args){
+		String dataDate ="20170630";
+		
+		System.out.println();
 	}
 	
 }

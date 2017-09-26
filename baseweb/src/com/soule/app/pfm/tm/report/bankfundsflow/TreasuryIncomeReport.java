@@ -1085,7 +1085,7 @@ public class TreasuryIncomeReport {
 	        CellRangeAddress region2 = new CellRangeAddress(2,2,0,1);   
 	        CellRangeAddress region3 = new CellRangeAddress(2,2,2,8);
 	        CellRangeAddress region4 = new CellRangeAddress(3,4,0,0);   
-	        CellRangeAddress region5 = new CellRangeAddress(3,1,3,3);  
+	        CellRangeAddress region5 = new CellRangeAddress(3,3,1,3);  
 	        CellRangeAddress region6 = new CellRangeAddress(3,3,4,6);  
 	        CellRangeAddress region7 = new CellRangeAddress(3,3,7,8);  
 	        
