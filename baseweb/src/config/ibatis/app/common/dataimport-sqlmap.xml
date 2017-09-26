@@ -13,6 +13,10 @@
 			SET DEL_FLAG='1'
 		where UPLOAD_ID = #uploadId# AND FILE_ID=#fileId#
 	</update>
+	
+	<delete id="deleteFileQueue" parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn">
+		delete from SYS_UPLOAD_FILE_QUEUE where UPLOAD_ID = #uploadId#
+	</delete>
 		
 	<select id="queryFileList" 
 			parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn"
@@ -53,6 +57,36 @@
 			ORDER BY A.$inputHead.sortname$ $inputHead.sortorder$
 		</isNotEmpty>
 	</select>
+	
+	<select id="findFileErrorObject" resultClass="com.soule.crm.pub.dataimport.DataImportErrorDetailVo" 
+		parameterClass="com.soule.crm.pub.dataimport.DataImportErrorDetailIn">
+		SELECT 
+		f.UPLOAD_ID as uploadId,
+		f.FILE_ID as fileId,
+		f.FILE_NAME as fileName,
+		f.FILE_TYPE as fileType,
+		e.ERROR_ID as errorId,
+		e.TOTAL_NUMBER as totalNumber,
+		e.SUCCESS_NUMBER as successNumber,
+		e.FAILURE_NUMBER as failureNumber
+		FROM sys_upload_file_error e
+		INNER JOIN sys_upload_file f on f.UPLOAD_ID = e.UPLOAD_ID
+		WHERE  e.UPLOAD_ID= #uploadId#
+	</select>
+	
+	<select id="findFileErrorDetailList" resultClass="com.soule.app.table.SysUploadFileErrorDetailPo" 
+		parameterClass="com.soule.crm.pub.dataimport.DataImportErrorDetailIn">
+		SELECT
+		d.DETAIL_ID as detailId,
+		d.ERROR_ID as errorId,
+		d.ERROR_ROW as errorRow,
+		d.ERROR_COLUMN as errorColumn,
+		d.ERROR_MESSAGE as errorMessage
+		FROM  sys_upload_file_error_detail d 
+		INNER JOIN sys_upload_file_error e on d.ERROR_ID=e.ERROR_ID and e.UPLOAD_ID=#uploadId#
+		order by d.ERROR_ROW,d.ERROR_COLUMN
+	</select>
+	
 	<insert id="insertDataTemplate" parameterClass="java.util.HashMap">
 	</insert>
 	<parameterMap id="SysUploadFileMap" class="java.util.Map">

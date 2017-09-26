@@ -1,10 +1,3 @@
-<%-- <link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-common.css" rel="stylesheet" type="text/css" />
-<link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-grid.css" rel="stylesheet" type="text/css" />
-<link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-form.css" rel="stylesheet" type="text/css" />
-<link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-layout.css" rel="stylesheet" type="text/css" />
-<link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-menu.css" rel="stylesheet" type="text/css" />
-<link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-tab.css" rel="stylesheet" type="text/css" />
-<link href="${_CONTEXT_PATH}/jwebui/skins/sys/css/ligerui-tree.css" rel="stylesheet" type="text/css" /> --%>
 <link href="${_CONTEXT_PATH}/jwebui/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
 <link href="${_CONTEXT_PATH}/jwebui/artdialog/skins/blue.css" rel="stylesheet" />
 <link href="${_CONTEXT_PATH}/jwebui/procbar/procbar.css" rel="stylesheet" />
@@ -13,7 +6,6 @@
 <script src="${_CONTEXT_PATH}/jwebui/jquery/jquery-1.4.2.min.js" type="text/javascript" ></script>
 <script src="${_CONTEXT_PATH}/jwebui/jquery/jquery.cookie.js" type="text/javascript" ></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/core/base.js"  type="text/javascript"></script> 
-<%-- <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/liger.all.js" type="text/javascript"></script> --%>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerAccordion.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerButton.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerCheckBox.js" type="text/javascript"></script>
@@ -27,9 +19,7 @@
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerLayout.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerMenu.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerMenuBar.js" type="text/javascript"></script>
-<%-- <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerMenuBarTop.js" type="text/javascript"></script> --%>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerMessageBox.js" type="text/javascript"></script>
-<%-- <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerNoSelect.js" type="text/javascript"></script> --%>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerPanel.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerRadio.js" type="text/javascript"></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/plugins/ligerResizable.js" type="text/javascript"></script>
