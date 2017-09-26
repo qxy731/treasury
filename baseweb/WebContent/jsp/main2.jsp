@@ -288,8 +288,9 @@ function setTab(n){
 <!-- <div position="left" title="" id="accordion1"> </div>-->
 
 <div position="center" id="framecenter">
-<div tabid="home" title="我的主页"><iframe frameborder="0" name="home" id="home"
-    src="${_CONTEXT_PATH}/jsp/sysmgr/mypage.jsp"></iframe></div>
+<div tabid="home" title="我的主页">
+<%-- <iframe frameborder="0" name="home" id="home" src="${_CONTEXT_PATH}/jsp/sysmgr/mypage.jsp"></iframe> --%>
+</div>
 </div>
 <!-- <div position="bottom" >Copyright @ 2012 www.soule.com</div> -->
 </div>

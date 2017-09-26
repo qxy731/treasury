@@ -17,14 +17,14 @@ body {overflow: hidden;}
 	<table class='content'>
 		<tr>
 			<td style="padding-top: 10px; padding-bottom: 15px;">
-				<form id="myform" action="">
+				<form id="myform" action="" method="post">
 					<fieldset class="queryBox" style="width: 100%;">
 						<legend>查询条件</legend>
 						<table class='params'>
 							<tr>
 								<td>文件类型</td>
 								<td>
-									<s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" emptyOption="true" />
+									<n:select id="fileType" name="fileType" codetype="uploadfile_type" emptyOption="true" />
 								</td>
 								<td>文件名称</td>
 								<td>
@@ -86,8 +86,8 @@ $(function () {
   	      {text:'下载模板',name:'insert_btn',icon:'export',click:btn_downmodule_click},
   		  {text:'上传文件',name:'commit_btn',icon:'submit',click:btn_upfile_click},
   		  {text:'删除文件',name:'delete_btn',icon:'delete',click:btn_delfile_click},
-  		  {text:'上传文件查看',name:'btn_detail',icon:'detail',click:queryDetail},
-  		  {text:'加载文件数据',name:'btn_detail',icon:'detail',click:loadFileData}
+  		  {text:'导入错误信息',name:'btn_detail',icon:'detail',click:queryDetail},
+  		  {text:'加载文件数据',name:'btn_detail',icon:'save',click:loadFileData}
   	],
   		  width:'99%'
   	});
@@ -98,6 +98,7 @@ $(function () {
 		selectRowButtonOnly:true,
 		enumlist: _enum_params ,
 		columns: [
+			{ display: 'uploadId', name: 'uploadId', align: 'center',hide:true},
 			{ display: '处理结果', name: 'resultType', align: 'center',codetype:'dataimp_result', width: 60 },
 			{ display: '数据日期', name: 'businessDate', align: 'left', width: 60},
 			{ display: '文件类型', name: 'fileType', align: 'left',codetype:'uploadfile_type', width: 310},
@@ -111,7 +112,6 @@ $(function () {
 		width: '100%',
 		height:'100%',
 		heightDiff:-20,
-		//onDblClickRow:queryDetail,
 		onError: function(e) {
 			Utils.toIndex(e);
 		}
@@ -147,6 +147,7 @@ function btn_delfile_click(){
 		return;
 	}
 	var uploadId=rows.uploadId;
+	
 	doComAndUncomAndDel(uploadId,rows.fileId,'删除',"${_CONTEXT_PATH}/pub/data-import!deleteFile.action");
 }
 
@@ -202,18 +203,23 @@ function execute() {
 	gridManager.setOptions(params); 
 	gridManager.loadData();
 }
+
+function getUploadId(){
+	var gridManager = $("#filelist").ligerGetGridManager(); 
+	var row = gridManager.getSelectedRow();
+	if(row){
+		return row.uploadId;
+	}else{
+		return null;
+	}
+}
+
 function queryDetail(){
 	var gridManager = $("#filelist").ligerGetGridManager(); 
 	var row = gridManager.getSelectedRow();
 	if(row){
-		var fileType=row.fileType;
-		var url= "";
-		if(fileType!=null){
-			url = "${_CONTEXT_PATH}/jsp/pub/dataimp/dataimp_temp.jsp?fileId="+row.fileId+"&uploadFileType="+fileType;
-		}
-		if(url!=""){
-			$.dialogBox.openDialog(url,{title:"查看导入详情",width:'750px',height:'430px',okVal:'关闭'},true,null);
-		}
+		var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_temp.jsp";
+		$.dialogBox.openDialog(url,{title:"查看导入详情",width:'750px',height:'430px',okVal:'关闭'},true,null);
 	}else{
 		$.dialogBox.warn("请选择记录！");
 	} 
@@ -222,7 +228,7 @@ function queryDetail(){
 function loadFileData(){
 	var url = "${_CONTEXT_PATH}/pub/data-import!loadFileData.action";
 	var data = {};
-	$.dialogBox.confirm('您确定文件已上传完毕，现在开始加载文件数据吗？',function () {
+	$.dialogBox.confirm('您确定文件已上传完毕，现在开始加载文件数据吗？加载数据文件需要一段时间，请耐心等待。加载完成后，每个文件的加载结果信息请查看详情！',function () {
 		Utils.ajaxSubmit(url, data, function(result) {
 			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
 		});
