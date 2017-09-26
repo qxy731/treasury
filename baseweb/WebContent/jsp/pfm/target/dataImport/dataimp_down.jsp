@@ -30,7 +30,7 @@ body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) re
 		<td align="right">文件类型</td>
 		<td>
 			<%-- <s:select list="#fileTypelist" listKey="key" listValue="value" id="fileType" name="fileType" cssStyle="width: 250px;" emptyOption="false" /> --%>
-			<n:select id="fileType" name="fileType" codetype="uploadfile_type" cssStyle="width: 250px;" emptyOption="false" />
+			<n:select id="fileType" name="fileType" codetype="uploadfile_type" cssStyle="width: 250px;" emptyOption="false" value="1"/>
 		</td>
 		<td align="left">
 			<input type="button" id="down" name="down" value="下&nbsp;载" class="l-button" />
@@ -56,19 +56,9 @@ function downFile() {
 		$.dialogBox.info("下载模板前请先在“文件类型”选择对应的值！");
 	    return; 
 	}
-	//alert(fname);
-	/* var data = {
-		templateName:fname,
-		templateType:fileType
-	}
-	var url = '${_CONTEXT_PATH}/pub/data-import!downTemplate.action';
-	Utils.ajaxSubmit(url, data, function(result) {
-		$.dialogBox.info(result.retMsg);
-	},function(result){
-		$.dialogBox.error(result.retMsg);
-	}); */
-	var url = '${_CONTEXT_PATH}/upload/template/a.csv';
-    window.open(url);
+    fname = encodeURIComponent(encodeURIComponent(fname)); 
+    var url = '${_CONTEXT_PATH}/pub/data-import!downTemplate.action?templateName='+fname;
+    window.location = url;
 }
 
 </script>
