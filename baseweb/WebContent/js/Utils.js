@@ -488,3 +488,15 @@ Utils.selectModel = function(dup,okFunction,cancelFuntion,paramsObj){
 	var p = {height:500,width:450,lock:false,opacity:0.07,title:'选择模型'};
 	$.dialogBox.openDialog(url,p,okFunction,cancelFuntion);
 };
+
+
+/**出错时调用，跳转到登陆页面**/
+Utils.toIndex = function (response) {
+	if (response.status == 200){
+		alert("登录超时，按确定请重新登录！");
+		window.top.location.href = _CONTEXT_PATH + "/index.jsp";
+	}
+	else {
+		$.dialogBox.error("无法连接或后台服务出错！\n" + response.responseText);
+	}
+};
