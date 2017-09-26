@@ -1,15 +1,7 @@
 package com.soule.app.pfm.tm.report.bankfundsflow;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -18,10 +10,9 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.Region;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 public class BetweenTreasuryFundsReport {
 	
@@ -561,10 +552,10 @@ public class BetweenTreasuryFundsReport {
 	        c199.setCellValue(new HSSFRichTextString(null==map.get("TE_00203")?"0":map.get("TE_00203").toString()));
 	        
 	        //单元格合并 ，每行都进行特殊处理
-	        Region region1 = new Region((short)1, (short)0, (short)1, (short)7);   
-	        Region region2 = new Region((short)2, (short)0, (short)2, (short)1);   
-	        Region region3 = new Region((short)2, (short)2, (short)2, (short)3);
-	        Region region4 = new Region((short)2, (short)4, (short)2, (short)7);   
+	        CellRangeAddress region1 = new CellRangeAddress(1, 1, 0, 7);   
+	        CellRangeAddress region2 = new CellRangeAddress(2, 2, 0, 1);   
+	        CellRangeAddress region3 = new CellRangeAddress(2, 2, 2, 3);
+	        CellRangeAddress region4 = new CellRangeAddress(2, 2, 4, 7);   
 	        
 	        
 	        

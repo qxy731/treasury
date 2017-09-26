@@ -11,7 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.Region;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -404,33 +404,33 @@ public class AccountingAnalysisOther {
         c120.setCellValue(new HSSFRichTextString(""));
         
         //单元格合并 ，每行都进行特殊处理
-        Region region1 = new Region((short)1, (short)0, (short)1, (short)3);   
-        Region region2 = new Region((short)2, (short)0, (short)2, (short)1);   
-        Region region3 = new Region((short)2, (short)2, (short)2, (short)3);
-        Region region4 = new Region((short)3, (short)0, (short)3, (short)1);   
-        Region region5 = new Region((short)3, (short)2, (short)3, (short)3);
-        Region region6 = new Region((short)4, (short)0, (short)4, (short)1);   
-        Region region7 = new Region((short)4, (short)2, (short)4, (short)3);
-        Region region8 = new Region((short)5, (short)0, (short)5, (short)1);   
-        Region region9 = new Region((short)5, (short)2, (short)5, (short)3);
-        Region region10 = new Region((short)6, (short)0, (short)6, (short)1);   
-        Region region11 = new Region((short)6, (short)2, (short)6, (short)3);
-        Region region12 = new Region((short)7, (short)0, (short)7, (short)1);   
-        Region region13 = new Region((short)7, (short)2, (short)7, (short)3);
-        Region region14 = new Region((short)8, (short)0, (short)8, (short)1);   
-        Region region15 = new Region((short)8, (short)2, (short)8, (short)3);
-        Region region16 = new Region((short)9, (short)0, (short)9, (short)1);   
-        Region region17 = new Region((short)9, (short)2, (short)9, (short)3);
-        Region region18 = new Region((short)10, (short)0, (short)11, (short)0);
-        Region region19 = new Region((short)10, (short)2, (short)10, (short)3);
-        Region region20 = new Region((short)11, (short)2, (short)11, (short)3);
+        CellRangeAddress region1 = new CellRangeAddress(1,1,0,3);
+        CellRangeAddress region2 = new CellRangeAddress(2,2,0,1);
+        CellRangeAddress region3 = new CellRangeAddress(2,2,2,3);
+        CellRangeAddress region4 = new CellRangeAddress(3,3, 0,  1);   
+        CellRangeAddress region5 = new CellRangeAddress(3,3, 2,  3);
+        CellRangeAddress region6 = new CellRangeAddress(4,4, 0,  1);   
+        CellRangeAddress region7 = new CellRangeAddress(4,4, 2,  3);
+        CellRangeAddress region8 = new CellRangeAddress(5,5, 0,  1);   
+        CellRangeAddress region9 = new CellRangeAddress(5,5, 2,  3);
+        CellRangeAddress region10 = new CellRangeAddress(6,6, 0,  1);   
+        CellRangeAddress region11 = new CellRangeAddress(6,6, 2,  3);
+        CellRangeAddress region12 = new CellRangeAddress(7,7, 0,  1);   
+        CellRangeAddress region13 = new CellRangeAddress(7,7, 2,  3);
+        CellRangeAddress region14 = new CellRangeAddress(8,8, 0,  1);   
+        CellRangeAddress region15 = new CellRangeAddress(8,8, 2,  3);
+        CellRangeAddress region16 = new CellRangeAddress(9,9, 0,  1);   
+        CellRangeAddress region17 = new CellRangeAddress(9,9, 2,  3);
+        CellRangeAddress region18 = new CellRangeAddress(10,11, 0,  0);
+        CellRangeAddress region19 = new CellRangeAddress(10,10, 2,  3);
+        CellRangeAddress region20 = new CellRangeAddress(11,11, 2,  3);
         
-        Region region21 = new Region((short)12, (short)0, (short)16, (short)0);
-        Region region22 = new Region((short)12, (short)2, (short)12, (short)3);
-        Region region23 = new Region((short)13, (short)2, (short)13, (short)3);
-        Region region24 = new Region((short)14, (short)2, (short)14, (short)3);
-        Region region25 = new Region((short)15, (short)2, (short)15, (short)3);
-        Region region26 = new Region((short)16, (short)2, (short)16, (short)3);
+        CellRangeAddress region21 = new CellRangeAddress(12,16, 0,  0);
+        CellRangeAddress region22 = new CellRangeAddress(12,12, 2,  3);
+        CellRangeAddress region23 = new CellRangeAddress(13,13, 2,  3);
+        CellRangeAddress region24 = new CellRangeAddress(14,14, 2,  3);
+        CellRangeAddress region25 = new CellRangeAddress(15,15, 2,  3);
+        CellRangeAddress region26 = new CellRangeAddress(16,16, 2,  3);        
         
         
         
@@ -603,8 +603,8 @@ public class AccountingAnalysisOther {
        
         
         for(int index=17;index<32;index++){
-        	 Region regionX = new Region((short)index, (short)0, (short)index, (short)1);   
- 	         Region regionY = new Region((short)index, (short)2, (short)index, (short)3);
+        	 CellRangeAddress regionX = new CellRangeAddress(index,index,0,1);
+             CellRangeAddress regionY = new CellRangeAddress(index,index,2,3);
  	        sheet.addMergedRegion(regionX);
  	       sheet.addMergedRegion(regionY);
  	        

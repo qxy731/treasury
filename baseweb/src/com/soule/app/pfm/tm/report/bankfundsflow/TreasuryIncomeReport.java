@@ -1,13 +1,9 @@
 package com.soule.app.pfm.tm.report.bankfundsflow;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.ServletOutputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -16,7 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.Region;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -1085,13 +1081,13 @@ public class TreasuryIncomeReport {
 	        
 	        
 	        //单元格合并 ，每行都进行特殊处理
-	        Region region1 = new Region((short)1, (short)0, (short)1, (short)8);   
-	        Region region2 = new Region((short)2, (short)0, (short)2, (short)1);   
-	        Region region3 = new Region((short)2, (short)2, (short)2, (short)8);
-	        Region region4 = new Region((short)3, (short)0, (short)4, (short)0);   
-	        Region region5 = new Region((short)3, (short)1, (short)3, (short)3);  
-	        Region region6 = new Region((short)3, (short)4, (short)3, (short)6);  
-	        Region region7 = new Region((short)3, (short)7, (short)3, (short)8);  
+	        CellRangeAddress region1 = new CellRangeAddress(1,1,0,8);   
+	        CellRangeAddress region2 = new CellRangeAddress(2,2,0,1);   
+	        CellRangeAddress region3 = new CellRangeAddress(2,2,2,8);
+	        CellRangeAddress region4 = new CellRangeAddress(3,4,0,0);   
+	        CellRangeAddress region5 = new CellRangeAddress(3,1,3,3);  
+	        CellRangeAddress region6 = new CellRangeAddress(3,3,4,6);  
+	        CellRangeAddress region7 = new CellRangeAddress(3,3,7,8);  
 	        
 	        sheet.addMergedRegion(region1);   
 	        sheet.addMergedRegion(region2);   
