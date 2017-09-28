@@ -109,8 +109,6 @@ public class BetweenBankFlowReport {
 	        style5.setBorderRight(CellStyle.BORDER_MEDIUM);  
 	        style5.setBorderTop(CellStyle.BORDER_MEDIUM);  
 	        style5.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);//垂直  
-	        //style5.setFillForegroundColor(IndexedColors.LIGHT_TURQUOISE.getIndex());
-	        //style5.setFillPattern(CellStyle.SOLID_FOREGROUND);
 	        //创建单元格  
 	        HSSFRow row1 = sheet.createRow(1);   
 	        HSSFCell c10 = row1.createCell(0);   
@@ -866,10 +864,8 @@ public class BetweenBankFlowReport {
 	        
 	        CellRangeAddress region6 = new CellRangeAddress(18, 18,0,  5);  
 	        
-	        CellRangeAddress region7 = new CellRangeAddress(19, 19,0,  0);  
 	        CellRangeAddress region8 = new CellRangeAddress(19, 19,1,  2); 
 	        CellRangeAddress region9 = new CellRangeAddress(19, 19,3,  4); 
-	        CellRangeAddress region10 = new CellRangeAddress(19, 19,5,  5); 
 	        CellRangeAddress region11 = new CellRangeAddress(20, 29,0,  0); 
 	        CellRangeAddress region12 = new CellRangeAddress(20, 29,5,  5); 
 	        
@@ -877,72 +873,52 @@ public class BetweenBankFlowReport {
 	        
 	        CellRangeAddress region14 = new CellRangeAddress(38, 38,1,  2); 
 	        CellRangeAddress region15 = new CellRangeAddress(38, 38,3, 4); 
-	        CellRangeAddress region16 = new CellRangeAddress(38, 38,5,  5); 
 	       
-	        CellRangeAddress region35 = new CellRangeAddress(37, 37,1,  2); 
-	        CellRangeAddress region36 = new CellRangeAddress(37,  37,3, 4); 
-	        CellRangeAddress region37 = new CellRangeAddress(37, 37,5,  5); 
+	        CellRangeAddress region35 = new CellRangeAddress(37, 37,0, 5); 
 	        
 	        CellRangeAddress region17 = new CellRangeAddress(39, 39,1,  2); 
 	        CellRangeAddress region18 = new CellRangeAddress(39, 39,3,  4); 
-	        CellRangeAddress region19 = new CellRangeAddress(39, 39,5,  5); 
 	        
 	        CellRangeAddress region20 = new CellRangeAddress(40, 40,1,  2); 
 	        CellRangeAddress region21 = new CellRangeAddress(40, 40, 3, 4); 
-	        CellRangeAddress region22 = new CellRangeAddress(40, 40,5,  5); 
 	        
 	        CellRangeAddress region23 = new CellRangeAddress(41, 41,1,  2); 
 	        CellRangeAddress region24 = new CellRangeAddress(41, 41,3,  4); 
-	        CellRangeAddress region25 = new CellRangeAddress(41, 41,5,  5); 
 	        
 	        CellRangeAddress region26 = new CellRangeAddress(42, 42,1,  2); 
 	        CellRangeAddress region27 = new CellRangeAddress(42, 42,3,  4); 
-	        CellRangeAddress region28 = new CellRangeAddress(42, 42,5,  5); 
 	        
 	        CellRangeAddress region29 = new CellRangeAddress(43,43, 1,  2); 
 	        CellRangeAddress region30 = new CellRangeAddress(43,43, 3,  4); 
-	        CellRangeAddress region31 = new CellRangeAddress(43,43, 5,  5); 
 	        
 	        CellRangeAddress region32 = new CellRangeAddress(44,44, 1,  2); 
 	        CellRangeAddress region33 = new CellRangeAddress(44,44, 3,  4); 
-	        CellRangeAddress region34 = new CellRangeAddress(44,44, 5,  5); 
 	        sheet.addMergedRegion(region1);   
 	        sheet.addMergedRegion(region2);   
 	        sheet.addMergedRegion(region3); 
 	        sheet.addMergedRegion(region4); 
 	        sheet.addMergedRegion(region5);   
 	        sheet.addMergedRegion(region6); 
-	        sheet.addMergedRegion(region7);
 	        sheet.addMergedRegion(region8);   
 	        sheet.addMergedRegion(region9); 
-	        sheet.addMergedRegion(region10); 
 	        sheet.addMergedRegion(region11);   
 	        sheet.addMergedRegion(region12);   
 	        sheet.addMergedRegion(region13); 
 	        sheet.addMergedRegion(region14); 
 	        sheet.addMergedRegion(region15);   
-	        sheet.addMergedRegion(region16); 
 	        sheet.addMergedRegion(region17);
 	        sheet.addMergedRegion(region18);   
-	        sheet.addMergedRegion(region19); 
 	        sheet.addMergedRegion(region20); 
 	        sheet.addMergedRegion(region21);   
-	        sheet.addMergedRegion(region22);   
 	        sheet.addMergedRegion(region23); 
 	        sheet.addMergedRegion(region24); 
-	        sheet.addMergedRegion(region25);   
 	        sheet.addMergedRegion(region26); 
 	        sheet.addMergedRegion(region27);
-	        sheet.addMergedRegion(region28);   
 	        sheet.addMergedRegion(region29); 
 	        sheet.addMergedRegion(region30); 
-	        sheet.addMergedRegion(region31);   
 	        sheet.addMergedRegion(region32);   
 	        sheet.addMergedRegion(region33); 
-	        sheet.addMergedRegion(region34); 
 	        sheet.addMergedRegion(region35);   
-	        sheet.addMergedRegion(region36); 
-	        sheet.addMergedRegion(region37);
 	        
 	        //表格框设置
 	        c10.setCellStyle(style1); 

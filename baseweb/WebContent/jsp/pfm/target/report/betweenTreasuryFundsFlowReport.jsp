@@ -64,6 +64,7 @@ body{
 			var dataDate =   $('#dataDate').val();
 			var unitId = $('#unitId').val();
 			var unitName = $("#unitName").val();
+			unitName = encodeURIComponent(encodeURIComponent(unitName)); 
 			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export3.action?dataDate="+dataDate+"&unitId="+unitId+"&unitName="+unitName;  
 		}
 	}

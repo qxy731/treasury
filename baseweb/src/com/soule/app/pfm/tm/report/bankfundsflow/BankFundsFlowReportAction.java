@@ -7,6 +7,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import javax.servlet.ServletOutputStream;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.BasePasswordEncoder;
 
 import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
@@ -117,11 +121,14 @@ public class BankFundsFlowReportAction extends BaseAction {
     	String dataDate = request.getParameter("dataDate");
     	String unitId = request.getParameter("unitId");
     	String unitName = request.getParameter("unitName");
+    	
     	Map<String,Object> map = new HashMap<String,Object>();
 		try {
+			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
 			
 			retMap.put("dataDate", dataDate);
 			fileName = "与商业银行之间资金流动情况统计表-"+unitName+"-"+dataDate;
+			fileName = java.net.URLDecoder.decode(fileName, "utf-8");
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
@@ -140,7 +147,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        response.reset();
 	        response.setContentType("application/octet-stream");
 	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -191,8 +198,11 @@ public class BankFundsFlowReportAction extends BaseAction {
 		try {
 			
 			map.put("dataDate", dataDate);
-			
+			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
 			fileName = "国库会计分析其他数据统计表-"+unitName+"-"+dataDate;
+			
+			fileName = java.net.URLDecoder.decode(fileName, "utf-8");
+			
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
@@ -212,7 +222,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        response.reset();
 	        response.setContentType("application/octet-stream");
 	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -278,9 +288,11 @@ public class BankFundsFlowReportAction extends BaseAction {
     	String dataDate = request.getParameter("dataDate");
     	Map<String,Object> map = new HashMap<String,Object>();
 		try {
+			
 			map.put("dataDate", dataDate);
 			fileName = "大连市国库收支统计表-"+dataDate;
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+	    	fileName = java.net.URLDecoder.decode(fileName, "utf-8");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
 	    	queryIn.setDataDate(dataDate.replaceAll("-", ""));
@@ -301,7 +313,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        response.reset();
 	        response.setContentType("application/octet-stream");
 	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
@@ -351,9 +363,12 @@ public class BankFundsFlowReportAction extends BaseAction {
     	Map<String,Object> map = new HashMap<String,Object>();
     	
 		try {
-			
+			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
 			retMap.put("dataDate", dataDate);
 			fileName = "与其他国库之间资金流动情况统计表-"+unitName+"-"+dataDate;
+			
+			fileName = java.net.URLDecoder.decode(fileName, "utf-8");
+			
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
@@ -375,7 +390,7 @@ public class BankFundsFlowReportAction extends BaseAction {
 	        response.reset();
 	        response.setContentType("application/octet-stream");
 	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="+new String( fileName.getBytes( "gb2312" ), "ISO8859-1" )+ ".xls" );
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+".xls" );
 	        
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
@@ -468,9 +483,19 @@ public class BankFundsFlowReportAction extends BaseAction {
 	}
 	
 	public static void main(String[] args){
-		String dataDate ="20170630";
+		String str ="111111";
+		MessageDigest md5;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+			md5.update(str.getBytes());
+			String newstr= new BigInteger(1, md5.digest()).toString(16);
+			System.out.println(newstr);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		System.out.println();
+	
 	}
 	
 }

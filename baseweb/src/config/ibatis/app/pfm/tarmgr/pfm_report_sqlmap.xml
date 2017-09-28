@@ -62,7 +62,7 @@
 		FROM  pfm_financial_institution c 
 		LEFT JOIN pfm_tm_qty_financial_institution q ON q.BANK_ID = c.BANK_ID
 				 AND q.TAR_CODE IN ('TE_00003', 'TE_00004', 'TE_00034', 'TE_00035', 'TE_00067' )
-				 AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+				 AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 		LEFT JOIN SYS_UNIT u ON u.UNIT_ID = q.ORG_ID
 		WHERE 1=1
 		AND c.BANK_ID in ('100000','100001','100002','100003','100004','100005','100007','100018','100028','100030','100050','100055')
@@ -78,7 +78,7 @@
 			IFNULL(q.TAR_VALUE,0)/10000 TAR_VALUE
 			FROM  PFM_TM_QTY_DEF d 
 			LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
-			AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+			AND q.ORG_ID = #unitId# and q.TAR_DATE =STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00005',
 			'TE_00014',
 			'TE_00015',
@@ -129,7 +129,7 @@
 					IFNULL(q.TAR_VALUE,0)/10000 TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
 					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
-					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+					AND q.ORG_ID = #unitId# and q.TAR_DATE =STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00011',
 				'TE_00012',
 				'TE_00013',
@@ -152,7 +152,7 @@
 				FROM
 					PFM_TM_QTY_DEF d
 				LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE 
-					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+					AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 				WHERE
 					d.TAR_STATUS = '1'
 				AND d.TAR_CODE IN (
@@ -255,7 +255,7 @@
 					case when q.tar_code='TE_00069' then IfNULL(q.TAR_VALUE,0)/10000 ELSE IfNULL(q.TAR_VALUE,0) END AS TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
 					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
-					AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+					AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00069',	
 					'TE_00070',	
 					'TE_00071',	
@@ -323,7 +323,7 @@
 					q.TAR_VALUE
 					FROM  PFM_TM_QTY_DEF d 
 					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
-					WHERE d.TAR_STATUS = '1' AND q.ORG_ID = #unitId# and q.TAR_DATE = #dataDate#
+					WHERE d.TAR_STATUS = '1' AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 					and d.TAR_CODE IN ('TE_00069',	
 							'TE_00070',	
 							'TE_00071',	
