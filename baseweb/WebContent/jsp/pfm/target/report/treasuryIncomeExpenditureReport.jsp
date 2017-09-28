@@ -628,14 +628,14 @@ body{
 									</tr>
 									<tr>
 										<td><div>六、期末库存</div></td>
-										<td><div id="_amc">0</div></td>
-										<td><div id="_ayc">0</div></td>
-										<td><div id="_agrc">0</div></td>
-										<td><div id="_aml">0</div></td>
-										<td><div id="_ayl">0</div></td>
-										<td><div id="_agrl">0</div></td>
-										<td><div id="_amt">0</div></td>
-										<td><div id="_agrt">0</div></td>
+										<td><div id="T00_amc">0</div></td>
+										<td><div id="T00_ayc">0</div></td>
+										<td><div id="T00_agrc">0</div></td>
+										<td><div id="T00_aml">0</div></td>
+										<td><div id="T00_ayl">0</div></td>
+										<td><div id="T00_agrl">0</div></td>
+										<td><div id="T00_amt">0</div></td>
+										<td><div id="T00_agrt">0</div></td>
 									</tr>
 								</tbody>
 							</table>

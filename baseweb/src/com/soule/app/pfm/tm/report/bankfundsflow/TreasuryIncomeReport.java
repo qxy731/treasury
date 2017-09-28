@@ -1063,21 +1063,21 @@ public class TreasuryIncomeReport {
 	        HSSFCell c460 = row46.createCell(0);   
 	        c460.setCellValue(new HSSFRichTextString("六、期末库存"));
 	        HSSFCell c461 = row46.createCell(1);   
-	        c461.setCellValue(new HSSFRichTextString(null==map.get("_amc")?"0":map.get("_amc").toString())); 
+	        c461.setCellValue(new HSSFRichTextString(null==map.get("T00_amc")?"0":map.get("T00_amc").toString())); 
 	        HSSFCell c462 = row46.createCell(2);   
-	        c462.setCellValue(new HSSFRichTextString(null==map.get("_ayc")?"0":map.get("_ayc").toString())); 
+	        c462.setCellValue(new HSSFRichTextString(null==map.get("T00_ayc")?"0":map.get("T00_ayc").toString())); 
 	        HSSFCell c463 = row46.createCell(3);   
-	        c463.setCellValue(new HSSFRichTextString(null==map.get("_agrc")?"0":map.get("_agrc").toString())); 
+	        c463.setCellValue(new HSSFRichTextString(null==map.get("T00_agrc")?"0":map.get("T00_agrc").toString())); 
 	        HSSFCell c464 = row46.createCell(4);   
-	        c464.setCellValue(new HSSFRichTextString(null==map.get("_aml")?"0":map.get("_aml").toString())); 
+	        c464.setCellValue(new HSSFRichTextString(null==map.get("T00_aml")?"0":map.get("T00_aml").toString())); 
 	        HSSFCell c465 = row46.createCell(5);   
-	        c465.setCellValue(new HSSFRichTextString(null==map.get("_ayl")?"0":map.get("_ayl").toString())); 
+	        c465.setCellValue(new HSSFRichTextString(null==map.get("T00_ayl")?"0":map.get("T00_ayl").toString())); 
 	        HSSFCell c466 = row46.createCell(6);   
-	        c466.setCellValue(new HSSFRichTextString(null==map.get("_agrl")?"0":map.get("_agrl").toString())); 
+	        c466.setCellValue(new HSSFRichTextString(null==map.get("T00_agrl")?"0":map.get("T00_agrl").toString())); 
 	        HSSFCell c467 = row46.createCell(7);   
-	        c467.setCellValue(new HSSFRichTextString(null==map.get("_amt")?"0":map.get("_amt").toString())); 
+	        c467.setCellValue(new HSSFRichTextString(null==map.get("T00_amt")?"0":map.get("T00_amt").toString())); 
 	        HSSFCell c468 = row46.createCell(8);   
-	        c468.setCellValue(new HSSFRichTextString(null==map.get("_agrt")?"0":map.get("_agrt").toString())); 
+	        c468.setCellValue(new HSSFRichTextString(null==map.get("T00_agrt")?"0":map.get("T00_agrt").toString())); 
 	        
 	        
 	        //单元格合并 ，每行都进行特殊处理
