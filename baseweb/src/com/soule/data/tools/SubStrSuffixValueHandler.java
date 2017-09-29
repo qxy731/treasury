@@ -3,6 +3,8 @@ package com.soule.data.tools;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.soule.comm.file.IValueHandler;
 import com.soule.comm.file.config.Field;
 
@@ -12,7 +14,7 @@ public class SubStrSuffixValueHandler implements IValueHandler {
 	public Object special(@SuppressWarnings("rawtypes") Map context, List<Field> list, String[] values, int i)  {
         try{
 			String param = list.get(i).getParam();
-			String[] arrayParam = param.split("|");
+			String[] arrayParam = param.split("\\|");
 			String columnSeparator = arrayParam[0];
 			String columnName = arrayParam[1];
 			int idx=0;
@@ -24,10 +26,17 @@ public class SubStrSuffixValueHandler implements IValueHandler {
 	                break;
 	            }
 	        }
+	        if(StringUtils.isBlank(value)){
+				   return null;
+			}
 			String[] ret = value.split(columnSeparator);
-			return ret[1];
+			if(ret.length==1){
+				return ret[0];
+		    }else{
+			   return ret[1];
+		    }
 		}catch(Exception e){
-			
+			//e.printStackTrace();
 		}
         return null;
 	}

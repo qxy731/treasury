@@ -87,7 +87,8 @@ $(function () {
   		  {text:'上传文件',name:'commit_btn',icon:'submit',click:btn_upfile_click},
   		  {text:'删除文件',name:'delete_btn',icon:'delete',click:btn_delfile_click},
   		  {text:'导入错误信息',name:'btn_detail',icon:'detail',click:queryDetail},
-  		  {text:'加载文件数据',name:'btn_detail',icon:'save',click:loadFileData}
+  		  {text:'加载文件数据',name:'btn_detail',icon:'save',click:loadFileData},
+  		  {text:'计算指标数据',name:'btn_detail',icon:'yunxing',click:batchTargetData}
   	],
   		  width:'99%'
   	});
@@ -98,14 +99,14 @@ $(function () {
 		selectRowButtonOnly:true,
 		enumlist: _enum_params ,
 		columns: [
-			{ display: 'uploadId', name: 'uploadId', align: 'center',hide:true},
+			{ display: '文件编号',name:'uploadId',align: 'left',width:60},
 			{ display: '处理结果', name: 'resultType', align: 'center',codetype:'dataimp_result', width: 60 },
 			{ display: '数据日期', name: 'businessDate', align: 'left', width: 60},
 			{ display: '文件类型', name: 'fileType', align: 'left',codetype:'uploadfile_type', width: 310},
 			{ display: '文件名称', name: 'fileName', align: 'left', width: 300 },
 			{ display: '文件上传者', name: 'staffName', align: 'left', width: 65 },
 			{ display: '文件上传国库', name: 'orgName', align: 'left', width: 140 },
-			{ display: '文件大小(KB)', name: 'fileSize', align: 'center',width:80 },
+			{ display: '文件大小(KB)', name: 'fileSize', align: 'right',width:80 },
 			{ display: '上传日期', name: 'uploadDate', align: 'center',width:125 }
 		],
 		pageSize:20,
@@ -115,20 +116,9 @@ $(function () {
 		onError: function(e) {
 			Utils.toIndex(e);
 		}
-	});	
+	});
+	
 });
-
-function chgFileType(obj){
-	var fileType = obj.value;
-	if(fileType=="07"||fileType=="09"){
-		$("#hiddtrId").show();
-		$('#monthId').attr("validate","required:true");
-	}else{
-		$("#hiddtrId").hide();
-		$('#monthId').attr("validate","");
-	}
-	Utils.validateInit();
-}
 
 function btn_downmodule_click() {
 	var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_down.jsp";
@@ -142,12 +132,11 @@ function btn_delfile_click(){
 		$.dialogBox.info("请选择记录",true);
 		return;
 	}
-	if(_CREATE_USER!=rows.staffId){
+	/* if(_CREATE_USER!=rows.staffId){
 		$.dialogBox.warn("只能删除自己导入的文件!");
 		return;
-	}
+	} */
 	var uploadId=rows.uploadId;
-	
 	doComAndUncomAndDel(uploadId,rows.fileId,'删除',"${_CONTEXT_PATH}/pub/data-import!deleteFile.action");
 }
 
@@ -168,7 +157,7 @@ function onSucc() {
 //上传文件
 function btn_upfile_click() {
 	var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_up.jsp";
-	$.dialogBox.openDialog(url, {title:"上传文件", width:'860px', height:'500px'});
+	$.dialogBox.openDialog(url, {title:"上传文件", width:'860px', height:'550px'});
 }
 
 
@@ -192,6 +181,7 @@ function execute() {
 	var params = {
 		dataAction:'server',
 		dataType:'server', 
+		cache: false,
 		url: '${_CONTEXT_PATH}/pub/data-import!query.action',
 		newPage:1,
 		parms:mdata,
@@ -219,7 +209,7 @@ function queryDetail(){
 	var row = gridManager.getSelectedRow();
 	if(row){
 		var url = "${_CONTEXT_PATH}/jsp/pfm/target/dataImport/dataimp_temp.jsp";
-		$.dialogBox.openDialog(url,{title:"查看导入详情",width:'750px',height:'430px',okVal:'关闭'},true,null);
+		$.dialogBox.openDialog(url,{title:"查看导入详情",width:'750px',height:'530px',okVal:'关闭'},true,null);
 	}else{
 		$.dialogBox.warn("请选择记录！");
 	} 
@@ -228,13 +218,24 @@ function queryDetail(){
 function loadFileData(){
 	var url = "${_CONTEXT_PATH}/pub/data-import!loadFileData.action";
 	var data = {};
-	$.dialogBox.confirm('您确定文件已上传完毕，现在开始加载文件数据吗？加载数据文件需要一段时间，请耐心等待。加载完成后，每个文件的加载结果信息请查看详情！',function () {
+	$.dialogBox.confirm('您确定现在开始加载文件数据吗？',function () {
 		Utils.ajaxSubmit(url, data, function(result) {
 			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
+			execute();
 		});
 },true);
 }
 
+function batchTargetData(){
+	var url = "${_CONTEXT_PATH}/pub/data-import!batchTargetData.action";
+	var data = {};
+	$.dialogBox.confirm('您确定现在开始计算指标数据吗？',function () {
+		Utils.ajaxSubmit(url, data, function(result) {
+			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
+			execute();
+		});
+},true);
+}
 //选择部门信息
 function openSelectUnit(){
 	AppUtils.openSelectUnit(null,$("#orgCode").val(),setUnitIdName);
@@ -270,6 +271,11 @@ function setStaffIdName(){
 	var staff = this.iframe.contentWindow.select();
 	$("#staffId").val(staff.staffId);
 	$("#staffName").val(staff.staffName);
+}
+
+function showUpMessage(){
+	$.dialogBox.info("文件上传成功。",true);
+	execute();
 }
 </script>
 </html>

@@ -166,6 +166,11 @@
 			<version>1.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.soule</groupId>
+			<artifactId>batchflow</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>cas</groupId>
 			<artifactId>casclient</artifactId>
 			<version>2.1.1</version>

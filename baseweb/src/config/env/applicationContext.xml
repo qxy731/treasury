@@ -81,6 +81,32 @@
 		</property>
 	</bean>
 	
+	<bean id="jdbcMediator" class="com.soule.base.media.impl.DefaultMediaForJdbc">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	<bean id="ibatisMediator" class="com.soule.base.media.impl.DefaultMediaForIbatis"
+		init-method="initialize">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="sqlExecutor">
+			<ref bean="sqlExecutor" />
+		</property>
+	</bean>
+	<bean id="sqlExecutor" class="com.soule.base.dialect.IBatisSqlExecutor">
+		<property name="dialect">
+			<ref bean="mysqlDialect" />
+		</property>
+	</bean>
+	<bean id="dbDialect" class="com.soule.base.dialect.impl.OracleDialect" />
+	<bean id="mysqlDialect" class="com.soule.base.dialect.impl.MySQLDialect" />
+	
+	<context:component-scan base-package="com.soule.comm.batch,com.soule.batch"/>
 	<context:component-scan base-package="com.soule.comm.tools,com.soule.app,com.soule.crm"/>
 	<!-- enable autowire -->
 	<context:annotation-config />

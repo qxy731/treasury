@@ -31,7 +31,7 @@ body {overflow:hidden;}
 	<tr>
 		<td></td>
 		<td><input id="choice2" type="radio" value="1" name="choice">新建</input></td>
-		<td><input type="text" id='newbatchid' class='disabled' disabled='disabled'></input></td>
+		<td><input type="text" id='newbatchid' class='disabled'></input></td>
 		<td></td>
 	</tr>
 	<tr>

@@ -47,15 +47,17 @@ public class CommConstants {
     public static final String URL_SEQ = "SYS_RES_URL";
     
     
-    public static final String DATA_FILE_FREQUENCY_DE = "DE" ;//日终
+    public static final String DATA_FILE_FREQUENCY_DE = "DAY" ;//日
+    
+    public static final String DATA_FILE_FREQUENCY_TDE = "TENDAYS";//旬
 	
-	public static final String DATA_FILE_FREQUENCY_HYE = "HYE" ;//半年末	
+	public static final String DATA_FILE_FREQUENCY_ME = "MONTH" ;//月
 	
-	public static final String DATA_FILE_FREQUENCY_ME = "ME" ;//月末
+	public static final String DATA_FILE_FREQUENCY_QE = "QUARTER" ;//季
 	
-	public static final String DATA_FILE_FREQUENCY_QE = "QE" ;//季末
+	public static final String DATA_FILE_FREQUENCY_HYE = "HALFYEAR" ;//半年
 	
-	public static final String DATA_FILE_FREQUENCY_YE = "YE" ;//年末
+	public static final String DATA_FILE_FREQUENCY_YE = "YEAR" ;//年
 	
 	public static final String  IMPORT_TYPE_ONE = "1" ;//覆盖
 	

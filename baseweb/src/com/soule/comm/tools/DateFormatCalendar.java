@@ -9,11 +9,7 @@ import com.soule.comm.CommConstants;
 
 
 public class DateFormatCalendar{
-	/**
-	 * 
-	 */
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 6434147015769749360L;
+	
 	/** 
 	  * 
 	  * 描述:此类用于取得当前日期相对应的月初，月末，季初，季末，年初，年末，返回值均为String字符串 
@@ -28,11 +24,10 @@ public class DateFormatCalendar{
 	  * 注意事项:  日期格式为：xxxxyyzz (eg: 20071205)
 	  * 实例: 
 	  * @author peter
-	  */  
+	  */
 	
 	private Integer year;                  // 日期属性：年  
     private Integer month;                  // 日期属性：月  
-    @SuppressWarnings("unused")
 	private Integer day;                  // 日期属性：日  
     private String format = DateFormatDefine.FORMAT_YYYYMMDD_01;
     private SimpleDateFormat sdf;
@@ -104,6 +99,19 @@ public class DateFormatCalendar{
     public static String getDayEndDate(){
     	return manager.sdf.format(getLocalCalendar().getTime());
     }
+    
+    public static String getTenDaysEndDate(){
+		 Calendar calendar = Calendar.getInstance();
+		 calendar.setTime(getLocalCalendar().getTime());
+		 int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		 if(manager.day>=1 && manager.day<=10){
+			 lastDay = 10;
+		 }else if(manager.day>=11 && manager.day<=20){
+			 lastDay = 20;
+		 }
+		 calendar.set(Calendar.DATE,lastDay);
+		 return manager.sdf.format(calendar.getTime());
+	}
 	
 	public static String getMonthEndDate(){
 		 Calendar calendar = Calendar.getInstance();
@@ -116,14 +124,11 @@ public class DateFormatCalendar{
 		Calendar calendar = Calendar.getInstance();
 		if (manager.month >= 1 && manager.month <= 3) {
 			calendar.set(manager.year,2,31);
-		}
-		if (manager.month >= 4 && manager.month <= 6) {
+		}else if (manager.month >= 4 && manager.month <= 6) {
 			calendar.set(manager.year,5,30);
-		}
-		if (manager.month >= 7 && manager.month <= 9) {
+		}else if (manager.month >= 7 && manager.month <= 9) {
 			calendar.set(manager.year,8,30);
-		}
-		if (manager.month >= 10 && manager.month <= 12) {
+		}else if (manager.month >= 10 && manager.month <= 12) {
 			calendar.set(manager.year,11,31);
 		}
 		return manager.sdf.format(calendar.getTime());
@@ -147,7 +152,9 @@ public class DateFormatCalendar{
 	}
 	
 	public static String getBusinessDate(String fileFreq){
-		if(CommConstants.DATA_FILE_FREQUENCY_ME.equals(fileFreq)){
+		if(CommConstants.DATA_FILE_FREQUENCY_TDE.equals(fileFreq)){
+			return getTenDaysEndDate();
+		}else if(CommConstants.DATA_FILE_FREQUENCY_ME.equals(fileFreq)){
 			return getMonthEndDate();
 		}else if(CommConstants.DATA_FILE_FREQUENCY_QE.equals(fileFreq)){
 			return getSeasonEndDate();
@@ -163,7 +170,8 @@ public class DateFormatCalendar{
 	
 	public static void main(String[] args){
 		try {
-			DateFormatCalendar.getInstance("20170701");
+			DateFormatCalendar.getInstance("20170211");
+			System.out.println(DateFormatCalendar.getTenDaysEndDate());
 			System.out.println(DateFormatCalendar.getMonthEndDate());
 			System.out.println(DateFormatCalendar.getSeasonEndDate());
 			System.out.println(DateFormatCalendar.getHalfYearEndDate());

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="bat">
+	<select id="existBatch" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(1) as count from BAT_STEP
+		where batch_id=#batchId#
+	</select>
+
+	<select id="loadStep" parameterClass="java.lang.String" resultClass="com.soule.comm.batch.dao.BatStepPo">
+		SELECT
+			BATCH_ID as batchId,
+			STEP_ID as stepId,
+			PARENT_ID as parentId,
+			STEP_TYPE as stepType,
+			STEP_NO as stepNo,
+			STEP_NAME as stepName,
+			STEP_DESC as stepDesc,
+			PROC_FREQ as procFreq,
+			PROC_CLASS as procClass,
+			PARAM1 as param1,
+			PARAM2 as param2,
+			PARAM3 as param3,
+			PARAM4 as param4,
+			PARAM5 as param5,
+			COMP_COUNT as compCount,
+			SKIP_STEP_ID as skipStepId,
+			DEPEND_IDS as dependIds,
+			REF_TIME as refTime,
+			EXT1 as ext1,
+			EXT2 as ext2,
+			EXT3 as ext3
+		FROM BAT_STEP where batch_id=#batchId#
+		ORDER BY BATCH_ID,STEP_NO ASC
+	</select>
+	<update id="updateStatus" parameterClass="java.util.HashMap">
+		update BAT_STEP_MONITOR set proc_status=#status#
+		<isEqual prepend="," property="status" compareValue="1">
+			start_time=#startTime#
+		</isEqual>
+		<isEqual prepend="," property="status" compareValue="4">
+			start_time=#startTime#,
+			end_time=#endTime#,
+			proc_info=#procInfo#
+		</isEqual>
+		<isEqual prepend="," property="status" compareValue="3">
+			end_time=#endTime#,
+			proc_info=#procInfo#
+		</isEqual>
+		<isEqual prepend="," property="status" compareValue="2">
+			end_time=#endTime#,
+			proc_info=#procInfo#
+		</isEqual>
+		<isEqual prepend="," property="status" compareValue="5">
+			end_time=#endTime#,
+			proc_info=#procInfo#
+		</isEqual>
+		where step_id=#stepId# and inst_id=#instId# and batch_id=#batchId#
+	</update>
+	<select id="getStepStatus" parameterClass="com.soule.comm.batch.config.AbstractStep" resultClass="java.lang.String">
+		select PROC_STATUS from BAT_STEP_MONITOR where STEP_ID=#stepId# and BATCH_ID=#branch# and INST_ID=#instId#
+	</select>
+	<insert id="saveBatTxLog" parameterClass="com.soule.comm.batch.dao.BatTxLogPo">
+		insert into BAT_TX_LOG (LOG_ID,TX_DATE,INST_ID,BATCH_ID,STEP_ID,EXE_TIME,RET_CODE,RET_MSG)
+		values(#logId:INTEGER# ,#txDate:VARCHAR# ,#instId:INTEGER# ,#batchId:VARCHAR# ,#stepId:VARCHAR# ,#exeTime:TIMESTAMP# ,#retCode:VARCHAR# ,#retMsg:VARCHAR# )
+	</insert>
+	<insert id="saveBatStepMonitor" parameterClass="com.soule.comm.batch.dao.BatStepMonitorPo">
+		insert into BAT_STEP_MONITOR (INST_ID,STEP_ID,BATCH_ID,START_TIME,END_TIME,PROC_STATUS,PROC_INFO)
+		values(#instId:INTEGER# ,#stepId:INTEGER# ,#batchId:VARCHAR# ,#startTime:TIMESTAMP# ,#endTime:TIMESTAMP# ,#procStatus:CHAR# ,#procInfo:VARCHAR# )
+	</insert>
+	<select id="getParamValue" parameterClass="java.util.HashMap" resultClass="java.lang.String">
+		select PARA_VALUE from BAT_PARAMS where PARA_ID=#paramId# and BATCH_ID=#batchId#
+	</select>
+	<update id="updateParamValue" parameterClass="java.util.HashMap" >
+		UPDATE BAT_PARAMS set PARA_VALUE=#value# where PARA_ID=#paramId# and BATCH_ID=#batchId#
+	</update>
+	<select id="getMaxInstId" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select MAX(INST_ID) from BAT_STEP_MONITOR where BATCH_ID=#branchId#
+	</select>
+	<select id="getMinInstId" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select MIN(INST_ID) from BAT_STEP_MONITOR where BATCH_ID=#branchId#
+	</select>
+	<parameterMap id="procedureMap" class="java.util.Map">
+		<parameter property="I_PAR_DATE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="O_RETCODE" mode="OUT" jdbcType="INTEGER"/>
+		<parameter property="O_RETMSG" mode="OUT" jdbcType="VARCHAR"/>
+	</parameterMap>
+	<procedure id="callProcedure" parameterMap="procedureMap">
+		{call $PROCEDURE_NAME$(?,?,?)}
+	</procedure>
+	<parameterMap id="procedureMap4" class="java.util.Map">
+		<parameter property="I_PAR_DATE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="O_RETCODE" mode="OUT" jdbcType="INTEGER"/>
+		<parameter property="O_RETMSG" mode="OUT" jdbcType="VARCHAR"/>
+		<parameter property="O_ERRCD" mode="OUT" jdbcType="INTEGER"/>
+	</parameterMap>
+	<procedure id="callProcedure4" parameterMap="procedureMap4">
+		{call $PROCEDURE_NAME$(?,?,?,?)}
+	</procedure>
+	<parameterMap id="procedureMap4s" class="java.util.Map">
+		<parameter property="I_PAR_DATE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="I_SRC_TABLE" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="O_RETMSG" mode="OUT" jdbcType="VARCHAR"/>
+		<parameter property="O_RETCODE" mode="OUT" jdbcType="INTEGER"/>
+	</parameterMap>
+	<procedure id="callProcedure4s" parameterMap="procedureMap4s">
+		{call $PROCEDURE_NAME$(?,?,?,?)}
+	</procedure>
+	<select id="getInstanceCount" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(distinct INST_ID) from BAT_STEP_MONITOR where batch_id=#batchId#
+	</select>
+	<update id="deleteHisMonitor" parameterClass="com.soule.comm.batch.dao.BatStepMonitorPo" >
+		DELETE FROM BAT_STEP_MONITOR WHERE batch_id=#batchId# AND INST_ID=#instId#
+	</update>
+</sqlMap>
+

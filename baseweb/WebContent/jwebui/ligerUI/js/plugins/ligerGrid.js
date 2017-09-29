@@ -673,7 +673,7 @@
             if (value)
             {
                 this.options.dataType = "server";
-                this.loadData(true);
+                //this.loadData(true);
             }
             else
             {
@@ -711,7 +711,7 @@
         },
         _setData: function (value)
         {
-            this.loadData(this.options.data);
+            //this.loadData(this.options.data);
             this.trigger('afterSetData');
         },
         //刷新数据
@@ -859,6 +859,7 @@
                 data: param,
                 async: p.async,
                 dataType: 'json',
+                cache: false,
                 beforeSend: function ()
                 {
                     if (g.hasBind('loading'))

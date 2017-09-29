@@ -73,7 +73,7 @@ html,body {margin:0;padding:0;width:100%;height:100%;font-size:12px;font-family:
 				<div class="l-grid-body-inner" style="width:848px;">
 					<table class="l-grid-body-table" cellpadding="0" cellspacing="0">
 						<tbody id="displayFiles">
-							<tr>
+							<%-- <tr>
 								<td style='width:320px;'>
 									<input type='hidden' name='myFileName' style='width:0;'></input>							
 									<input type='file' name='myFile' onchange='uploadFile5(this)' style='display:none;'></input>
@@ -89,7 +89,7 @@ html,body {margin:0;padding:0;width:100%;height:100%;font-size:12px;font-family:
 								<td style='width:30px;'>
 									<span class='delarea' onclick='deleteFile(this)'></span>
 								</td>
-							</tr>
+							</tr> --%>
 						</tbody>
 					</table>
 				</div>
@@ -118,6 +118,7 @@ $(function () {
 	/* $(".l-grid-body").scroll(function() {
 		$(".l-grid-header").scrollLeft = $(".l-grid-body").scrollLeft;
 	}); */
+	addFileComponent5();
 });
 
 function getUploadFileSize(){
@@ -262,7 +263,7 @@ function addFileComponent5(){
 	displayStr += "<input type='file' name='myFile' onchange='uploadFile5(this)' style='display:none;'></input>";
 	displayStr += "<input type='button' class='l-button' value='选择文件' onclick='$(this).prev().click()'>";
 	displayStr += "</td>";
-	displayStr += "<td style='width:80px;padding-left:2px;'></td>";
+	displayStr += "<td style='width:80px;text-align:right;'></td>";
 	displayStr += "<td style='width:320px;'><select name='myFileType' style='width:320px;'>"+getMyFileTypeOptions()+"</select></td>";
 	displayStr += "<td style='width:60px;'><select name='myImportType' style='width:60px'><option value='1' selected>覆盖</option><option value='2'>追加</option></select></td>";
 	displayStr += "<td style='width:30px;'><span class='delarea' onclick='deleteFile(this)'></span></td>";
@@ -279,9 +280,37 @@ function addFile(obj){
 	jqFileObj.prev().val(fname);
 	jqFileObj.next().hide();
 	var sizeSpan = getCurrentFileSize(obj);
-	jqFileObj.parent().next().html("<span>&nbsp;"+sizeSpan+"</span>");
+	jqFileObj.parent().next().html("<span>"+sizeSpan+"</span>");
+	setFileType(obj);
 	setTipMessage();
 	setSelectedFileSize(obj,true);
+}
+
+function setFileType(obj){
+	var jqFileObj = $(obj);
+	var fname = getFileName(jqFileObj.val());
+	var fnameIndex = fname.lastIndexOf('.');
+	var fnameSuffix = fname.substring(fnameIndex+1).toUpperCase();
+	var fnamePrefix = fname.substring(0,fnameIndex);
+	var uploadFileType = _enum_params.uploadfile_type;
+	for(var i=0;i<uploadFileType.length;i++){
+		var fileTypeCompenentObj = uploadFileType[i];
+		var compenentType = fileTypeCompenentObj[0];
+		var compenentName = fileTypeCompenentObj[1];
+		var compenentIndex = compenentName.lastIndexOf('.');
+		if(compenentIndex>0){
+			var compenentNameSuffix = compenentName.substring(compenentIndex+1).toUpperCase();
+			var compenentNamePrefix = compenentName.substring(0,compenentIndex);
+			var index = fnamePrefix.indexOf(compenentNamePrefix);
+			//alert("index="+index+"&compenentNamePrefix="+compenentNamePrefix+"&compenentNameSuffix="+compenentNameSuffix);
+			//alert(compenentNameSuffix==fnameSuffix);
+			if(index>=0&&compenentNameSuffix==fnameSuffix){
+				var fileTypeObj = $(obj).parent().next().next().children("select[name=myFileType]");
+				fileTypeObj.val(compenentType);
+				break;
+			}
+		}
+	}
 }
 
 
@@ -323,7 +352,6 @@ function showRequest(formData, jqForm, options){
 			try{
 				//fval = files[i].files[0].name;
 				fval = $(files[i]).val();
-				//alert(fval);
 			}catch(e){}
 			if(fval==null||fval==undefined||fval==""||fval=="undefined"||fval=="null"){
 				msg += "\n第"+(i+1)+"行未选择上传的文件！"
@@ -331,7 +359,7 @@ function showRequest(formData, jqForm, options){
 			}
 		}
 		var fileTypes = $("select[name='myFileType']").toArray();
-		console.log(fileTypes);
+		//console.log(fileTypes);
 		for(var i=0;i<fileTypes.length;i++){
 			var fval = null;
 			try{

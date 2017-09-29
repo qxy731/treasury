@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FileTemplates>
-<InFileTemplate  type="CSV" table="BAT_LARGE_FROM_ACCT_LIST" desc="大额来账清单" name="BAT_LARGE_FROM_ACCT_LIST">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_LARGE_FROM_ACCT_LIST" desc="大额来账清单" name="BAT_LARGE_FROM_ACCT_LIST">
 <Header/>
 <Content>
 <Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
@@ -18,7 +18,7 @@
 <Ender/>
 </InFileTemplate>
 
-<InFileTemplate type="CSV" table="BAT_DRIBLET_FROM_ACCT_LIST" desc="小额来账清单" name="BAT_DRIBLET_FROM_ACCT_LIST">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_DRIBLET_FROM_ACCT_LIST" desc="小额来账清单" name="BAT_DRIBLET_FROM_ACCT_LIST">
 <Header/>
 <Content>
 <Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
@@ -39,7 +39,7 @@
 <Ender/>
 </InFileTemplate>
 
-<InFileTemplate type="CSV" table="BAT_LARGE_INTO_ACCT_LIST" desc="大额往账清单" name="BAT_LARGE_INTO_ACCT_LIST">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_LARGE_INTO_ACCT_LIST" desc="大额往账清单" name="BAT_LARGE_INTO_ACCT_LIST">
 <Header/>
 <Content>
 <Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
@@ -58,7 +58,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_DRIBLET_INTO_ACCT_LIST" desc="小额往账清单" name="BAT_DRIBLET_INTO_ACCT_LIST">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_DRIBLET_INTO_ACCT_LIST" desc="小额往账清单" name="BAT_DRIBLET_INTO_ACCT_LIST">
 <Header/>
 <Content>
 <Field type="C" name="报文种类" spec="" length="5" field="RPT_TYPE"/>
@@ -80,7 +80,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_BUDGET_M_ALL" desc="大连市分库预算收入对账月报表[全辖]" name="BAT_RPT_BUDGET_M_ALL">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_BUDGET_M_ALL" desc="大连市分库预算收入对账月报表[全辖]" name="BAT_RPT_BUDGET_M_ALL">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -94,7 +94,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_LOCAL_BUDGET_M_ALL" desc="大连市分库地方级预算收入月报表[全辖]" name="BAT_RPT_LOCAL_BUDGET_M_ALL">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_LOCAL_BUDGET_M_ALL" desc="大连市分库地方级预算收入月报表[全辖]" name="BAT_RPT_LOCAL_BUDGET_M_ALL">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -108,7 +108,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL01" desc="大连市分库地市级预算收入月报表[全辖]" name="BAT_RPT_CITY_BUDGET_M_ALL01">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL01" desc="大连市分库地市级预算收入月报表[全辖]" name="BAT_RPT_CITY_BUDGET_M_ALL01">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -122,7 +122,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_BUDGET_M_ALLTAX" desc="大连市分库预算收入对账月报表[全辖-国税]" name="BAT_RPT_BUDGET_M_ALLTAX">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_BUDGET_M_ALLTAX" desc="大连市分库预算收入对账月报表[全辖-国税]" name="BAT_RPT_BUDGET_M_ALLTAX">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -136,7 +136,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_CENTER_BUDGET_M_ALL" desc="大连市分库中央级预算收入月报表[全辖]" name="BAT_RPT_CENTER_BUDGET_M_ALL">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_CENTER_BUDGET_M_ALL" desc="大连市分库中央级预算收入月报表[全辖]" name="BAT_RPT_CENTER_BUDGET_M_ALL">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -150,7 +150,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL02" desc="大连市分库地市级预算收入月报表[全辖非本级]" name="BAT_RPT_CITY_BUDGET_M_ALL02">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL02" desc="大连市分库地市级预算收入月报表[全辖非本级]" name="BAT_RPT_CITY_BUDGET_M_ALL02">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -163,21 +163,7 @@
 <Ender/>
 </InFileTemplate>
 
-<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL03" desc="大连市分库地市级预算收入月报表[全辖非本级-预算外]" name="BAT_RPT_CITY_BUDGET_M_ALL03">
-<Header/>
-<Content>
-<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
-<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
-<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
-<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
-<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
-<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
-</Content>
-<Ender/>
-</InFileTemplate>
-
-
-<InFileTemplate type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL04" desc="大连市分库地市级预算收入月报表[本级-大连市财政局]" name="BAT_RPT_CITY_BUDGET_M_ALL04">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL03" desc="大连市分库地市级预算收入月报表[全辖非本级-预算外]" name="BAT_RPT_CITY_BUDGET_M_ALL03">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -191,7 +177,21 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_FINA_MISTAKE_ROLLBACK_LIST" desc="实拨资金财政错误退回清单" name="BAT_FINA_MISTAKE_ROLLBACK_LIST">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_CITY_BUDGET_M_ALL04" desc="大连市分库地市级预算收入月报表[本级-大连市财政局]" name="BAT_RPT_CITY_BUDGET_M_ALL04">
+<Header/>
+<Content>
+<Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="tarDate" spec="TARDATE" length="8" field="TAR_DATE"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
+
+<InFileTemplate skipLine="1" type="XLS" table="BAT_FINA_MISTAKE_ROLLBACK_LIST" desc="实拨资金财政错误退回清单" name="BAT_FINA_MISTAKE_ROLLBACK_LIST">
 <Header/>
 <Content>
 <Field type="C" name="交易状态" spec="" length="10" field="BIZ_STATUS"/>
@@ -230,7 +230,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_CLEAR_CLLO_ACCT_INFO" desc="清算国库与收款国库对账信息（非税）" name="BAT_CLEAR_CLLO_ACCT_INFO">
+<InFileTemplate skipLine="1" type="XLS" table="BAT_CLEAR_CLLO_ACCT_INFO" desc="清算国库与收款国库对账信息（非税）" name="BAT_CLEAR_CLLO_ACCT_INFO">
 <Header/>
 <Content>
 <Field type="C" name="机构名称" spec="" length="64" field="ORG_NAME"/>
@@ -253,7 +253,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate skipLine="1" type="XLS" table="BAT_CLEAR_BANK_ACCT_INFO" desc="清算国库与清算银行对账单" name="BAT_CLEAR_BANK_ACCT_INFO">
+<InFileTemplate skipLine="2" type="XLS" table="BAT_CLEAR_BANK_ACCT_INFO" desc="清算国库与清算银行对账单" name="BAT_CLEAR_BANK_ACCT_INFO">
 <Header/>
 <Content>
 <Field type="C" name="清算国库代码" spec="" length="10" field="CLEAR_THEASURY_CODE"/>
@@ -274,7 +274,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_AUTH_PAY_M" desc="大连市分库单一账户支出授权支付月报表" name="BAT_RPT_AUTH_PAY_M">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_AUTH_PAY_M" desc="大连市分库单一账户支出授权支付月报表" name="BAT_RPT_AUTH_PAY_M">
 <Header/>
 <Content>
 <Field type="C" name="kmdm" spec="" length="10" field="SUB_CODE"/>
@@ -292,7 +292,7 @@
 
 
 
-<InFileTemplate type="CSV" table="BAT_RPT_DIRECT_SPEND_M" desc="大连市分库单一账户支出直接支付月报表" name="BAT_RPT_DIRECT_SPEND_M">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_DIRECT_SPEND_M" desc="大连市分库单一账户支出直接支付月报表" name="BAT_RPT_DIRECT_SPEND_M">
 <Header/>
 <Content>
 <Field type="C" name="kmdm" spec="" length="10" field="SUB_CODE"/>
@@ -325,7 +325,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_BUDGET_CANL_STAT_ALL" desc="大连市分库预算收入退库统计表[全辖]" name="BAT_BUDGET_CANL_STAT_ALL">
+<InFileTemplate skipLine="7" type="XLS" table="BAT_BUDGET_CANL_STAT_ALL" desc="大连市分库预算收入退库统计表[全辖]" name="BAT_BUDGET_CANL_STAT_ALL">
 <Header/>
 <Content>
 <Field type="C" name="名称" spec="" length="32" field="DIM_NAME"/>
@@ -350,7 +350,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_TIPS_FEE01" desc="TIPS手续费查询[实时扣税]" name="BAT_TIPS_FEE01">
+<InFileTemplate skipLine="1" type="XLS" table="BAT_TIPS_FEE01" desc="TIPS手续费查询[实时扣税]" name="BAT_TIPS_FEE01">
 <Header/>
 <Content>
 <Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
@@ -363,7 +363,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_TIPS_FEE02" desc="TIPS手续费查询[银行端缴款]" name="BAT_TIPS_FEE02">
+<InFileTemplate skipLine="1" type="XLS" table="BAT_TIPS_FEE02" desc="TIPS手续费查询[银行端缴款]" name="BAT_TIPS_FEE02">
 <Header/>
 <Content>
 <Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
@@ -376,7 +376,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_TIPS_FEE03" desc="TIPS手续费查询[自缴核销]" name="BAT_TIPS_FEE03">
+<InFileTemplate skipLine="1" type="XLS" table="BAT_TIPS_FEE03" desc="TIPS手续费查询[自缴核销]" name="BAT_TIPS_FEE03">
 <Header/>
 <Content>
 <Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
@@ -389,7 +389,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_TIPS_FEE04" desc="TIPS手续费查询[批量扣税]" name="BAT_TIPS_FEE04">
+<InFileTemplate skipLine="1" type="XLS" table="BAT_TIPS_FEE04" desc="TIPS手续费查询[批量扣税]" name="BAT_TIPS_FEE04">
 <Header/>
 <Content>
 <Field type="C" name="对账日期" spec="" length="10" field="CHECK_DATE"/>
@@ -418,7 +418,7 @@
 </InFileTemplate>
 
 
-<InFileTemplate type="XLS" table="BAT_LOCAL_CLEARING_LIST" desc="同城票据交换明细" name="BAT_LOCAL_CLEARING_LIST">
+<InFileTemplate skipLine="1" type="XLS" table="BAT_LOCAL_CLEARING_LIST" desc="同城票据交换明细" name="BAT_LOCAL_CLEARING_LIST">
 <Header/>
 <Content>
 <Field type="C" name="QFJH" spec="" length="5" field="QFJH"/>
@@ -441,7 +441,7 @@
 <Ender/>
 </InFileTemplate>
 
-<InFileTemplate type="CSV" table="BAT_RPT_EXPEND_M" desc="大连市分库一般预算支出月报表[本级]" name="BAT_RPT_EXPEND_M">
+<InFileTemplate skipLine="1" type="CSV" table="BAT_RPT_EXPEND_M" desc="大连市分库一般预算支出月报表[本级]" name="BAT_RPT_EXPEND_M">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="" length="10" field="SUB_CODE"/>
@@ -454,7 +454,7 @@
 <Ender/>
 </InFileTemplate>
 
-<InFileTemplate type="XLS" table="BAT_RPT_BUDGET_SUB_STAT" desc="大连市分库预算收支存分科目统计表[中央]" name="BAT_RPT_BUDGET_SUB_STAT">
+<InFileTemplate skipLine="6" type="XLS" table="BAT_RPT_BUDGET_SUB_STAT" desc="大连市分库预算收支存分科目统计表[中央]" name="BAT_RPT_BUDGET_SUB_STAT">
 <Header/>
 <Content>
 <Field type="C" name="科目代码" spec="SUBSTRPREFIX" length="10" field="SUB_CODE" param="--"/>

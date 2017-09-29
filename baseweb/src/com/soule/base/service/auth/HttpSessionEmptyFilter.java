@@ -40,7 +40,6 @@ public class HttpSessionEmptyFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         String q1 = httpRequest.getRequestURI();
-        // String q2 = httpRequest.getContextPath();
         if (q1.endsWith(".action")) {
             HttpSession session = httpRequest.getSession(false);
             SessionInformation info = null;
@@ -48,19 +47,11 @@ public class HttpSessionEmptyFilter implements Filter {
                 info=this.sessionRegistry.getSessionInformation(session.getId());
                 if (info != null) {
                     if (info.isExpired()) {
-                       /* httpResponse.setContentType("text/html;charset=UTF-8");
-                        String msg = AppUtils.getMessage(MsgConstants.E0008);
-                        httpResponse.getWriter().write(msg);
-                        return;*/
                     	redirectIndex(httpRequest,httpResponse);
                     	return;
                     }
                 }
             }else{
-                /*httpResponse.setContentType("text/html;charset=UTF-8");
-                String msg = AppUtils.getMessage(MsgConstants.E0008);
-                httpResponse.getWriter().write(msg);
-                return;*/
             	redirectIndex(httpRequest,httpResponse);
             	return;
             }

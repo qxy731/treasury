@@ -18,16 +18,18 @@
 <fieldset class="outbox"><legend>错误记录列表</legend>
 	<table class='params'>
 		<tr>
+			<td align="left" nowrap="nowrap" width="10%">文件编号:</td>
+			<td width="25%"  align="left" id="uploadId">${errorDetailVo.uploadId}</td>
 			<td align="left" nowrap="nowrap" width="10%">文件名称:</td>
-			<td width="90%" colspan="5" align="left" id="fileName">${errorDetailVo.fileName}</td>
+			<td width="55%" colspan="3" align="left" id="fileName">${errorDetailVo.fileName}</td>
 		</tr>
 		<tr>
 			<td align="left" nowrap="nowrap" width="10%">总记录条数:</td>
-			<td width="20%" align="left" id="totalNumber">${errorDetailVo.totalNumber}</td>
+			<td width="25%" align="left" id="totalNumber">${errorDetailVo.totalNumber}</td>
 			<td align="left" nowrap="nowrap" width="10%">合格条数:</td>
-			<td  width="20%" align="left" id="successNumber">${errorDetailVo.successNumber}</td>
+			<td  width="25%" align="left" id="successNumber">${errorDetailVo.successNumber}</td>
 			<td align="left" nowrap="nowrap" width="10%">不合格条数:</td>
-			<td  width="30%" align="left" id="failureNumber">${errorDetailVo.failureNumber}</td>
+			<td  width="20%" align="left" id="failureNumber">${errorDetailVo.failureNumber}</td>
 		</tr>
 	</table>
 	<div id='custInfolist' style="overflow:auto;"></div>
@@ -45,17 +47,18 @@ $(function () {
 		dataAction:'server',
 		dataType:'server',
 		columns: [
-		    { display: '行数', name: 'errorRow', align: 'left' ,width:80},
-		    { display: '列数', name: 'errorColumn',align: 'left',width:80},
-		    { display: '错误描述', name: 'errorMessage', align: 'left',width:450}
+		    { display: '行数', name: 'errorRow', align: 'center' ,width:80},
+		    { display: '列数', name: 'errorColumn',align: 'center',width:80},
+		    { display: '错误描述', name: 'errorMessage', align: 'left',width:700}
 		],
 		url:'${_CONTEXT_PATH}/pub/data-import!queryFileDetail.action',
 		urlParms:mdata,
-		pageSize:2,
-		height:'350',
+		pageSize:20,
+		height:'450',
 		width:'100%',
 		onSuccess:function(result){
 			var errorDetailVo = result.errorDetailVo;
+			$("#uploadId").html(errorDetailVo.uploadId);
 			$("#fileName").html(errorDetailVo.fileName);
 			$("#totalNumber").html(errorDetailVo.totalNumber);
 			$("#successNumber").html(errorDetailVo.successNumber);

@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletOutputStream;
 
@@ -14,21 +13,26 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.AbstractApplicationContext;
 
 import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
+import com.soule.comm.StringUtils;
+import com.soule.comm.batch.PrimeEntrance;
 import com.soule.comm.enu.BizType;
 import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.tools.AppUtils;
+import com.soule.comm.tools.ContextUtil;
 import com.soule.data.service.LoadFileDataManager;
 
 
 @Namespace("/pub")
 public class DataImportAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
-	//private final static Log logger = LogFactory.getLog(DataImportAction.class);
+	private final static Log logger = LogFactory.getLog(DataImportAction.class);
+	private static final String STANDARD_USAGE = "Usage:java [-DRUNMODE=NEW/GOON] PrimeEntrance batchId[:instId] [yyyy-MM-dd]";
     @Autowired
     private IDataImportService dataImportService;
     @Autowired
@@ -44,6 +48,10 @@ public class DataImportAction extends BaseAction {
     private String monthId;
     private String uoloadFiles;
     
+    private String batchId;
+    private String batchDate;
+    private String instanceId;
+    
     public String query() {
         DataImportQueryIn in = queryIn;
         try {
@@ -56,10 +64,10 @@ public class DataImportAction extends BaseAction {
             total = head.getTotal();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("testrep", "数据补录查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("testrep", "源数据文件查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.SUCCESS);
         } catch (Exception e) {
         	try {
-				appUtils.saveAuditLog("testrep", "数据补录查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("testrep", "源数据文件查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				e1.printStackTrace();
 			}
@@ -157,15 +165,36 @@ public class DataImportAction extends BaseAction {
     public String loadFileData(){
     	try{
     		LoadFileDataManager.loadData();
-    		//dataImportService.loadData();
     		this.retCode = "I0000";
     		this.retMsg = "加载数据文件需要一段时间，请耐心等待。加载完成后，每个文件的加载结果信息请查看详情！";
     	}catch (Exception e) {
     		this.retCode = "E0000";
     		this.retMsg = "加载数据文件失败，请查看文件是否正确！";
     		e.printStackTrace();
-            //handleError(e);
         }
+    	return JSON;
+    }
+    
+    public String batchTargetData(){
+    	try{
+    		String batchId = "bat_flow";
+	    	String batchDate = "2017-09-30";
+    		if (StringUtils.isEmpty(batchId) || StringUtils.isEmpty(batchDate)){
+                System.out.println(STANDARD_USAGE);
+                this.retCode = "E0000";
+        		this.retMsg = "操作失败。";
+                return JSON;
+            }
+	    	AbstractApplicationContext cxt = (AbstractApplicationContext)ContextUtil.getApplicationContext();
+	        PrimeEntrance prime = new PrimeEntrance(cxt);
+	        prime.doBatch(batchId, batchDate, prime);
+	    	this.retCode = "I0000";
+    		this.retMsg = "操作成功。";
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		this.retCode = "E0000";
+    		this.retMsg = "操作失败。";
+    	}
     	return JSON;
     }
 
@@ -234,24 +263,50 @@ public class DataImportAction extends BaseAction {
 		this.errorDetailVo = errorDetailVo;
 	}
 	
+	
+	public String getBatchId() {
+		return batchId;
+	}
+
+	public void setBatchId(String batchId) {
+		this.batchId = batchId;
+	}
+
+	public String getBatchDate() {
+		return batchDate;
+	}
+
+	public void setBatchDate(String batchDate) {
+		this.batchDate = batchDate;
+	}
+
+	public String getInstanceId() {
+		return instanceId;
+	}
+
+	public void setInstanceId(String instanceId) {
+		this.instanceId = instanceId;
+	}
+
 	public static void main(String[] args){
-		
-		try {
-			///baseweb/pub/data-import!downTemplate.action?templateName=%E5%B0%8F%E9%A2%9D%E6%9D%A5%E8%B4%A6%E6%B8%85%E5%8D%95.csv
-			String mytext = java.net.URLEncoder.encode("小额来账清单.csv","utf-8");
-			System.out.println(mytext);
-			String value = "%E5%B0%8F%E9%A2%9D%E6%9D%A5%E8%B4%A6%E6%B8%85%E5%8D%95.csv";
-			System.out.println(value);
-			String mytext2  = java.net.URLDecoder.decode(value,"utf-8"); 
-			
-			if(mytext.equals(value)){
-				System.out.println(true);
-			}
-			System.out.println(mytext2);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   
+		/*try{
+    		PrimeEntrance prime = new PrimeEntrance();
+            ConfigFactory.DEBUG = false;
+            String rm = System.getProperty("RUNMODE");
+            RunMode rmode = RunMode.NEWRUN;
+            if (rm != null && rm.equalsIgnoreCase("GOON")) {
+                rmode = RunMode.GOON;
+            }
+            String batchId = UUIDGenerator.generate("");
+            String instanceId = null;
+            prime.getContext().setRunMode(rmode);
+            prime.getContext().setBatchId(batchId);
+            prime.getContext().setInstId(instanceId);
+            prime.clearHistoryData();
+            prime.doAll();
+    	}catch (Exception e) {
+    		e.printStackTrace();
+        }*/
 		
 	}
 	

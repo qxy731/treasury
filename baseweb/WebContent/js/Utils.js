@@ -184,6 +184,7 @@ Utils.ajaxSubmit = function(action, data, onSuccess,onError)
 		data: data,
 		type: 'POST',
 		dataType: 'json',
+		cache: false,//不缓存
 		success: function(result){
 			if (Utils.isSuccess(result)) {
 				if (onSuccess ) {

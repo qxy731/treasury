@@ -131,7 +131,12 @@
 		}
 		$.dialog.open(url,p);
 	}
+	
 	$.dialogBox.close = function() {
-		$.dialog.close();
+		try{
+			$.dialog.close();
+		}catch(e){
+			
+		}
 	}
 })(jQuery);

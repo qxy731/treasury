@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.soule.crm.pfm.datahelper.AssertManager;
 import com.soule.crm.pfm.datahelper.IndicatorLibMetaData;
 import com.soule.crm.pfm.dsl.ast.base.DivOperator;
@@ -158,7 +160,11 @@ public class Translator4 {
 		dslSql.append(" GROUP BY " + TABLE_ALIAS + IDLLanguage.DOT
 				+ IndicatorLibMetaData.OBJECT_ID_FROM_IND_LIB);
 		dslSql.append(") "+ TABLE_ALIAS);
-		return dslSql.toString();
+		String str = dslSql.toString();
+		if(StringUtils.isNotBlank(str)){
+			str = str.replaceAll("SUM \\(","SUM(");
+		}
+		return str;
 		/*if (!hasAgg) {
 			//return "2:" + dslSql;
 			return "2:" + dslSql;

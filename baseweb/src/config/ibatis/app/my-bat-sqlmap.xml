@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
+
+<sqlMap namespace="my">
+	<select id="getSysParamValue" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select PARA_VALUE from SYS_PARAMS where PARA_ID=#paramId#
+	</select>
+	<update id="updateSysParamValue" parameterClass="java.util.HashMap" >
+		UPDATE SYS_PARAMS set PARA_VALUE=#paramVal# where PARA_ID=#paramId#
+	</update>
+	<update id="updateEtlloadConfig" parameterClass="com.soule.batch.step.EtlLoadConfigPo" >
+		UPDATE ETLLOAD_CONFIG set EXIST_FILE_NAME=#existFilename# where FILE_NAME=#fileName#
+	</update>
+	<update id="resetEtlloadConfig" parameterClass="java.lang.String" >
+		UPDATE ETLLOAD_CONFIG set EXIST_FILE_NAME=''
+	</update>
+	<select id="getEtlloadConfig" parameterClass="java.lang.String" resultClass="com.soule.batch.step.EtlLoadConfigPo">
+		select 
+		  FILE_NAME as fileName,
+		  SRC_TYPE  as srcType,
+		  INCREMENT_FLAG as incrementFlag,
+		  TABLE_NAME as tableName,
+		  FIELD_SEP as fieldSep,
+		  PRE_FILE_NAME as preFileName,
+		  CHARSET_FLAG as charsetFlag,
+		  PROCESS_FLAG as processFlag,
+		  EXIST_FILE_NAME as existFilename,
+		  XCPT_FLAG as xcptFlag
+		from ETLLOAD_CONFIG
+	</select>
+</sqlMap>
+

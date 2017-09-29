@@ -7,7 +7,7 @@
         <dependent-module archiveName="assist-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/assist/assist">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="license-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/license/license">
+        <dependent-module archiveName="batchflow-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/batchflow/batchflow">
             <dependency-type>uses</dependency-type>
         </dependent-module>
 <property name="context-root" value="baseweb"/>

@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import com.soule.comm.DefaultResultMsg;
 import com.soule.comm.IResultMsg;
 import com.soule.comm.db.BatchResult;
-import com.soule.comm.db.DatabaseHelper;
 import com.soule.comm.db.LineResultInfo;
 import com.soule.comm.file.FileManager;
 import com.soule.comm.id.UUIDGenerator;
@@ -30,26 +29,18 @@ public class FileImportManager {
 	
 	private static Logger log = Logger.getLogger(FileImportManager.class);
 	
-	//private static FileQueueManager manager;
-	
-	/*public static FileQueueManager getInstance() {
-        if (manager == null) {
-            synchronized (FileQueueManager.class) {
-                if (manager == null) {
-                    manager = new FileQueueManager();
-                }
-            }
-        }
-        return manager;
-    }*/
-	
+	private BatTableDao batDao = new BatTableDao();
+	private SysUploadFileDao fileDao = new SysUploadFileDao();
+	private SysUploadFileErrorDao errorDao = new SysUploadFileErrorDao();
+	private SysUploadFileErrorDetailDao errorDetailDao = new SysUploadFileErrorDetailDao();
+	private SysUploadFileMappingDao mappingDao = new SysUploadFileMappingDao();
+	private SysUploadFileQueueDao queueDao = new SysUploadFileQueueDao();
 	/**
 	 * 获取未处理的上传文件
 	 * @return
 	 */
 	public SysUploadFile getUploadFile(){
 		//从队列表获取最新的一条
-		SysUploadFileQueueDao queueDao = new SysUploadFileQueueDao();
 		SysUploadFileQueue fileQueue = queueDao.getSysUploadFileQueue();
 		if(fileQueue==null){
 			log.info("the object of fileQueue is null.");
@@ -64,13 +55,11 @@ public class FileImportManager {
 		//删除队列中
 		queueDao.deleteSysUploadFileQueue(queueId);
 		//从文件表获取文件对象
-		SysUploadFileDao fileDao = new SysUploadFileDao();
 		return fileDao.getOneUploadFile(uploadId);
 	}
 	
 	
 	public int queryUploadFileQueueCount(){
-		SysUploadFileQueueDao queueDao = new SysUploadFileQueueDao();
 		return queueDao.queryUploadFileQueueCount();
 	}
 	
@@ -86,6 +75,7 @@ public class FileImportManager {
         String fileType = sysUploadFilePo.getFileType();
         String businessDate = sysUploadFilePo.getBusinessDate();
         String batchId = sysUploadFilePo.getBatchId();
+        String importType = sysUploadFilePo.getImportType();
         if(StringUtils.isBlank(uploadId)){
         	log.info("the object of uploadId is null.");
         	return;
@@ -106,7 +96,10 @@ public class FileImportManager {
         	log.info("the object of batchId is null.");
         	return;
         }
-        SysUploadFileMappingDao mappingDao = new SysUploadFileMappingDao();
+        if(StringUtils.isBlank(importType)){
+        	log.info("the object of importType is null.");
+        	return;
+        }
         SysUploadFileMapping sysUploadFileMapping = mappingDao.getOneSysUploadFileMapping(fileType);
         if(sysUploadFileMapping==null){
         	log.info("the object of SysUploadFileMapping is null.");
@@ -140,25 +133,25 @@ public class FileImportManager {
 			log.info("the object of businessDate ParseException.");
 			return;
 		}
-		
 	    FileManager fm = FileManager.getInstance();
 	    //删除当前业务日期当前批次的数据
-    	BatTableDao batDao = new BatTableDao();
-    	batDao.deleteCurrentBatData(table, date, batchId);
+    	batDao.deleteCurrentBatData(table, date, batchId,importType);
 	    //导入文件新数据
     	Map<String,Object> map = new HashMap<String,Object>();
     	map.put("date",date);
     	map.put("batchId", batchId);
-    	IResultMsg ret  = fm.importData(template, filepath, map);
+    	
+    	IResultMsg ret  = null;
+    	String defaultMsg = null; 
+    	try{
+    		ret  = fm.importData(template, filepath, map);
+    	}catch(Exception e){
+    		defaultMsg = getMessage(e.getMessage());
+    	}
     	long total = 0;
     	long  successCnt = 0;
     	long errorCnt = 0;
     	String errorId = UUIDGenerator.generate("");
-    	String detailId = UUIDGenerator.generate("");
-    	 //保存导入信息主表
-	    SysUploadFileErrorDao errorDao = new SysUploadFileErrorDao();
-	    //保存导入信息明细表
-	    SysUploadFileErrorDetailDao errorDetailDao = new SysUploadFileErrorDetailDao();
 	    if(ret instanceof BatchResult){
 	    	BatchResult bret = (BatchResult)ret;			
         	//System.out.println(ret.getErrorMessage());
@@ -168,38 +161,29 @@ public class FileImportManager {
     	    errorCnt = total-successCnt;
     	    errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
     	    LinkedList<LineResultInfo> list = bret.getErrorMessageList();
-		    LineResultInfo error = (LineResultInfo)list.get(0);
-		    int column = error.getColumn();
-		    long row = error.getIndex();
-		    String msg = error.getMsg();
-		    if(StringUtils.isNotBlank(msg)){
-		    	int length = msg.length();
-		    	if(length>512){
-		    		length=512;
-		    	}
-		    	msg = msg.substring(0,length-1);
-		    }else{
-		    	msg = "";
-		    }
-		    errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,row, column, msg);
+    	    for(LineResultInfo error:list){
+    	    	String detailId = UUIDGenerator.generate("");
+    		    int column = error.getColumn();
+    		    long row = error.getIndex();
+    		    String msg = getMessage(error.getMsg());
+    		    if(!error.isSuccess()){
+    		    	errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,row, column, msg);
+    		    }
+    	    }
 	    }else if(ret instanceof DefaultResultMsg){
+	    	String detailId = UUIDGenerator.generate("");
 	    	DefaultResultMsg dret = (DefaultResultMsg)ret;
-    		String msg = dret.getErrorMessage();
-    		if(StringUtils.isNotBlank(msg)){
-		    	int length = msg.length();
-		    	if(length>512){
-		    		length=512;
-		    	}
-		    	msg = msg.substring(0,length-1);
-		    }else{
-		    	msg = "";
-		    }
+    		String msg = getMessage(dret.getErrorMessage());
     		errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
-    		errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,0, 0, msg);
+    		if(!dret.isSuccessful()){
+    			errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,0, 0, msg);
+    		}
+	    }else{
+	    	String detailId = UUIDGenerator.generate("");
+	    	errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
+    		errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId, 0, 0, defaultMsg);
 	    }
-	   
 	    //更新sys_upload_file_mapping的导入次数,导入状态，当result_type='1'
-	    SysUploadFileDao fileDao = new SysUploadFileDao();
 	    if(ret.isSuccessful()){
 	    	 fileDao.updateFileResultType(uploadId,"1");
 	    	 mappingDao.updateSysUploadFileMapping(fileType);
@@ -215,10 +199,27 @@ public class FileImportManager {
 	    	
 	    }
 	}
+	
+	private String getMessage(String msg){
+		if(StringUtils.isNotBlank(msg)){
+			msg = msg.replaceAll("'","");
+	    	int length = msg.length();
+	    	if(length>512){
+	    		length=512;
+	    	}
+	    	msg = msg.substring(0,length-1);
+	    }else{
+	    	msg = "";
+	    }
+		return msg;
+	}
 
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		String msg = "'Data truncation: Data too long for column ' ACCEPT_DATE ' at row '";
+		msg = msg.replaceAll("'","");
+		System.out.println(msg);
 	}
 
 }
