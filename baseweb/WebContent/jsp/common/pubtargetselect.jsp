@@ -29,7 +29,7 @@
 				<td><input id='tarName' name='tarName' type="text" /></td>
 			</tr>
 			<tr>
-				<td align="right">建立部门</td>
+				<td align="right">建立国库</td>
 				<td>
 				<input id='createOrg' name='createOrg' type='hidden' value="${logUserInfo.operUnitId}"/>
 				<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
@@ -84,15 +84,15 @@ $(function () {
 						{ display: '指标业务分类', name: 'tarSortCode', codetype: 'tar_sort',width:140,align:'left'},
 						{ display: '指标层级属性', name: 'tarType', codetype: 'tar_type',width:80,align:'left'},
 						{ display: '数据来源', name: 'dataSource', codetype: 'data_from',width:80,align:'left'},
-						{ display: '建立部门', name: 'unitName', width:230,align:'left'}
+						{ display: '建立国库', name: 'unitName', width:230,align:'left'}
 						],
 			pageSize:20,
 			selectRowButtonOnly:true,
 			width:438,
 			height:'100%',
 			heightDiff:-20,
-			onError: function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#query").bind('click', query);

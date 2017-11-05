@@ -18,13 +18,13 @@
 	</resultMap>
 	<select id="getSysLogAuditByKey" parameterClass="com.soule.app.sys.auditlog.AuditLogLogPo" 
 		resultMap="SysLogAuditMap">
-		select * from SYS_LOG_AUDIT where ID = #id#
+		select * from sys_log_audit where ID = #id#
 	</select>
 
 	<select id="getSysLogAudit" parameterClass="com.soule.app.sys.auditlog.AuditLogLogPo" resultMap="SysLogAuditMap">
-		select A.*,B.STAFF_NAME ,C.ROLE_NAME from SYS_LOG_AUDIT A
-		left join SYS_STAFF B ON A.OPER_STAFFID = B.STAFF_ID
-		left join SYS_ROLE C ON C.ROLE_ID = A.ROLE_ID
+		select A.*,B.STAFF_NAME ,C.ROLE_NAME from sys_log_audit A
+		left join sys_staff B ON A.OPER_STAFFID = B.STAFF_ID
+		left join sys_role C ON C.ROLE_ID = A.ROLE_ID
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="id">ID = #id#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="operStaffid">OPER_STAFFID = #operStaffid#</isNotEmpty>
@@ -43,7 +43,7 @@
 	</select>
 
 	<insert id="saveSysLogAudit" parameterClass="com.soule.app.sys.auditlog.AuditLogLogPo">
-		insert into SYS_LOG_AUDIT (ID,OPER_STAFFID,ROLE_ID,DEVO_STAFFID,OPER_CODE,OPER_NAME,IP_ADDR,BIZ_TYPE,FUNC_TYPE,EXEC_RESULT,EXEC_TIME,LOG_DETAIL)
+		insert into sys_log_audit (ID,OPER_STAFFID,ROLE_ID,DEVO_STAFFID,OPER_CODE,OPER_NAME,IP_ADDR,BIZ_TYPE,FUNC_TYPE,EXEC_RESULT,EXEC_TIME,LOG_DETAIL)
 		values(#id:VARCHAR# ,#operStaffid:VARCHAR# ,#roleId:VARCHAR# ,#devoStaffid:VARCHAR# ,#operCode:VARCHAR# ,#operName:VARCHAR# ,#ipAddr:VARCHAR# ,#bizType:VARCHAR# ,#funcType:CHAR# ,#execResult:CHAR# ,#execTime:TIMESTAMP# ,#logDetail:VARCHAR# )
 	</insert>
 

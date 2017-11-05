@@ -27,7 +27,7 @@ public class SysUploadFileDao {
 		sql.append("A.UPLOAD_NO as uploadNo,");
 		sql.append("A.BATCH_ID as batchId,");
 		sql.append("A.IMPORT_TYPE as importType");
-		sql.append(" from SYS_UPLOAD_FILE A ");
+		sql.append(" from sys_upload_file A ");
 		sql.append(" where RESULT_TYPE='0' ");
 		sql.append(" order by A.CREATE_TIME");
 		System.out.println(sql.toString());
@@ -54,7 +54,7 @@ public class SysUploadFileDao {
 		sql.append("A.UPLOAD_NO as uploadNo,");
 		sql.append("A.BATCH_ID as batchId,");
 		sql.append("A.IMPORT_TYPE as importType");
-		sql.append(" from SYS_UPLOAD_FILE A ");
+		sql.append(" from sys_upload_file A ");
 		sql.append(" where A.UPLOAD_ID ='").append(uploadId).append("'");
 		System.out.println(sql.toString());
 		return helper.getOneRecord(sql.toString(),SysUploadFile.class);
@@ -62,7 +62,7 @@ public class SysUploadFileDao {
 	
 	public int updateFileResultType(String uploadId,String resultType){
 		DatabaseHelper helper = new DatabaseHelper();
-		StringBuffer sql= new StringBuffer("update SYS_UPLOAD_FILE set");
+		StringBuffer sql= new StringBuffer("update sys_upload_file set");
 		/*处理结果:0-未处理,1-全部成功,2-部分失败,3-全部失败*/
 		sql.append(" RESULT_TYPE ='").append(resultType).append("'");
 		sql.append(" where UPLOAD_ID ='").append(uploadId).append("'");

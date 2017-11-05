@@ -30,11 +30,11 @@
 			EXT1 as ext1,
 			EXT2 as ext2,
 			EXT3 as ext3
-		FROM BAT_STEP where batch_id=#batchId#
+		FROM bat_step where batch_id=#batchId#
 		ORDER BY BATCH_ID,STEP_NO ASC
 	</select>
 	<update id="updateStatus" parameterClass="java.util.HashMap">
-		update BAT_STEP_MONITOR set proc_status=#status#
+		update bat_step_monitor set proc_status=#status#
 		<isEqual prepend="," property="status" compareValue="1">
 			start_time=#startTime#
 		</isEqual>
@@ -58,27 +58,27 @@
 		where step_id=#stepId# and inst_id=#instId# and batch_id=#batchId#
 	</update>
 	<select id="getStepStatus" parameterClass="com.soule.comm.batch.config.AbstractStep" resultClass="java.lang.String">
-		select PROC_STATUS from BAT_STEP_MONITOR where STEP_ID=#stepId# and BATCH_ID=#branch# and INST_ID=#instId#
+		select PROC_STATUS from bat_step_monitor where STEP_ID=#stepId# and BATCH_ID=#branch# and INST_ID=#instId#
 	</select>
 	<insert id="saveBatTxLog" parameterClass="com.soule.comm.batch.dao.BatTxLogPo">
-		insert into BAT_TX_LOG (LOG_ID,TX_DATE,INST_ID,BATCH_ID,STEP_ID,EXE_TIME,RET_CODE,RET_MSG)
+		insert into bat_tx_log (LOG_ID,TX_DATE,INST_ID,BATCH_ID,STEP_ID,EXE_TIME,RET_CODE,RET_MSG)
 		values(#logId:INTEGER# ,#txDate:VARCHAR# ,#instId:INTEGER# ,#batchId:VARCHAR# ,#stepId:VARCHAR# ,#exeTime:TIMESTAMP# ,#retCode:VARCHAR# ,#retMsg:VARCHAR# )
 	</insert>
 	<insert id="saveBatStepMonitor" parameterClass="com.soule.comm.batch.dao.BatStepMonitorPo">
-		insert into BAT_STEP_MONITOR (INST_ID,STEP_ID,BATCH_ID,START_TIME,END_TIME,PROC_STATUS,PROC_INFO)
+		insert into bat_step_monitor (INST_ID,STEP_ID,BATCH_ID,START_TIME,END_TIME,PROC_STATUS,PROC_INFO)
 		values(#instId:INTEGER# ,#stepId:INTEGER# ,#batchId:VARCHAR# ,#startTime:TIMESTAMP# ,#endTime:TIMESTAMP# ,#procStatus:CHAR# ,#procInfo:VARCHAR# )
 	</insert>
 	<select id="getParamValue" parameterClass="java.util.HashMap" resultClass="java.lang.String">
-		select PARA_VALUE from BAT_PARAMS where PARA_ID=#paramId# and BATCH_ID=#batchId#
+		select PARA_VALUE from bat_params where PARA_ID=#paramId# and BATCH_ID=#batchId#
 	</select>
 	<update id="updateParamValue" parameterClass="java.util.HashMap" >
-		UPDATE BAT_PARAMS set PARA_VALUE=#value# where PARA_ID=#paramId# and BATCH_ID=#batchId#
+		UPDATE bat_params set PARA_VALUE=#value# where PARA_ID=#paramId# and BATCH_ID=#batchId#
 	</update>
 	<select id="getMaxInstId" parameterClass="java.lang.String" resultClass="java.lang.Integer">
-		select MAX(INST_ID) from BAT_STEP_MONITOR where BATCH_ID=#branchId#
+		select MAX(INST_ID) from bat_step_monitor where BATCH_ID=#branchId#
 	</select>
 	<select id="getMinInstId" parameterClass="java.lang.String" resultClass="java.lang.Integer">
-		select MIN(INST_ID) from BAT_STEP_MONITOR where BATCH_ID=#branchId#
+		select MIN(INST_ID) from bat_step_monitor where BATCH_ID=#branchId#
 	</select>
 	<parameterMap id="procedureMap" class="java.util.Map">
 		<parameter property="I_PAR_DATE" mode="IN" jdbcType="VARCHAR"/>
@@ -107,10 +107,10 @@
 		{call $PROCEDURE_NAME$(?,?,?,?)}
 	</procedure>
 	<select id="getInstanceCount" parameterClass="java.lang.String" resultClass="java.lang.Integer">
-		select count(distinct INST_ID) from BAT_STEP_MONITOR where batch_id=#batchId#
+		select count(distinct INST_ID) from bat_step_monitor where batch_id=#batchId#
 	</select>
 	<update id="deleteHisMonitor" parameterClass="com.soule.comm.batch.dao.BatStepMonitorPo" >
-		DELETE FROM BAT_STEP_MONITOR WHERE batch_id=#batchId# AND INST_ID=#instId#
+		DELETE FROM bat_step_monitor WHERE batch_id=#batchId# AND INST_ID=#instId#
 	</update>
 </sqlMap>
 

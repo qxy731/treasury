@@ -12,10 +12,10 @@
 	<select id="getSysStaffOrgChangeHisCount" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo" resultClass="java.lang.Long">
 		select  
 		    count(1) as count
-		from SYS_STAFF_ORG_CHANGE_HIS AS orgchange
-		    inner join SYS_STAFF staff on orgchange.STAFF_ID =staff.STAFF_ID 
-		    inner join SYS_UNIT unit on orgchange.OWNER_UNITID=unit.UNIT_ID
-		    inner join SYS_STAFF st on orgchange.UPD_USER=st.STAFF_ID
+		from sys_staff_org_change_his AS orgchange
+		    inner join sys_staff staff on orgchange.STAFF_ID =staff.STAFF_ID 
+		    inner join sys_unit unit on orgchange.OWNER_UNITID=unit.UNIT_ID
+		    inner join sys_staff st on orgchange.UPD_USER=st.STAFF_ID
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="staffId">orgchange.STAFF_ID = #staffId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="ownerUnitid">orgchange.OWNER_UNITID = #ownerUnitid#</isNotEmpty>
@@ -34,10 +34,10 @@
             unit.UNIT_NAME as unitName,
             staff.STAFF_NAME as staffName,
             st.STAFF_NAME AS updUserName
-        from SYS_STAFF_ORG_CHANGE_HIS AS orgchange
-            inner join SYS_STAFF staff on orgchange.STAFF_ID =staff.STAFF_ID 
-            inner join SYS_UNIT unit on orgchange.OWNER_UNITID=unit.UNIT_ID
-            inner join SYS_STAFF st on orgchange.UPD_USER=st.STAFF_ID
+        from sys_staff_org_change_his AS orgchange
+            inner join sys_staff staff on orgchange.STAFF_ID =staff.STAFF_ID 
+            inner join sys_unit unit on orgchange.OWNER_UNITID=unit.UNIT_ID
+            inner join sys_staff st on orgchange.UPD_USER=st.STAFF_ID
         <dynamic prepend="where">
             <isNotEmpty prepend=" AND " property="staffId">orgchange.STAFF_ID = #staffId#</isNotEmpty>
             <isNotEmpty prepend=" AND " property="ownerUnitid">orgchange.OWNER_UNITID = #ownerUnitid#</isNotEmpty>
@@ -49,12 +49,12 @@
     </select>
 
 	<insert id="saveSysStaffOrgChangeHis" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo">
-		insert into SYS_STAFF_ORG_CHANGE_HIS (STAFF_ID,OWNER_UNITID,UPD_USER,START_TIME,END_TIME)
+		insert into sys_staff_org_change_his (STAFF_ID,OWNER_UNITID,UPD_USER,START_TIME,END_TIME)
 		values(#staffId:VARCHAR# ,#ownerUnitid:VARCHAR# ,#updUser:VARCHAR# ,#startTime:TIMESTAMP# ,#endTime:TIMESTAMP# )
 	</insert>
 
 	<update id="updPreStaffOrgChange" parameterClass="com.soule.app.sys.orgchange.OrgchangeOrgChangePo">
-        update SYS_STAFF_ORG_CHANGE_HIS 
+        update sys_staff_org_change_his 
         <dynamic prepend="set">
             <isNotNull prepend="," property="endTime">END_TIME = #endTime#</isNotNull>
         </dynamic>

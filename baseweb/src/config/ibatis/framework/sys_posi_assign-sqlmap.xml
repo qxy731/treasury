@@ -27,20 +27,20 @@
 		<result property="unitName" column="UNIT_NAME"/>
 	</resultMap>
 	<select id="getPositions" parameterClass="java.lang.String" resultMap="SysPosiAssignMap">
-		select a.*,b.role_id,c.role_name, b.unit_id,d.unit_name from SYS_POSI_ASSIGN a 
-			left join SYS_POSITION b on a.posi_id=b.posi_id
-			left join SYS_ROLE c on b.role_id=c.role_id
-			left join SYS_UNIT d on b.unit_id=d.unit_id
+		select a.*,b.role_id,c.role_name, b.unit_id,d.unit_name from sys_posi_assign a 
+			left join sys_position b on a.posi_id=b.posi_id
+			left join sys_role c on b.role_id=c.role_id
+			left join sys_unit d on b.unit_id=d.unit_id
 		where a.STAFF_ID = #value#
 	</select>
 	<select id="getStaff" parameterClass="java.lang.String" resultMap="SysStaffMap">
-		select a.*,b.unit_name from SYS_STAFF a
-		left join SYS_UNIT b on a.owner_unitid=b.unit_id where a.STAFF_ID = #value#
+		select a.*,b.unit_name from sys_staff a
+		left join sys_unit b on a.owner_unitid=b.unit_id where a.STAFF_ID = #value#
 	</select>
 	<update id="updateDefaultPosi" parameterClass="com.soule.app.sys.changeposi.ChangePosiChangeIn" >
-		update SYS_POSI_ASSIGN set def_flag='1' where posi_id=#posiId# and staff_id=#staffId#
+		update sys_posi_assign set def_flag='1' where posi_id=#posiId# and staff_id=#staffId#
 	</update>
 	<update id="updateNoDefaultPosi" parameterClass="com.soule.app.sys.userinfo.UserInfoPositionPo" >
-		update SYS_POSI_ASSIGN set def_flag='0' where posi_id=#posiId# and staff_id=#staffId#
+		update sys_posi_assign set def_flag='0' where posi_id=#posiId# and staff_id=#staffId#
 	</update>
 </sqlMap>

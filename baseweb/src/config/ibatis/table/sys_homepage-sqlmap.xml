@@ -11,12 +11,12 @@
 	</resultMap>
 	<select id="getSysHomepageByKey" parameterClass="com.soule.crm.table.SysHomepagePo" 
 		resultMap="SysHomepageMap">
-		select * from SYS_HOMEPAGE where 
+		select * from sys_homepage where 
 			USER_ID = #userId#
 	</select>
 
 	<select id="getSysHomepage" parameterClass="java.util.Map" resultMap="SysHomepageMap">
-		select * from SYS_HOMEPAGE 
+		select * from sys_homepage 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="userId">USER_ID = #userId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="layoutData">LAYOUT_DATA = #layoutData#</isNotEmpty>
@@ -24,7 +24,7 @@
 	</select>
 
 	<update id="updSysHomepage" parameterClass="com.soule.crm.table.SysHomepagePo">
-		update SYS_HOMEPAGE 
+		update sys_homepage 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="layoutData">LAYOUT_DATA = #layoutData#</isNotNull>
 		</dynamic>
@@ -33,12 +33,12 @@
 	</update>
 
 	<insert id="saveSysHomepage" parameterClass="com.soule.crm.table.SysHomepagePo">
-		insert into SYS_HOMEPAGE (USER_ID,LAYOUT_DATA)
+		insert into sys_homepage (USER_ID,LAYOUT_DATA)
 		values(#userId:VARCHAR# ,#layoutData:VARCHAR# )
 	</insert>
 
 	<delete id="delSysHomepage" parameterClass="com.soule.crm.table.SysHomepagePo">
-		delete from SYS_HOMEPAGE where 
+		delete from sys_homepage where 
 			USER_ID = #userId#
 	</delete>
 </sqlMap>

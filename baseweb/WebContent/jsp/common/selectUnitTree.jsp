@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>prdTree</title>
+<title>国库树选择</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 </head>
 <body>
@@ -18,14 +18,14 @@
 				<form id="myform">
 					<table class='params'>
 						<tr>
-							<td align="right">部门编号</td>
+							<td align="right">国库编号</td>
 							<td><input type="text" id="unitId" name="unitId" /><input
 								type="hidden" id="type" name="type" /></td>
 							<td><input id='query' name='query' type='button' value='查询'
 								class='l-button' /></td>
 						</tr>
 						<tr>
-							<td align="right">部门名称</td>
+							<td align="right">国库名称</td>
 							<td><input type="text" id="unitName" name="unitName" /></td>
 							<td><input id='reset' name='reset' type='button' value='重置'
 								class='l-button' /></td>
@@ -131,7 +131,7 @@
 		if (rows) {
 			return rows;
 		} else {
-			$.dialogBox.warn("请选择部门");
+			$.dialogBox.warn("请选择国库");
 		}
 
 	}

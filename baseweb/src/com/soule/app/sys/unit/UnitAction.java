@@ -104,15 +104,15 @@ public class UnitAction extends BaseAction {
             int flag = unitService.deleteUnit(queryIn.getUnitId());
             if (flag == 1) {
             	setRetMsg(AppUtils.getMessage(MsgConstants.I0002));
-                setRetCode(ReturnCodeType.SUCCESS.getValue());
+                setRetCode(MsgConstants.I0002);
             } else {
             	setRetMsg(AppUtils.getMessage(MsgConstants.E0013));
-                setRetCode(ReturnCodeType.FAILURE.getValue());
+                setRetCode(MsgConstants.E0013);
             }
         } catch (Exception e) {
             log.error(e.getMessage());
             setRetMsg(AppUtils.getMessage(MsgConstants.E0013));
-            setRetCode(ReturnCodeType.EXCEPTION.getValue());
+            setRetCode(MsgConstants.E0013);
         }
         return JSON;
     }

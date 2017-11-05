@@ -10,13 +10,13 @@
 	</resultMap>
 	<select id="getSysEnumItemByKey" parameterClass="com.soule.app.sys.enums.EnumItemPo" 
 		resultMap="SysEnumItemMap">
-		select * from SYS_ENUM_ITEM where 
+		select * from sys_enum_item where 
 			ENUM_ID = #enumId#
 			AND ITEM_ID = #itemId#
 	</select>
 
 	<select id="getSysEnumItem" parameterClass="java.util.Map" resultMap="SysEnumItemMap">
-		select * from SYS_ENUM_ITEM 
+		select * from sys_enum_item 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="enumId">ENUM_ID = #enumId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="itemId">ITEM_ID = #itemId#</isNotEmpty>
@@ -27,7 +27,7 @@
 	</select>
 
 	<select id="getSysEnumItemCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_ENUM_ITEM 
+		select count(1) as count from sys_enum_item 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="enumId">ENUM_ID = #enumId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="itemId">ITEM_ID = #itemId#</isNotEmpty>
@@ -38,7 +38,7 @@
 	</select>
 
 	<update id="updSysEnumItem" parameterClass="com.soule.app.sys.enums.EnumItemPo">
-		update SYS_ENUM_ITEM 
+		update sys_enum_item 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="itemValue">ITEM_VALUE = #itemValue#</isNotNull>
 			<isNotNull prepend="," property="itemDesc">ITEM_DESC = #itemDesc#</isNotNull>
@@ -50,19 +50,19 @@
 	</update>
 
 	<insert id="saveSysEnumItem" parameterClass="com.soule.app.sys.enums.EnumItemPo">
-		insert into SYS_ENUM_ITEM (ENUM_ID,ITEM_ID,ITEM_VALUE,ITEM_DESC,SEQ_ID)
+		insert into sys_enum_item (ENUM_ID,ITEM_ID,ITEM_VALUE,ITEM_DESC,SEQ_ID)
 		values(#enumId:VARCHAR# ,#itemId:VARCHAR# ,#itemValue:VARCHAR# ,#itemDesc:VARCHAR# ,#seqId:INTEGER# )
 	</insert>
 
 	<delete id="delSysEnumItem" parameterClass="com.soule.app.sys.enums.EnumItemPo">
-		delete from SYS_ENUM_ITEM where 
+		delete from sys_enum_item where 
 			ENUM_ID = #enumId#
 			AND ITEM_ID = #itemId#
 	</delete>
 	<delete id="delSysEnumItems" parameterClass="java.lang.String">
-		delete from SYS_ENUM_ITEM where ENUM_ID = #value#
+		delete from sys_enum_item where ENUM_ID = #value#
 	</delete>
 	<select id="loadAll" parameterClass="java.lang.String" resultMap="SysEnumItemMap">
-		select enum_id,item_id ,item_value, item_desc,seq_id from SYS_ENUM_ITEM order by enum_Id,seq_Id
+		select enum_id,item_id ,item_value, item_desc,seq_id from sys_enum_item order by enum_Id,seq_Id
 	</select>
 </sqlMap>

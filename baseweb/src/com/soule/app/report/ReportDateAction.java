@@ -1,15 +1,14 @@
 package com.soule.app.report;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.soule.base.service.IDefaultService;
-
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
 /**
  * 统计报表模块表现层处理类
  */

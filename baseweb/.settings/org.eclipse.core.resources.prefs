@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/css/default.css=UTF-8
-encoding//WebContent/jsp/test.jsp=UTF-8
+encoding//WebContent/jsp/sysmgr/mypage1.jsp=UTF-8
 encoding//WebContent/jwebui/skins/Aqua/customer=UTF-8
 encoding//WebContent/jwebui/skins/Aqua/market=UTF-8
 encoding//WebContent/jwebui/skins/Silvery/system/js/main.js=UTF-8
@@ -12,8 +12,6 @@ encoding//WebContent/jwebui/widget/def_widget.js=UTF-8
 encoding//WebContent/jwebui/widget/rolegrid_widget.js=UTF-8
 encoding//WebContent/jwebui/widget/widget_panel.js=UTF-8
 encoding//WebContent/jwebui/zTree=UTF-8
-encoding//configs/selfwar/app.properties=UTF-8
-encoding//configs/server/app.properties=UTF-8
 encoding//src/com/soule/app/report/po/RepFinaKpiInfoPo.java=UTF-8
 encoding//src/config/env/app.properties=UTF-8
 encoding//src/config/env/auth-services.xml=UTF-8

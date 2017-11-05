@@ -95,8 +95,8 @@ $(function () {
 		height:300,
         data:{rows:[]},
 		width: '100%',
-		onError: function() {
-			$.dialogBox.error("查询数据失败",'提示');
+		onError: function(e) {
+			Utils.toIndex(e);
 		}
 	});
 });

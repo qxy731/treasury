@@ -37,11 +37,11 @@
 	
 	<select id="getSysUploadFileByKey" parameterClass="com.soule.app.table.SysUploadFilePo" 
 		resultMap="SysUploadFileMap">
-		select * from SYS_UPLOAD_FILE where UPLOAD_ID = #uploadId#
+		select * from sys_upload_file where UPLOAD_ID = #uploadId#
 	</select>
 
 	<select id="getSysUploadFile" parameterClass="java.util.Map" resultMap="SysUploadFileMap">
-		select * from SYS_UPLOAD_FILE 
+		select * from sys_upload_file 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="uploadId">UPLOAD_ID = #uploadId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="fileId">FILE_ID = #fileId#</isNotEmpty>
@@ -60,7 +60,7 @@
 	</select>
 
 	<update id="updSysUploadFile" parameterClass="com.soule.app.table.SysUploadFilePo">
-		update SYS_UPLOAD_FILE 
+		update sys_upload_file 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="fileName">FILE_NAME = #fileName#</isNotNull>
 			<isNotNull prepend="," property="fileType">FILE_TYPE = #fileType#</isNotNull>
@@ -81,14 +81,14 @@
 			UPLOAD_ID = #uploadId#
 	</update>
 	<update id="updateDownloadTime" parameterClass="com.soule.app.table.SysUploadFilePo">
-		update SYS_UPLOAD_FILE set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId#
+		update sys_upload_file set DOWN_NUM=DOWN_NUM+1 where UPLOAD_ID = #uploadId#
 	</update>
 	<insert id="saveSysUploadFile" parameterClass="com.soule.app.table.SysUploadFilePo">
-		insert into SYS_UPLOAD_FILE (UPLOAD_ID,FILE_ID,FILE_NAME,FILE_TYPE,FILE_SIZE,FILE_PATH,DEL_FLAG,DOWN_NUM,BUSINESS_DATE,RESULT_TYPE,CREATE_USER,CREATE_TIME,CREATE_ORG,UPLOAD_NO,BATCH_ID,IMPORT_TYPE)
+		insert into sys_upload_file (UPLOAD_ID,FILE_ID,FILE_NAME,FILE_TYPE,FILE_SIZE,FILE_PATH,DEL_FLAG,DOWN_NUM,BUSINESS_DATE,RESULT_TYPE,CREATE_USER,CREATE_TIME,CREATE_ORG,UPLOAD_NO,BATCH_ID,IMPORT_TYPE)
 		values(#uploadId:VARCHAR# ,#fileId:VARCHAR# ,#fileName:VARCHAR# ,#fileType:VARCHAR# ,#fileSize:INTEGER# ,#filePath:VARCHAR# ,#delFlag:CHAR#,#downNum:INTEGER# ,#businessDate:VARCHAR# ,#resultType:CHAR#,#createUser:VARCHAR# ,#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#uploadNo:VARCHAR# ,#batchId:VARCHAR#,#importType:VARCHAR# )
 	</insert>
 
 	<delete id="delSysUploadFile" parameterClass="com.soule.app.sys.filetransfer.FileTransferFilePo">
-		update SYS_UPLOAD_FILE set DEL_FLAG='1' where UPLOAD_ID = #uploadId#
+		update sys_upload_file set DEL_FLAG='1' where UPLOAD_ID = #uploadId#
 	</delete>
 </sqlMap>

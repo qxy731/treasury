@@ -77,7 +77,7 @@
 
 					</tr>
 					<tr>
-						<td align="right">建立部门</td>
+						<td align="right">建立国库</td>
 						<td>
 						<input id='createOrg' name='createOrg' type='hidden' value="${logUserInfo.operUnitId}"/>
 						<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
@@ -196,8 +196,8 @@
 			sortName : 'tarCode',
 			height : '90%',
 			width : '100%',
-			onError : function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#queryTar").bind('click', queryTar);
@@ -330,6 +330,7 @@
 	
 	var onSuccess = function() {
 		$.dialogBox.close();
+		$.dialogBox.opener.query();
 	}
 	
 

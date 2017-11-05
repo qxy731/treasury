@@ -72,8 +72,8 @@ $(function () {
 		pageSize:10,
 		sortName: 'userId',
 		width: '100%',
-		onError: function() {
-			$.dialogBox.alert("查询数据失败");
+		onError: function(e) {
+			Utils.toIndex(e);
 		}
 	});
 });

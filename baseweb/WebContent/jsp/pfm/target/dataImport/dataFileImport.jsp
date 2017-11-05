@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>缺失数据导入</title>
+<title>源数据文件查询</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 body {overflow: hidden;}
@@ -13,7 +13,7 @@ body {overflow: hidden;}
 </head>
 <body>
 	<n:page action='com.soule.crm.pub.dataimport.DataImportAction' />
-	<n:enums keys="uploadfile_type,dataimp_result"></n:enums>
+	<n:enums keys="uploadfile_type,dataimp_result,import_type"></n:enums>
 	<table class='content'>
 		<tr>
 			<td style="padding-top: 10px; padding-bottom: 15px;">
@@ -39,11 +39,11 @@ body {overflow: hidden;}
 							<tr>
 								<td>上传日期(从)</td>
 								<td>
-									<input type='text' id='beginDate' name='beginDate' />
+									<input type='text' id='beginDate' name='beginDate' readonly="readonly"/>
 								</td>
 								<td>上传日期(到)</td>
 								<td>
-									<input type='text' id='endDate' name='endDate' />
+									<input type='text' id='endDate' name='endDate' readonly="readonly"/>
 								</td>
 								<td>文件上传者</td>
 								<td>
@@ -80,15 +80,15 @@ $(function () {
 	$('#reset').bind('click', doClear);
 	$('#query').bind('click', execute);
 	$("#beginDate").ligerDateEditor();
-	$("#monthId").ligerDateEditor();
     $("#endDate").ligerDateEditor();
     $("#toptoolbar").ligerToolBar({items:[
   	      {text:'下载模板',name:'insert_btn',icon:'export',click:btn_downmodule_click},
   		  {text:'上传文件',name:'commit_btn',icon:'submit',click:btn_upfile_click},
   		  {text:'删除文件',name:'delete_btn',icon:'delete',click:btn_delfile_click},
   		  {text:'导入错误信息',name:'btn_detail',icon:'detail',click:queryDetail},
-  		  {text:'加载文件数据',name:'btn_detail',icon:'save',click:loadFileData},
-  		  {text:'计算指标数据',name:'btn_detail',icon:'yunxing',click:batchTargetData}
+  		  {text:'加载文件数据',name:'btn_loadFile',icon:'save',click:loadFileData},
+  		  {text:'计算指标数据',name:'btn_batchFile',icon:'yunxing',click:batchTargetData},
+  		  {text:'批处理监控',name:'btn_batchMonitor',icon:'yunxing',click:monitorBatch}
   	],
   		  width:'99%'
   	});
@@ -99,7 +99,7 @@ $(function () {
 		selectRowButtonOnly:true,
 		enumlist: _enum_params ,
 		columns: [
-			{ display: '文件编号',name:'uploadId',align: 'left',width:60},
+			{ display: '文件编号',name:'uploadId',align: 'left',width:200},
 			{ display: '处理结果', name: 'resultType', align: 'center',codetype:'dataimp_result', width: 60 },
 			{ display: '数据日期', name: 'businessDate', align: 'left', width: 60},
 			{ display: '文件类型', name: 'fileType', align: 'left',codetype:'uploadfile_type', width: 310},
@@ -107,7 +107,8 @@ $(function () {
 			{ display: '文件上传者', name: 'staffName', align: 'left', width: 65 },
 			{ display: '文件上传国库', name: 'orgName', align: 'left', width: 140 },
 			{ display: '文件大小(KB)', name: 'fileSize', align: 'right',width:80 },
-			{ display: '上传日期', name: 'uploadDate', align: 'center',width:125 }
+			{ display: '上传日期', name: 'uploadDate', align: 'center',width:125 },
+			{ display: '处理模式', name: 'importType', align: 'center',codetype:'import_type',width:70},
 		],
 		pageSize:20,
 		width: '100%',
@@ -189,6 +190,8 @@ function execute() {
 			Utils.toIndex(e);
 		}
 	}; 
+	/* console.log(mdata);
+	alert(JSON.stringify(mdata)); */
 	var gridManager = $("#filelist").ligerGetGridManager();
 	gridManager.setOptions(params); 
 	gridManager.loadData();
@@ -212,7 +215,7 @@ function queryDetail(){
 		$.dialogBox.openDialog(url,{title:"查看导入详情",width:'750px',height:'530px',okVal:'关闭'},true,null);
 	}else{
 		$.dialogBox.warn("请选择记录！");
-	} 
+	}
 }
 
 function loadFileData(){
@@ -228,15 +231,21 @@ function loadFileData(){
 
 function batchTargetData(){
 	var url = "${_CONTEXT_PATH}/pub/data-import!batchTargetData.action";
-	var data = {};
-	$.dialogBox.confirm('您确定现在开始计算指标数据吗？',function () {
+	$.dialogBox.choice2('即将跑批计算指标，请选择跑批日期？',function () {
+		var data = {"bizDateType":"1"};
 		Utils.ajaxSubmit(url, data, function(result) {
-			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
+			$.dialogBox.info('跑批结束，详情请查看批处理监控。');
 			execute();
-		});
-},true);
+			});
+		},function (){
+			var data = {"bizDateType":"2"};
+			Utils.ajaxSubmit(url, data, function(result) {
+				$.dialogBox.info('跑批结束，详情请查看批处理监控。');
+				execute();
+			});
+	},true);
 }
-//选择部门信息
+//选择国库信息
 function openSelectUnit(){
 	AppUtils.openSelectUnit(null,$("#orgCode").val(),setUnitIdName);
 }
@@ -277,5 +286,20 @@ function showUpMessage(){
 	$.dialogBox.info("文件上传成功。",true);
 	execute();
 }
+
+function monitorBatch() {
+	var url = '${_CONTEXT_PATH}/jsp/sysmgr/batch/choiceinst.jsp?bid=bat_flow';
+	$.dialogBox.openDialog(url, {id : 'choiceinst',height : '180px',width : '380px',lock : true,opacity : 0.07,title : '选择监控实例ID'}, toMonitorPage,true);
+};
+
+function toMonitorPage(p) {
+	var instid = p.getInstId();
+	if (instid) {
+		Utils.openTab('batchmonitor-bat_flow','监控-bat_flow','${_CONTEXT_PATH}/jsp/sysmgr/batch/batchmonitor.jsp?bid=bat_flow&iid=' +instid);
+	}
+	else {
+		return false;
+	}
+};
 </script>
 </html>

@@ -8,12 +8,12 @@
 	</resultMap>
 	<select id="getSysResUrlByKey" parameterClass="com.soule.app.table.SysResUrlPo" 
 		resultMap="SysResUrlMap">
-		select * from SYS_RES_URL where 
+		select * from sys_res_url where 
 			URL_ID = #urlId#
 	</select>
 
 	<select id="getSysResUrl" parameterClass="java.util.Map" resultMap="SysResUrlMap">
-		select * from SYS_RES_URL 
+		select * from sys_res_url 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="urlId">URL_ID = #urlId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="urlName">URL_NAME = #urlName#</isNotEmpty>
@@ -22,7 +22,7 @@
 	</select>
 
 	<select id="getSysResUrlCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_RES_URL 
+		select count(1) as count from sys_res_url 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="urlId">URL_ID = #urlId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="urlName">URL_NAME = #urlName#</isNotEmpty>
@@ -31,7 +31,7 @@
 	</select>
 
 	<update id="updSysResUrl" parameterClass="com.soule.app.table.SysResUrlPo">
-		update SYS_RES_URL 
+		update sys_res_url 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="urlName">URL_NAME = #urlName#</isNotNull>
 			<isNotNull prepend="," property="urlPath">URL_PATH = #urlPath#</isNotNull>
@@ -41,12 +41,12 @@
 	</update>
 
 	<insert id="saveSysResUrl" parameterClass="com.soule.app.table.SysResUrlPo">
-		insert into SYS_RES_URL (URL_ID,URL_NAME,URL_PATH)
+		insert into sys_res_url (URL_ID,URL_NAME,URL_PATH)
 		values(#urlId:VARCHAR# ,#urlName:VARCHAR# ,#urlPath:VARCHAR# )
 	</insert>
 
 	<delete id="delSysResUrl" parameterClass="com.soule.app.table.SysResUrlPo">
-		delete from SYS_RES_URL where 
+		delete from sys_res_url where 
 			URL_ID = #urlId#
 	</delete>
 </sqlMap>

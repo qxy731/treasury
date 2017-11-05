@@ -13,11 +13,11 @@
 	</resultMap>
 	
 	<select id="getSysUploadFileQueueByKey" parameterClass="com.soule.app.table.SysUploadFileQueuePo"  resultMap="SysUploadFileQueueMap">
-		select * from SYS_UPLOAD_FILE_QUEUE where QUEUE_ID = #queueId#
+		select * from sys_upload_file_queue where QUEUE_ID = #queueId#
 	</select>
 
 	<select id="getSysUploadFileQueue" parameterClass="java.util.Map" resultMap="SysUploadFileQueueMap">
-		select * from SYS_UPLOAD_FILE_QUEUE 
+		select * from sys_upload_file_queue 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="queueId">QUEUE_ID = #queueId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="uploadId">UPLOAD_ID = #uploadId#</isNotEmpty>
@@ -26,7 +26,7 @@
 	</select>
 
 	<update id="updSysUploadFileQueue" parameterClass="com.soule.app.table.SysUploadFileQueuePo">
-		update SYS_UPLOAD_FILE_QUEUE
+		update sys_upload_file_queue
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="uploadId">UPLOAD_ID = #uploadId#</isNotNull>
 			<isNotNull prepend="," property="inQueueTime">IN_QUEUE_TIME = #inQueueTime#</isNotNull>
@@ -35,12 +35,12 @@
 	</update>
 	
 	<insert id="saveSysUploadFileQueue" parameterClass="com.soule.app.table.SysUploadFileQueuePo">
-		insert into SYS_UPLOAD_FILE_QUEUE (QUEUE_ID,UPLOAD_ID,IN_QUEUE_TIME)
+		insert into sys_upload_file_queue (QUEUE_ID,UPLOAD_ID,IN_QUEUE_TIME)
 		values(#queueId:VARCHAR# ,#uploadId:VARCHAR# ,#inQueueTime:TIMESTAMP#)
 	</insert>
 	
 	<delete id="delSysUploadFileQueue" parameterClass="com.soule.app.table.SysUploadFileQueuePo">
-		delete from SYS_UPLOAD_FILE_QUEUE where QUEUE_ID = #queueId#
+		delete from sys_upload_file_queue where QUEUE_ID = #queueId#
 	</delete>
 
 </sqlMap>

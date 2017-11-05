@@ -50,11 +50,11 @@ public class IndexDataAction extends BaseAction {
             ServiceResult head = result.getResultHead();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("indexdataimport", "指标数据补录信息查询", BizType.PFM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("indexdataimport", "指标数据补录信息查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.SUCCESS);
         }
         catch(Exception e) {
         	try {
-				appUtils.saveAuditLog("indexdataimport", "指标数据补录信息查询", BizType.PFM, FunctionType.QUERY, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("indexdataimport", "指标数据补录信息查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -76,11 +76,11 @@ public class IndexDataAction extends BaseAction {
             ServiceResult head = result.getResultHead();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("indexdataimport", "导出模板", BizType.PFM, FunctionType.EXPORT, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("indexdataimport", "导出模板", BizType.TARM, FunctionType.EXPORT, ExecuteResult.SUCCESS);
         }
         catch(Exception e) {
         	try {
-				appUtils.saveAuditLog("indexdataimport", "导出模板", BizType.PFM, FunctionType.EXPORT, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("indexdataimport", "导出模板", BizType.TARM, FunctionType.EXPORT, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -103,13 +103,12 @@ public class IndexDataAction extends BaseAction {
             ServiceResult head = result.getResultHead();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("indexdataimport", "解析上传文件", BizType.PFM, FunctionType.IMPORT, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("indexdataimport", "解析上传文件", BizType.TARM, FunctionType.IMPORT, ExecuteResult.SUCCESS);
         }
         catch(Exception e) {
         	try {
-				appUtils.saveAuditLog("indexdataimport", "解析上传文件", BizType.PFM, FunctionType.IMPORT, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("indexdataimport", "解析上传文件", BizType.TARM, FunctionType.IMPORT, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
             handleError(e);

@@ -70,9 +70,9 @@
             pageSize:10,
             sortName: 'taskId',
             width: '100%',
-            onError: function() {
-                $.dialogBox.error("²éÑ¯Êý¾ÝÊ§°Ü");
-            }
+    		onError: function(e) {
+    			Utils.toIndex(e);
+    		}
         });
         $('#reset').bind('click', doClear);
         $('#query').bind('click', execute);

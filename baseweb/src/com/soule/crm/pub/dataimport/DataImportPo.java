@@ -19,6 +19,7 @@ public class DataImportPo implements Serializable {
     private String businessDate;
     private String resultType;
     private java.util.Date uploadDate;
+    private String importType;
 
     public String getResultType() {
         return resultType;
@@ -115,6 +116,14 @@ public class DataImportPo implements Serializable {
 
 	public void setBusinessDate(String businessDate) {
 		this.businessDate = businessDate;
-	}   
+	}
+
+	public String getImportType() {
+		return importType;
+	}
+
+	public void setImportType(String importType) {
+		this.importType = importType;
+	}
     
 }

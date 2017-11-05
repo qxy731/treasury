@@ -93,6 +93,7 @@ public class DefaultMediaForIbatis extends AbstractMediator implements IMediaFor
             if (sqlMapClient instanceof ExtendedSqlMapClient) {
                 ReflectUtil.setFieldValue(((ExtendedSqlMapClient) sqlMapClient).getDelegate(), "sqlExecutor",
                         SqlExecutor.class, sqlExecutor);
+                /*SqlMapExecutorDelegate dd = ((ExtendedSqlMapClient) sqlMapClient).getDelegate();*/
             }
         }
     }

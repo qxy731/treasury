@@ -110,7 +110,7 @@ public class BatchServiceImpl implements IBatchService {
                 if (flag > 0) {
                     AppUtils.setResult(out, MsgConstants.I0003);
                 } else {
-                    AppUtils.setResult(out, MsgConstants.W0000);
+                    AppUtils.setResult(out, MsgConstants.W0000,"没有一条记录被删除");
                 }
             } else {
                 AppUtils.setResult(out, MsgConstants.E0002);

@@ -46,7 +46,7 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
             List<BankFundsFlowPo> bankFundsFlowList = defService.getIbatisMediator().find(this.RPT_LIST_BANKFUNDSFLOW,in);
             bankFundsFlowList = assemblyBankFundsFlowList(bankFundsFlowList);
             List<ReportTargetPo> treasuryFundsNatureList = defService.getIbatisMediator().find(this.RPT_LIST_TREASURYFUNDSFLOW,in);
-            treasuryFundsNatureList = assemblyTreasuryFundsNatureList(treasuryFundsNatureList);
+            //treasuryFundsNatureList = assemblyTreasuryFundsNatureList(treasuryFundsNatureList);
             List<ReportTargetPo> treasuryFundsSourceList = defService.getIbatisMediator().find(this.RPT_LIST_TREASURYFUNDSSOURCE,in);
             treasuryFundsSourceList = assemblyTreasuryFundsSourceList(treasuryFundsSourceList);
             out.setBankFundsFlowList(bankFundsFlowList);
@@ -72,7 +72,7 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
 			  bankFundsFlowList = defService.getIbatisMediator().find(this.RPT_LIST_BANKFUNDSFLOW,in);
 	            bankFundsFlowList = assemblyBankFundsFlowList(bankFundsFlowList);
 	            treasuryFundsNatureList = defService.getIbatisMediator().find(this.RPT_LIST_TREASURYFUNDSFLOW,in);
-	            treasuryFundsNatureList = assemblyTreasuryFundsNatureList(treasuryFundsNatureList);
+	            //treasuryFundsNatureList = assemblyTreasuryFundsNatureList(treasuryFundsNatureList);
 	            treasuryFundsSourceList = defService.getIbatisMediator().find(this.RPT_LIST_TREASURYFUNDSSOURCE,in);
 	            treasuryFundsSourceList = assemblyTreasuryFundsSourceList(treasuryFundsSourceList);
 	            
@@ -84,7 +84,6 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
         } catch (Exception e) {
             logger.error("SERVICE", e);
         }
-    	
     		map.put("bankFundsFlowList", bankFundsFlowList);
     		map.put("treasuryFundsNatureList", treasuryFundsNatureList);
     		map.put("treasuryFundsSourceList", treasuryFundsSourceList);
@@ -92,7 +91,17 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     	return map;
     }
     
-    
+    /***
+     * 100055	国有大型商业银行	
+		100018	股份制商业银行	
+		100028	城市商业银行 	
+		100008	农业发展银行	
+		100005	邮政储蓄银行	
+		100007	政策性银行	
+		100050	其他机构	
+     * @param bankFundsFlowList
+     * @return
+     */
     private List<BankFundsFlowPo> assemblyBankFundsFlowList(List<BankFundsFlowPo> bankFundsFlowList){
     	List<BankFundsFlowPo> newList = null ;
     	BigDecimal bankAllInflow = new BigDecimal(0);
@@ -105,11 +114,15 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     	}else{
     		newList = bankFundsFlowList;
         	for(BankFundsFlowPo npo : bankFundsFlowList){
-        		bankAllInflow = bankAllInflow.add(npo.getBankAllInflow());
-        		bankSpecialInflow = bankSpecialInflow.add(npo.getBankSpecialInflow()); 
-        		bankAllOutflow = bankAllOutflow.add(npo.getBankAllOutflow()); 
-        		bankSpecialOutflow = bankSpecialOutflow.add(npo.getBankSpecialOutflow()); 
-        		bankAllNetflow = bankAllNetflow.add(npo.getBankAllNetFlow());
+        		String custOrgNo = npo.getCustOrgNo();
+        		if("100055".equals(custOrgNo)||"100018".equals(custOrgNo)||"100028".equals(custOrgNo)||"100008".equals(custOrgNo)
+        				||"100005".equals(custOrgNo)||"100007".equals(custOrgNo)||"100050".equals(custOrgNo)){
+	        		bankAllInflow = bankAllInflow.add(npo.getBankAllInflow());
+	        		bankSpecialInflow = bankSpecialInflow.add(npo.getBankSpecialInflow()); 
+	        		bankAllOutflow = bankAllOutflow.add(npo.getBankAllOutflow()); 
+	        		bankSpecialOutflow = bankSpecialOutflow.add(npo.getBankSpecialOutflow()); 
+	        		bankAllNetflow = bankAllNetflow.add(npo.getBankAllNetFlow());
+        		}
         	}
     	}
     	BankFundsFlowPo po = new BankFundsFlowPo();
@@ -124,7 +137,7 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     	return newList;
     }
     
-    private List<ReportTargetPo> assemblyTreasuryFundsNatureList(List<ReportTargetPo> reportTargetList){
+    /*private List<ReportTargetPo> assemblyTreasuryFundsNatureList(List<ReportTargetPo> reportTargetList){
     	List<ReportTargetPo> newList = new ArrayList<ReportTargetPo>();
     	BigDecimal bankAllInflow = new BigDecimal(0);
     	BigDecimal bankAllOutflow = new BigDecimal(0);
@@ -165,7 +178,7 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     	po.setTarValue(bankAllNetflow);
     	newList.add(po);
     	return newList;
-    }
+    }*/
     
     private List<ReportTargetPo> assemblyBetweenTreasuryFundsNatureList(List<ReportTargetPo> reportTargetList){
     	List<ReportTargetPo> newList = new ArrayList<ReportTargetPo>();
@@ -224,7 +237,6 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     			if(r1.contains(tarCode)){
     				r1flow = r1flow.add(npo.getTarValue());
     			}
-    			
     			if(r2.contains(tarCode)){
     				r2flow = r2flow.add(npo.getTarValue());
     			}
@@ -285,8 +297,6 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     			if(r21.contains(tarCode)){
     				r21flow = r21flow.add(npo.getTarValue());
     			}
-    			
-    			
         	}
     	}
     	ReportTargetPo po = new ReportTargetPo();
@@ -394,7 +404,6 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     	po.setTarName("小计");
     	po.setTarValue(r21flow);
     	newList.add(po);
-    	
     	return newList;
     }
     

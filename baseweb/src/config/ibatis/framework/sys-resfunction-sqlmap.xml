@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="getResFunction" parameterClass="java.util.Map" resultMap="ResFunctionMap">
-        select * from SYS_RES_FUNCTION 
+        select * from sys_res_function 
         <dynamic prepend="where">
             <isNotEmpty prepend=" AND " property="funcId">FUNC_ID = #funcId#</isNotEmpty>
             <isNotEmpty prepend=" AND " property="funcCode">FUNC_CODE = #funcCode#</isNotEmpty>
@@ -21,7 +21,7 @@
     </select>
 
     <select id="getResFunctionCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-        select count(1) as count from SYS_RES_FUNCTION 
+        select count(1) as count from sys_res_function 
         <dynamic prepend="where">
             <isNotEmpty prepend=" AND " property="funcId">FUNC_ID = #funcId#</isNotEmpty>
             <isNotEmpty prepend=" AND " property="funcCode">FUNC_CODE = #funcCode#</isNotEmpty>
@@ -32,7 +32,7 @@
     </select>
 
     <update id="updResFunction" parameterClass="com.soule.app.sys.funcauth.FuncAuthRecordPo">
-        update SYS_RES_FUNCTION 
+        update sys_res_function 
         <dynamic prepend="set">
             <isNotNull prepend="," property="funcCode">FUNC_CODE = #funcCode#</isNotNull>
             <isNotNull prepend="," property="jspPath">JSP_PATH = #jspPath#</isNotNull>
@@ -43,11 +43,11 @@
     </update>
 
     <insert id="saveResFunction" parameterClass="com.soule.app.sys.funcauth.FuncAuthRecordPo">
-        insert into SYS_RES_FUNCTION (FUNC_ID,FUNC_CODE,JSP_PATH,FUNC_NAME,FUNC_DESC)
+        insert into sys_res_function (FUNC_ID,FUNC_CODE,JSP_PATH,FUNC_NAME,FUNC_DESC)
 		values(#funcId:VARCHAR# ,#funcCode:VARCHAR# ,#jspPath:VARCHAR# ,#funcName:VARCHAR# ,#funcDesc:VARCHAR# )
     </insert>
 
     <delete id="delResFunction" parameterClass="com.soule.app.sys.funcauth.FuncAuthRecordPo">
-        delete from SYS_RES_FUNCTION where FUNC_ID=#funcId#
+        delete from sys_res_function where FUNC_ID=#funcId#
     </delete>
 </sqlMap>

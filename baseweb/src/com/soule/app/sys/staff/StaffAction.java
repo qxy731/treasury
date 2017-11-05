@@ -43,6 +43,11 @@ public class StaffAction extends BaseAction {
      */
     private StaffDeleteIn deleteIn;
     
+    /**
+     * 解锁人员 输入参数 
+     */
+    private StaffUnlockIn unlockIn;
+    
     
     public void doInit() {
     }
@@ -76,24 +81,18 @@ public class StaffAction extends BaseAction {
         return JSON;
     }
     public String insert() {
-        //StaffInsertIn in = insertIn;
         try {
-        	
         	StaffQueryIn qIn =new  StaffQueryIn();
             qIn.setStaffId(insertIn.getNewStaff().getStaffId());
             StaffQueryOut qr = staffService.query(qIn);
             List list = qr.getStaff();
-            
             if(null==list || list.size()==0){
-            	
             	 IServiceResult result = staffService.insert(insertIn);
                  if(null!=insertIn&&insertIn.getNewStaff()!=null){
                    LogonInfoPo logonInfo=new LogonInfoPo();
                    logonInfo.setStaffId(insertIn.getNewStaff().getStaffId());
                    logonInfo.setLogonId(insertIn.getNewStaff().getLogonId());
                    logonInfo.setPassword(insertIn.getNewStaff().getPassword());
-                   logonInfo.setLockFlag(YesNoFlag.NO.getValue());
-                   logonInfo.setValidFlag(YesNoFlag.YES.getValue());
                    logonInfoService.insert(logonInfo);
                  }
                  ServiceResult head = result.getResultHead();
@@ -112,8 +111,21 @@ public class StaffAction extends BaseAction {
     public String delete() {
         StaffDeleteIn in = deleteIn;
         try {
-            // TODO
             IServiceResult result = staffService.delete(in);
+            ServiceResult head = result.getResultHead();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }
+        catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
+    
+    public String unlock() {
+        StaffUnlockIn in = unlockIn;
+        try {
+            IServiceResult result = staffService.unlock(in);
             ServiceResult head = result.getResultHead();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
@@ -193,4 +205,13 @@ public class StaffAction extends BaseAction {
     public void setDeleteIn(StaffDeleteIn in) {
         this.deleteIn = in;
     }
+    
+    @JSON(serialize=false)
+	public StaffUnlockIn getUnlockIn() {
+		return unlockIn;
+	}
+	public void setUnlockIn(StaffUnlockIn unlockIn) {
+		this.unlockIn = unlockIn;
+	}
+    
 }

@@ -68,7 +68,7 @@ body{
 			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export3.action?dataDate="+dataDate+"&unitId="+unitId+"&unitName="+unitName;  
 		}
 	}
-	//选择部门
+	//选择国库
 	function openSelectUnit(){
 		Utils.openSelectUnit(null,'',setUnitIdName);
 	}
@@ -91,7 +91,7 @@ body{
 		<tr>
 			<td>数据日期</td>
 			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
-			<td>所属部门</td>
+			<td>所属国库</td>
 			<td>
 				<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
 				<input id="unitName" type='text' name="queryIn.unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select" value="${logUserInfo.operUnitName}"/>

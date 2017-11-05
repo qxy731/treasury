@@ -45,7 +45,7 @@
 			STORE_DATE as saveDate,
 			PROC_DATE_CODE as disposeDate,
 			'' as dataSource
-		from PFM_TM_QTY_DEF where 
+		from pfm_tm_qty_def where 
 			TAR_CODE = #indexCode#
 	</select>
 
@@ -61,7 +61,7 @@
 			STORE_DATE as saveDate,
 			PROC_DATE_CODE as disposeDate,
 			DATA_SOURCE as dataSource
-		from PFM_TM_QTY_DEF 
+		from pfm_tm_qty_def 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="indexCode">TAR_CODE = #indexCode#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="indexName">TAR_NAME like '%$indexName$%'</isNotEmpty>
@@ -89,13 +89,13 @@
 			STORE_DATE as saveDate,
 			PROC_DATE_CODE as disposeDate,
 			'' as dataSource
-		from PFM_TM_QTY_DEF 
+		from pfm_tm_qty_def 
 		 where TAR_NAME = #value# 
 	</select>
 	
 
 	<update id="updPfmParamIndex" parameterClass="com.soule.crm.pfm.param.paraminfo.ParaminfoQPo">
-		update PFM_TM_QTY_DEF 
+		update pfm_tm_qty_def 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="indexName">TAR_NAME = #indexName#</isNotNull>
 			<isNotNull prepend="," property="busiLine">TAR_BIZ_TYPE = #busiLine#</isNotNull>
@@ -111,12 +111,12 @@
 	</update>
 
 	<insert id="savePfmParamIndex" parameterClass="com.soule.crm.pfm.param.paraminfo.ParaminfoQPo">
-		insert into PFM_PARAM_INDEX (TAR_CODE,TAR_NAME,TAR_BIZ_TYPE,TAR_SCOPE,TAR_DESC,MEAS_UNIT_CODE,MEAS_DEF_CODE,STORE_DATE,PROC_DATE_CODE)
+		insert into pfm_param_index (TAR_CODE,TAR_NAME,TAR_BIZ_TYPE,TAR_SCOPE,TAR_DESC,MEAS_UNIT_CODE,MEAS_DEF_CODE,STORE_DATE,PROC_DATE_CODE)
 		values(#indexCode:VARCHAR# ,#indexName:VARCHAR# ,#busiLine:VARCHAR# ,#suitableObject:VARCHAR# ,#indexExplain:VARCHAR# ,#metUnit:VARCHAR# ,#metAccuracy:VARCHAR# ,#saveDate:VARCHAR# ,#disposeDate:VARCHAR# )
 	</insert>
 
 	<delete id="delPfmParamIndex" parameterClass="com.soule.crm.pfm.param.paraminfo.ParaminfoQPo">
-		delete from PFM_TM_QTY_DEF where 
+		delete from pfm_tm_qty_def where 
 			TAR_CODE = #indexCode#
 	</delete>
 </sqlMap>

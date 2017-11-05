@@ -19,18 +19,17 @@ body {
 <body style="width:450;">
 <n:page action='com.soule.app.pfm.tm.model.action.ModelDefAction' />
 <n:enums keys='valid_type,sex,partime_job_type'/>
-<table class="content" style="width:450;">
+<table style="width:100%;">
 	<tr>
 		<td>
 		<form id="myform">
-		<table class='params'>
+		<table class='params' width="100%">
 			<tr>
 				<td>模型编号 </td><td><input type='text' id='modelCode' name='modelCode'/></td>
 				<td>
 					<input id='query' name='query' type='button' value='查&nbsp;询' class='l-button' style="float:left;margin-right:5px;"/>
 				</td>
 			</tr>
-			
 			<tr>
 				<td>模型名称 </td><td><input type='text' id='modelName' name='modelName'/></td>
 				<td>
@@ -60,17 +59,17 @@ var _checkbox = false;
 			checkbox: _checkbox,
 			enumlist: _enum_params,
 			columns: [
-						{ display: '模型编号', name: 'modelCode', width: 100, align: 'left' } ,
+						{ display: '模型编号', name: 'modelCode', width: 200, align: 'left' } ,
 						{ display: '模型名称', name: 'modelName', width: 150,align: 'left' }
 					],
 			pageSize:20,
 			sortName: 'modelCode',
 			selectRowButtonOnly:true,
 			height:'98%',
-			width:420 ,
-			onError: function() {
-				Utils.alert("查询数据失败");
-			} 
+			width:435,
+			onError: function(e) {
+				Utils.toIndex(e);
+			}
 		});
 
 		$("#query").bind('click', query);
@@ -102,7 +101,7 @@ var _checkbox = false;
 	}
 
 	
-	//选择部门
+	//选择国库
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
 	   }

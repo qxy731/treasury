@@ -21,15 +21,12 @@
 			var url = "${_CONTEXT_PATH}/sys/staff!insert.action";
 			var data = Utils.convertFormData('insertIn', 'insertForm');
 			Utils.ajaxSubmit(url, data, function(result) {
-				
 				if(result.retCode=="C0001"){
-					$.dialogBox.info(result.retMsg, function() {
-					});
-					
+					$.dialogBox.info(result.retMsg);
 				}else{
-					$.dialogBox.info(result.retMsg, function() {
-						$.dialog.close();
-					});
+					$.dialogBox.info(result.retMsg);
+					$.dialogBox.opener.query();
+					$.dialog.close();
 				}
 				
 			});
@@ -100,7 +97,7 @@
 				<td>学历</td>
 				 <td><n:select codetype="education_type" id='education' name='newStaff.education'
 						emptyOption="true" value="updateIn.modifyStaff.education"></n:select></td>
-				<td>属性</td>
+				<td>专兼职</td>
 				<td><n:select codetype="partime_job_type" id='partTimeJob' name='newStaff.partTimeJob'
 						emptyOption="true" value="updateIn.modifyStaff.partTimeJob"></n:select></td>
 			</tr>

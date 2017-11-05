@@ -23,12 +23,12 @@
 	</resultMap>
 	<select id="getSysWidgetByKey" parameterClass="com.soule.crm.table.SysWidgetPo" 
 		resultMap="SysWidgetMap">
-		select * from SYS_WIDGET where 
+		select * from sys_widget where 
 			WID = #wid#
 	</select>
 
 	<select id="getSysWidget" parameterClass="java.util.Map" resultMap="SysWidgetMap">
-		select * from SYS_WIDGET 
+		select * from sys_widget 
 		<dynamic prepend=" where ">
 			<isNotEmpty prepend=" AND " property="roleId">
 				 wid in (select wid from sys_role_widget where role_id=#roleId#)
@@ -45,7 +45,7 @@
 	</select>
 
 	<update id="updSysWidget" parameterClass="com.soule.crm.table.SysWidgetPo">
-		update SYS_WIDGET 
+		update sys_widget 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="title">TITLE = #title#</isNotNull>
 			<isNotNull prepend="," property="dataService">DATA_SERVICE = #dataService#</isNotNull>
@@ -60,12 +60,12 @@
 	</update>
 
 	<insert id="saveSysWidget" parameterClass="com.soule.crm.table.SysWidgetPo">
-		insert into SYS_WIDGET (WID,TITLE,DATA_SERVICE,TYPE,PARAMA,PARAMB,PARAMC,REMARK)
+		insert into sys_widget (WID,TITLE,DATA_SERVICE,TYPE,PARAMA,PARAMB,PARAMC,REMARK)
 		values(#wid:VARCHAR# ,#title:VARCHAR# ,#dataService:VARCHAR# ,#type:VARCHAR# ,#parama:VARCHAR# ,#paramb:VARCHAR# ,#paramc:VARCHAR# ,#remark:VARCHAR# )
 	</insert>
 
 	<delete id="delSysWidget" parameterClass="com.soule.crm.table.SysWidgetPo">
-		delete from SYS_WIDGET where 
+		delete from sys_widget where 
 			WID = #wid#
 	</delete>
 </sqlMap>

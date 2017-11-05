@@ -490,6 +490,16 @@ Utils.selectModel = function(dup,okFunction,cancelFuntion,paramsObj){
 	$.dialogBox.openDialog(url,p,okFunction,cancelFuntion);
 };
 
+/**出错时调用，跳转到登陆页面**/
+Utils.toSuccessIndex = function (response) {
+	try{
+		if(!Utils.isSuccess(response)){
+			$.dialogBox.error(response.retMsg);
+			return;
+			//window.top.location.href = _CONTEXT_PATH + "/index.jsp";
+		}
+	}catch(e){}
+};
 
 /**出错时调用，跳转到登陆页面**/
 Utils.toIndex = function (response) {

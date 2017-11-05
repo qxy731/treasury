@@ -16,6 +16,7 @@ public class ModelDefPo {
 	private String lastUpdUser;
 	private String  lastUpdOrg;
 	private Date lastUpdTime;
+	private String createOrgName;
 	public String getModelCode() {
 		return modelCode;
 	}
@@ -78,7 +79,11 @@ public class ModelDefPo {
 	public void setLastUpdTime(Date lastUpdTime) {
 		this.lastUpdTime = lastUpdTime;
 	}
-	
-	
+	public String getCreateOrgName() {
+		return createOrgName;
+	}
+	public void setCreateOrgName(String createOrgName) {
+		this.createOrgName = createOrgName;
+	}
 
 }

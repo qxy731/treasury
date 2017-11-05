@@ -37,7 +37,10 @@ $(document).ready(function() {
 		pageSizeOptions:[15,20,25],
 		sortName: 'USER_COUNT',
 		width:'100%',
-		height: 413
+		height: 413,
+		onError: function(e) {
+			Utils.toIndex(e);
+		}
 	});
 	
 	g2 = $("#menubuilder").ligerGrid({
@@ -51,7 +54,10 @@ $(document).ready(function() {
 		enabledEdit:true,
 		data:{rows:arr},
 		width:'100%',
-		height: 450
+		height: 450,
+		onError: function(e) {
+			Utils.toIndex(e);
+		}
 	});
 
 	query();

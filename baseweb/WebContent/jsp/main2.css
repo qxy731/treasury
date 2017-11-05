@@ -59,7 +59,7 @@ input[type='checkbox'],input[type='radio']{
 
 .righthead  li  .logout{
 	float:right;
-	background-image: url(../images/logout.png);
+	/* background-image: url(../images/logout.png); */
 	background-repeat: no-repeat;
 	width: 16px;
 	height: 16px;
@@ -67,8 +67,15 @@ input[type='checkbox'],input[type='radio']{
 }
 
 .righthead  li .logout:HOVER {
-	background-image: url(../images/logout-mouseover.png);
 	cursor: pointer;
+}
+
+.righthead  li  .bizDate{
+	float:right;
+	background-repeat: no-repeat;
+	width: 120px;
+	height: 16px;
+	margin-top:19px;
 }
 
 .lefthead {

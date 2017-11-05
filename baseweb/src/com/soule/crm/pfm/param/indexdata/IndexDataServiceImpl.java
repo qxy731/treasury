@@ -3,7 +3,6 @@ package com.soule.crm.pfm.param.indexdata;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,15 +10,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.format.Alignment;
-import jxl.read.biff.BiffException;
-import jxl.write.WritableFont;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,8 +25,18 @@ import com.soule.base.service.ServiceException;
 import com.soule.comm.tools.AppUtils;
 import com.soule.comm.tools.DateFormatCalendar;
 import com.soule.crm.comm.IUserManager;
+import com.soule.crm.pfm.param.paraminfo.ParaminfoQPo;
 import com.soule.crm.tools.TimeTool;
-import com.soule.crm.pfm.param.paraminfo.*;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.format.Alignment;
+import jxl.read.biff.BiffException;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 /**
  * 指标数据补录业务操作
  */
@@ -126,15 +126,13 @@ public class IndexDataServiceImpl implements IIndexDataService {
 		//String[] objectNames = in.getObjectName().split(",");
 		String[] indexCodes = in.getIndexCode().split(",");
 		try {
-			String fileName = 
-					"\\upload\\ExportFiles\\"
+			String fileName = "/upload/ExportFiles/"
 					+ TimeTool.paserString(new Date(), "yyyy-MM-dd_HHmmss")
 					+ ".xls";
 			System.out.println(ServletActionContext.getServletContext().getRealPath("/") + fileName
 					+ "===========");
 			File file = new File(ServletActionContext.getServletContext().getRealPath("/") + fileName);
-			if (file.exists())
-				file.delete();
+			if (!file.exists())file.createNewFile();
 			WritableWorkbook book = null;
 			// 创建一个可写的工作簿
 			book = Workbook.createWorkbook(new FileOutputStream(file));
@@ -277,26 +275,19 @@ public class IndexDataServiceImpl implements IIndexDataService {
 		Date returnDate = null;
 		String str = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		
 		try {
-			List indexCodeList = sDefault.getIbatisMediator().find("paraminfo.getPfmParamIndexCode", indexName);
+			List<ParaminfoQPo> indexCodeList = sDefault.getIbatisMediator().find("paraminfo.getPfmParamIndexCode", indexName);
 			if(indexCodeList != null && indexCodeList.size() > 0){
 				ParaminfoQPo paraminfoQPo = (ParaminfoQPo)indexCodeList.get(0);
-				str = paraminfoQPo.getDisposeDate();
+				str = paraminfoQPo.getSaveDate();
 				DateFormatCalendar.getInstance(recoreDate);
 				returnDate = sdf.parse(DateFormatCalendar.getBusinessDate(str));
 			}
-			
-			
 		} catch (DbAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return returnDate;
 	}
 	
@@ -364,7 +355,9 @@ public class IndexDataServiceImpl implements IIndexDataService {
     
     public List<Map<String,Object>> ReadFromXls(File file) throws BiffException, IOException {
     	List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
-    	Workbook wb = Workbook.getWorkbook(file);
+    	WorkbookSettings workbookSettings = new WorkbookSettings();
+        workbookSettings.setEncoding("ISO-8859-1"); //关键代码，解决中文乱码
+    	Workbook wb = Workbook.getWorkbook(file,workbookSettings);
         Sheet sheet = wb.getSheet(0);
         if (sheet == null) {
             throw new RuntimeException("文件 不存在");
@@ -375,7 +368,8 @@ public class IndexDataServiceImpl implements IIndexDataService {
         	Map<String,Object> map = new HashMap<String, Object>();
         	Cell[] cells = sheet.getRow(r);
         	for(int s = 0; s < maxCol; s++) {
-        		map.put(String.valueOf(s), cells[s].getContents());
+        		String content = cells[s].getContents();
+        		map.put(String.valueOf(s), content);
         	}
         	list.add(r,map);
         }
@@ -384,9 +378,15 @@ public class IndexDataServiceImpl implements IIndexDataService {
 
     
     public static void main(String[] args) {
-		File file = new File("C:/workspace/boc/WebContent/ExportFiles/upload/index_data_import.xls");
+		File file = new File("D:\\workspaces\\treasury\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\baseweb\\upload/ExportFiles/2017-10-10_033930.xls");
+		System.out.println(file.getAbsolutePath());
 		if(!file.exists()){
-			file.mkdirs();
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

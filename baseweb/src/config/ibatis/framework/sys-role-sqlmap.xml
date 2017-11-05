@@ -17,12 +17,12 @@
 	</resultMap>
 	<select id="getSysRoleByKey" parameterClass="com.soule.app.sys.role.RoleRolePo" 
 		resultMap="SysRoleMap">
-		select * from SYS_ROLE where 
+		select * from sys_role where 
 			ROLE_ID = #roleId#
 	</select>
 
 	<select id="getSysRole" parameterClass="java.util.Map" resultMap="SysRoleMap">
-		select * from SYS_ROLE 
+		select * from sys_role 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID like '$roleId$%'</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="roleName">ROLE_NAME like '$roleName$%'</isNotEmpty>
@@ -40,7 +40,7 @@
 	</select>
 
 	<select id="getSysRoleCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_ROLE 
+		select count(1) as count from sys_role 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID like '$roleId$%'</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="roleName">ROLE_NAME like '$roleName$%'</isNotEmpty>
@@ -58,7 +58,7 @@
 	</select>
 
 	<update id="updSysRole" parameterClass="com.soule.app.sys.role.RoleRolePo">
-		update SYS_ROLE 
+		update sys_role 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="roleName">ROLE_NAME = #roleName#</isNotNull>
 			<isNotNull prepend="," property="roleStatus">ROLE_STATUS = #roleStatus#</isNotNull>
@@ -77,12 +77,12 @@
 	</update>
 
 	<insert id="saveSysRole" parameterClass="com.soule.app.sys.role.RoleRolePo">
-		insert into SYS_ROLE (ROLE_ID,ROLE_NAME,ROLE_STATUS,REMARK,PARENT_ROLE_ID,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
+		insert into sys_role (ROLE_ID,ROLE_NAME,ROLE_STATUS,REMARK,PARENT_ROLE_ID,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
 		values(#roleId:VARCHAR# ,#roleName:VARCHAR# ,#roleStatus:CHAR# ,#remark:VARCHAR# ,#parentRoleId:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# ,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
 	</insert>
 
 	<delete id="delSysRole" parameterClass="com.soule.app.sys.role.RoleRolePo">
-		delete from SYS_ROLE where 
+		delete from sys_role where 
 			ROLE_ID = #roleId#
 	</delete>
 

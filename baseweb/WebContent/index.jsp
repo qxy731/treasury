@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>登陆页面</title>
 <style type="text/css">
@@ -50,8 +49,7 @@ function initLoad() {
 	var pp = p.parent;
 	if (pp != p) {
 		window.top.location.href = "index.jsp";
-	}
-	else {
+	}else {
 		checkParams();
 	}
 }
@@ -59,10 +57,20 @@ function resetValue(){
 	document.getElementById('j_username').value = '';
 	document.getElementById('j_password').value = '';
 }
-function getUrlParams()
+
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+/* function getUrlParams()
 {
     var args = {};
     var query = location.search.substring(1);
+    alert(query);
     var pairs = query.split("&");//在逗号处断开   
     for (var i = 0; i < pairs.length; i++)
     {
@@ -72,20 +80,23 @@ function getUrlParams()
         var value = pairs[i].substring(pos + 1);
         args[argname] = unescape(value);
     }
+    //console.log(JSON.stringify(args));
     return args;
-}
+} */
 
 
  function keydown(){
 	if(event.keyCode == 13){
 		loginForm.submit();
-		
 	}
 } 
 function checkParams()
-{
-    var args = getUrlParams();
-    var val = args["l"];
+{	
+    //var args = getUrlParams();
+    //var val = args["l"];
+    //alert(location.href);
+    var val = GetQueryString("l");
+    //alert(val);
     var msgbox = document.getElementById('error_msg');
     if (val == "f")
     	msgbox.innerHTML = "用户登陆名不存在或者密码错误";
@@ -133,8 +144,7 @@ function checkParams()
                                 maxLength="6"></td>
                         </tr>
                        <tr>
-                            <td></td>
-                            <td><font size="2" color="red" ><span id="error_msg"></span></font></td>
+                            <td colspan="2"><font size="2" color="red" ><span id="error_msg"></span></font></td>
                        </tr>
                         <!--  
                         <tr>
@@ -144,7 +154,7 @@ function checkParams()
                         </tr>
                         -->
                         <tr>
-                            <td nowrap="nowrap" colspan='2' style="text-align:left;padding-top:20px;">
+                            <td nowrap="nowrap" colspan='2' style="text-align:left;padding-top:5px;">
                                 <input id="Button_submit" type='button' onclick="loginForm.submit();"/>
                                  &nbsp;
                                 <input id="Button_reset" type='button' onclick="resetValue();"/>

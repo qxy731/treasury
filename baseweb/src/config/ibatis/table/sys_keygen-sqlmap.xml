@@ -9,12 +9,12 @@
 	</resultMap>
 	<select id="getSysKeygenByKey" parameterClass="com.soule.app.table.SysKeygenPo" 
 		resultMap="SysKeygenMap">
-		select * from SYS_KEYGEN where 
+		select * from sys_keygen where 
 			TABLE_NAME = #tableName#
 	</select>
 
 	<select id="getSysKeygen" parameterClass="java.util.Map" resultMap="SysKeygenMap">
-		select * from SYS_KEYGEN 
+		select * from sys_keygen 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="tableName">TABLE_NAME = #tableName#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="seqVal">SEQ_VAL = #seqVal#</isNotEmpty>
@@ -24,7 +24,7 @@
 	</select>
 
 	<select id="getSysKeygenCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_KEYGEN 
+		select count(1) as count from sys_keygen 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="tableName">TABLE_NAME = #tableName#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="seqVal">SEQ_VAL = #seqVal#</isNotEmpty>
@@ -34,7 +34,7 @@
 	</select>
 
 	<update id="updSysKeygen" parameterClass="com.soule.app.table.SysKeygenPo">
-		update SYS_KEYGEN 
+		update sys_keygen 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="seqVal">SEQ_VAL = #seqVal#</isNotNull>
 			<isNotNull prepend="," property="seqLen">SEQ_LEN = #seqLen#</isNotNull>
@@ -45,12 +45,12 @@
 	</update>
 
 	<insert id="saveSysKeygen" parameterClass="com.soule.app.table.SysKeygenPo">
-		insert into SYS_KEYGEN (TABLE_NAME,SEQ_VAL,SEQ_LEN,MODIFING)
+		insert into sys_keygen (TABLE_NAME,SEQ_VAL,SEQ_LEN,MODIFING)
 		values(#tableName:VARCHAR# ,#seqVal:INTEGER# ,#seqLen:INTEGER# ,#modifing:CHAR# )
 	</insert>
 
 	<delete id="delSysKeygen" parameterClass="com.soule.app.table.SysKeygenPo">
-		delete from SYS_KEYGEN where 
+		delete from sys_keygen where 
 			TABLE_NAME = #tableName#
 	</delete>
 </sqlMap>

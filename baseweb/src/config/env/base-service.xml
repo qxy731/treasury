@@ -8,48 +8,10 @@
 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd">
 
 	<aop:aspectj-autoproxy/>
-	<bean id="jdbcMediator" class="com.soule.base.media.impl.DefaultMediaForJdbc">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-	</bean>
-	<bean id="ibatisMediator" class="com.soule.base.media.impl.DefaultMediaForIbatis"
-		init-method="initialize">
-		<property name="sqlMapClient">
-			<ref bean="sqlMapClient" />
-		</property>
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-		<property name="sqlExecutor">
-			<ref bean="sqlExecutor" />
-		</property>
-	</bean>
-
-	<bean id="defaultService" class="com.soule.base.service.DefaultService">
-		<property name="ibatisMediator">
-			<ref bean="ibatisMediator" />
-		</property>
-		<property name="jdbcMediator">
-			<ref bean="jdbcMediator" />
-		</property>
-	</bean>
-	<bean id="serverTime" class="com.soule.base.service.ServerTimeService">
-	</bean>
-	<bean id="sqlExecutor" class="com.soule.base.dialect.IBatisSqlExecutor">
-		<property name="dialect">
-			<ref bean="mysqlDialect" />
-		</property>
-	</bean>
-	<bean id="dbDialect" class="com.soule.base.dialect.impl.OracleDialect" />
-	<bean id="mysqlDialect" class="com.soule.base.dialect.impl.MySQLDialect" />
-
-	<bean id="LOGON_USER_INFO" class="com.soule.base.service.LogonInfoHolder"
-		scope="session" />
+	<bean id="LOGON_USER_INFO" class="com.soule.base.service.LogonInfoHolder" scope="session" />
 	<bean id="SessionContext" class="com.soule.comm.tools.ContextHolder" scope="session" />
 	<bean id="RequestContext" class="com.soule.comm.tools.ContextHolder" scope="request" />
-	<bean id="ApplicationContext" class="com.soule.comm.tools.ContextHolder"
-		scope="singleton" />
+	<bean id="ApplicationContext" class="com.soule.comm.tools.ContextHolder" scope="singleton" />
 	
 	<bean id="keyGen" class="com.soule.base.service.keygen.KeyGeneratorImpl" />
 	<bean id="dsl.IndicatorService" class="com.soule.crm.pfm.engine.service.IndicatorServiceImpl" />
@@ -63,6 +25,6 @@
 	</bean>
 	<bean id="EnumInitService" class="com.soule.app.sys.enuminit.EnumInitServiceImpl" init-method="load">
 	</bean>
-	<bean id="UnitInitService" class="com.soule.crm.demo.comp.dropdown.UnitInitServiceImpl" init-method="load" scope="singleton">
-	</bean>
+	<!-- <bean id="UnitInitService" class="com.soule.crm.demo.comp.dropdown.UnitInitServiceImpl" scope="singleton">
+	</bean> -->
 </beans>

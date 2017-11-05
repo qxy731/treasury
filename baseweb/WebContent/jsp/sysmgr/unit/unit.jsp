@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>部门维护</title>
+<title>国库维护</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 </style>
@@ -19,20 +19,20 @@
 <form id="queryForm" name="queryForm">
 <table class="params">
 	<tr>
-		<td>部门编码</td>
+		<td>国库编码</td>
 		<td><input id="unitId" type="text" name="unitId" /></td>
-		<td>部门名称</td>
+		<td>国库名称</td>
 		<td><input id="unitName" type="text" name="unitName" /></td>
-		<td>上级部门</td>
+		<td>上级国库</td>
 		<td><input id="superUnitId" type="hidden"
 			name="superUnitId" /> <input class='unit_select' type="text"
 			id="superUnitName" name="superUnitName" readonly="readonly"
 			onclick="openSelectUnit()" /></td>
 </tr>
 <tr>
-	<td>部门级别</td>
+	<td>国库级别</td>
 	<td><input id="unitLevel" type="text" name="unitLevel" /></td>
-	<td>部门状态</td>
+	<td>国库状态</td>
 	<td><n:select codetype="valid_type" id="unitStatus"
 	name='unitStatus' emptyOption="true" disabled="false"></n:select>
 </td>
@@ -47,7 +47,7 @@
 </form>	
 </fieldset>
 <fieldset class="outbox">
-	<legend>部门列表</legend>
+	<legend>国库列表</legend>
 	<div id='toptoolbar'></div>
 	<div id='unitlist'></div>
 </fieldset>
@@ -74,6 +74,12 @@
 				icon : 'update',
 				enabled : '<n:auth key='unit_modify'/>',
 				click : updateUnit
+			}, {
+				text : '删&nbsp;除',
+				name : 'delete_btn',
+				icon : 'delete',
+				enabled : '<n:auth key='unit_delete'/>',
+				click : deleteUnit
 			} ],
 			width : '100%'
 		});
@@ -81,32 +87,32 @@
 			enumlist : _enum_params,
 			enabledSort : false,
 			columns : [ {
-				display : '部门编号',
+				display : '国库编号',
 				name : 'unitId',
 				width : '7%',
 				align : 'left'
 			}, {
-				display : '部门名称',
+				display : '国库名称',
 				name : 'unitName',
 				width : '13%',
 				align : 'left'
 			}, {
-				display : '上级部门编号',
+				display : '上级国库编号',
 				name : 'superUnitId',
 				align : 'left'
 			},
-			//{ display: '上级部门名称', name: 'superUnitName', width:'11%',align:'left'},
+			//{ display: '上级国库名称', name: 'superUnitName', width:'11%',align:'left'},
 			{
-				display : '部门级别',
+				display : '国库级别',
 				name : 'unitLevel',
 				width : '5%'
 			}/* , {
-				display : '部门类型',
+				display : '国库类型',
 				name : 'unitKind',
 				width : '5%',
 				codetype : 'unit_kind'
 			} */, {
-				display : '部门地址',
+				display : '国库地址',
 				name : 'unitAddress',
 				width : '13%',
 				align : 'left'
@@ -148,8 +154,8 @@
 			sortName : 'unitId',
 			height : '98%',
 			width : '100%',
-			onError : function() {
-				Utils.alert("查询数据失败。");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#query").bind('click', query);
@@ -165,7 +171,7 @@
 		//$("#unitKind").val("");
 		$("#unitStatus").val("");
 	}
-	//选择部门
+	//选择国库
 	function openSelectUnit() {
 		Utils.openSelectUnit('', _CREATE_ORG, setUnitIdName);
 	}
@@ -218,7 +224,7 @@
 	function insertUnit() {
 		var p = {
 			id : "insertUnitDetail",
-			title : '编辑部门信息',
+			title : '编辑国库信息',
 			width : 500,
 			height : 450,
 			opacity : 0.07
@@ -226,7 +232,7 @@
 		var url = '${_CONTEXT_PATH}/jsp/sysmgr/unit/unitAdd.jsp';
 		$.dialogBox.openDialog(url, p);
 	}
-	//编辑部门信息
+	//编辑国库信息
 	function updateUnit() {
 		var grid = $("#unitlist").ligerGetGridManager();
 		var selected = grid.getSelectedRow();
@@ -237,7 +243,7 @@
 		var unitId = selected.unitId;
 		var p = {
 			id : "updateUnitDetail",
-			title : '编辑部门信息',
+			title : '编辑国库信息',
 			width : 500,
 			height : 450,
 			opacity : 0.07
@@ -246,7 +252,7 @@
 				+ unitId;
 		$.dialogBox.openDialog(url, p);
 	}
-	//删除部门信息
+	//删除国库信息
 	function deleteUnit() {
 		var grid = $("#unitlist").ligerGetGridManager();
 		var selected = grid.getSelectedRow();
@@ -254,20 +260,15 @@
 			$.dialogBox.alert("请先选择需要修改的记录");
 			return;
 		}
-		Utils.alert(
-						"你确定要删除当前部门，如果继续，请点击“确定”按钮?",
-						'请确认',
-						function() {
-							var unitId = selected.unitId;
-
-							var url = "${_CONTEXT_PATH}/sys/unit!deleteUnitModel.action?queryIn.unitId="
-									+ unitId;
-							Utils.ajaxSubmit(url, '', function(result) {
-								$.dialogBox.info(result.retMsg, function() {
-									query();
-								});
-							});
-						}, true);
+		$.dialogBox.confirm("你确定要删除当前国库?",
+			function() {
+				var unitId = selected.unitId;
+				var url = "${_CONTEXT_PATH}/sys/unit!deleteUnitModel.action?queryIn.unitId="+ unitId;
+				Utils.ajaxSubmit(url, '', function(result) {
+					$.dialogBox.info(result.retMsg);
+					query();
+				});
+			},true);
 	}
 	function detailUnit() {
 		var grid = $("#unitlist").ligerGetGridManager();
@@ -279,7 +280,7 @@
 		var unitId = selected.unitId;
 		var p = {
 			id : "openUnitDetail",
-			title : '查看部门信息',
+			title : '查看国库信息',
 			width : 500,
 			height : 450,
 			opacity : 0.07

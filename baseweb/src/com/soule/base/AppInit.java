@@ -13,7 +13,7 @@ import com.soule.comm.ParamConstants;
 public class AppInit {
     private static String clsname = "com.soule.base." + "o";
 
-    private static void a() {
+    /*private static void a() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 80; i++) {
             sb.append('*');
@@ -46,10 +46,10 @@ public class AppInit {
             //System.err.println("License" + " Error:" + e.getMessage());
             System.exit(-1);
         }
-    }
+    }*/
 
     public static void init(ServletContextEvent context) {
-        a();
+        //a();
         // json转换日期格式指定
         String[] dateFmts = new String[] { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd" };
         JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(dateFmts));

@@ -15,7 +15,7 @@
 </head>
 <!-- border: thick double yellow; -->
 <body style="width:545px;margin:0;padding:0;">
-<n:enums keys="sex"></n:enums>
+<n:enums keys="sex,education_type,partime_job_type"></n:enums>
 <table style="width:545px;margin:0;padding:0;">
 <td width="213px">
 <div class="param" style="width:213px;height:286px;">
@@ -28,7 +28,7 @@
         <td align="right" width="60px" style="background-color:#E2EAFF;">员工名称 </td><td align="left"><input type='text' id='staffName' name='staffName'/></td>
     </tr>
     <tr>
-        <td align="right" width="60px" style="background-color:#E2EAFF;">所属部门 </td><td align="left"><input type='hidden' id='ownerUnitId' name='ownerUnitId' style="width:0px;"/>
+        <td align="right" width="60px" style="background-color:#E2EAFF;">所属国库 </td><td align="left"><input type='hidden' id='ownerUnitId' name='ownerUnitId' style="width:0px;"/>
         <input type='text' id='ownerUnitName' name='ownerUnitName' readonly="readonly"/><input type="button" value="..." id="createOrgBtn1" onclick="openSelectUnit()" style="width:20px;height:20px;">
         </td>
     </tr>
@@ -64,7 +64,7 @@
                 columns: [
                 { display: '员工编号', name: 'staffId', width:70,align: 'left' },
                 { display: '员工名称', name: 'staffName',width:90, align: 'left' },
-                { display: '所属部门', name: 'ownerUnitName',width:140, align: 'left' },
+                { display: '所属国库', name: 'ownerUnitName',width:140, align: 'left' },
                 { display: '性别', name:'sex',width:26,align:'center',codetype:'sex'}                          
             ],
             pageSize:10,
@@ -74,9 +74,9 @@
             onDblClickRow: function (data,rowindex,rowobj){
                 getStaffIdAndName(data.staffId,data.staffName);
             },
-            onError: function() {
-                $.dialogBox.error("查询数据失败");
-            }
+    		onError: function(e) {
+    			Utils.toIndex(e);
+    		}
         });
     
     });

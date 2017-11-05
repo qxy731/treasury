@@ -12,11 +12,11 @@
 	</resultMap>
 	
 	<select id="getSysUploadFileErrorDetailByKey" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo"  resultMap="SysUploadFileErrorDetailMap">
-		select * from SYS_UPLOAD_FILE_ERROR_DETAIL where DETAIL_ID = #detailId#
+		select * from sys_upload_file_error_detail where DETAIL_ID = #detailId#
 	</select>
 
 	<select id="getSysUploadFileErrorDetail" parameterClass="java.util.Map" resultMap="SysUploadFileErrorDetailMap">
-		select * from SYS_UPLOAD_FILE_ERROR_DETAIL 
+		select * from sys_upload_file_error_detail 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="detailId">DETAIL_ID = #detailId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="errorId">ERROR_ID = #errorId#</isNotEmpty>
@@ -28,7 +28,7 @@
 	</select>
 
 	<update id="updSysUploadFileErrorDetail" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo">
-		update SYS_UPLOAD_FILE_ERROR_DETAIL
+		update sys_upload_file_error_detail
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="errorId">ERROR_ID = #errorId#</isNotNull>
 			<isNotNull prepend="," property="errorRow">ERROR_ROW = #errorRow#</isNotNull>
@@ -40,12 +40,12 @@
 	</update>
 	
 	<insert id="saveSysUploadFileErrorDetail" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo">
-		insert into SYS_UPLOAD_FILE_ERROR_DETAIL (DETAIL_ID,ERROR_ID,ERROR_ROW,ERROR_COLUMN,ERROR_MESSAGE,CREATE_TIME)
+		insert into sys_upload_file_error_detail (DETAIL_ID,ERROR_ID,ERROR_ROW,ERROR_COLUMN,ERROR_MESSAGE,CREATE_TIME)
 		values(#detailId:VARCHAR#,#errorId:VARCHAR#,#errorRow:BIGINT#,#errorColumn:INT#,#errorMessage:VARCHAR#,#createTime:TIMESTAMP#)
 	</insert>
 	
 	<delete id="delSysUploadFileErrorDetail" parameterClass="com.soule.app.table.SysUploadFileErrorDetailPo">
-		delete from SYS_UPLOAD_FILE_ERROR_DETAIL where DETAIL_ID = #detailId#
+		delete from sys_upload_file_error_detail where DETAIL_ID = #detailId#
 	</delete>
 
 </sqlMap>

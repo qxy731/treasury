@@ -69,8 +69,8 @@ $(function () {
 		enabledSort:false,
 		height: 350,
 		width:400,
-		onError: function() {
-			$.dialogBox.alert("查询数据失败");
+		onError: function(e) {
+			Utils.toIndex(e);
 		}
 	});
 	$('#refesh_btn').bind('click', executeQuery);

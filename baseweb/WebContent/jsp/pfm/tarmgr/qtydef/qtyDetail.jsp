@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>定量指标详细信息</title>
+<title>指标详细信息</title>
 <%@ include file="/comm.jsp" %>
 <style type="text/css">
 

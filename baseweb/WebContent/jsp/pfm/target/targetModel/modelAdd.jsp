@@ -58,7 +58,7 @@
 						<td><input id='tarName' name='tarName' type="text" /></td>
 					</tr>
 					<tr>
-						<td align="right">建立部门</td>
+						<td align="right">建立国库</td>
 						<td>
 						<input id='createOrg' name='createOrg' type='hidden' value="${logUserInfo.operUnitId}"/>
 						<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
@@ -122,8 +122,8 @@
 			sortName : 'tarCode',
 			height : '98%',
 			width : '100%',
-			onError : function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#tarlist").ligerGrid({
@@ -143,8 +143,8 @@
 			sortName : 'tarCode',
 			height : '98%',
 			width : '100%',
-			onError : function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#queryTar").bind('click', queryTar);
@@ -200,10 +200,7 @@
 			'insertIn.modelName' : modelName,
 			'insertIn.modelDesc' : modelDesc,
 			'insertIn.insertsStr' : JSON.stringify(rows)
-			
 		};
-		//mdata['insertIn.tarList'] = JSON.stringify(rows);
-
 		var url = "${_CONTEXT_PATH}/modelDef/model-def!insert.action";
 		Utils.ajaxSubmit(url, mdata, onSuccess);
 	}
@@ -215,8 +212,7 @@
 		var datas = grid.getData();
 		
 		if(datas.length>0){
-			var i =0;
-			
+			var i =0;			
 			while(i<rows1.length){
 				var j = 0 ;
 				var flag = true;
@@ -287,6 +283,7 @@
 	
 	var onSuccess = function() {
 		$.dialogBox.close();
+		$.dialogBox.opener.query();
 	}
 	function queryByRole() {
 		var url = "${_CONTEXT_PATH}/sys/roleass!queryByRole.action";

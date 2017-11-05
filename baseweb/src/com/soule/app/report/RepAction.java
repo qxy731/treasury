@@ -91,7 +91,7 @@ public abstract class RepAction<IN> extends BaseAction {
         String temp = templates[0];
         String templateKey = templates[1];
         fileName = templates[2];
-        String templatePath = request.getSession().getServletContext().getRealPath("/") + "/template/" + temp;
+        String templatePath = request.getSession().getServletContext().getRealPath("/") + "template/" + temp;
         String filepath = ParamConstants.DOWNLOAD_ROOT + "/" + fileName;
 
         IN in = initQueryIn();
@@ -109,10 +109,9 @@ public abstract class RepAction<IN> extends BaseAction {
         String temp = templates[0];
         String templateKey = templates[1];
         fileName = templates[2];
-        String templatePath = request.getSession().getServletContext().getRealPath("/") + "/template/" + temp;
-        
+        String templatePath = request.getSession().getServletContext().getRealPath("/") + "template/" + temp;
         String excelFileName = TimeTool.paserString(new Date(), "yyyyMMddHHmmssS")+fileName.substring(fileName.lastIndexOf("."), fileName.length());
-        String filepath = request.getSession().getServletContext().getRealPath("/")+"/upload/ExportFiles/"+excelFileName;
+        String filepath = request.getSession().getServletContext().getRealPath("/")+"upload/ExportFiles/"+excelFileName;
         String pathDirec = filepath.substring(0, filepath.lastIndexOf("/"));
         if(pathDirec!=null && !"".equals(pathDirec)){
             File tem = new File(pathDirec);
@@ -153,17 +152,17 @@ public abstract class RepAction<IN> extends BaseAction {
         String[] templates = getXlsTemplate();
         String temp = templates[0];
         String templateKey = templates[1];
-        String templatePath = request.getSession().getServletContext().getRealPath("/") + "\\template\\" + temp;
+        String templatePath = request.getSession().getServletContext().getRealPath("/") + "template/" + temp;
         OutputStream outStream = response.getOutputStream();
         try {
             response.setContentType("text/html; charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
             // 预览页面返回按钮
             /*
              * String s =
              * "<html><style type='text/css'>.l-button{border: solid 1px #A3C0E8;height:20px; overflow:hidden; line-height:20px;background: #E0EDFF url(../images/controls/button-bg.gif) repeat-x center; width:80px;text-align:center;color: #2C4D79;  text-decoration:none; cursor:pointer;} .l-button-over,.l-button:hover {background: #FFBE76 url(../images/controls/button-bg-over.gif) repeat-x center; border-color:#D6A886;}</style><table width='100%'><tr><td align='right' style=\"text-align:right;\"><input class='l-button' type='button' value='返 回' onclick='window.history.go(-1)' /></td></tr></table></html>"
              * ; outStream.write(s.getBytes());
              */
-
             IN in = initQueryIn();
             HashMap context = fileDatas(in, "1");
             mgr.exportHtml(templatePath, templateKey, outStream, context, null, null);

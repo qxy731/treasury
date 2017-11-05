@@ -81,14 +81,29 @@ public class NeuUrlAuthenticationFailureHandler implements
 			throws IOException, ServletException {
 
 		Authentication au = exception.getAuthentication();
+		String params = "f";
 		if (au != null) {
 			LogonInfoPo lpo;
 			try {
+				String exceptionName = exception.getClass().getName();
 				lpo = logDao.updateLogonFailed(au.getName());
 				if (lpo != null) {
 					lpo.setLastLogonIp(request.getRemoteAddr());
 				}
 				saveLogonFailed(lpo, exception);
+				if(exceptionName.equals("org.springframework.security.authentication.BadCredentialsException")){
+					params = "i";
+				}else if(exceptionName.equals("org.springframework.security.authentication.CredentialsExpiredException")){
+					params = "e";
+				}else if(exceptionName.equals("org.springframework.security.core.userdetails.UsernameNotFoundException")){
+					params = "f";
+				}else if(exceptionName.equals("org.springframework.security.authentication.LockedException")){
+					params = "l";
+				}else if(exceptionName.equals("org.springframework.security.authentication.DisabledException")){
+					params = "d";
+				}else if(exceptionName.equals("org.springframework.security.authentication.AccountExpiredException")){
+					params = "a";
+				}
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}
@@ -105,13 +120,12 @@ public class NeuUrlAuthenticationFailureHandler implements
 
 			if (forwardToDestination) {
 				logger.debug("Forwarding to " + defaultFailureUrl);
-
-				request.getRequestDispatcher(defaultFailureUrl).forward(
+				request.getRequestDispatcher(defaultFailureUrl+"?l="+params).forward(
 						request, response);
 			} else {
 				logger.debug("Redirecting to " + defaultFailureUrl);
 				redirectStrategy.sendRedirect(request, response,
-						defaultFailureUrl);
+						defaultFailureUrl+"?l="+params);
 			}
 		}
 	}
@@ -174,6 +188,10 @@ public class NeuUrlAuthenticationFailureHandler implements
 	protected boolean isUseForward() {
 		return forwardToDestination;
 	}
+	
+	public void setForwardToDestination(boolean forwardToDestination) {  
+        this.forwardToDestination = forwardToDestination;  
+    } 
 
 	/**
 	 * If set to <tt>true</tt>, performs a forward to the failure destination

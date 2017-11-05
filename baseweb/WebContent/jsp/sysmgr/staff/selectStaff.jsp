@@ -47,7 +47,7 @@
 		   <div id='stafflist'>
 		       <table>
 		          <tr>
-		             <td>员工编号</td><td>员工姓名</td><td>员工级别</td><td>员工性别</td><td>员工所属部门</td>
+		             <td>员工编号</td><td>员工姓名</td><td>员工级别</td><td>员工性别</td><td>员工所属国库</td>
 		          </tr>
 		          
 		          <tr>

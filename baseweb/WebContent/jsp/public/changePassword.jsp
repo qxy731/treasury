@@ -8,7 +8,7 @@
 <title>密码修改</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-
+input {border:1px solid #aaa;margin:2px;}
 .mparams { margin:20px auto; }
 .mparams tr td { line-height: 22px;}
 .mparams tr td input {  height: 20px;}
@@ -20,12 +20,11 @@ fieldset legend {
 #level1,#level2,#level3 {padding:3px 14px;width:40px;border:1px solid #aaa;background-color: #eee;}
 </style>
 </head>
-<body>
+<body style="overflow:hidden;">
 <n:page action='com.soule.app.sys.changeposi.ChangePosiAction' />
-
 <form id="myform" action="${_CONTEXT_PATH}/ChangePosi!change.action">
 <input type='hidden' id='staffId' name='staffId' value='${logUserInfo.user.userID}'/>
-<fieldset><legend>密码修改</legend>
+<fieldset>
 <table class="mparams">
 	<tr>
 		<td align="right"><font style="color:red">*</font>原密码&nbsp;</td>
@@ -89,7 +88,7 @@ function checkPwd()
 }
 function doChange() {
 	var mdata = Utils.convertFormData('','myform');
-	var url = "${_CONTEXT_PATH}/logonManager!updateLogonPwd.action";
+	var url = "${_CONTEXT_PATH}/sys/longon!updateLogonPwd.action";
 	Utils.ajaxSubmit(url,mdata,function(result){
 		$.dialogBox.info(result.retMsg,function(){
 			$.dialogBox.close();

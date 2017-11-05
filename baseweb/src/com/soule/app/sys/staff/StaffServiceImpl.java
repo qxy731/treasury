@@ -171,6 +171,36 @@ public class StaffServiceImpl implements IStaffService {
         }
         return out;
     }
+    
+    public StaffUnlockOut unlock(StaffUnlockIn in) throws ServiceException {
+    	StaffUnlockOut out = new StaffUnlockOut();
+        if (ObjectUtil.isEmpty(in.getUnlocks())) {
+            AppUtils.setResult(out, "E0001");
+            return out;
+        }
+        int count = 0;
+        for (StaffStaffPo po : in.getUnlocks()) {
+            int ret = 0;
+            try {
+                if ("admin".equals(po.getStaffId())) {
+                    continue;
+                }else {
+                    ret = defService.getIbatisMediator().update("logonInfo.updateLogonLock", po);
+                }
+            } catch (DbAccessException e) {
+                logger.error("DB", e);
+            }
+            if (ret == 1) {
+                ++count;
+            }
+        }
+        if (count == 0) {
+            AppUtils.setResult(out, "W0000", new Object[] { "没有一条记录被删除" });
+        } else {
+            AppUtils.setResult(out, "I0000");
+        }
+        return out;
+    }
 
     @SuppressWarnings("unchecked")
     public List<StaffStaffPo> queryByUnit(String unitId) throws ServiceException {

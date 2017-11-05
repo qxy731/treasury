@@ -711,7 +711,7 @@
         },
         _setData: function (value)
         {
-            //this.loadData(this.options.data);
+            this.loadData(this.options.data);
             this.trigger('afterSetData');
         },
         //刷新数据

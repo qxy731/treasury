@@ -31,7 +31,7 @@ body {width:600px}
 								name='staffName' /></td>
 						</tr>
 						<tr>
-							<td>归属部门</td>
+							<td>归属国库</td>
 							<td align="left"><input type='hidden' id='ownerUnitId'
 								name='ownerUnitId' style="width: 0px;" /><input type='text'
 								id='ownerUnitName' name='ownerUnitName' readonly="readonly"
@@ -76,7 +76,7 @@ body {width:600px}
                 columns: [
                 { display: '员工编号', name: 'staffId', width:80,align: 'left' },
                 { display: '员工名称', name: 'staffName',width:60, align: 'left' },
-                { display: '所属部门', name: 'ownerUnitName',width:120, align: 'left' },
+                { display: '所属国库', name: 'ownerUnitName',width:120, align: 'left' },
                 { display: '性别', name:'sex',width:40,align:'center',codetype:'sex'}
             ],
             pageSize:10,
@@ -88,9 +88,9 @@ body {width:600px}
             onDblClickRow: function (data,rowindex,rowobj){
                // getStaffIdAndName(data.staffId,data.staffName);
             },
-            onError: function() {
-                $.dialobBox.alert("查询数据失败",'提示内容');
-            }
+    		onError: function(e) {
+    			Utils.toIndex(e);
+    		}
         });
 
         var operUnitId = '${logUserInfo.operUnitId}';

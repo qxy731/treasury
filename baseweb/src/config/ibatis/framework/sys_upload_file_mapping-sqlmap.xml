@@ -29,11 +29,11 @@
 	</resultMap>
 	
 	<select id="getSysUploadFileByKey" parameterClass="com.soule.app.table.SysUploadFileMappingPo"  resultMap="SysUploadFileMappingMap">
-		select * from SYS_UPLOAD_FILE_MAPPING where  FILE_PK = #filePk#
+		select * from sys_upload_file_mapping where  FILE_PK = #filePk#
 	</select>
 
 	<select id="getSysUploadFileMapping" parameterClass="java.util.Map" resultMap="SysUploadFileMappingMap">
-		select * from SYS_UPLOAD_FILE_MAPPING 
+		select * from sys_upload_file_mapping 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="filePk">FILE_PK = #filePk#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="fileSource">FILE_SOURCE = #fileSource#</isNotEmpty>
@@ -50,7 +50,7 @@
 	</select>
 
 	<update id="updSysUploadFileMapping" parameterClass="com.soule.app.table.SysUploadFileMappingPo">
-		update SYS_UPLOAD_FILE_MAPPING
+		update sys_upload_file_mapping
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="filePk">FILE_PK = #filePk#</isNotNull>
 			<isNotNull prepend="," property="fileSource">FILE_SOURCE = #fileSource#</isNotNull>

@@ -53,9 +53,6 @@ public class ReportBaseAction extends RepAction<HashMap> {
     public void doInit() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         initDate = (String)sdf.format(um.getCurrDate());
-        //String[] units = um.getFirstOrgInfo(um.getDataScope());
-        //initUnitId = units[0];
-       // initUnitName = units[1];
     }
 
     public String[] getXlsTemplate() {

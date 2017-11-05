@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新增部门</title>
+<title>新增国库</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-body{
+/* body{
 	margin: 10px;
 	width:90%;
 	height:90%;
 	
-}
+} */
 
 table td{
 	line-height:22px;
@@ -25,25 +25,25 @@ table td{
 <form id="detailForm">
 <table  class='s1-params'>
 	<tr>
-		<td>部门编码：</td>
+		<td>国库编码：</td>
 		<td><s:property value="unit.unitId" /></td>
 	</tr>
 	<tr>
-		<td>部门名称：</td>
+		<td>国库名称：</td>
 		<td><s:property value="unit.unitName" /></td>
 	</tr>
 	<tr>
-		<td>上级部门：</td>
+		<td>上级国库：</td>
 		<td><s:property value="unit.superUnitId" /></td>
 	</tr>
 	<tr>
-		<td>部门级别：</td>
+		<td>国库级别：</td>
 		<td><s:property value="unit.unitLevel" /></td>
 	</tr>
 	<%-- <tr>
-		<td>部门类型：</td>
-		<td><s:if test="unit.unitKind==\"1\"">部门</s:if><s:elseif
-			test="unit.unitKind==\"2\"">部门</s:elseif> <s:else></s:else></td>
+		<td>国库类型：</td>
+		<td><s:if test="unit.unitKind==\"1\"">国库</s:if><s:elseif
+			test="unit.unitKind==\"2\"">国库</s:elseif> <s:else></s:else></td>
 	</tr> --%>
 	<tr>
 		<td>清算国库代码：</td>
@@ -62,7 +62,7 @@ table td{
 		<td style="width:500px;"><s:property value="unit.endDate" /></td>
 	</tr>
 	<tr>
-		<td>部门地址：</td>
+		<td>国库地址：</td>
 		<td style="width:500px;"><s:property value="unit.unitAddress" /></td>
 	</tr>
 	<tr>

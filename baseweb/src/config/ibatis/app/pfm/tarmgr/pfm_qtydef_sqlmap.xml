@@ -67,9 +67,9 @@
 		a.LAST_UPD_ORG as lastUpdOrg,
 		a.LAST_UPD_TIME as lastUpdTime,
 		a.DAY_SCOPE as dayScope
-		from PFM_TM_QTY_DEF a 
-		left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
-		inner join SYS_UNITMAP d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
+		from pfm_tm_qty_def a 
+		left join sys_unit c on a.CREATE_ORG=c.UNIT_ID
+		inner join sys_unitmap d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
 		<dynamic prepend="where">
 			<isNotEmpty property="qtyDef.tarCode" prepend="and">
 				a.TAR_CODE=#qtyDef.tarCode#
@@ -140,9 +140,9 @@
 		a.LAST_UPD_ORG as lastUpdOrg,
 		a.LAST_UPD_TIME as lastUpdTime,
 		a.DAY_SCOPE as dayScope
-		from PFM_TM_QTY_DEF a 
-		left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
-		inner join SYS_UNITMAP d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
+		from pfm_tm_qty_def a 
+		left join sys_unit c on a.CREATE_ORG=c.UNIT_ID
+		inner join sys_unitmap d on a.CREATE_ORG=d.UNIT_ID and (d.UNIT_ID = #qtyDef.createOrg# or d.RELA_UNITID = #qtyDef.createOrg#)
 		<dynamic prepend="where">
 			<isNotEmpty property="qtyDef.tarCode" prepend="and">
 				a.TAR_CODE=#qtyDef.tarCode#
@@ -212,8 +212,8 @@
 		a.LAST_UPD_ORG as lastUpdOrg,
 		a.LAST_UPD_TIME as lastUpdTime,
 		a.DAY_SCOPE as dayScope
-	    from PFM_TM_QTY_DEF a 
-	    left join SYS_UNIT c on a.CREATE_ORG=c.UNIT_ID
+	    from pfm_tm_qty_def a 
+	    left join sys_unit c on a.CREATE_ORG=c.UNIT_ID
 	    where a.TAR_CODE=#value#
 	</select>
 	
@@ -247,13 +247,13 @@
 		a.LAST_UPD_ORG as lastUpdOrg,
 		a.LAST_UPD_TIME as lastUpdTime,
 		a.DAY_SCOPE as dayScope
-	    from PFM_TM_QTY_DEF a 
+	    from pfm_tm_qty_def a 
 	    where a.TAR_STATUS='1' and a.TAR_NAME=#value#
 	</select>
 	
 	<select id="getQtyDefByTarCodeIn" resultClass="QtyDefPo">
 	select a.TAR_CODE as tarCode,a.TAR_NAME as tarName,
-	a.TAR_SCOPE as tarScope from PFM_TM_QTY_DEF a
+	a.TAR_SCOPE as tarScope from pfm_tm_qty_def a
 	where a.TAR_CODE in
 		<iterate open="(" close=")" conjunction=","
 			property="tarCodeList">
@@ -262,11 +262,11 @@
 	</select>
 	
 	<select id="getQtyDefBySort" resultMap="QtyDefMap">
-		select * from PFM_TM_QTY_DEF WHERE TAR_STATUS='1' and TAR_SORT_CODE=#value#
+		select * from pfm_tm_qty_def WHERE TAR_STATUS='1' and TAR_SORT_CODE=#value#
 	</select>
 	
 	<select id="getQtyDefByPointPtar" resultMap="QtyDefMap">
-		select * from PFM_TM_QTY_DEF
+		select * from pfm_tm_qty_def
 		<dynamic prepend="where">
 			<isNotEmpty prepend="and" property="tarCodeList">
 				<iterate open="(" close=")" conjunction="or"
@@ -283,11 +283,11 @@
 	<select id="getAtarCodeByPtarCode" resultClass="java.lang.String">
 		select 
 		a.A_TARCODE
-		from PFM_TM_POINT_AVER_RELA a WHERE a.P_TARCODE=#value#
+		from pfm_tm_point_aver_rela a WHERE a.P_TARCODE=#value#
 	</select>
 	
 	<insert id="addQtyDef" parameterClass="QtyDefPo">
-		insert into PFM_TM_QTY_DEF (TAR_CODE,TAR_NAME,MEAS_UNIT_CODE,MEAS_DEF_CODE,TAR_TYPE,
+		insert into pfm_tm_qty_def (TAR_CODE,TAR_NAME,MEAS_UNIT_CODE,MEAS_DEF_CODE,TAR_TYPE,
 		TAR_PROPERTY,STAT_SCOPE_CODE,PROC_DATE_CODE,TAR_PROC_DATE,STORE_DATE,PRDTYPE_CODE,SUBJ_CODE,
 		TAR_SCOPE,TAR_BIZ_TYPE,TAR_SORT_CODE,TAR_STATUS,TAR_DESC,MISC,REMARK,DAY_SCOPE,DATA_SOURCE,CREATE_USER,
 		CREATE_TIME,CREATE_ORG,LAST_UPD_USER,LAST_UPD_ORG,LAST_UPD_TIME)
@@ -298,7 +298,7 @@
 	</insert>
 	
 	<insert id="addQtyExp" parameterClass="QtyExpDefPo">
-		insert into PFM_TM_QTY_EXP_DEF(TAR_CODE,TAR_SCOPE,CALC_EXP,SQL_EXP,MISC,REMARK,CREATE_USER,CREATE_TIME,CREATE_ORG,LAST_UPD_USER,LAST_UPD_TIME,LAST_UPD_ORG)
+		insert into pfm_tm_qty_exp_def(TAR_CODE,TAR_SCOPE,CALC_EXP,SQL_EXP,MISC,REMARK,CREATE_USER,CREATE_TIME,CREATE_ORG,LAST_UPD_USER,LAST_UPD_TIME,LAST_UPD_ORG)
 		values(#tarCode:VARCHAR#,#tarScope:VARCHAR#,#calcExp:VARCHAR#,#sqlExp:VARCHAR#,#misc:VARCHAR#,#remark:VARCHAR#,#createUser:VARCHAR#,#createTime:TIMESTAMP#,#createOrg:VARCHAR#,#lastUpdUser:VARCHAR#,#lastUpdTime:TIMESTAMP#,#lastUpdOrg:VARCHAR#)
 	</insert>
 	<insert id="addQtyExpRela" parameterClass="QtyExpRelaPo">
@@ -310,7 +310,7 @@
 		#relaTarCode:VARCHAR#)
 	</insert>
 	<update id="updQtyDef" parameterClass="QtyDefPo">
-		update PFM_TM_QTY_DEF 
+		update pfm_tm_qty_def 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="tarName">TAR_NAME = #tarName#</isNotNull>
 			<isNotNull prepend="," property="measUnitCode">MEAS_UNIT_CODE = #measUnitCode#</isNotNull>
@@ -345,7 +345,7 @@
 	</update>
    
 	<update id="updQtyForStatus" parameterClass="java.util.Map">
-		update PFM_TM_QTY_DEF 
+		update pfm_tm_qty_def 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="tarStatus">TAR_STATUS = #tarStatus#</isNotNull>
 		</dynamic>
@@ -360,11 +360,11 @@
 	</update>
 	
 	<update id="updQtyForStatusById" parameterClass="java.util.Map">
-		update PFM_TM_QTY_DEF  set TAR_STATUS=#tarStatus# where TAR_CODE=#tarCode#
+		update pfm_tm_qty_def  set TAR_STATUS=#tarStatus# where TAR_CODE=#tarCode#
 	</update>
 	
 	<delete id="delQtyByTarCodeIn" parameterClass="java.util.Map">
-		delete from PFM_TM_QTY_DEF WHERE
+		delete from pfm_tm_qty_def WHERE
 				<iterate open="(" close=")" conjunction="or"
 					property="tarCodeList">
 					TAR_CODE=#tarCodeList[]#
@@ -385,12 +385,12 @@
 		  LAST_UPD_USER as lastUpdUser,
 		  LAST_UPD_TIME as lastUpdTime,
 		  LAST_UPD_ORG as lastUpdOrg
-		  from PFM_TM_QTY_EXP_DEF 
+		  from pfm_tm_qty_exp_def 
 		  where TAR_CODE = #value#
 	</select>
 	
 	<update id="updQtyExpDefPo" parameterClass="java.util.Map">
-		update PFM_TM_QTY_EXP_DEF
+		update pfm_tm_qty_exp_def
 		set 
 		  CALC_EXP = #calcExp#,
 		  SQL_EXP = #sqlExp#,
@@ -402,15 +402,15 @@
 	</update>
 	
 	<delete id="delQtyExpRela" parameterClass="java.lang.String">
-		delete from PFM_TM_QTY_EXP_RELA WHERE TAR_CODE = #value#
+		delete from pfm_tm_qty_exp_rela WHERE TAR_CODE = #value#
 	</delete>
 	
 	<select id="getQtyExpRela" parameterClass="java.lang.String" resultClass="java.util.Map">
 		select
 		a.TAR_CODE,
 		a.RELA_TAR_CODE
-		from PFM_TM_QTY_EXP_RELA a
-		INNER JOIN PFM_TM_QTY_DEF b on a.TAR_CODE=b.TAR_CODE and b.TAR_STATUS='1'
+		from pfm_tm_qty_exp_rela a
+		INNER JOIN pfm_tm_qty_def b on a.TAR_CODE=b.TAR_CODE and b.TAR_STATUS='1'
 		where RELA_TAR_CODE = #value#
 	</select>
 	

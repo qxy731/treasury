@@ -21,7 +21,6 @@ import com.soule.base.service.ServiceResult;
 import com.soule.base.service.keygen.IKeyGenerator;
 import com.soule.comm.CommConstants;
 import com.soule.comm.enu.BizType;
-import com.soule.comm.enu.BizType1;
 import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.enu.ScopeType;
@@ -71,8 +70,9 @@ public class AppUtils {
      * @return
      */    
     public static String getMessage(String messageResource,String key){
-    	java.util.Locale local = java.util.Locale.getDefault();
-    	ResourceBundle resourceBundle = ResourceBundle.getBundle(messageResource,local);
+    	//java.util.Locale local = java.util.Locale.getDefault();
+    	//ResourceBundle resourceBundle = ResourceBundle.getBundle(messageResource,local);
+    	ResourceBundle resourceBundle = ResourceBundle.getBundle("config/msg/message_zh_CN");
     	return resourceBundle.getString(key);    	
     }
     
@@ -83,9 +83,10 @@ public class AppUtils {
      * @return
      */    
     public static String getMessage(String key) {
-        java.util.Locale local = java.util.Locale.getDefault();
+        //java.util.Locale local = java.util.Locale.getDefault();
         try {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("config/msg/MessagesResources", local);
+            //ResourceBundle resourceBundle = ResourceBundle.getBundle("config/msg/MessagesResources", local);
+        	ResourceBundle resourceBundle = ResourceBundle.getBundle("config/msg/MessagesResources_zh_CN");
             return resourceBundle.getString(key);
         } catch (java.util.MissingResourceException e) {
             return null;
@@ -171,41 +172,6 @@ public class AppUtils {
      * @return 
      * @throws ServiceException
      */
-    public String saveAuditLog(String operCode,String operName,String logDetail,BizType1 bizType,FunctionType funcType,
-            ExecuteResult result) throws ServiceException {
-        AuditLogInsertIn in = new AuditLogInsertIn();
-        String key = String.valueOf(keyg.getSeqence("SYS_LOG_AUDIT"));
-        AuditLogLogPo alog = new AuditLogLogPo();
-        in.setLog(alog);
-        alog.setLogDetail(logDetail);
-        alog.setOperCode(operCode);
-        alog.setOperName(operName);
-        alog.setBizType(bizType.toString());
-        alog.setExecResult(result.getValue());
-        alog.setId(String.valueOf(keyg.getSeqence("SYS_LOG_AUDIT")));
-        ILogonUserInfo user = getLogonUserInfo();
-        alog.setIpAddr(user.getIpAddress());
-        alog.setOperStaffid(user.getUser().getUserID());
-        alog.setOperStaffName(user.getUser().getUserName());
-        alog.setRoleId(user.getRoleId());
-        alog.setRoleName(user.getRoleName());
-        alog.setFuncType(funcType.getValue());
-        sAuditLog.insert(in);
-        return key;
-    }
-    
-    /**
-     * 记录审计日志
-     * 
-     * @param operCode 操作代码
-     * @param operName 操作名称
-     * @param logDetail 详细日志
-     * @param funcType 操作类型
-     * @param result 执行结果
-     * @param bizType 业务类型
-     * @return 
-     * @throws ServiceException
-     */
     public String saveAuditLog(String operCode,String operName,String logDetail,BizType bizType,FunctionType funcType,
             ExecuteResult result) throws ServiceException {
         AuditLogInsertIn in = new AuditLogInsertIn();
@@ -227,22 +193,6 @@ public class AppUtils {
         alog.setFuncType(funcType.getValue());
         sAuditLog.insert(in);
         return key;
-    }
-
-
-    /**
-     * 记录审计日志
-     * 
-     * @param operCode 操作代码
-     * @param operName 操作名称
-     * @param logDetail 详细日志
-     * @param funcType 操作类型
-     * @param result 执行结果
-     * @param bizType 业务类型
-     * @throws ServiceException
-     */
-    public void saveAuditLog(String operCode,String operName,BizType1 bizType) throws ServiceException {
-        saveAuditLog(operCode,operName,null,bizType,FunctionType.NORMAL,ExecuteResult.SUCCESS);
     }
     
     /**

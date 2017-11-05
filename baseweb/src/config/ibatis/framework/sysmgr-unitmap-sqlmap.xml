@@ -5,19 +5,19 @@
 	
 
 	<delete id="deleteSuperUnits" parameterClass="java.util.Map">
-		delete from SYS_UNITMAP	where RELA_UNITID=#relaUnitId#  
+		delete from sys_unitmap	where RELA_UNITID=#relaUnitId#  
     </delete>
 
 	<delete id="deleteSubUnits" parameterClass="java.util.Map">
-		delete from SYS_UNITMAP	where UNIT_ID=#unitId#
+		delete from sys_unitmap	where UNIT_ID=#unitId#
     </delete>
     
     <delete id="deleteAllUnitsById" parameterClass="java.util.Map">
-		delete from SYS_UNITMAP	where UNIT_ID=#unitId# or RELA_UNITID=#unitId#
+		delete from sys_unitmap	where UNIT_ID=#unitId# or RELA_UNITID=#unitId#
     </delete>
 
 	<insert id="insertUnit" parameterClass="java.util.Map">
-		insert into SYS_UNITMAP (UNIT_ID,RELA_UNITID)
+		insert into sys_unitmap (UNIT_ID,RELA_UNITID)
 		values(#unitId:VARCHAR# ,#relaUnitId:VARCHAR# )
     </insert>
 

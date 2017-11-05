@@ -74,21 +74,22 @@ body {
 			//	{text:'删除',name:'delete_btn',clazz:'nbutton'}
 			//],
 			columns: [
-						{ display: '模型编号', name: 'modelCode', width: 100, align: 'left' } ,
+						{ display: '模型编号', name: 'modelCode', width: 200, align: 'left' } ,
 						{ display: '模型名称', name: 'modelName', width: 150,align: 'left' },
-						{ display: '模型状态', name: 'modelStatus',width: 100, align: 'left', codetype: 'valid_type'},
+						{ display: '模型状态', name: 'modelStatus',width: 100, codetype: 'valid_type'},
 						{ display: '创建人', name: 'createUser', width: 150}, 
-						{ display: '创建部门', name: 'createOrg', width: 150}, 
-						{ display: '创建时间', name: 'createTime', width: 180,align: 'right' }
+						/* { display: '创建国库', name: 'createOrg', hide:true}, */
+						{ display: '创建国库', name: 'createOrgName', width: 150}, 
+						{ display: '创建时间', name: 'createTime', width: 180}
 					],
 			pageSize:20,
 			sortName: 'modelCode',
 			selectRowButtonOnly:true,
 			height:'98%',
-			width:'100%'/* ,
-			onError: function() {
-				Utils.alert("查询数据失败");
-			} */
+			width:'100%',
+			onError: function(e) {
+				Utils.toIndex(e);
+			}
 		});
 
 		$("#modellist #insert_btn").bind('click', insertModel);
@@ -167,12 +168,12 @@ body {
 	function doClear() {
 		$(".queryBox input[type='text'],#unitId,#staffStatus").each(function(i,item){
 			item.value ='';
-			
 		});
+		$("#modelStatus").val("");
 	}
 
 	
-	//选择部门
+	//选择国库
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
 	   }
@@ -189,12 +190,12 @@ body {
 		   var grid = $("#modellist").ligerGetGridManager();
 	        var selected = grid.getSelectedRow();
 	        if (!selected) {
-	            Utils.alert("请先选择需要查看部门变更历史的记录");
+	            Utils.alert("请先选择需要查看国库变更历史的记录");
 	            return ;
 	        }
 	        var staffId = selected.staffId;
 	        var url = '${_CONTEXT_PATH}/jsp/sysmgr/orgchange/orgchange_detail.jsp?staffId='+staffId;
-	        $.dialogBox.openDialog(url,{title:'所属部门变更历史',width:'730px',height:'330px'});
+	        $.dialogBox.openDialog(url,{title:'所属国库变更历史',width:'730px',height:'330px'});
 	   }
 	   function reloadData(){
 		   var grid = $("#modellist").ligerGetGridManager();

@@ -5,11 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import net.sf.json.JSONArray;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
@@ -21,8 +18,9 @@ import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
 import com.soule.base.service.keygen.IKeyGenerator;
-import com.soule.comm.tools.ContextUtil;
 import com.soule.comm.tools.StringUtil;
+
+import net.sf.json.JSONArray;
 
 /**
  * 上传下载维护模块表现层处理类

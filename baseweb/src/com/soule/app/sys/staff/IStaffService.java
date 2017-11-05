@@ -27,4 +27,5 @@ public interface IStaffService {
      */
     public StaffDeleteOut delete(StaffDeleteIn in) throws ServiceException;
     public List<StaffStaffPo> queryByUnit(String unitId) throws ServiceException;
+    public StaffUnlockOut unlock(StaffUnlockIn in) throws ServiceException;
 }

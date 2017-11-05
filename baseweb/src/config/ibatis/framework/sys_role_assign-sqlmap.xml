@@ -16,14 +16,14 @@
 		<result property="unitName" column="UNIT_NAME"/>
 	</resultMap>
 	<select id="getSysRoleAssign" parameterClass="com.soule.app.sys.roleass.RoleassQueryByRoleIn" resultMap="SysRoleAssignMap">
-		select distinct a.staff_id,c.staff_name, b.role_id, b.unit_id, d.unit_name, b.posi_id from SYS_POSI_ASSIGN a
-			left join SYS_POSITION b on a.posi_id=b.posi_id
-			left join SYS_STAFF c on a.STAFF_ID = c.STAFF_ID
-			left join SYS_UNIT d on b.unit_id=d.unit_id
+		select distinct a.staff_id,c.staff_name, b.role_id, b.unit_id, d.unit_name, b.posi_id from sys_posi_assign a
+			left join sys_position b on a.posi_id=b.posi_id
+			left join sys_staff c on a.STAFF_ID = c.STAFF_ID
+			left join sys_unit d on b.unit_id=d.unit_id
 		WHERE a.POSI_ID IN
-			(select posi_id from SYS_POSITION b 
+			(select posi_id from sys_position b 
 			<isNotEmpty property="operUnitid">
-				inner join SYS_UNITMAP m on m.rela_unitid=b.unit_id
+				inner join sys_unitmap m on m.rela_unitid=b.unit_id
 			</isNotEmpty>
 			where b.ROLE_ID = #roleId#			
 			<isNotEmpty prepend=" and " property="operUnitid">
@@ -33,12 +33,12 @@
 			and c.STAFF_STATUS = '1'
 	</select>
 	<select id="getSysRoleAssignCount" parameterClass="com.soule.app.sys.roleass.RoleassQueryByRoleIn" resultClass="java.lang.Long">
-		select count(distinct a.staff_id) as count from SYS_POSI_ASSIGN a 
-		left join SYS_STAFF c on a.STAFF_ID = c.STAFF_ID
+		select count(distinct a.staff_id) as count from sys_posi_assign a 
+		left join sys_staff c on a.STAFF_ID = c.STAFF_ID
 		WHERE a.POSI_ID IN 
-			(select posi_id from SYS_POSITION b 
+			(select posi_id from sys_position b 
 			<isNotEmpty property="operUnitid">
-				inner join SYS_UNITMAP m on m.rela_unitid=b.unit_id
+				inner join sys_unitmap m on m.rela_unitid=b.unit_id
 			</isNotEmpty>
 			where b.ROLE_ID = #roleId#			
 			<isNotEmpty prepend=" and " property="operUnitid">
@@ -48,11 +48,11 @@
 		and c.STAFF_STATUS = '1'
 	</select>
 	<select id="getSysStaff" parameterClass="com.soule.app.sys.roleass.RoleassQueryStaffIn" resultMap="SysStaffMap">
-		select distinct a.*,c.UNIT_NAME,a.OWNER_UNITID as UNIT_ID from SYS_STAFF a 
-			left join SYS_ROLE_ASSIGN b on a.STAFF_ID = b.STAFF_ID
-			left join SYS_UNIT c on a.OWNER_UNITID = c.UNIT_ID 
+		select distinct a.*,c.UNIT_NAME,a.OWNER_UNITID as UNIT_ID from sys_staff a 
+			left join sys_role_assign b on a.STAFF_ID = b.STAFF_ID
+			left join sys_unit c on a.OWNER_UNITID = c.UNIT_ID 
 			<isNotEmpty property="unitId">
-				inner join SYS_UNITMAP m on m.rela_unitid=c.unit_id
+				inner join sys_unitmap m on m.rela_unitid=c.unit_id
 			</isNotEmpty>
 		where a.STAFF_STATUS = '1'
 			<isNotEmpty prepend=" AND " property="staffName">a.STAFF_NAME like '$staffName$%'</isNotEmpty>
@@ -61,11 +61,11 @@
 			<isNotEmpty prepend=" AND " property="roleId">b.ROLE_ID = #roleId#</isNotEmpty>
 	</select>
 	<select id="getSysStaffCount" parameterClass="com.soule.app.sys.roleass.RoleassQueryStaffIn" resultClass="java.lang.Long">
-		select count(distinct a.STAFF_ID) from SYS_STAFF a 
-			left join SYS_ROLE_ASSIGN b on a.STAFF_ID = b.STAFF_ID
-			left join SYS_UNIT c on a.OWNER_UNITID = c.UNIT_ID 
+		select count(distinct a.STAFF_ID) from sys_staff a 
+			left join sys_role_assign b on a.STAFF_ID = b.STAFF_ID
+			left join sys_unit c on a.OWNER_UNITID = c.UNIT_ID 
 			<isNotEmpty property="unitId">
-				inner join SYS_UNITMAP m on m.rela_unitid=c.unit_id
+				inner join sys_unitmap m on m.rela_unitid=c.unit_id
 			</isNotEmpty>
 		where a.STAFF_STATUS = '1'
 			<isNotEmpty prepend=" AND " property="staffName">a.STAFF_NAME like '$staffName$%'</isNotEmpty>
@@ -74,11 +74,11 @@
 			<isNotEmpty prepend=" AND " property="roleId">b.ROLE_ID = #roleId#</isNotEmpty>
 	</select>
 	<insert id="saveSysRoleAssign" parameterClass="com.soule.app.table.SysRoleAssignPo">
-		insert into SYS_ROLE_ASSIGN (ROLE_ID,STAFF_ID,DEF_FLAG,REMARK,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
+		insert into sys_role_assign (ROLE_ID,STAFF_ID,DEF_FLAG,REMARK,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
 		values(#roleId:VARCHAR# ,#staffId:VARCHAR# ,#defFlag:CHAR# ,#remark:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# )
 	</insert>
 
 	<delete id="delPosiWithoutAss" parameterClass="java.lang.String">
-		delete from SYS_POSITION where posi_id=#value# and not exists (select posi_id from SYS_POSI_ASSIGN WHERE posi_id=#value#)
+		delete from sys_position where posi_id=#value# and not exists (select posi_id from sys_posi_assign WHERE posi_id=#value#)
 	</delete>
 </sqlMap>

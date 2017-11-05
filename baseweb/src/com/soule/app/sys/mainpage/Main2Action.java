@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import net.sf.json.JSONArray;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Action;
@@ -15,11 +13,14 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.soule.comm.StringUtils;
 import com.soule.app.sys.menu.MenuPo;
 import com.soule.base.action.BaseAction;
+import com.soule.base.service.IDefaultService;
 import com.soule.base.service.ILogonUserInfo;
+import com.soule.comm.StringUtils;
 import com.soule.comm.tools.AppUtils;
+
+import net.sf.json.JSONArray;
 
 /**
  * 横向菜单主页
@@ -53,8 +54,24 @@ public class Main2Action extends BaseAction {
     private String iconsStyle;
     @Autowired
     private IMainService mainService;
+    
+    @Autowired
+    private IDefaultService sDefault;
+    
+    /**
+     * 业务日期
+     */
+    private String bizDate;
+    
+    public String getBizDate() {
+		return bizDate;
+	}
 
-    public String getMenusJson() {
+	public void setBizDate(String bizDate) {
+		this.bizDate = bizDate;
+	}
+
+	public String getMenusJson() {
         return menusJson;
     }
 
@@ -101,6 +118,7 @@ public class Main2Action extends BaseAction {
                 sb.append("background: url('").append(icons.get(key)).append("') no-repeat 2px 4px;}\r\n");
             }
             iconsStyle = sb.toString();
+            bizDate = (String)sDefault.getIbatisMediator().findById("Common.getStrCurrDate", null);
         } catch (Exception e) {
             logger.error("",e);
         }

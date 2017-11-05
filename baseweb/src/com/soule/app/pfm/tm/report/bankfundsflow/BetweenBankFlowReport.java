@@ -247,7 +247,6 @@ public class BetweenBankFlowReport {
 	        	
 	        }
 	        
-	        
 	        HSSFRow row5 = sheet.createRow(5);   
 	        HSSFCell c50 = row5.createCell(0);   
 	        c50.setCellValue(new HSSFRichTextString("国有大型商业银行"));
@@ -691,23 +690,23 @@ public class BetweenBankFlowReport {
 	        HSSFCell c441 = row44.createCell(1);   
 	        c441.setCellValue(new HSSFRichTextString("合计")); 
 	        HSSFCell c442 = row44.createCell(2);   
-	        c442.setCellValue(new HSSFRichTextString(null==map1.get("NatureBankAllInflowSum")?"0":map1.get("NatureBankAllInflowSum").toString())); 
+	        c442.setCellValue(new HSSFRichTextString(null==map1.get("TE_00002")?"0":map1.get("TE_00002").toString())); 
 	        HSSFCell c443 = row44.createCell(3);   
 	        c443.setCellValue(new HSSFRichTextString("合计")); 
 	        HSSFCell c444 = row44.createCell(4);   
-	        c444.setCellValue(new HSSFRichTextString(null==map1.get("NatureBankAllOutflowSum")?"0":map1.get("NatureBankAllOutflowSum").toString())); 
+	        c444.setCellValue(new HSSFRichTextString(null==map1.get("TE_00033")?"0":map1.get("TE_00033").toString())); 
 	        HSSFCell c445 = row44.createCell(5);   
-	        c445.setCellValue(new HSSFRichTextString(null==map1.get("NatureBankAllNetflowSum")?"0":map1.get("NatureBankAllNetflowSum").toString())); 
+	        c445.setCellValue(new HSSFRichTextString(null==map1.get("TE_00067")?"0":map1.get("TE_00067").toString())); 
 	        
 	        BigDecimal aIn =  hjPo.getBankAllInflow();
-	        BigDecimal bIn = (BigDecimal)map1.get("NatureBankAllInflowSum");
+	        BigDecimal bIn = (BigDecimal)map1.get("TE_00002");
 	        
 	        
 	        BigDecimal aOut =  hjPo.getBankAllOutflow();
-	        BigDecimal bOut = (BigDecimal)map1.get("NatureBankAllOutflowSum");
+	        BigDecimal bOut = (BigDecimal)map1.get("TE_00033");
 	        
 	        BigDecimal aNet =  hjPo.getBankAllNetFlow();
-	        BigDecimal bNet = (BigDecimal)map1.get("NatureBankAllNetflowSum");
+	        BigDecimal bNet = (BigDecimal)map1.get("TE_00067");
 	        
 	        HSSFRow row35 = sheet.createRow(36);   
 	        HSSFCell c350 = row35.createCell(0);   
@@ -826,14 +825,9 @@ public class BetweenBankFlowReport {
 	        c424.setCellValue(new HSSFRichTextString("")); 
 	        HSSFCell c425 = row42.createCell(5);   
 	        c425.setCellValue(new HSSFRichTextString(null==map2.get("SourceBankAllNetflowSum")?"0":map2.get("SourceBankAllNetflowSum").toString())); 
-	        
 	        BigDecimal cIn = (BigDecimal)map2.get("SourceBankAllInflowSum");
-	        
-	        
 	        BigDecimal cOut = (BigDecimal)map2.get("SourceBankAllOutflowSum");
-	        
 	        BigDecimal cNet = (BigDecimal)map2.get("SourceBankAllNetflowSum");
-	        
 	        HSSFRow row43 = sheet.createRow(44);   
 	        HSSFCell c430 = row43.createCell(0);   
 	        c430.setCellValue(new HSSFRichTextString("与按资金流向分类的资金流入、流出合计是否一致："));
@@ -847,50 +841,31 @@ public class BetweenBankFlowReport {
 	        c434.setCellValue(new HSSFRichTextString("")); 
 	        HSSFCell c435 = row43.createCell(5);   
 	        c435.setCellValue(new HSSFRichTextString(aNet.equals(cNet)?"核对一致":"核对不一致")); 
-	        
-	        
-	        
-	       
-	        
-	       
 	        //单元格合并 ，每行都进行特殊处理
 	        CellRangeAddress region1 = new CellRangeAddress(1,1, 0,  5); 
-	        
 	        CellRangeAddress region2 = new CellRangeAddress(2, 2,0, 1);   
 	        CellRangeAddress region3 = new CellRangeAddress(2, 2,2,  3);
 	        CellRangeAddress region4 = new CellRangeAddress(2, 2,4,  5); 
-	        
 	        CellRangeAddress region5 = new CellRangeAddress(3, 3,0,  5);  
-	        
 	        CellRangeAddress region6 = new CellRangeAddress(18, 18,0,  5);  
-	        
 	        CellRangeAddress region8 = new CellRangeAddress(19, 19,1,  2); 
 	        CellRangeAddress region9 = new CellRangeAddress(19, 19,3,  4); 
 	        CellRangeAddress region11 = new CellRangeAddress(20, 29,0,  0); 
 	        CellRangeAddress region12 = new CellRangeAddress(20, 29,5,  5); 
-	        
 	        CellRangeAddress region13 = new CellRangeAddress(36, 36,0,  1);  
-	        
 	        CellRangeAddress region14 = new CellRangeAddress(38, 38,1,  2); 
 	        CellRangeAddress region15 = new CellRangeAddress(38, 38,3, 4); 
-	       
 	        CellRangeAddress region35 = new CellRangeAddress(37, 37,0, 5); 
-	        
 	        CellRangeAddress region17 = new CellRangeAddress(39, 39,1,  2); 
 	        CellRangeAddress region18 = new CellRangeAddress(39, 39,3,  4); 
-	        
 	        CellRangeAddress region20 = new CellRangeAddress(40, 40,1,  2); 
 	        CellRangeAddress region21 = new CellRangeAddress(40, 40, 3, 4); 
-	        
 	        CellRangeAddress region23 = new CellRangeAddress(41, 41,1,  2); 
 	        CellRangeAddress region24 = new CellRangeAddress(41, 41,3,  4); 
-	        
 	        CellRangeAddress region26 = new CellRangeAddress(42, 42,1,  2); 
 	        CellRangeAddress region27 = new CellRangeAddress(42, 42,3,  4); 
-	        
 	        CellRangeAddress region29 = new CellRangeAddress(43,43, 1,  2); 
 	        CellRangeAddress region30 = new CellRangeAddress(43,43, 3,  4); 
-	        
 	        CellRangeAddress region32 = new CellRangeAddress(44,44, 1,  2); 
 	        CellRangeAddress region33 = new CellRangeAddress(44,44, 3,  4); 
 	        sheet.addMergedRegion(region1);   
@@ -1239,20 +1214,6 @@ public class BetweenBankFlowReport {
 	        c443.setCellStyle(style); 
 	        c444.setCellStyle(style); 
 	        c445.setCellStyle(style); 
-	        
-	        
-	      
-	        
-	        
-	       
-	        
-	       /* for(int index=17;index<32;index++){
-	        	 CellRangeAddress regionX = new CellRangeAddress(index, 0, index, 1);   
-	 	         CellRangeAddress regionY = new CellRangeAddress(index, 2, index, 3);
-	 	        sheet.addMergedRegion(regionX);
-	 	       sheet.addMergedRegion(regionY);
-	 	        
-	        }*/
 	        
 	        try{  
 	            workbook.write(fout);  

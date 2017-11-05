@@ -67,7 +67,6 @@ public class SelectUnitAction extends BaseAction {
             if (head.isSuccess()) {
                 this.rows = result.getUnitVOList();
             }
-            // TODO
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
         } catch (Exception ex) {

@@ -23,8 +23,8 @@
 				<td>数据日期</td>
 				<td><input type='text' id='dataDate' name='dataDate'/></td>
 				<td>模型名称</td>
-				<td><input type='hidden' id='modelCode' name='modelCode' /><input id="modelName" type='text' name="modelName" readonly="readonly" onclick="openSelectModel()" class="unit_select"/></td>
-				<td>所属部门</td>
+				<td><input type='hidden' id='modelCode' name='modelCode' /><input id="modelName" type='text' name="modelName" readonly="readonly" onclick="openSelectModel()" class="model_select"/></td>
+				<td>所属国库</td>
 				<td><input type='hidden' id='unitId' name='unitId' /><input id="unitName" type='text' name="unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
 			</tr>
 			<tr>
@@ -56,7 +56,7 @@
 			enumlist: _enum_params,
 			checkbox: true,
 			columns: [
-						{ display: '所属部门', name: 'unitName', width: '20%', align: 'left' },
+						{ display: '所属国库', name: 'unitName', width: '20%', align: 'left' },
 						{ display: '模型名称', name: 'modelName', width: '20%', align: 'left' },
 						{ display: '指标编号', name: 'tarCode', width: '15%', align: 'left' },
 						{ display: '指标名称', name: 'tarName', width: '20%', align: 'left' },
@@ -67,8 +67,8 @@
 			selectRowButtonOnly:true,
 			height:'98%',
 			width:'100%',
-			onError: function() {
-				Utils.alert("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 
@@ -118,7 +118,7 @@
 	}
 	
 	
-	//选择部门
+	//选择国库
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
 	   }
@@ -137,12 +137,12 @@
 		   var grid = $("#stafflist").ligerGetGridManager();
 	        var selected = grid.getSelectedRow();
 	        if (!selected) {
-	            Utils.alert("请先选择需要查看部门变更历史的记录");
+	            Utils.alert("请先选择需要查看国库变更历史的记录");
 	            return ;
 	        }
 	        var staffId = selected.staffId;
 	        var url = '${_CONTEXT_PATH}/jsp/sysmgr/orgchange/orgchange_detail.jsp?staffId='+staffId;
-	        $.dialogBox.openDialog(url,{title:'所属部门变更历史',width:'730px',height:'330px'});
+	        $.dialogBox.openDialog(url,{title:'所属国库变更历史',width:'730px',height:'330px'});
 	   } */
 	   function reloadData(){
 		   var grid = $("#reportlist").ligerGetGridManager();

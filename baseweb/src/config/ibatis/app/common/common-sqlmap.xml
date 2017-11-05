@@ -8,23 +8,28 @@
 	</cacheModel>
 	<select id="getCurrDate" resultClass="java.util.Date" cacheModel="BizDateCache">
 		SELECT DATE_FORMAT(T.PARA_VALUE, '%Y-%m-%d')
-		  FROM SYS_PARAMS T
+		  FROM sys_params T
 		 WHERE T.PARA_ID = 'WORK_DATE'
 	</select>
-	
+	<select id="getStrCurrDate" resultClass="java.lang.String">
+		SELECT T.PARA_VALUE  FROM sys_params T  WHERE T.PARA_ID = 'WORK_DATE'
+	</select>
+	<update id="updateCurrDate" parameterClass="java.lang.String">
+		update sys_params set PARA_VALUE = #paraValue#  WHERE PARA_ID = 'WORK_DATE'
+	</update>
 	<cacheModel id="ExportCountCache" type="LRU" serialize="true" readOnly="true">
 		<flushInterval hours="6"/> 
 		<property name="size" value="20" /> 
 	</cacheModel>
 	<select id="getExportCount" resultClass="java.lang.Integer" cacheModel="ExportCountCache">
 		SELECT TO_NUMBER(T.PARA_VALUE)
-		  FROM SYS_PARAMS T
+		  FROM sys_params T
 		 WHERE T.PARA_ID = 'excelCount'
 	</select>
 	
 	<select id="findCustNameByEntNo" 
 			parameterClass="java.lang.String" resultClass="java.lang.String">
-			select CUST_NAME from CUS_E_BASE_INFO where CUST_NO=#custNo#
+			select CUST_NAME from cus_e_base_info where CUST_NO=#custNo#
 	</select>
 
 
@@ -51,7 +56,7 @@
 				DOWN_NUM,
 				CREATE_USER,
 				CREATE_TIME 
-		from SYS_UPLOAD_FILE where 
+		from sys_upload_file where 
 			UPLOAD_ID = #uploadId#
 	</select>
 	<!-- <select id="getRoleById" 
@@ -196,7 +201,7 @@
 	<select id="querySysParamValue" 
 		parameterClass="java.lang.String"
 		resultClass="java.lang.String">
-		select PARA_VALUE from SYS_PARAMS where PARA_ID=#code#
+		select PARA_VALUE from sys_params where PARA_ID=#code#
 	</select>
 	
 	<resultMap id="SysUploadFileMap" class="com.neusoft.app.table.SysUploadFilePo">

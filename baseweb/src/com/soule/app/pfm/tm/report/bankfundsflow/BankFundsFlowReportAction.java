@@ -7,13 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +18,9 @@ import javax.servlet.ServletOutputStream;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.BasePasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 
+import com.soule.base.Md5PasswordEncoder;
 import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
@@ -115,80 +111,68 @@ public class BankFundsFlowReportAction extends BaseAction {
     }
     
     public void export(){
-    	
         String fileName ="";
     	Map<String,Object> retMap = new HashMap<String,Object>();
     	String dataDate = request.getParameter("dataDate");
     	String unitId = request.getParameter("unitId");
     	String unitName = request.getParameter("unitName");
-    	
     	Map<String,Object> map = new HashMap<String,Object>();
 		try {
 			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
-			
 			retMap.put("dataDate", dataDate);
 			fileName = "与商业银行之间资金流动情况统计表-"+unitName+"-"+dataDate;
-			fileName = java.net.URLDecoder.decode(fileName, "utf-8");
+			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
 	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
 	    	queryIn.setUnitId(unitId);
-	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			map = bankFundsFlowReportService.export(queryIn);
 			map.put("unitName", unitName);
 			map.put("dataDate", retMap.get("dataDate"));
 			BetweenBankFlowReport.Data2Excel(map, os);
-	        //wb.write(os);
 	        byte[] content = os.toByteArray();
 	        InputStream is = new ByteArrayInputStream(content);
-	        // 设置response参数，可以打开下载页面
-	        response.reset();
-	        response.setContentType("application/octet-stream");
-	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setContentType("text/plain;charset=utf-8");
+	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
 	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
-		   
 	        try {
 	          bis = new BufferedInputStream(is);
 	          bos = new BufferedOutputStream(out);
 	          byte[] buff = new byte[1024];
 	          int bytesRead;
-	          // Simple read/write loop.
 	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
 	            bos.write(buff, 0, bytesRead);
 	          }
 	        } catch (Exception e) {
-	          // TODO: handle exception
 	          e.printStackTrace();
 	        } finally {
 	          if (bis != null)
 	            bis.close();
 	          if (bos != null)
 	            bos.close();
+	          if(is != null)
+		        is.close();
+	          if(out != null){
+	        	out.flush();
+	  	        out.close();
+	          }
 	        }
-		        
 		} catch (ServiceException e) {
 			handleError(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	
     }
     
     
     public void export4(){
-    	//BankFundsFlowReportQueryOut result;
-   // 	FileOutputStream fout =BankFundsFlowReportQueryOut.class.get 
-    	//ServletOutputStream fout = new ServletOutputStream() ;
-    	
         String fileName ="";
     	Map<String,Object> retMap = new HashMap<String,Object>();
     	String dataDate = request.getParameter("dataDate");
@@ -196,63 +180,55 @@ public class BankFundsFlowReportAction extends BaseAction {
     	String unitName = request.getParameter("unitName");
     	Map<String,Object> map = new HashMap<String,Object>();
 		try {
-			
 			map.put("dataDate", dataDate);
 			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
 			fileName = "国库会计分析其他数据统计表-"+unitName+"-"+dataDate;
-			
-			fileName = java.net.URLDecoder.decode(fileName, "utf-8");
-			
+			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
 	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
 	    	queryIn.setUnitId(unitId);
-	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			retMap = bankFundsFlowReportService.export4(queryIn);
 			retMap.put("unitName", unitName);
 			retMap.put("dataDate",map.get("dataDate"));
-			
 			AccountingAnalysisOther.Data2Excel(retMap, os);
-	        //wb.write(os);
 	        byte[] content = os.toByteArray();
 	        InputStream is = new ByteArrayInputStream(content);
-	        // 设置response参数，可以打开下载页面
-	        response.reset();
-	        response.setContentType("application/octet-stream");
-	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setContentType("text/plain;charset=utf-8");
+	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
 	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
-		   
 	        try {
 	          bis = new BufferedInputStream(is);
 	          bos = new BufferedOutputStream(out);
 	          byte[] buff = new byte[1024];
 	          int bytesRead;
-	          // Simple read/write loop.
 	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
 	            bos.write(buff, 0, bytesRead);
 	          }
 	        } catch (Exception e) {
-	          // TODO: handle exception
 	          e.printStackTrace();
 	        } finally {
 	          if (bis != null)
 	            bis.close();
 	          if (bos != null)
 	            bos.close();
+	          if(is != null)
+		        is.close();
+	          if(out != null){
+	        	out.flush();
+	  	        out.close();
+	          }
 	        }
-		        
 		} catch (ServiceException e) {
 			handleError(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
     	
@@ -261,11 +237,9 @@ public class BankFundsFlowReportAction extends BaseAction {
     
     public String query3() {
         try{
-        	
         	String dataDate = queryIn.getDataDate();
         	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
-        	
         	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query3(queryIn);
             ServiceResult head = result.getResultHead();
@@ -281,69 +255,55 @@ public class BankFundsFlowReportAction extends BaseAction {
     
     public void export2(){
     	BankFundsFlowReportQueryOut result;
-   // 	FileOutputStream fout =BankFundsFlowReportQueryOut.class.get 
-    	//ServletOutputStream fout = new ServletOutputStream() ;
-    	
         String fileName ="";
     	String dataDate = request.getParameter("dataDate");
     	Map<String,Object> map = new HashMap<String,Object>();
 		try {
-			
 			map.put("dataDate", dataDate);
 			fileName = "大连市国库收支统计表-"+dataDate;
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
-	    	fileName = java.net.URLDecoder.decode(fileName, "utf-8");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
 	    	queryIn.setDataDate(dataDate.replaceAll("-", ""));
-	    	
-	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			result = bankFundsFlowReportService.query2(queryIn);
-			
-			
-			
 			map.put("treasuryIncomeList", result.getTreasuryIncomList());
-			
 			TreasuryIncomeReport.Data2Excel(map, os);
-	        //wb.write(os);
 	        byte[] content = os.toByteArray();
 	        InputStream is = new ByteArrayInputStream(content);
-	        // 设置response参数，可以打开下载页面
-	        response.reset();
-	        response.setContentType("application/octet-stream");
-	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
+	        response.setContentType("text/plain;charset=utf-8");
+	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
 	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
-		   
 	        try {
 	          bis = new BufferedInputStream(is);
 	          bos = new BufferedOutputStream(out);
 	          byte[] buff = new byte[1024];
 	          int bytesRead;
-	          // Simple read/write loop.
 	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
 	            bos.write(buff, 0, bytesRead);
 	          }
 	        } catch (Exception e) {
-	          // TODO: handle exception
 	          e.printStackTrace();
 	        } finally {
 	          if (bis != null)
 	            bis.close();
 	          if (bos != null)
 	            bos.close();
+	          if(is != null)
+		        is.close();
+	          if(out != null){
+	        	out.flush();
+	  	        out.close();
+	          }
 	        }
-		        
 		} catch (ServiceException e) {
 			handleError(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
     	
@@ -352,76 +312,64 @@ public class BankFundsFlowReportAction extends BaseAction {
     
     public void export3(){
     	BankFundsFlowReportQueryOut result;
-   // 	FileOutputStream fout =BankFundsFlowReportQueryOut.class.get 
-    	//ServletOutputStream fout = new ServletOutputStream() ;
-    	
         String fileName ="";
     	Map<String,Object> retMap = new HashMap<String,Object>();
     	String dataDate = request.getParameter("dataDate");
     	String unitId = request.getParameter("unitId");
     	String unitName = request.getParameter("unitName");
     	Map<String,Object> map = new HashMap<String,Object>();
-    	
 		try {
 			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
 			retMap.put("dataDate", dataDate);
 			fileName = "与其他国库之间资金流动情况统计表-"+unitName+"-"+dataDate;
-			
-			fileName = java.net.URLDecoder.decode(fileName, "utf-8");
-			
+			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
 	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
 	    	dataDate = DateFormatCalendar.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
 	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
 	    	queryIn.setUnitId(unitId);
-	    	
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			result = bankFundsFlowReportService.query3(queryIn);
-			
-			
 			map = ReportTargetPo2Map.po2Map(result.getBetweenTreasuryFundsSourceList());
 			map.put("unitName", unitName);
 			map.put("dataDate", retMap.get("dataDate"));
 			BetweenTreasuryFundsReport.Data2Excel(map, os);
-	        //wb.write(os);
 	        byte[] content = os.toByteArray();
 	        InputStream is = new ByteArrayInputStream(content);
-	        // 设置response参数，可以打开下载页面
-	        response.reset();
-	        response.setContentType("application/octet-stream");
-	        response.setContentType("application/OCTET-STREAM;charset=UTF-8");
-	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+".xls" );
-	        
+	        response.setContentType("text/plain;charset=utf-8");
+	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
 	        ServletOutputStream out = response.getOutputStream();
 	        BufferedInputStream bis = null;
 	        BufferedOutputStream bos = null;
-		   
 	        try {
 	          bis = new BufferedInputStream(is);
 	          bos = new BufferedOutputStream(out);
 	          byte[] buff = new byte[1024];
 	          int bytesRead;
-	          // Simple read/write loop.
 	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
 	            bos.write(buff, 0, bytesRead);
 	          }
 	        } catch (Exception e) {
-	          // TODO: handle exception
 	          e.printStackTrace();
 	        } finally {
 	          if (bis != null)
 	            bis.close();
 	          if (bos != null)
 	            bos.close();
+	          if(is != null)
+		        is.close();
+	          if(out != null){
+	        	out.flush();
+	  	        out.close();
+	          }
 	        }
 		        
 		} catch (ServiceException e) {
 			handleError(e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
     	
@@ -484,18 +432,11 @@ public class BankFundsFlowReportAction extends BaseAction {
 	
 	public static void main(String[] args){
 		String str ="111111";
-		MessageDigest md5;
-		try {
-			md5 = MessageDigest.getInstance("MD5");
-			md5.update(str.getBytes());
-			String newstr= new BigInteger(1, md5.digest()).toString(16);
-			System.out.println(newstr);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	
+		PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
+		//96e79218965eb72c92a549dd5a330112
+		//96e79218965eb72c92a549dd5a330112
+		String ewd = passwordEncoder.encodePassword(str, null);
+		System.out.println(ewd);
 	}
 	
 }

@@ -93,9 +93,9 @@
             sortName: 'enumId', 
             width: '100%',
             height: '98%',
-            onError: function() {
-                alert("查询数据失败");
-            },
+    		onError: function(e) {
+    			Utils.toIndex(e);
+    		},
             onSelectRow: function(row,idx,context){
                 queryItemData(row);
             }
@@ -125,9 +125,9 @@
             sortName: 'seqId', 
             width:'100%',
             height: '98%',
-            onError: function() {
-                alert("查询数据失败");
-            }
+    		onError: function(e) {
+    			Utils.toIndex(e);
+    		}
         });
 
         $('#query_btn').bind('click', queryData);

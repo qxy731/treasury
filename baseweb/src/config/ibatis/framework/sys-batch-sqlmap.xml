@@ -5,7 +5,7 @@
 
 	<select id="queryMaxStepId" parameterClass="java.lang.String"
 		resultClass="java.lang.Integer">
-		SELECT max(step_id) FROM BAT_STEP WHERE BATCH_ID=#batchId#
+		SELECT max(step_id) FROM bat_step WHERE BATCH_ID=#batchId#
 	</select>
 	<select id="queryMainStep" parameterClass="StepPo" resultClass="StepPo">
 		select
@@ -53,7 +53,7 @@
 		select distinct BATCH_ID as batchId from bat_step
 	</select>
 	<select id='queryInstIds' resultClass="com.soule.app.sys.batch.BatchMonitorPo" parameterClass="java.lang.String">
-		select distinct INST_ID as instId from bat_step_monitor where BATCH_ID=#batchId#
+		select distinct INST_ID as instId from bat_step_monitor where BATCH_ID=#batchId# order by INST_ID desc
 	</select>
 	<select id="qureyMainStepById" parameterClass="com.soule.app.sys.batch.BatchQueryStepIn"
 		resultClass="StepPo">
@@ -111,7 +111,7 @@
 		WHERE BATCH_ID=#batchId# and step_Id=#stepId#
 	</update>
 	<insert id="insertMainStep" parameterClass="StepPo">
-		insert into BAT_STEP
+		insert into bat_step
 		(BATCH_ID,STEP_ID,PARENT_ID,STEP_NO,STEP_TYPE,STEP_NAME,STEP_DESC,PROC_FREQ,PROC_CLASS,PARAM1,PARAM2,PARAM3,PARAM4,PARAM5,COMP_COUNT,SKIP_STEP_ID,DEPEND_IDS,REF_TIME,EXT1,EXT2,EXT3)
 		values(#batchId:VARCHAR#
 		,#stepId:INTEGER#,#parentId:INTEGER#,#stepNo:INTEGER#,#stepType:VARCHAR#,#stepName:VARCHAR#
@@ -122,7 +122,7 @@
 		,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
 	</insert>
 	<insert id="insertBatParam" parameterClass="com.soule.app.sys.batch.BatParamsPo">
-		insert into BAT_PARAMS (BATCH_ID,PARA_ID,PARA_NAME,PARA_VALUE,REMARK)
+		insert into bat_params (BATCH_ID,PARA_ID,PARA_NAME,PARA_VALUE,REMARK)
 		values(#batchId:VARCHAR# ,#paraId:VARCHAR# ,#paraName:VARCHAR# ,#paraValue:VARCHAR# ,#remark:VARCHAR# )
 	</insert>
 	<select id="queryMonitor" parameterClass="com.soule.app.sys.batch.BatchMonitorPo" resultClass="com.soule.app.sys.batch.BatchMonitorPo">

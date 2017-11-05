@@ -35,8 +35,8 @@ body {
 					],
 			height:400,
 			width:'100%',
-			onError: function() {
-				Utils.alert("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#reportlist2").ligerGrid({
@@ -59,8 +59,8 @@ body {
 					],
 			height:400,
 			width:'100%',
-			onError: function() {
-				Utils.alert("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#reportlist3").ligerGrid({
@@ -75,8 +75,8 @@ body {
 					],
 			height:400,
 			width:'100%',
-			onError: function() {
-				Utils.alert("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#query").bind('click', query);
@@ -107,7 +107,7 @@ body {
 	}
 
 	
-	//选择部门
+	//选择国库
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
 	   }
@@ -133,7 +133,7 @@ body {
 		<tr>
 			<td>数据日期</td>
 			<td><input type='text' id='dataDate' name='queryIn.dataDate'/></td>
-			<td>所属部门</td>
+			<td>所属国库</td>
 			<td><input type='hidden' id='unitId' name='queryIn.unitId' /><input id="queryIn.unitName" type='text' name="unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
 		</tr>
 		<tr><td colspan="4">

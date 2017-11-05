@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>上传文件</title>
+<title>源数据文件上传文件内嵌页面</title>
 <script type="text/javascript" src="${_CONTEXT_PATH}/jwebui/jquery/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="${_CONTEXT_PATH}/jwebui/jquery/jquery.form.js"></script>
 <style type="text/css">
@@ -220,11 +220,11 @@ function checkTotalFileSize(obj){
 }
 
 function uploadFile5(obj){
-	if(!checkFileNumber()){
+	/* if(!checkFileNumber()){
 		$('#fileBtn').hide();
 		alert("已达文件最大数"+fileMax+"!");
 		return;
-	}
+	} */
 	if(!checkFileSuffix(obj)){
 		alert("文件后缀不合法，只允许上传文件的类型["+filter+"]!");
 		return;
@@ -269,6 +269,7 @@ function addFileComponent5(){
 	displayStr += "<td style='width:30px;'><span class='delarea' onclick='deleteFile(this)'></span></td>";
 	displayStr += "</tr>";
 	$('#displayFiles').append(displayStr);
+	$(".l-button").last().focus();
 	setTipMessage();
 }
 

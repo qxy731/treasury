@@ -18,7 +18,7 @@
 		NODE_VISIBLE as nodeVisible,
 		NODE_TOOLTIP as nodeTooltip,
 		HAS_CHILD_FLAG as hasChildFlag
-		from SYS_MENU
+		from sys_menu
 		where MENU_ID=#value# AND NODE_VISIBLE='1'
 		order by PARENT_NODE,SEQ_ID
 	</select>

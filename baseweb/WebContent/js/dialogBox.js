@@ -81,6 +81,16 @@
 		var str = "<div class='dialog-image dialog-image-question'/><div>"+content+"</div>";
 		$.dialogBox.msgbox(str,p);
 	}
+	
+	$.dialogBox.choice2 = function(content,yesFunction,noFunction,cancelFunction) {
+		var p = {height:80,width:350,padding:'1px 1px',title:'请选择',lock:true};
+		var buttons = [{name:'本月',callback:yesFunction},
+		               {name:'次月',callback:noFunction,focus:true},
+		               {name:'取消',callback:cancelFunction}];
+		p.button = buttons;
+		var str = "<div class='dialog-image dialog-image-question'/><div>"+content+"</div>";
+		$.dialogBox.msgbox(str,p);
+	}
 	/**
 	 * 提示信息框
 	 * content 提示信息

@@ -3,7 +3,6 @@ package com.soule.app.pfm.tm.model.servcie;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +23,6 @@ import com.soule.app.pfm.tm.model.po.ModelTarPo;
 import com.soule.app.pfm.tm.qtydef.QtyDefPo;
 import com.soule.base.media.DbAccessException;
 import com.soule.base.service.IDefaultService;
-import com.soule.base.service.IServiceResult;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.keygen.IKeyGenerator;
 import com.soule.base.service.logon.LogonInfoPo;
@@ -105,13 +103,11 @@ public class ModelDefServiceImpl implements IModelDefService {
 		    		 modelTar.setTarCode(list.get(i).getTarCode());
 		    		 defService.getIbatisMediator().save("modelDef.insertModelTar", modelTar);
 	    		 }
-	    		
 	    	 }
-	    	 
 	    	 AppUtils.setResult(out, "I0004");
 		} catch (DbAccessException e) {
 			e.printStackTrace();
-			 AppUtils.setResult(out, "E0000");
+			AppUtils.setResult(out, "E0000");
 		}
     	return out;
     }
@@ -178,8 +174,8 @@ public class ModelDefServiceImpl implements IModelDefService {
     public ModelDefUpdateQueryOut  queryModelTar(ModelDefQueryIn in) throws ServiceException{
     	ModelDefUpdateQueryOut out = new ModelDefUpdateQueryOut();
     	String modelCode= in.getModelCode();
-    	HashMap condition = new HashMap();
-    	condition.put("modelCode", in.getModelCode());
+    	HashMap<String,Object> condition = new HashMap<String,Object>();
+    	condition.put("modelCode", modelCode);
     	try {
 			List<ModelDefPo> modelList= defService.getIbatisMediator().find("modelDef.getModelDef", condition);
 			//List<QtyDefPo> tarList = defService.getIbatisMediator().find("modelDef.getModelTarByModelCode", condition);

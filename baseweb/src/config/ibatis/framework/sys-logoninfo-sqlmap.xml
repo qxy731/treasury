@@ -16,29 +16,32 @@
 		<result property="lastLogonTime" column="LAST_LOGON_TIME"/>
 	</resultMap>
 	<update id="updSysLogonPwd" parameterClass="com.soule.base.service.logon.LogonInfoPo">
-		UPDATE SYS_LOGON_INFO SET PASSWORD = #password:VARCHAR#,FAIL_LOGON_COUNT=0,PWD_EXPIRE_TIME=#pwdExpireTime:TIMESTAMP#,LOCK_FLAG='0'
-		WHERE 
-			STAFF_ID = #staffId#
+		UPDATE sys_logon_info SET PASSWORD = #password:VARCHAR#,FAIL_LOGON_COUNT=0,PWD_EXPIRE_TIME=#pwdExpireTime:TIMESTAMP#,LOCK_FLAG='0'
+		WHERE STAFF_ID = #staffId#
 	</update>
 	
 	<insert id="saveSysLongonInfo" parameterClass="com.soule.base.service.logon.LogonInfoPo">
-		insert into SYS_LOGON_INFO (STAFF_ID,LOGON_ID,PASSWORD,VALID_FLAG,LOCK_FLAG,FAIL_LOGON_COUNT,MAX_FAIL_COUNT,PWD_EXPIRE_DAYS,PWD_EXPIRE_TIME,ACC_EXPIRE_TIME,LAST_LOGON_IP,LAST_LOGON_TIME)
+		insert into sys_logon_info (STAFF_ID,LOGON_ID,PASSWORD,VALID_FLAG,LOCK_FLAG,FAIL_LOGON_COUNT,MAX_FAIL_COUNT,PWD_EXPIRE_DAYS,PWD_EXPIRE_TIME,ACC_EXPIRE_TIME,LAST_LOGON_IP,LAST_LOGON_TIME)
 		values(#staffId:VARCHAR# ,#logonId:VARCHAR# ,#password:VARCHAR# ,#validFlag:CHAR# ,#lockFlag:CHAR# ,#failLogonCount:INTEGER# ,#maxFailCount:INTEGER# ,#pwdExpireDays:INTEGER# ,#pwdExpireTime:TIMESTAMP# ,#accExpireTime:TIMESTAMP# ,#lastLogonIp:VARCHAR# ,#lastLogonTime:TIMESTAMP# )
 	</insert>
 
 	<delete id="delSysLogonInfo" parameterClass="com.soule.app.sys.staff.StaffStaffPo">
-		DELETE FROM SYS_LOGON_INFO WHERE 
-			STAFF_ID = #staffId#
+		DELETE FROM sys_logon_info WHERE STAFF_ID = #staffId#
 	</delete>
 	
 	<update id="updateFailedLogon" parameterClass="com.soule.base.service.logon.LogonInfoPo">
-		update SYS_LOGON_INFO set FAIL_LOGON_COUNT=#failLogonCount#,LOCK_FLAG=#lockFlag# where LOGON_ID = #logonId#
+		update sys_logon_info set FAIL_LOGON_COUNT=#failLogonCount#,LOCK_FLAG=#lockFlag# where LOGON_ID = #logonId#
 	</update>
+	
+	<update id="updateLogonLock" parameterClass="com.soule.base.service.logon.LogonInfoPo">
+		update sys_logon_info set FAIL_LOGON_COUNT=0,LOCK_FLAG=0 where STAFF_ID = #staffId#
+	</update>
+	
 	<update id="updateLogonStatus" parameterClass="com.soule.base.service.logon.LogonInfoPo">
-		update SYS_LOGON_INFO set LAST_LOGON_IP=#lastLogonIp#,LAST_LOGON_TIME=#lastLogonTime#,FAIL_LOGON_COUNT=0 where LOGON_ID = #logonId#
+		update sys_logon_info set LAST_LOGON_IP=#lastLogonIp#,LAST_LOGON_TIME=#lastLogonTime#,FAIL_LOGON_COUNT=0 where LOGON_ID = #logonId#
 	</update>
 	<update id="updateLogonPasswd" parameterClass="com.soule.base.service.logon.LogonInfoPo">
-		update SYS_LOGON_INFO set PWD_EXPIRE_DAYS=#pwdExpireDays#,PWD_EXPIRE_TIME=#pwdExpireTime#,FAIL_LOGON_COUNT=0,PASSWORD=#password# where LOGON_ID = #logonId#
+		update sys_logon_info set PWD_EXPIRE_DAYS=#pwdExpireDays#,PWD_EXPIRE_TIME=#pwdExpireTime#,FAIL_LOGON_COUNT=0,LOCK_FLAG=0,PASSWORD=#password# where LOGON_ID = #logonId#
 	</update>
 </sqlMap>
 

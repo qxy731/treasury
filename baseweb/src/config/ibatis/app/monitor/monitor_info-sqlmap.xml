@@ -8,7 +8,7 @@
 			B.STAFF_NAME as userName,
 			A.LAST_LOGON_IP as ipAddress,
 			A.LAST_LOGON_TIME as logonTime
-		from SYS_LOGON_INFO A left join SYS_STAFF B on A.STAFF_ID = B.STAFF_ID
+		from sys_logon_info A left join sys_staff B on A.STAFF_ID = B.STAFF_ID
 		where 1=1
 		<isNotEmpty prepend=" AND " property="userId">
 			A.LOGON_ID = #userId#

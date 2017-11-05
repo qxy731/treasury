@@ -1,7 +1,5 @@
 package com.soule.app.sys.batch;
 
-import java.util.List;
-
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;
 

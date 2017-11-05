@@ -2,20 +2,20 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "sql-map-2.dtd">
 <sqlMap namespace="dataimport">
 	<update id="updImpdateFile" parameterClass="java.util.Map">
-		update SYS_UPLOAD_FILE 
+		update sys_upload_file 
 			SET FILE_TYPE=#uploadFileType#,
 				RESULT_TYPE = '0'
 		where UPLOAD_ID = #uploadId# AND FILE_ID=#fileId#
 	</update>
 	
 	<update id="deleteImpFile" parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn">
-		update SYS_UPLOAD_FILE 
+		update sys_upload_file 
 			SET DEL_FLAG='1'
 		where UPLOAD_ID = #uploadId# AND FILE_ID=#fileId#
 	</update>
 	
 	<delete id="deleteFileQueue" parameterClass="com.soule.crm.pub.dataimport.DataImportQueryIn">
-		delete from SYS_UPLOAD_FILE_QUEUE where UPLOAD_ID = #uploadId#
+		delete from sys_upload_file_queue where UPLOAD_ID = #uploadId#
 	</delete>
 		
 	<select id="queryFileList" 
@@ -33,14 +33,15 @@
 			A.CREATE_USER as staffId,
 			S.STAFF_NAME as staffName,
 			A.RESULT_TYPE as resultType,
-			A.BUSINESS_DATE as businessDate
-		from SYS_UPLOAD_FILE A
-		LEFT JOIN SYS_STAFF S ON S.STAFF_ID=A.CREATE_USER	
+			A.BUSINESS_DATE as businessDate,
+			A.IMPORT_TYPE as importType
+		from sys_upload_file A
+		LEFT JOIN sys_staff S ON S.STAFF_ID=A.CREATE_USER	
 		<!-- INNER JOIN SYS_UNITMAP MP ON MP.RELA_UNITID =A.CREATE_ORG AND MP.UNIT_ID $orgCode$ -->
-		LEFT JOIN SYS_UNIT U ON U.UNIT_ID=A.CREATE_ORG
+		LEFT JOIN sys_unit U ON U.UNIT_ID=A.CREATE_ORG
 		where A.DEL_FLAG = '0'
 			AND A.FILE_TYPE IS NOT NULL
-			<isNotEmpty prepend=" AND " property="fileName">A.FILE_NAME like '%'||#fileName#||'%'</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="fileName">A.FILE_NAME like CONCAT('%' ,#fileName#,'%' )</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="fileType">A.FILE_TYPE = #fileType#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="beginDate">DATE_FORMAT(A.CREATE_TIME,'%Y-%m-%d')<![CDATA[>=]]>DATE_FORMAT(#beginDate#,'%Y-%m-%d')</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="endDate">DATE_FORMAT(A.CREATE_TIME,'%Y-%m-%d')<![CDATA[<=]]>DATE_FORMAT(#endDate#,'%Y-%m-%d')</isNotEmpty>
@@ -106,7 +107,7 @@
 			PROC_NAME as procName,
 			SPEC_SERVICES as specServices,
 			REMARK as remark
-		from PUB_IMP_FILE where FILE_TYPE = #fileType#
+		from pub_imp_file where FILE_TYPE = #fileType#
 	</select>
 	<select id="getUploadModel" parameterClass="java.lang.String" resultClass="java.util.HashMap">
 		SELECT MODEL_TYPE,
@@ -124,7 +125,7 @@
 		       SPEC,
 		       FORMAT,
 		       DATA_TYPE
-		  FROM PUB_MODEL_UPLOAD T
+		  FROM pub_model_upload T
 		 WHERE MODEL_TYPE = #value#
 		 ORDER BY INDEX_NO
 	</select>
@@ -135,10 +136,10 @@
 	select t.unit_id from sys_unit t where t.unit_id = #value#
 	</select>
 	<select id="checkAcctId" parameterClass="java.lang.String" resultClass="java.util.HashMap">
-	select t.acct_id from BIZ_DPS_INFO t where t.acct_id = #value#
+	select t.acct_id from biz_dps_info t where t.acct_id = #value#
 	</select>
 	<select id="checkCardNo" parameterClass="java.lang.String" resultClass="java.util.HashMap">
-	select t.org_prof from CUS_E_BASE_INFO t where t.org_prof = #value#
+	select t.org_prof from cus_e_base_info t where t.org_prof = #value#
 	</select>
 	<select id="checkPrdCode" parameterClass="java.lang.String" resultClass="java.util.HashMap">
 	select t.prd_code from pub_product_info t where t.prd_code = #value#

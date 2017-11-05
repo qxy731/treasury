@@ -10,9 +10,9 @@
 			A.LEAF_FLAG as leafFlag,
 			A.UNIT_NAME as unitName
 		from 
-			SYS_UNIT A
+			sys_unit A
 		where
-			A.SUPER_UNITID is null order by A.UNIT_ID 
+			A.SUPER_UNITID is null or A.SUPER_UNITID = ''  order by A.UNIT_ID 
 	</select>
 	<select id="getUnitInfo" 
 			parameterClass="com.soule.app.common.selectunit.SelectUnitIn"
@@ -23,7 +23,7 @@
 			A.LEAF_FLAG as leafFlag,
 			A.UNIT_NAME as unitName
 		from 
-			SYS_UNIT A
+			sys_unit A
 		where
 			A.SUPER_UNITID = #superUnitId# order by A.UNIT_ID 
 	</select>
@@ -37,7 +37,7 @@
 			A.LEAF_FLAG as leafFlag,
 			A.UNIT_NAME as unitName
 		from 
-			SYS_UNIT A
+			sys_unit A
 		where 1=1
 		<isNotEmpty prepend=" AND " property="unitId">
 			A.UNIT_ID = #unitId#
@@ -57,8 +57,8 @@
 			A.LEAF_FLAG as leafFlag,
 			A.UNIT_NAME as unitName
 		from 
-			SYS_UNIT A
-			INNER JOIN SYS_UNITMAP UMAP ON UMAP.RELA_UNITID=A.UNIT_ID AND UMAP.UNIT_ID=#orgId#
+			sys_unit A
+			INNER JOIN sys_unitmap UMAP ON UMAP.RELA_UNITID=A.UNIT_ID AND UMAP.UNIT_ID=#orgId#
 		where 1=1
 		<isNotEmpty prepend=" AND " property="unitId">
 			A.UNIT_ID = #unitId#

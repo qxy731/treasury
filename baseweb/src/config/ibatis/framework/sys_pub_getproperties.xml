@@ -5,13 +5,13 @@
 
 	<select id="getSysStaffByKey" parameterClass="java.util.HashMap" 
 		resultClass="com.soule.app.table.SysStaffPo">
-		select Staff_id as staffId ,staff_name as staffName from SYS_STAFF where 
+		select STAFF_ID as staffId ,staff_name as staffName from sys_staff where 
 			STAFF_ID = #staffId#
 	</select>
 
 	<select id="getUnitByKey" parameterClass="java.util.HashMap" 
 		resultClass="com.soule.app.sys.unit.UnitPo">
-		select UNIT_ID as unitId ,UNIT_NAME as unitName from SYS_UNIT where 
+		select UNIT_ID as unitId ,UNIT_NAME as unitName from sys_unit where 
 			UNIT_ID = #unitId# 
 	</select>
 

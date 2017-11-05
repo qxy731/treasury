@@ -8,12 +8,12 @@
 	</resultMap>
 	<select id="getSysPositionByKey" parameterClass="com.soule.app.table.SysPositionPo" 
 		resultMap="SysPositionMap">
-		select * from SYS_POSITION where 
+		select * from sys_position where 
 			POSI_ID = #posiId#
 	</select>
 
 	<select id="getSysPosition" parameterClass="java.util.Map" resultMap="SysPositionMap">
-		select * from SYS_POSITION 
+		select * from sys_position 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="unitId">UNIT_ID = #unitId#</isNotEmpty>
@@ -22,7 +22,7 @@
 	</select>
 
 	<select id="getSysPositionCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_POSITION 
+		select count(1) as count from sys_position 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="unitId">UNIT_ID = #unitId#</isNotEmpty>
@@ -31,7 +31,7 @@
 	</select>
 
 	<update id="updSysPosition" parameterClass="com.soule.app.table.SysPositionPo">
-		update SYS_POSITION 
+		update sys_position 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="unitId">UNIT_ID = #unitId#</isNotNull>
 			<isNotNull prepend="," property="roleId">ROLE_ID = #roleId#</isNotNull>
@@ -41,12 +41,12 @@
 	</update>
 
 	<insert id="saveSysPosition" parameterClass="com.soule.app.table.SysPositionPo">
-		insert into SYS_POSITION (POSI_ID,UNIT_ID,ROLE_ID)
+		insert into sys_position (POSI_ID,UNIT_ID,ROLE_ID)
 		values(#posiId:VARCHAR# ,#unitId:VARCHAR# ,#roleId:VARCHAR# )
 	</insert>
 
 	<delete id="delSysPosition" parameterClass="com.soule.app.table.SysPositionPo">
-		delete from SYS_POSITION where 
+		delete from sys_position where 
 			POSI_ID = #posiId#
 	</delete>
 </sqlMap>

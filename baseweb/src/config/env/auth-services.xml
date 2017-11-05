@@ -45,25 +45,38 @@
 			<ref local="rememberMeServices" />
 		</property>
 	</bean>
+	
+	<!-- <bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+		<property name="exceptionMappings">
+	        <props>
+	          <prop key="org.springframework.security.authentication.BadCredentialsException">/index.jsp?l=i</prop>
+	          <prop key="org.springframework.security.authentication.CredentialsExpiredException">/index.jsp?l=e</prop>
+	          <prop key="org.springframework.security.core.userdetails.UsernameNotFoundException">/index.jsp?l=f</prop>
+	          <prop key="org.springframework.security.authentication.LockedException">/index.jsp?l=l</prop>
+	          <prop key="org.springframework.security.authentication.DisabledException">/index.jsp?l=d</prop>
+	          <prop key="org.springframework.security.authentication.AccountExpiredException">/index.jsp?l=a</prop>
+	        </props>
+	      </property>
+	    </bean>
+	  </property>
+ </bean> -->
 
 	<bean id="AUTH_APF" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
 		<property name="sessionAuthenticationStrategy" ref="sas"></property>
-		<!--
-			定义登陆失败时转向的页面
-		
-		<property name="exceptionMappings">
+		<!-- 定义登陆失败时转向的页面		 -->
+		<!-- <property name="exceptionMappings">
 			<value>
 			<![CDATA[
-				org.acegisecurity.BadCredentialsException=/index.jsp?l=i
-				org.acegisecurity.CredentialsExpiredException=/index.jsp?l=e
-				org.acegisecurity.userdetails.UsernameNotFoundException=/index.jsp?l=f
-				org.acegisecurity.DisabledException=/index.jsp?l=d
-				org.acegisecurity.LockedException=/index.jsp?l=l
-				org.acegisecurity.AccountExpiredException=/index.jsp?l=a
+				org.springframework.security.authentication.BadCredentialsException=/index.jsp?l=i
+				org.springframework.security.authentication.CredentialsExpiredException=/index.jsp?l=e
+				org.springframework.security.core.userdetails.UsernameNotFoundException=/index.jsp?l=f
+				org.springframework.security.authentication.DisabledException=/index.jsp?l=d
+				org.springframework.security.authentication.LockedException=/index.jsp?l=l
+				org.springframework.security.authentication.AccountExpiredException=/index.jsp?l=a
 			]]>
 			</value>
-		</property>
-		-->
+		</property> -->
+		
 		<property name="authenticationManager">
 			<ref local="authenticationManager" />
 		</property>
@@ -78,7 +91,8 @@
         </property>  
         <property name="authenticationFailureHandler">  
             <bean class="com.soule.base.service.logon.NeuUrlAuthenticationFailureHandler">  
-                <property name="defaultFailureUrl" value="/index.jsp"></property>  
+                <property name="defaultFailureUrl" value="/index.jsp"></property>
+                <property name="forwardToDestination" value="false"></property>
             </bean>  
         </property>
 	</bean>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>基础定量指标修改</title>
+<title>基础指标修改</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 </style>

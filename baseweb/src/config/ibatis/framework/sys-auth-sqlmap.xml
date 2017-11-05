@@ -17,7 +17,7 @@
 			ACC_EXPIRE_TIME as accExpireTime,
 			LAST_LOGON_IP as lastLoginIp,
 			LAST_LOGON_TIME as lastLoginTime
-		from SYS_LOGON_INFO where LOGON_ID=#value#
+		from sys_logon_info where LOGON_ID=#value#
 	</select>
 	<select id="getUserRoles" parameterClass="java.lang.String"
 		resultClass="com.soule.base.service.auth.RoleAssignPo">
@@ -30,7 +30,7 @@
 			CREATE_TIME as createTime,
 			LAST_UPD_USER as lastUpdUser,
 			LAST_UPD_TIME as lastUpdTime
-		from SYS_ROLE_ASSIGN where STAFF_ID=#value#
+		from sys_role_assign where STAFF_ID=#value#
 	</select>
 	<select id="getMenuGrantOfRole" parameterClass="java.lang.String"
 		resultClass="com.soule.base.service.auth.ArcGrantModel">
@@ -41,7 +41,7 @@
 			M.NODE_URL as url,
 			RUN_FLAG as runFlag,
 			ASS_FLAG as assFlag
-		from SYS_ARC_GRANT left join SYS_MENU M on RES_CODE=M.MENU_ID||'_'||M.NODE_ID
+		from sys_arc_grant left join sys_menu M on RES_CODE=M.MENU_ID||'_'||M.NODE_ID
 		where RES_TYPE='MENU' AND PRINCIPAL_CODE=#value# AND PRINCIPAL_TYPE='ROLE'
 	</select>
 	<select id="getUrlGrantOfRole" parameterClass="java.lang.String"
@@ -53,7 +53,7 @@
 			U.URL_PATH as url,
 			RUN_FLAG as runFlag,
 			ASS_FLAG as assFlag
-		from SYS_ARC_GRANT left join SYS_RES_URL U on RES_CODE=U.URL_ID
+		from sys_arc_grant left join sys_res_url U on RES_CODE=U.URL_ID
 		where RES_TYPE='URL' AND PRINCIPAL_CODE=#value# AND PRINCIPAL_TYPE='ROLE'
 	</select>
 	<select id="getFuncGrantOfRole" parameterClass="java.lang.String"
@@ -65,7 +65,7 @@
 			F.FUNC_NAME as url,
 			RUN_FLAG as runFlag,
 			ASS_FLAG as assFlag
-		from SYS_ARC_GRANT left join SYS_RES_FUNCTION F on RES_CODE=F.FUNC_ID
+		from sys_arc_grant left join sys_res_function F on RES_CODE=F.FUNC_ID
 		where RES_TYPE='FUNCTION' AND PRINCIPAL_CODE=#value# AND PRINCIPAL_TYPE='ROLE'
 	</select>
 </sqlMap>

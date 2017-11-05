@@ -53,14 +53,6 @@ body{
 					//result.bankFundsFlowList //http://caibaojian.com/jquery-each-json.html
 					var newCustOrgData = '';
 					$.each(result.bankFundsFlowList,function(index,obj){
-						/*var innerHTML = '<tr class="l-grid-row"><td class="l-grid-row-cell" style="width:200px"><div>'+obj.custOrgName+'</div></td>';
-						innerHTML += '<td class="l-grid-row-cell" style="width:200px;" ><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankAllInflow+'</div></td>';
-						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight" >'+obj.bankSpecialInflow+'</div></td>';
-						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankAllOutflow+'</div></td>';
-						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankSpecialOutflow+'</div></td>';
-						innerHTML += '<td class="l-grid-row-cell" style="width:200px"><div class="l-grid-row-cell-inner l-grid-row-cell-inner-fixedheight">'+obj.bankAllNetFlow+'</div></td></tr>';
-						newCustOrgData += innerHTML;*/
-						
 						$("#"+obj.custOrgNo+"_BANK_ALL_INFLOW").empty();
 						$("#"+obj.custOrgNo+"_BANK_SPECIAL_INFLOW").empty();
 						$("#"+obj.custOrgNo+"_BANK_ALL_OUTFLOW").empty();
@@ -71,7 +63,6 @@ body{
 						$("#"+obj.custOrgNo+"_BANK_ALL_OUTFLOW").append(obj.bankAllOutflow);
 						$("#"+obj.custOrgNo+"_BANK_SPECIAL_OUTFLOW").append(obj.bankSpecialOutflow);
 						$("#"+obj.custOrgNo+"_BANK_ALL_NETFLOW").append(obj.bankAllNetFlow);
-						
 					});
 					$("#custOrgData").empty();
 					$("#custOrgData").append(newCustOrgData);
@@ -80,11 +71,54 @@ body{
 						$("#"+obj.tarCode).empty();
 						$("#"+obj.tarCode).append(obj.tarValue);
 					});
-					//result.treasuryFundsSourceList
+					/**
+					与#CustOrgNoSum_BANK_ALL_INFLOW
+					与#CustOrgNoSum_BANK_ALL_OUTFLOW
+					与#CustOrgNoSum_BANK_ALL_NETFLOW
+					**/
+					var ain = $("#CustOrgNoSum_BANK_ALL_INFLOW").html();
+					var aout = $("#CustOrgNoSum_BANK_ALL_INFLOW").html();
+					var anet = $("#CustOrgNoSum_BANK_ALL_INFLOW").html();
+					var bin = $("#TE_00002").html();
+					var bout = $("#TE_00033").html();
+					var bnet = $("#TE_00067").html();
+					if(ain==bin){
+						$("#bin").html("核对一致");
+					}else{
+						$("#bin").html("核对不一致");
+					}
+					if(aout==bout){
+						$("#bout").html("核对一致");
+					}else{
+						$("#bout").html("核对不一致");
+					}
+					if(anet==bnet){
+						$("#bnet").html("核对一致");
+					}else{
+						$("#bnet").html("核对不一致");
+					}
 					$.each(result.treasuryFundsSourceList,function(index,obj){
 						$("#"+obj.tarCode).empty();
 						$("#"+obj.tarCode).append(obj.tarValue);
 					});
+					var cin = $("#SourceBankAllInflowSum").html();
+					var cout = $("#SourceBankAllOutflowSum").html();
+					var cnet = $("#SourceBankAllOutflowSum").html();
+					if(ain==cin){
+						$("#cin").html("核对一致");
+					}else{
+						$("#cin").html("核对不一致");
+					}
+					if(aout==cout){
+						$("#cout").html("核对一致");
+					}else{
+						$("#cout").html("核对不一致");
+					}
+					if(anet==cnet){
+						$("#cnet").html("核对一致");
+					}else{
+						$("#cnet").html("核对不一致");
+					}
 				});
 			});
 		}
@@ -98,7 +132,7 @@ body{
 			location.href="${_CONTEXT_PATH}/report/bank-funds-flow-report!export.action?dataDate="+dataDate+"&unitId="+unitId+"&unitName="+unitName;  
 		}
 	}
-	//选择部门
+	//选择国库
 	function openSelectUnit(){
 		Utils.openSelectUnit(null,'',setUnitIdName);
 	}
@@ -121,7 +155,7 @@ body{
 		<tr>
 			<td>数据日期</td>
 			<td><input type='text' id='dataDate' name='queryIn.dataDate' validate="{required:true}" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM'})"/></td>
-			<td>所属部门</td>
+			<td>所属国库</td>
 			<td>
 				<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
 				<input id="unitName" type='text' name="queryIn.unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select" value="${logUserInfo.operUnitName}"/>
@@ -401,20 +435,28 @@ body{
 										<td><div id="TE_00042">0</div></td>
 										<td><div id="TE_00109">0</div></td>
 									</tr>
-									<tr>
+									<!-- <tr>
 										<td><div></div></td>
 										<td><div>合  计</div></td>
 										<td><div id="NatureBankAllInflowSum">0</div></td>
 										<td><div>合  计</div></td>
 										<td><div id="NatureBankAllOutflowSum">0</div></td>
 										<td><div id="NatureBankAllNetflowSum">0</div></td>
+									</tr> -->
+									<tr>
+										<td><div></div></td>
+										<td><div>合  计</div></td>
+										<td><div id="TE_00002">0</div></td>
+										<td><div>合  计</div></td>
+										<td><div id="TE_00033">0</div></td>
+										<td><div id="TE_00067">0</div></td>
 									</tr>
 									<tr>
 										<td colspan="2"><div>与按资金流向分类的资金流入、流出合计是否一致：</div></td>
-										<td><div>核对一致</div></td>
+										<td><div id="bin">核对一致</div></td><!-- 与#CustOrgNoSum_BANK_ALL_INFLOW一致 -->
 										<td><div></div></td>
-										<td><div>核对一致</div></td>
-										<td><div>核对一致</div></td>
+										<td><div id="bout">核对一致</div></td><!-- 与#CustOrgNoSum_BANK_ALL_OUTFLOW一致 -->
+										<td><div id="bnet">核对一致</div></td><!-- 与#CustOrgNoSum_BANK_ALL_NETFLOW -->
 									</tr>
 								</tbody>
 							</table>
@@ -476,9 +518,9 @@ body{
 									</tr>
 									<tr>
 										<td><div>与按资金流向分类的资金流入、流出合计是否一致：</div></td>
-										<td colspan="2"><div>核对一致</div></td>
-										<td colspan="2"><div>核对一致</div></td>
-										<td><div>核对一致</div></td>
+										<td colspan="2"><div id="cin">核对一致</div></td>
+										<td colspan="2"><div id="cout">核对一致</div></td>
+										<td><div id="cnet">核对一致</div></td>
 									</tr>
 								</tbody>
 							</table>

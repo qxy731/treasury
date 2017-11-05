@@ -74,8 +74,8 @@
 			sortName: 'roleId', 
 			height:'98%',
 			width:'100%',
-			onError: function(xrequest,textStatus,error) {
-				$.dialogBox.error(xrequest.responseText);
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 
@@ -97,7 +97,7 @@
 		}
 		var mdata = {"deleteIn.deletesStr":JSON.stringify(rows)};
 		var url = "${_CONTEXT_PATH}/sys/role!delete.action";
-		$.dialogBox.choice('确认删除角色吗?',function(){
+		$.dialogBox.confirm('确认删除角色吗?',function(){
 			Utils.ajaxSubmit(url,mdata, function(result){
 				$.dialogBox.info(result.retMsg,query);
 			});

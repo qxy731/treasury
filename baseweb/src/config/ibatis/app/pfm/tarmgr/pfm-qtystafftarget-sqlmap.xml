@@ -11,7 +11,7 @@
 	<select id="getPfmTmQtyDef" parameterClass="java.util.Map" resultMap="qtyStaffTargetMap">
 		 select t.TAR_CODE,
 		        t.TAR_NAME 	        
-		 from PFM_TM_QTY_DEF t
+		 from pfm_tm_qty_def t
 		 inner join sys_unitmap t1  on t.create_org = t1.unit_id
          where t.TAR_SCOPE in ('01000000','11000000')
            and PFM_IDL_GET_STORE_DATE(#storeDate#,t.tar_code) =#storeDate#
@@ -26,7 +26,7 @@
 	         S.STAFF_ID as "staffId",
 	      	 S.STAFF_NAME as "staffName",
 	      	 S.OWNER_UNITID as "blOrg"	 
-	    	 from SYS_STAFF S 
+	    	 from sys_staff S 
 	    	 $sqlJoinStr$
     	 where S.STAFF_ID IN ($staffIdStr$)
     	 	   	   	 
@@ -35,13 +35,13 @@
 	 <!-- 根据日期、指标代码、员工代码查询表中是否有当前记录 -->
 	 <select id="getStfByStaffId" parameterClass="java.util.Map" resultClass="java.lang.Long">
 		 select count(1) as STAFF_ID 
-		 from PFM_EM_QTY_STF where 
+		 from pfm_em_qty_stf where 
 		 STAFF_ID = #staffId# and TAR_CODE = #tarCode# and STORE_DATE = #storeDate#
 	</select>
 	
 	<!-- 根据日期、指标代码、员工代码更新记录-->
 	<update id="updateTarValue" parameterClass="java.util.HashMap">
-	       update PFM_EM_QTY_STF 
+	       update pfm_em_qty_stf 
 	          set TAR_VALUE = #tarValue:DOUBLE#,
 	              LOAD_DATE = #loadDate#,
 	              LAST_UPD_USER = #lastUpdUser#,
@@ -56,7 +56,7 @@
 	<!-- 插入数据 -->
 	<insert id="insertPfmEmQtyStf" parameterClass="java.util.HashMap">
 	         insert into 
-	         PFM_EM_QTY_STF (STAFF_ID,TAR_CODE,STORE_DATE,LOAD_DATE,TAR_VALUE,TAR_DATE,BL_ORG,CREATE_USER,CREATE_TIME,CREATE_ORG) 
+	         pfm_em_qty_stf (STAFF_ID,TAR_CODE,STORE_DATE,LOAD_DATE,TAR_VALUE,TAR_DATE,BL_ORG,CREATE_USER,CREATE_TIME,CREATE_ORG) 
 	         values(#staffId:VARCHAR#,#tarCode:VARCHAR#,PFM_IDL_GET_STORE_DATE(#storeDate:VARCHAR#,#tarCode:VARCHAR#),
 	         #loadDate:DATE#,#tarValue:DOUBLE#,#tarDate:DATE#,#blOrg:VARCHAR#,
 	         #createUser:VARCHAR#,#createTime:TIMESTAMP#,#createOrg:VARCHAR#)
@@ -64,7 +64,7 @@
 	
 	<!-- 根据日期、指标代码、员工代码删除记录 -->
 	 <delete id="deletePfmEmQtyStf" parameterClass="java.util.HashMap">
-                 delete from PFM_EM_QTY_STF 
+                 delete from pfm_em_qty_stf 
                   where STAFF_ID=#staffId#  and 
 	                     TAR_CODE=#tarCode# and 
 	                     STORE_DATE=#storeDate#

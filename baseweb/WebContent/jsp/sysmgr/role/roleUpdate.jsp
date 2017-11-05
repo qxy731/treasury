@@ -35,6 +35,7 @@ body {
 				var data = Utils.convertFormData('updateIn', 'updateForm');
 				Utils.ajaxSubmit(url, data, function(result) {
 					$.dialogBox.alert(result.retMsg, function() {
+						$.dialogBox.opener.query();
 						$.dialogBox.close();
 					});
 				});

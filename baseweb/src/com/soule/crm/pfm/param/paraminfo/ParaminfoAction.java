@@ -1,8 +1,7 @@
 package com.soule.crm.pfm.param.paraminfo;
 
-import java.util.HashMap;
-import java.util.List;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,9 @@ import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
 import com.soule.comm.enu.BizType;
-import com.soule.comm.enu.BizType1;
 import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.tools.AppUtils;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -26,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 @Namespace("/pfm/param") 
 public class ParaminfoAction extends BaseAction {
     private static final long serialVersionUID = 1L;
-    private final static Log logger = LogFactory.getLog(ParaminfoAction.class);
+    //private final static Log logger = LogFactory.getLog(ParaminfoAction.class);
     @Autowired
     IParaminfoService service;
     @Autowired
@@ -57,11 +52,11 @@ public class ParaminfoAction extends BaseAction {
                 if(rows.size() > 0){
                 	paraminfo = (ParaminfoQPo)rows.get(0);
                 }
-                appUtils.saveAuditLog("paraminfo", "指标库详情", BizType.PFM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+                appUtils.saveAuditLog("paraminfo", "指标库详情", BizType.TARM, FunctionType.QUERY, ExecuteResult.SUCCESS);
             }
             catch(Exception e) {
             	try {
-					appUtils.saveAuditLog("paraminfo", "指标库详情", BizType.PFM, FunctionType.QUERY, ExecuteResult.FAIL);
+					appUtils.saveAuditLog("paraminfo", "指标库详情", BizType.TARM, FunctionType.QUERY, ExecuteResult.FAIL);
 				} catch (ServiceException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -85,11 +80,11 @@ public class ParaminfoAction extends BaseAction {
             this.total=head.getTotal();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.PFM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.SUCCESS);
         }
         catch(Exception e) {
         	try {
-				appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.PFM, FunctionType.QUERY, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -113,12 +108,11 @@ public class ParaminfoAction extends BaseAction {
             this.total=head.getTotal();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.PFM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.SUCCESS);
         }catch(Exception e) {
         	try {
-				 appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.PFM, FunctionType.QUERY, ExecuteResult.FAIL);
+				 appUtils.saveAuditLog("paraminfo", "指标库查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         	e.printStackTrace();

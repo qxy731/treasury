@@ -14,11 +14,11 @@
 	</resultMap>
 	<select id="getSysEnumByKey" parameterClass="com.soule.app.sys.enums.EnumPo" 
 		resultMap="SysEnumMap">
-		select * from SYS_ENUM where ENUM_ID = #enumId#
+		select * from sys_enum where ENUM_ID = #enumId#
 	</select>
 
 	<select id="getSysEnum" parameterClass="java.util.Map" resultMap="SysEnumMap">
-		select * from SYS_ENUM 
+		select * from sys_enum 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="enumId">ENUM_ID like '%$enumId$%' </isNotEmpty>
 			<isNotEmpty prepend=" AND " property="enumName">ENUM_NAME like '%$enumName$%' </isNotEmpty>
@@ -32,7 +32,7 @@
 	</select>
 
 	<update id="updSysEnum" parameterClass="com.soule.app.sys.enums.EnumPo">
-		update SYS_ENUM 
+		update sys_enum 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="enumName">ENUM_NAME = #enumName#</isNotNull>
 			<isNotNull prepend="," property="enumDesc">ENUM_DESC = #enumDesc#</isNotNull>
@@ -47,12 +47,12 @@
 	</update>
 
 	<insert id="saveSysEnum" parameterClass="com.soule.app.sys.enums.EnumPo">
-		insert into SYS_ENUM (ENUM_ID,ENUM_NAME,ENUM_DESC,LINK_SRC_FLAG,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
+		insert into sys_enum (ENUM_ID,ENUM_NAME,ENUM_DESC,LINK_SRC_FLAG,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
 		values(#enumId:VARCHAR# ,#enumName:VARCHAR# ,#enumDesc:VARCHAR# ,#linkSrcFlag:CHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# )
 	</insert>
 
 	<delete id="delSysEnum" parameterClass="com.soule.app.sys.enums.EnumPo">
-		delete from SYS_ENUM where 
+		delete from sys_enum where 
 			ENUM_ID = #enumId#
 	</delete>
 

@@ -19,7 +19,7 @@
 	</resultMap>
 	<select id="getSysArcGrantByKey" parameterClass="com.soule.app.table.SysArcGrantPo" 
 		resultMap="SysArcGrantMap">
-		select * from SYS_ARC_GRANT where 
+		select * from sys_arc_grant where 
 			PRINCIPAL_CODE = #principalCode#
 			AND PRINCIPAL_TYPE = #principalType#
 			AND RES_CODE = #resCode#
@@ -27,7 +27,7 @@
 	</select>
 
 	<select id="getSysArcGrant" parameterClass="java.util.Map" resultMap="SysArcGrantMap">
-		select * from SYS_ARC_GRANT 
+		select * from sys_arc_grant 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="principalCode">PRINCIPAL_CODE = #principalCode#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="principalType">PRINCIPAL_TYPE = #principalType#</isNotEmpty>
@@ -47,7 +47,7 @@
 	</select>
 
 	<select id="getSysArcGrantCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_ARC_GRANT 
+		select count(1) as count from sys_arc_grant 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="principalCode">PRINCIPAL_CODE = #principalCode#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="principalType">PRINCIPAL_TYPE = #principalType#</isNotEmpty>
@@ -67,7 +67,7 @@
 	</select>
 
 	<update id="updSysArcGrant" parameterClass="com.soule.app.table.SysArcGrantPo">
-		update SYS_ARC_GRANT 
+		update sys_arc_grant 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="channelCode">CHANNEL_CODE = #channelCode#</isNotNull>
 			<isNotNull prepend="," property="runFlag">RUN_FLAG = #runFlag#</isNotNull>
@@ -88,12 +88,12 @@
 	</update>
 
 	<insert id="saveSysArcGrant" parameterClass="com.soule.app.table.SysArcGrantPo">
-		insert into SYS_ARC_GRANT (PRINCIPAL_CODE,PRINCIPAL_TYPE,RES_CODE,RES_TYPE,CHANNEL_CODE,RUN_FLAG,ASS_FLAG,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
+		insert into sys_arc_grant (PRINCIPAL_CODE,PRINCIPAL_TYPE,RES_CODE,RES_TYPE,CHANNEL_CODE,RUN_FLAG,ASS_FLAG,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME,EXT1,EXT2,EXT3)
 		values(#principalCode:VARCHAR# ,#principalType:VARCHAR# ,#resCode:VARCHAR# ,#resType:VARCHAR# ,#channelCode:VARCHAR# ,#runFlag:CHAR# ,#assFlag:CHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# ,#ext1:VARCHAR# ,#ext2:VARCHAR# ,#ext3:VARCHAR# )
 	</insert>
 
 	<delete id="delSysArcGrant" parameterClass="com.soule.app.table.SysArcGrantPo">
-		delete from SYS_ARC_GRANT where 
+		delete from sys_arc_grant where 
 			PRINCIPAL_CODE = #principalCode#
 			AND PRINCIPAL_TYPE = #principalType#
 			AND RES_CODE = #resCode#

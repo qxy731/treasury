@@ -13,7 +13,7 @@
 </head>
 <body>
 <n:page action='com.soule.app.sys.staff.StaffAction' />
-<n:enums keys='valid_type,sex,partime_job_type'/>
+<n:enums keys='valid_type,sex,partime_job_type,education_type'/>
 <table class="content" cellpadding="5">
 	<tr>
 		<td>
@@ -28,7 +28,7 @@
 			<tr>
 				<td>员工状态 </td>
 				<td><n:select codetype="valid_type" id="staffStatus" name='queryIn.staffStatus' emptyOption="true" disabled="false"></n:select></td>
-				<td>所属部门</td>
+				<td>所属国库</td>
 				<td><input type='hidden' id='unitId' name='unitId' /><input id="unitName" type='text' name="unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select"/></td>
 				<td colspan="2">
 					<div style="float:right;">
@@ -59,8 +59,8 @@
 		    {text:'新增',name:'insert_btn',icon:'add',click:insertStaff},
 		    {text:'修改',name:'update_btn',icon:'update',click:updateStaff},
 		    {text:'重置密码',name:'resetPwd_btn',icon:'updatePass',click:updateLogonPwd},
-		    {text:'删除',name:'delete_btn',icon:'delete',click:deleteStaff},
-		    {text:'所属部门变更历史',name:'lookHis_btn',icon:'lookHis',click:lookOrgChangeHis}
+		    {text:'删除',name:'delete_btn',icon:'delete',click:deleteStaff}/* ,
+		    {text:'所属国库变更历史',name:'lookHis_btn',icon:'lookHis',click:lookOrgChangeHis} */
 		    ],
 		    width:'100%'
 		});
@@ -76,27 +76,27 @@
 			//	{text:'删除',name:'delete_btn',clazz:'nbutton'}
 			//],
 			columns: [
-						{ display: '员工编号', name: 'staffId', width: '7%', align: 'left' },
-						{ display: '员工姓名', name: 'staffName', width: '7%',align: 'left' },
-						{ display: '所属部门名称', name: 'unitName',width: '7%', align: 'left' },
-						{ display: '员工级别', name: 'staffLevel', width: '7%',align: 'right' },
-						{ display: '员工状态', name: 'staffStatus', width: '7%' , codetype: 'valid_type'}, 
-						{ display: '性别', name: 'sex', width: '5%',align: 'left' , codetype: 'sex'},
-						{ display: '身份证号', name: 'certNo', width: '7%',align: 'left' },
-						{ display: '学历', name: 'education', width: '7%',align: 'left'},
-						{ display: '属性', name: 'partTimeJob', width: '7%',align: 'left',codetype: 'partime_job_type'},
-						{ display: '办公电话', name: 'officePhone', width: '7%',align: 'left'},
-						{ display: '手机', name: 'mobilePhone', width: '7%',align: 'left'},
-						{ display: '地址', name: 'address', width: '10%',align: 'left'},
-						{ display: '创建人', name: 'createUser', width: '5%',align: 'left' }
+						{ display: '员工编号', name: 'staffId', width: 80, align: 'left' },
+						{ display: '员工姓名', name: 'staffName', width:80,align: 'left' },
+						{ display: '所属国库名称', name: 'unitName',width: 200, align: 'left' },
+						{ display: '员工级别', name: 'staffLevel', width: 80,align: 'right' },
+						{ display: '员工状态', name: 'staffStatus', width: 80 , codetype: 'valid_type'}, 
+						{ display: '性别', name: 'sex', width: 40,align: 'left' , codetype: 'sex'},
+						{ display: '身份证号', name: 'certNo', width: 120,align: 'left' },
+						{ display: '学历', name: 'education', width: 80,align: 'left',codetype: 'education_type'},
+						{ display: '专兼职', name: 'partTimeJob', width:60,align: 'left',codetype: 'partime_job_type'},
+						{ display: '办公电话', name: 'officePhone', width:60,align: 'left'},
+						{ display: '手机', name: 'mobilePhone', width:60,align: 'left'},
+						{ display: '地址', name: 'address', width: 200,align: 'left'},
+						{ display: '创建人', name: 'createUser', width:80,align: 'left' }
 					],
 			pageSize:20,
 			sortName: 'staffId',
 			selectRowButtonOnly:true,
 			height:'98%',
 			width:'100%',
-			onError: function() {
-				Utils.alert("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 
@@ -109,9 +109,7 @@
 
 	});
 	function insertStaff() {
-		//var url = 'staffManager!insertUI.action';
 		var url = '${_CONTEXT_PATH}/jsp/sysmgr/staff/staffAdd.jsp';
-		
 		var p = {
 				id : "insertStaff",
 				title : '新增人员',
@@ -119,7 +117,6 @@
 				height : 230,
 				opacity : 0.07
 			}; 
-		//Utils.openTab("insertStaff","新增人员",url);
 		$.dialogBox.openDialog(url,p);
 	}
 
@@ -151,8 +148,9 @@
 		}
 		var mdata = {"deleteIn.deletesStr":JSON.stringify(rows)};
 		var url = "${_CONTEXT_PATH}/sys/staff!delete.action";
-		Utils.ajaxSubmit(url,mdata, function(result){
-			Utils.alert(result.retMsg,'提示',function() {
+		$.dialogBox.confirm("您确定要删除当前记录吗？",function(){
+			Utils.ajaxSubmit(url,mdata, function(result){
+				$.dialogBox.info(result.retMsg);
 				query();
 			});
 		});
@@ -196,9 +194,11 @@
 		var staffId = selected.staffId;
 		var url = '${_CONTEXT_PATH}/sys/longon!resetLogonPwd.action';
 		var mdata={"logonInfoPo.staffId":staffId};
-		Utils.ajaxSubmit(url,mdata);
+		$.dialogBox.confirm("您确定为当前记录重置密码吗？",function(){
+			Utils.ajaxSubmit(url,mdata);
+		});
 	}
-	//选择部门
+	//选择国库
 	   function openSelectUnit(){
 	   		Utils.openSelectUnit(null,'',setUnitIdName);
 	   }
@@ -215,12 +215,12 @@
 		   var grid = $("#stafflist").ligerGetGridManager();
 	        var selected = grid.getSelectedRow();
 	        if (!selected) {
-	            Utils.alert("请先选择需要查看部门变更历史的记录");
+	            Utils.alert("请先选择需要查看国库变更历史的记录");
 	            return ;
 	        }
 	        var staffId = selected.staffId;
 	        var url = '${_CONTEXT_PATH}/jsp/sysmgr/orgchange/orgchange_detail.jsp?staffId='+staffId;
-	        $.dialogBox.openDialog(url,{title:'所属部门变更历史',width:'730px',height:'330px'});
+	        $.dialogBox.openDialog(url,{title:'所属国库变更历史',width:'730px',height:'330px'});
 	   }
 	   function reloadData(){
 		   var grid = $("#stafflist").ligerGetGridManager();

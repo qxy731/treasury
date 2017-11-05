@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>数据导入详细信息查看</title>
+<title>源数据文件导入错误信息查看</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 </style>

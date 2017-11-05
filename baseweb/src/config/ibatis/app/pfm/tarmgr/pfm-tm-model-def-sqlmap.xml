@@ -7,29 +7,33 @@
 		<result property="modelName" column="MODEL_NAME"/>
 		<result property="modelStatus" column="MODEL_STATUS"/>
 		<result property="modelDesc" column="MODEL_DESC"/>
+		<result property="createUser" column="CREATE_USER"/>
 		<result property="createOrg" column="CREATE_ORG"/>
 		<result property="createTime" column="CREATE_TIME"/>
 		<result property="lastUpdUser" column="LAST_UPD_USER"/>
 		<result property="lastUpdOrg" column="LAST_UPD_ORG"/>
 		<result property="lastUpdTime" column="LAST_UPD_TIME"/>
+		<result property="createOrgName" column="UNIT_NAME"/>
 		
 	</resultMap>
 	
 	 <!-- 根据日期、指标代码、员工代码查询表中是否有当前记录 -->
 	 <select id="getModelDef" parameterClass="java.util.Map" resultMap="modelDefMap">
 		 SELECT
-		 	MODEL_CODE,
-		 	MODEL_NAME,
-		 	MODEL_STATUS,
-		 	MODEL_DESC,
-		 	CREATE_USER,
-		 	CREATE_ORG,
-		 	CREATE_TIME,
-		 	LAST_UPD_USER,
-		 	LAST_UPD_ORG,
-		 	LAST_UPD_TIME
+		 	s.MODEL_CODE,
+		 	s.MODEL_NAME,
+		 	s.MODEL_STATUS,
+		 	s.MODEL_DESC,
+		 	s.CREATE_USER,
+		 	s.CREATE_ORG,
+		 	u.UNIT_NAME,
+		 	s.CREATE_TIME,
+		 	s.LAST_UPD_USER,
+		 	s.LAST_UPD_ORG,
+		 	s.LAST_UPD_TIME
 		FROM
-			PFM_TM_MODEL_DEF  S
+			pfm_tm_model_def s
+			inner join sys_unit u on u.UNIT_ID=s.CREATE_ORG
 			where s.model_status='1'
 			<isNotEmpty prepend=" AND " property="modelCode">s.MODEL_CODE = #modelCode#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="modelName">s.MODEL_NAME '%$modelName$%'</isNotEmpty>
@@ -45,7 +49,7 @@
 	
 	
 	<delete id="delMdoelDef" parameterClass="java.lang.String">
-		update pfm_tm_model_Def set model_status ='0' where model_code =#modelCode#
+		update pfm_tm_model_def set model_status ='0' where model_code =#modelCode#
 	</delete>
 	
 	
@@ -55,7 +59,7 @@
 	
 	
 	<update id="updateModelDef" parameterClass="com.soule.app.pfm.tm.model.po.ModelDefPo">
-		update pfm_tm_model_Def 
+		update pfm_tm_model_def 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="modelName">MODEL_NAME = #modelName#</isNotNull>
 			<isNotNull prepend="," property="modelStatus">MODEL_STATUS = #modelStatus#</isNotNull>
@@ -72,8 +76,8 @@
 	</update>
 	
 	<insert id="insertModelDef"  parameterClass="com.soule.app.pfm.tm.model.po.ModelDefPo">
-		insert into pfm_tm_model_Def (model_code,model_name,model_status,model_desc,create_user,create_org,create_time)
-		values(#modelCode:VARCHAR#,#modelName:VARCHAR#,#modelStatus:VARCHAR#,#modelDesc:VARCHAR#,#createUser:VARCHAR#,#createUser:VARCHAR#,#createTime:timestamp#)
+		insert into pfm_tm_model_def (model_code,model_name,model_status,model_desc,create_user,create_org,create_time)
+		values(#modelCode:VARCHAR#,#modelName:VARCHAR#,#modelStatus:VARCHAR#,#modelDesc:VARCHAR#,#createUser:VARCHAR#,#createOrg:VARCHAR#,#createTime:timestamp#)
 	</insert>
 	
 	

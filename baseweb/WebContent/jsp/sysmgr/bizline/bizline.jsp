@@ -85,8 +85,8 @@ $(function () {
 		onDblClickRow:function(row,id,context){
 			updateBltype();
 		},
-		onError: function() {
-			$.dialogBox.alert("查询数据失败");
+		onError: function(e) {
+			Utils.toIndex(e);
 		}
 	});
 	grid.loadData();
@@ -114,8 +114,8 @@ $(function () {
 		},
 		sortName: 'bizTypeId',
 		height: 400,
-		onError: function() {
-			$.dialogBox.alert("查询数据失败");
+		onError: function(e) {
+			Utils.toIndex(e);
 		}
 	});
 	$('#insert_bltype').bind('click', insertBltype);

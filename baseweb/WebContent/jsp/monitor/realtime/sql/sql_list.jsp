@@ -76,8 +76,8 @@ $(function () {
 		pageSize:10,
 		sortName: 'sqlId',
 		width: '100%',
-		onError: function() {
-			$.dialogBox.alert("查询数据失败");
+		onError: function(e) {
+			Utils.toIndex(e);
 		},
 		onDblClickRow:function(row,id,context){
 			showDetail(row,id,context);

@@ -60,8 +60,8 @@ $(function (){
     $("#pageloading").hide();
 
     //查询快捷菜单
-    var url2 = "${_CONTEXT_PATH}/sys/quick-menu!query.action";
-    Utils.ajaxSubmit(url2, null, onSuccess2);
+   /*  var url2 = "${_CONTEXT_PATH}/sys/quick-menu!query.action";
+    Utils.ajaxSubmit(url2, null, onSuccess2); */
 
     newaHeight = document.body.clientHeight+25;
     //addEvent(window,'resize',chgheight,document);
@@ -71,14 +71,14 @@ $(function (){
     	    $(".l-menu,.l-menu-shadow").hide();
         }
     );
-    $(".gn_btn").click(function(){queryEhrCust();})
-    $("#ehrcustId").keydown(function(e){
+   /*  $(".gn_btn").click(function(){queryEhrCust();})
+     $("#ehrcustId").keydown(function(e){
     	var curKey = e.which;
     	if(curKey==13){
     		$(".gn_btn").click();
     		return false;
     	}
-    });//follow,follow:$('#topmenu')
+    });  */
     
     $('#framecenter .l-tab-links ul li:first').append("<div class='l-tab-links-item-home'></div>");
     $('.l-tab-links .l-tab-links-item-home').click(function() {
@@ -87,14 +87,14 @@ $(function (){
 });
 
 function openSubQuery(){
-	Utils.openTab('recesubquery','收件箱',_CONTEXT_PATH+'/jsp/pub/sub/recesubquery/recesubquery_query.jsp');
-	$('#subdiv').hide();
+	//Utils.openTab('recesubquery','收件箱',_CONTEXT_PATH+'/jsp/pub/sub/recesubquery/recesubquery_query.jsp');
+	//$('#subdiv').hide();
 	//$('#subdivhide').show();
 }
 
 function openRmdQuery(){
-	Utils.openTab('remindinfo','提醒信息查询',_CONTEXT_PATH+'/jsp/mkt/remind/remindinfo/remindinfo_query.jsp');
-	$('#reminddiv').hide();
+	//Utils.openTab('remindinfo','提醒信息查询',_CONTEXT_PATH+'/jsp/mkt/remind/remindinfo/remindinfo_query.jsp');
+	//$('#reminddiv').hide();
 }
 
 function onSuccess2(ret) {
@@ -108,13 +108,13 @@ function onSuccess2(ret) {
     str+="<div class=\"quick\" id=\"allmenu\" style=\"background: url('${_CONTEXT_PATH}/images/icons/22.png') no-repeat top center;padding-bottom: 15px; \" ><div title=\"菜单\" style=\"padding-top: 45px; text-align: center;cursor: pointer;\"></div></div>";
     $("#accordion1").append(str); */
     
-    $("#allmenu").click(function (){
+   /*  $("#allmenu").click(function (){
   			if($("#hh")[0].style.display=='none'){
   				$("#hh")[0].style.display='';
   			}else{
   				$("#hh")[0].style.display='none';
   			}
-    });
+    }); */
 }
 function f_heightChanged(options){
     if (tab)tab.addHeight(options.diff);
@@ -172,7 +172,7 @@ function changePosition() {
 
 function changePassword() {
     var url = '${_CONTEXT_PATH}/jsp/public/changePassword.jsp';
-    $.dialogBox.openDialog(url,{title:'密码修改',height:240,width:390,id:"modifypassword"});
+    $.dialogBox.openDialog(url,{title:'密码修改',height:200,width:390,id:"modifypassword"});
 }
 
 function itemclick(item) {
@@ -247,28 +247,27 @@ function setTab(n){
 <ul>
     <li><span onclick="logout()">
     	<img  class="logout" src="${_CONTEXT_PATH}/images/logout.png" title = "注销" /></span></li>
-    <s:if test="%{#session._ROLE_MIXED_ == false}">
+   <%--  <s:if test="%{#session._ROLE_MIXED_ == false}">
     <s:if test="%{#session.logUserInfo.positionPo.size()>1 }">
         <li><span onclick="changePosition()"><img
             src="${_CONTEXT_PATH}/images/chang.png" title="切换职位" /></span></li>
     </s:if>
-    </s:if>
-   <%--  <li><span onclick="changeStaffInfo()"><img src="${_CONTEXT_PATH}/images/admin.png" title="我的信息"/></span></li> --%>
-<%--     <li><span onclick="changePassword()"><img src="${_CONTEXT_PATH}/images/admin.png" title="修改密码"/></span></li> --%>
+    </s:if> --%>
+<%-- <li><span onclick="changeStaffInfo()"><img src="${_CONTEXT_PATH}/images/admin.png" title="我的信息"/></span></li> --%>
+<li><span onclick="changePassword()"><img class="logout" src="${_CONTEXT_PATH}/images/password.png" title="修改密码"/></span></li>
+<li><span class="bizDate">数据日期：${bizDate}</span></li>
 </ul>
-
-
 </div>
     <div id="topmenu" >
-        <div style="float:right;padding:5px;color:#fff;">
+       <div style="float:right;padding:5px;color:#fff;">
         <table style='border:0px;'>
         <tr>
         <td id='orgAndRole'>
-        <s:property value="#attr.logUserInfo.getBizLineValue('ENT_PSN').bizName" />
-        <s:if test="#attr.logUserInfo.roleNameString!=null" >${logUserInfo.roleNameString}:</s:if>${logUserInfo.user.userName}
+        <%-- <s:property value="#attr.logUserInfo.getBizLineValue('ENT_PSN').bizName" /> --%>
+        <s:if test="#attr.logUserInfo.roleName!=null" >${logUserInfo.roleName}:</s:if>${logUserInfo.user.userName}
         &nbsp;
-        <td>
-        <td>
+        </td>
+        <!-- <td>
         <div id='subdiv' title="未读站内信" style='display: none;'>
         <img alt="未读站内信" onclick='openSubQuery()' src="images/subbtn_ss.gif" style='margin-bottom:1px;cursor: pointer;'/>
         </div>
@@ -277,19 +276,19 @@ function setTab(n){
         <div id='reminddiv' title="未读提醒" style='display: none;'>
         <img alt="未读提醒" onclick='openRmdQuery()' src="images/remindbtn_ss.gif" style='margin-top:0px;cursor: pointer;'/>
         </div>
-        </td>
+        </td> -->
         </tr>
         </table>
         </div>
-    </div>
+    </div> 
     
 </div>
-<div id="hh" style="display: none;"></div>
+<!-- <div id="hh" style="display: none;"></div> -->
 <!-- <div position="left" title="" id="accordion1"> </div>-->
 
 <div position="center" id="framecenter">
 <div tabid="home" title="我的主页">
-<%-- <iframe frameborder="0" name="home" id="home" src="${_CONTEXT_PATH}/jsp/sysmgr/mypage.jsp"></iframe> --%>
+<iframe frameborder="0" name="home" id="home" src="${_CONTEXT_PATH}/jsp/sysmgr/mypage2.jsp"></iframe>
 </div>
 </div>
 <!-- <div position="bottom" >Copyright @ 2012 www.soule.com</div> -->

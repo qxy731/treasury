@@ -57,8 +57,8 @@ $(function () {
 		sortName: 'txBytes',
 		width: '100%',
 		usePager:false,
-		onError: function() {
-			$.dialogBox.alert("查询数据失败");
+		onError: function(e) {
+			Utils.toIndex(e);
 		},
 		onDblClickRow:function(row,id,context){
 			showDetail(row,id,context);

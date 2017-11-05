@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>定性指标维护</title>
+<title>指标维护</title>
 <%@ include file="/comm.jsp" %>
 <script type="text/javascript" src="${_CONTEXT_PATH}/jsp/pfm/tarmgr/qtydef/qtydef.js"></script> 
 <style type="text/css">
@@ -38,7 +38,7 @@
 				<td>
 		         <n:select codetype="tar_type" id="tarType" name='tarType' emptyOption="true"/>
 		        </td>
-		        <%-- <td align="right">建立部门</td>
+		        <%-- <td align="right">建立国库</td>
 				<td>
 				<input id='createOrg' name='createOrg' type='hidden'  value="${logUserInfo.operUnitId}"/>
 				<input id='creatOrgName' name='creatOrgName' type="text" readonly="readonly"  class='unit_select' value="${logUserInfo.operUnitName}"/>
@@ -97,7 +97,7 @@
 						{ display: '保存日期', name: 'storeDate', codetype: 'save_type',width:60,align:'left'},
 						{ display: '处理日期', name: 'procDateCode', codetype: 'proc_type',width:60,align:'left'},
 						{ display: '数据来源', name: 'dataSource', codetype: 'data_from',width:80,align:'left'},
-						{ display: '建立部门', name: 'unitName', width:230,align:'left'}
+						{ display: '建立国库', name: 'unitName', width:230,align:'left'}
 						],
 			pageSize:20,
 			width:'100%',
@@ -108,9 +108,9 @@
 				$(rowid).addClass("l-selected");
 				return true;
 			},
-			onError: function() {
-				$.dialogBox.error("查询数据失败");
-			} 
+			onError: function(e) {
+				Utils.toIndex(e);
+			}
 		});
 		$("#query").bind('click', query);
 		$("#reset").bind('click', doClear);
@@ -187,7 +187,7 @@
 		}
 		var mdata = {"deleteIn.deletesStr":JSON.stringify(rows)};
 		var url = _CONTEXT_PATH+'/qtydefManager/qty-def!delete.action';
-		$.dialogBox.choice('确认删除吗?',function(){
+		$.dialogBox.confirm('确认删除吗?',function(){
 			Utils.ajaxSubmit(url,mdata, function(result){
 				$.dialogBox.info(result.retMsg,query);
 			});

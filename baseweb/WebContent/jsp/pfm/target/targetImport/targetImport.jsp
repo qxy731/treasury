@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="n" uri="/ncrm-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,7 +16,7 @@
 	<table class='content'>
 		<tr>
 			<td>
-				<fieldset class="queryBox">
+				<fieldset class="detailBox">
 					<legend>设置模板</legend>
 					<table class='params'>
 						<tr>
@@ -27,13 +26,13 @@
 					</table> 
 					<table class='params'>
 						<tr>
-							<td width="48%" >
+							<td width="545px" >
 								<span style="margin-right: 20px;">
 									可选考核指标
 								</span>
 							</td>
-							<td  width="4%"></td>
-							<td colspan="1" width="48%">
+							<td  width="80px"></td>
+							<td colspan="1" width="545px">
 								<span style="margin-left:0px;">
 									<font color="red">*</font>已选考核指标
 								</span>
@@ -42,7 +41,7 @@
 						<tr>
 							<td colspan="1">
 								<span style="margin-right: 20px;"> 
-									<select id="indexCodeOptions" name="indexCodeOptions" style="width: 100%;  height: 120px;"  multiple="multiple"> </select>
+									<select id="indexCodeOptions" name="indexCodeOptions" style="width:545px;  height: 120px;"  multiple="multiple"> </select>
 								</span>
 							</td>
 							<td>
@@ -55,7 +54,7 @@
 							</td>
 							<td colspan="1">
 								<span style="margin-left: 0px;"> 
-									<select id="indexCodeChoosed" name="indexCodeChoosed" style="width: 100%; height: 120px;" onchange="" size="5" multiple="multiple"> </select>
+									<select id="indexCodeChoosed" name="indexCodeChoosed" style="width:545px; height: 120px;" onchange="" size="5" multiple="multiple"> </select>
 								</span>
 							</td>
 						</tr>
@@ -86,7 +85,7 @@
 			</td>
 		</tr>
 
-		<tr>
+		<%-- <tr>
 			<td>
 				<fieldset class="outbox" style="height: 500px;">
 					<legend>导入结果</legend>
@@ -119,7 +118,7 @@
 				</fieldset>
 			</td>
 		</tr>
-	</table>
+	 --%></table>
 </body>
 <script type='text/javascript'>
 $(function () {
@@ -190,7 +189,7 @@ function upload() {
 		$.dialogBox.warn("请选择数据日期!");
 		return;
 	}
-	var obj = document.getElementById('indexCodeChoosed');
+	/* var obj = document.getElementById('indexCodeChoosed');
 	var indexCodeStr = "";
 	if(obj.options.length == 0){
 		$.dialogBox.warn("请选择考核指标!");
@@ -200,14 +199,13 @@ function upload() {
 			indexCodeStr = indexCodeStr + obj.options[i].value + "','";
 		}
 		indexCodeStr = indexCodeStr.substring(0, indexCodeStr.length-3);
-	}
+	} */
 	
 	$('#myform').action="/report/report-base!execute.action"
- 	$('#templateName').val('pfm_index_data_maul_per')
- 	$('#sqlKey').val('indexdatastf.getPfmTmQtyOrg');
+ 	//$('#templateName').val('pfm_index_data_maul_per');
+ 	//$('#sqlKey').val('indexdatastf.getPfmTmQtyOrg');
 	$('#recoreDateRep').val($('#recoreDate').val());
-	$('#indexCodeRep').val(indexCodeStr);
-	
+	//$('#indexCodeRep').val(indexCodeStr);
 	Utils.uploadFile(afterUpload, null, 'xls', 'true', 'true', 1);
 }
 
@@ -224,10 +222,10 @@ function afterUpload(uploadid, files) {
 	}
 }
 
-function importSuccess() {
+function importSuccess(result) {
 	$.dialogBox.info("导入数据成功", function() {
-		$('#myform').action="/report/report-base!execute.action"
-		$('#myform').submit();
+		//$('#myform').action="/report/report-base!execute.action"
+		//$('#myform').submit();
 	});
 }
 
@@ -327,7 +325,7 @@ function unitOrgName() {
 function setUnitIdName() {
 // 	var selectNode = this.iframe.contentWindow.manager.getSelected();
 // 	if(!selectNode) {
-// 		$.dialogBox.warn("未选中部门信息记录!");
+// 		$.dialogBox.warn("未选中国库信息记录!");
 // 		return;
 // 	} 
 // 	var unitId = selectNode.data.unitId;
@@ -335,7 +333,7 @@ function setUnitIdName() {
 	
 	var rows = this.iframe.contentWindow.select();
 	if (!rows) {
-		$.dialogBox.warn("未选中部门!");
+		$.dialogBox.warn("未选中国库!");
 		return;
 	}
 	

@@ -113,7 +113,14 @@ function queryData(data,e) {
 	mdata = Utils.convertObjectData('listSubIn',mdata);
 	var url = "${_CONTEXT_PATH}/sys/menu-grant!listSub.action";
 	Utils.ajaxSubmit(url,mdata,function (result){
-		sysmenu_mgr.append(result.rows, data);
+		var ndata = result.rows;
+		for (var x = 0 ; x< ndata.length ; x++) {
+			if (ndata[x].leafFlag == '0') {
+				ndata[x].children =[];
+				ndata[x].isexpand ='false';
+			}
+		}
+		sysmenu_mgr.append(ndata, data);
 		e.update();
 	});
 	return false;

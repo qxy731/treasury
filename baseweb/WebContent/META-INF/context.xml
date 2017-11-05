@@ -34,11 +34,11 @@
 		url="jdbc:oracle:thin:@localhost:1521:orcl"/>
 	-->
 	
-	<Resource name="CRMDB" auth="Container" type="javax.sql.DataSource"
+	<!-- <Resource name="CRMDB" auth="Container" type="javax.sql.DataSource"
 		username="root" password="admin"
 		driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/ocrmdb" maxActive="10" maxIdle="3"
-		maxWait="10000"/>
+		maxWait="10000"/> -->
 	<!-- 
 	<Resource name="CRMDB" type="javax.sql.DataSource"
 		factory="org.apache.commons.dbcp.BasicDataSourceFactory" username="ocrmdb"

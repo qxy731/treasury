@@ -13,11 +13,11 @@
 	</resultMap>
 	<select id="getSysRoleAssignByKey" parameterClass="com.soule.app.table.SysRoleAssignPo" 
 		resultMap="SysRoleAssignMap">
-		select * from SYS_ROLE_ASSIGN where ROLE_ID = #roleId# and STAFF_ID = #staffId#
+		select * from sys_role_assign where ROLE_ID = #roleId# and STAFF_ID = #staffId#
 	</select>
 
 	<select id="getSysRoleAssign" parameterClass="java.util.Map" resultMap="SysRoleAssignMap">
-		select * from SYS_ROLE_ASSIGN 
+		select * from sys_role_assign 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID = #roleId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="staffId">STAFF_ID = #staffId#</isNotEmpty>
@@ -31,7 +31,7 @@
 	</select>
 
 	<select id="getSysRoleAssignCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_ROLE_ASSIGN 
+		select count(1) as count from sys_role_assign 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="roleId">ROLE_ID = #roleId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="staffId">STAFF_ID = #staffId#</isNotEmpty>
@@ -45,7 +45,7 @@
 	</select>
 
 	<update id="updSysRoleAssign" parameterClass="com.soule.app.table.SysRoleAssignPo">
-		update SYS_ROLE_ASSIGN 
+		update sys_role_assign 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="roleId">ROLE_ID = #roleId#</isNotNull>
 			<isNotNull prepend="," property="staffId">STAFF_ID = #staffId#</isNotNull>
@@ -60,11 +60,11 @@
 	</update>
 
 	<insert id="saveSysRoleAssign" parameterClass="com.soule.app.table.SysRoleAssignPo">
-		insert into SYS_ROLE_ASSIGN (ROLE_ID,STAFF_ID,DEF_FLAG,REMARK,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
+		insert into sys_role_assign (ROLE_ID,STAFF_ID,DEF_FLAG,REMARK,CREATE_USER,CREATE_TIME,LAST_UPD_USER,LAST_UPD_TIME)
 		values(#roleId:VARCHAR# ,#staffId:VARCHAR# ,#defFlag:CHAR# ,#remark:VARCHAR# ,#createUser:VARCHAR# ,#createTime:TIMESTAMP# ,#lastUpdUser:VARCHAR# ,#lastUpdTime:TIMESTAMP# )
 	</insert>
 
 	<delete id="delSysRoleAssign" parameterClass="com.soule.app.table.SysRoleAssignPo">
-		delete from SYS_ROLE_ASSIGN where ROLE_ID = #roleId# and STAFF_ID = #staffId#
+		delete from sys_role_assign where ROLE_ID = #roleId# and STAFF_ID = #staffId#
 	</delete>
 </sqlMap>

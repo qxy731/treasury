@@ -7,15 +7,15 @@
 <title>批处理实例选择</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-html,body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) repeat;}
+/* html,body {background: url(${_CONTEXT_PATH}/images/${SkinType}/bg_${SkinType}.gif) repeat;} */
 </style>
 </head>
 <body>
 <n:page action='com.soule.app.sys.batch.BatchMonitorAction' initMethod="doInitInst"/>
-<table class='params' style='height:100px;'>
+<table style='height:100px;width:100%;' >
 	<tr>
 		<td>批处理运行实例号</td>
-		<td><n:select name="instId" id="instId" list='rows' listKey="instId" listValue="instId" validate='{required:true}' ></n:select></td>
+		<td><n:select name="instId" id="instId" list='rows' listKey="instId" listValue="instId" validate='{required:true}' cssStyle="width:200px;border:gray solid 1px;"></n:select></td>
 	</tr>
 </table>
 </body>

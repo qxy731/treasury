@@ -1,17 +1,15 @@
 package com.soule.base.service.logon;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 
+import com.soule.base.Md5PasswordEncoder;
 import com.soule.base.media.DbAccessException;
 import com.soule.base.service.DefaultService;
-import com.soule.base.service.IServerTime;
 import com.soule.base.service.ServiceException;
 import com.soule.comm.enu.YesNoFlag;
 import com.soule.comm.tools.AppUtils;
@@ -26,11 +24,9 @@ import com.soule.comm.tools.StringUtil;
 public class UserLogonDaoServiceImpl implements IUserLogonDaoService {
 
     private static Log logger = LogFactory.getLog(UserLogonDaoServiceImpl.class);
-    private PasswordEncoder passwordEncoder = new PlaintextPasswordEncoder();
+    private PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
     @Autowired
     private DefaultService service;
-    @Autowired
-    private IServerTime serverTime;
     @Autowired
     private ParamsUtil paramsUtil;
 
@@ -107,9 +103,7 @@ public class UserLogonDaoServiceImpl implements IUserLogonDaoService {
             String val = paramsUtil.getParamValueByParamIdAndRank("PWD_EXPIRE_DAYS", "SYS");
             expDays = StringUtil.parseInt(val, -1);
         }
-        Date today = serverTime.getSysTime();
         Calendar c = Calendar.getInstance();
-        c.setTime(today);
         c.add(Calendar.DAY_OF_MONTH, expDays);
         logonPo.setPwdExpireTime(c.getTime());
         try {

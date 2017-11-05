@@ -4,11 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.servlet.ServletOutputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.soule.base.action.BaseAction;
+import com.soule.base.service.IDefaultService;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
 import com.soule.comm.StringUtils;
@@ -31,12 +33,14 @@ import com.soule.data.service.LoadFileDataManager;
 @Namespace("/pub")
 public class DataImportAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
-	private final static Log logger = LogFactory.getLog(DataImportAction.class);
+	//private final static Log logger = LogFactory.getLog(DataImportAction.class);
 	private static final String STANDARD_USAGE = "Usage:java [-DRUNMODE=NEW/GOON] PrimeEntrance batchId[:instId] [yyyy-MM-dd]";
     @Autowired
     private IDataImportService dataImportService;
     @Autowired
     private AppUtils appUtils;
+    @Autowired
+    private IDefaultService sDefault;
 
     private DataImportQueryIn queryIn;
     private DataImportErrorDetailIn errorDetailIn; 
@@ -52,6 +56,8 @@ public class DataImportAction extends BaseAction {
     private String batchDate;
     private String instanceId;
     
+    private String bizDateType;
+    
     public String query() {
         DataImportQueryIn in = queryIn;
         try {
@@ -59,15 +65,14 @@ public class DataImportAction extends BaseAction {
             in.getInputHead().setPageSize(this.pagesize);
             DataImportQueryOut result = dataImportService.query(in);
             ServiceResult head = result.getResultHead();
-            // TODO
             rows = result.getDatalist();
             total = head.getTotal();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("testrep", "源数据文件查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("testrep", "源数据文件查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.SUCCESS);
         } catch (Exception e) {
         	try {
-				appUtils.saveAuditLog("testrep", "源数据文件查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("testrep", "源数据文件查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				e1.printStackTrace();
 			}
@@ -83,10 +88,10 @@ public class DataImportAction extends BaseAction {
             ServiceResult head = result.getResultHead();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("testrep", "源数据文件删除", BizType.PUBM, FunctionType.DELETE, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("testrep", "源数据文件删除", BizType.TARM, FunctionType.DELETE, ExecuteResult.SUCCESS);
         } catch (Exception e) {
         	try {
-				appUtils.saveAuditLog("testrep", "源数据文件删除", BizType.PUBM, FunctionType.DELETE, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("testrep", "源数据文件删除", BizType.TARM, FunctionType.DELETE, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				e1.printStackTrace();
 			}
@@ -107,10 +112,10 @@ public class DataImportAction extends BaseAction {
             this.total = head.getTotal();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
-            appUtils.saveAuditLog("testrep", "源数据文件错误信息查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.SUCCESS);
+            appUtils.saveAuditLog("testrep", "源数据文件错误信息查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.SUCCESS);
         } catch (Exception e) {
         	try {
-				appUtils.saveAuditLog("testrep", "源数据文件错误信息查询", BizType.PUBM, FunctionType.QUERY, ExecuteResult.FAIL);
+				appUtils.saveAuditLog("testrep", "源数据文件错误信息查询", BizType.TARM, FunctionType.QUERY, ExecuteResult.FAIL);
 			} catch (ServiceException e1) {
 				e1.printStackTrace();
 			}
@@ -178,7 +183,11 @@ public class DataImportAction extends BaseAction {
     public String batchTargetData(){
     	try{
     		String batchId = "bat_flow";
-	    	String batchDate = "2017-09-30";
+    		request.getAttribute("bizDateType");
+    		String batchDate = (String)sDefault.getIbatisMediator().findById("Common.getStrCurrDate", null);
+    		if("2".equals(bizDateType)){
+    			batchDate = getNextMonthEndDate(batchDate);
+    		}
     		if (StringUtils.isEmpty(batchId) || StringUtils.isEmpty(batchDate)){
                 System.out.println(STANDARD_USAGE);
                 this.retCode = "E0000";
@@ -188,7 +197,8 @@ public class DataImportAction extends BaseAction {
 	    	AbstractApplicationContext cxt = (AbstractApplicationContext)ContextUtil.getApplicationContext();
 	        PrimeEntrance prime = new PrimeEntrance(cxt);
 	        prime.doBatch(batchId, batchDate, prime);
-	    	this.retCode = "I0000";
+	        sDefault.getIbatisMediator().update("Common.updateCurrDate",batchDate);
+	        this.retCode = "I0000";
     		this.retMsg = "操作成功。";
     	}catch(Exception e){
     		e.printStackTrace();
@@ -196,6 +206,27 @@ public class DataImportAction extends BaseAction {
     		this.retMsg = "操作失败。";
     	}
     	return JSON;
+    }
+    
+    /**
+     * 获取任意时间下个月的最后一天
+     * 描述:<描述函数实现的功能>.
+     * @param bizDate
+     * @return
+     */
+    private static String getNextMonthEndDate(String bizDate) {
+        SimpleDateFormat dft = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance();
+            if(bizDate!=null && !"".equals(bizDate)){
+                try {
+					calendar.setTime(dft.parse(bizDate));
+				} catch (ParseException e) {
+					//e.printStackTrace();
+				}
+            }
+        calendar.add(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return dft.format(calendar.getTime());
     }
 
     @JSON(serialize = false)
@@ -286,6 +317,15 @@ public class DataImportAction extends BaseAction {
 
 	public void setInstanceId(String instanceId) {
 		this.instanceId = instanceId;
+	}
+	
+
+	public String getBizDateType() {
+		return bizDateType;
+	}
+
+	public void setBizDateType(String bizDateType) {
+		this.bizDateType = bizDateType;
 	}
 
 	public static void main(String[] args){

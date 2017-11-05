@@ -36,6 +36,7 @@ body {
 				Utils.ajaxSubmit(url, data, function(result) {
 
 					$.dialogBox.info(result.retMsg, function() {
+						$.dialogBox.opener.query();
 						$.dialogBox.close();
 					});
 				});

@@ -9,14 +9,14 @@
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
 .div_bottom {margin-top: 10px}
-body {
+/* body {
 	margin-top: 10px;margin-right: 10px
-}
+} */
 </style>
 </head>
 <body>
 <n:enums keys="log_biz_type,log_func_type,log_exec_result"/>
-<table class='content'>
+<table width="100%">
 <tr><td>
 <fieldset class="queryBox"><legend>日志明细</legend>
 <table class='params'>

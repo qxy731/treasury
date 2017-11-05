@@ -110,8 +110,8 @@ input[type=button] {width:80px;}
 			sortName: 'funcId',
 			width: '100%',
 			height: '250px',
-			onError: function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		//按钮初始化

@@ -15,14 +15,14 @@
 	</resultMap>
 	<select id="getSysParamsByKey" parameterClass="com.soule.app.sys.params.ParamsParamsPo" 
 		resultMap="SysParamsMap">
-		select * from SYS_PARAMS where PARA_ID=#paraId#
+		select * from sys_params where PARA_ID=#paraId#
 	</select>
 	<select id="getAllSysParams"  resultMap="SysParamsMap">
-		select * from SYS_PARAMS
+		select * from sys_params
 	</select>
 	
 	<select id="getSysParams" parameterClass="com.soule.app.sys.params.ParamsParamsPo" resultMap="SysParamsMap">
-		select * from SYS_PARAMS 
+		select * from sys_params 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="paraId">PARA_ID like '%$paraId$%'</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="paraRank">PARA_RANK = #paraRank#</isNotEmpty>
@@ -32,7 +32,7 @@
 	</select>
 
 	<update id="updSysParams" parameterClass="com.soule.app.sys.params.ParamsParamsPo">
-		update SYS_PARAMS 
+		update sys_params 
 		<dynamic prepend="set">
 			<isNotNull prepend="," property="paraRank">PARA_RANK = #paraRank#</isNotNull>
 			<isNotNull prepend="," property="paraValue">PARA_VALUE = #paraValue#</isNotNull>
@@ -43,12 +43,12 @@
 	</update>
 
 	<insert id="saveSysParams" parameterClass="com.soule.app.sys.params.ParamsParamsPo">
-		insert into SYS_PARAMS (PARA_ID,PARA_RANK,PARA_VALUE,REMARK)
+		insert into sys_params (PARA_ID,PARA_RANK,PARA_VALUE,REMARK)
 		values(#paraId:VARCHAR# ,#paraRank:VARCHAR# ,#paraValue:VARCHAR# ,#remark:VARCHAR# )
 	</insert>
 
 	<delete id="delSysParams" parameterClass="java.lang.String">
-		delete from SYS_PARAMS 
+		delete from sys_params 
 		where
 			PARA_ID = #paraId#
 	</delete>

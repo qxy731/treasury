@@ -14,7 +14,7 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.SqlMapClientCallback;
 
-import com.soule.crm.license.LicenseMgr;
+/*import com.soule.crm.license.LicenseMgr;*/
 import com.ibatis.sqlmap.client.SqlMapExecutor;
 import com.soule.MsgConstants;
 import com.soule.base.media.DbAccessException;
@@ -100,7 +100,7 @@ public class DefaultService implements IDefaultService {
     }
 
     //@Before("execution(* com.soule..query*(..)) || execution(* com.soule..insert*(..))")
-    public void check(JoinPoint jp) throws ServiceException{
+    /*public void check(JoinPoint jp) throws ServiceException{
         try {
         	Object[] args = jp.getArgs();
             if ( !LicenseMgr.getInstance().isValid()) {
@@ -114,14 +114,14 @@ public class DefaultService implements IDefaultService {
             logger.error("" +e.getMessage());
             throw new ServiceException(MsgConstants.E0016,e.getMessage());
         }
-    }
+    }*/
 
     /**
      * 所有服务实现类方法运行前
      * @throws ServiceException
      */
     //@Before("execution(* com.soule..*ServiceImpl.*(..))")
-    public void _copyInParams() throws ServiceException{
+   /* public void _copyInParams() throws ServiceException{
         try {
             if ( !LicenseMgr.getInstance().isValid()) {
                 logger.info(LicenseMgr.getInstance().getErrorInfo());
@@ -134,13 +134,13 @@ public class DefaultService implements IDefaultService {
             logger.error("" +e.getMessage());
             throw new ServiceException(MsgConstants.E0016,e.getMessage());
         }
-    }
+    }*/
     /**
      * 所有服务实现类方法运行后
      * @throws ServiceException
      */
     //@After("execution(* com.soule..*ServiceImpl.*(..))")
-    public void _copyOutParams() throws ServiceException{
+    /*public void _copyOutParams() throws ServiceException{
         try {
             if ( !LicenseMgr.getInstance().isValid()) {
                 logger.info(LicenseMgr.getInstance().getErrorInfo());
@@ -153,7 +153,7 @@ public class DefaultService implements IDefaultService {
             logger.error("" +e.getMessage());
             throw new ServiceException(MsgConstants.E0016,e.getMessage());
         }
-    }
+    }*/
 
 	@Override
 	public int executeBatch(final String namespace,final List paramObjects) throws ServiceException {

@@ -6,18 +6,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新增部门</title>
+<title>新增国库</title>
 <jsp:include page="/comm.jsp"></jsp:include>
 <style type="text/css">
-body {
+/* body {
 	margin: 20px;
 	width: 90%;
 	height: 80%;
-}
+} */
 
-.div_btn {
+/* .div_btn {
 	margin-top: 10px
-}
+} */
 </style>
 </head>
 <body>
@@ -25,23 +25,23 @@ body {
 	<form id="insertForm">
 		<table class='s1-params'>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>&nbsp;部门编码:</td>
+				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库编码:</td>
 				<td nowrap="nowrap"><input id="unitId" type="text"
 					name="unitId" value="" /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>&nbsp;部门名称:</td>
+				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库名称:</td>
 				<td nowrap="nowrap"><input id="unitName" type="text"
 					name="unitName" value="" /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>&nbsp;上级部门:</td>
+				<td nowrap="nowrap"><font color="red">*</font>&nbsp;上级国库:</td>
 				<td nowrap="nowrap"><input type="text" id="superUnitName"
 					name="superUnitName" readonly="readonly" onclick="openSelectUnit()"
 					class='unit_select' /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>&nbsp;部门级别:</td>
+				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库级别:</td>
 				<td nowrap="nowrap"><input id="unitLevel" type="text"
 					name="unitLevel" value="" readonly="readonly" /></td>
 			</tr>
@@ -66,12 +66,12 @@ body {
 			
 		<!--  结束 -->
 			<tr>
-				<td nowrap="nowrap">部门地址:</td>
+				<td nowrap="nowrap">国库地址:</td>
 				<td nowrap="nowrap"><input id="unitAddress" type="text"
 					name="unitAddress" value="" style="width: 300px;" /></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><font color="red">*</font>&nbsp;部门状态:</td>
+				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库状态:</td>
 				<td nowrap="nowrap"><n:select codetype="valid_type"
 						id="unitStatus" name='unitStatus' emptyOption="false"
 						disabled="false" cssStyle="width:152px;"></n:select></td>
@@ -124,6 +124,7 @@ body {
 					var url = "${_CONTEXT_PATH}/sys/unit!addUnitModel.action";
 					Utils.ajaxSubmit(url, params, function(resData) {
 						$.dialogBox.info(resData.retMsg, function() {
+							$.dialogBox.opener.query();
 							$.dialogBox.close();
 						});
 					});
@@ -140,19 +141,19 @@ body {
 			var unitKind = $('#unitKind').val();
 			var retMsg = "";
 			if ($.trim(unitId) == "") {
-				retMsg = retMsg + "【部门编码】不能为空；<br/>";
+				retMsg = retMsg + "【国库编码】不能为空；<br/>";
 				flag = false;
 			}
 			if ($.trim(unitName) == "") {
-				retMsg = retMsg + "【部门名称】不能为空；<br/>";
+				retMsg = retMsg + "【国库名称】不能为空；<br/>";
 				flag = false;
 			}
-			if ($.trim(superUnitId) == "") {
-				retMsg = retMsg + "【上级部门】不能为空；<br/>";
+			if ($.trim(unitId) != "9999999999"&&$.trim(superUnitId) == "") {
+				retMsg = retMsg + "【上级国库】不能为空；<br/>";
 				flag = false;
 			}
 			if ($.trim(unitLevel) == "") {
-				retMsg = retMsg + "【部门级别】不能为空；<br/>";
+				retMsg = retMsg + "【国库级别】不能为空；<br/>";
 				flag = false;
 			}
 			
@@ -161,7 +162,7 @@ body {
 			}
 			return flag;
 		}
-		//选择部门
+		//选择国库
 		function openSelectUnit() {
 			Utils.openSelectUnit(null, '', setUnitIdAndName);
 		}

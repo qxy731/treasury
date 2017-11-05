@@ -34,7 +34,7 @@
 								onchange="queryByRole()" emptyOption="true" /></td>
 					</tr>
 					<tr>
-						<td>执行部门</td>
+						<td>执行国库</td>
 						<td><input type="hidden" id="operUnitid" name="operUnitid" /><input
 							id="operUnitname" name="operUnitname" readonly="readonly"
 							type='text' class="unit_select" /></td>
@@ -66,7 +66,7 @@
 
 					</tr>
 					<tr>
-						<td>所属部门</td>
+						<td>所属国库</td>
 						<td><input type='hidden' id='unitId' name='unitId' /> <input
 							id="unitname" name="unitname" readonly="readonly" type='text'
 							class="unit_select" /></td>
@@ -125,7 +125,7 @@
 				align : 'left',
 				width : '33%'
 			}, {
-				display : '操作部门',
+				display : '操作国库',
 				name : 'operUnitName',
 				align : 'left',
 				width : '34%'
@@ -137,8 +137,8 @@
 			pageSize : 20,
 			sortName : 'staffId',
 			height : '90%',
-			onError : function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#stafflist").ligerGrid({
@@ -153,12 +153,12 @@
 				align : 'left',
 				width : '26%'
 			}, {
-				display : '所属部门编号',
+				display : '所属国库编号',
 				name : 'unitId',
 				align : 'left',
 				width : '26%'
 			}, {
-				display : '所属部门名称',
+				display : '所属国库名称',
 				name : 'unitName',
 				align : 'left',
 				width : '26%'
@@ -170,8 +170,8 @@
 			//],
 			sortName : 'staffId',
 			height : '90%',
-			onError : function() {
-				$.dialogBox.error("查询数据失败");
+			onError: function(e) {
+				Utils.toIndex(e);
 			}
 		});
 		$("#queryStaff").bind('click', queryStaff);
@@ -248,7 +248,7 @@
 			return;
 		}
 		if (!unitid) {
-			Utils.alert("请先选择一个部门");
+			Utils.alert("请先选择一个国库");
 			return;
 		}
 		var rows1 = grid1.getCheckedRows();

@@ -95,7 +95,7 @@ body{
 			item.value ='';
 		});
 	}
-	//选择部门
+	//选择国库
 	function openSelectUnit(){
 		Utils.openSelectUnit(null,'',setUnitIdName);
 	}
@@ -121,7 +121,7 @@ body{
 			<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
 			</td>
 			<td></td><td></td>
-			<%-- <td>所属部门</td>
+			<%-- <td>所属国库</td>
 			<td>
 				<input type='hidden' id='unitId' name='queryIn.unitId'  value="${logUserInfo.operUnitId}"/>
 				<input id="unitName" type='text' name="queryIn.unitName" readonly="readonly" onclick="openSelectUnit()" class="unit_select" value="${logUserInfo.operUnitName}"/>

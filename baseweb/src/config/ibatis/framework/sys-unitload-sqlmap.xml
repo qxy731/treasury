@@ -5,7 +5,7 @@
 
     <select id="queryAllUnits" parameterClass="java.util.Map"
 		resultClass="com.soule.app.sys.unit.UnitPo">
-		SELECT UNIT_ID as unitId, UNIT_NAME as unitName FROM SYS_UNIT
+		SELECT UNIT_ID as unitId, UNIT_NAME as unitName FROM sys_unit
     </select>
 
 </sqlMap>

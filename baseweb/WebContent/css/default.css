@@ -621,6 +621,14 @@ fieldset legend {
 	background: #fff url('./../images/zuzhi.png') no-repeat right top;
 }
 
+.model_select {
+	width: 149px;
+	height: 22px;
+	border: 1px solid #b3deff;
+	vertical-align: bottom;
+	background: #fff url('./../images/chang.png') no-repeat right top;
+}
+
 .unit_select input {
 	border: none;
 	width: 123px;

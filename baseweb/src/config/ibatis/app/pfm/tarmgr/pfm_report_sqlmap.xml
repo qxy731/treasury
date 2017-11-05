@@ -49,7 +49,7 @@
 		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00004' THEN t.TAR_VALUE END),0)/10000 AS BANK_SPECIAL_INFLOW,
 		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00034' THEN t.TAR_VALUE END),0)/10000 AS BANK_ALL_OUTFLOW,
 		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00035' THEN t.TAR_VALUE END),0)/10000 AS BANK_SPECIAL_OUTFLOW,
-		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00067' THEN t.TAR_VALUE END),0)/10000 AS BANK_ALL_NETFLOW
+		IFNULL(SUM(CASE WHEN t.TAR_CODE='TE_00204' THEN t.TAR_VALUE END),0)/10000 AS BANK_ALL_NETFLOW
 		FROM (
 		SELECT
 		c.BANK_ID CUST_ORG_NO,
@@ -61,9 +61,9 @@
 		q.TAR_VALUE
 		FROM  pfm_financial_institution c 
 		LEFT JOIN pfm_tm_qty_financial_institution q ON q.BANK_ID = c.BANK_ID
-				 AND q.TAR_CODE IN ('TE_00003', 'TE_00004', 'TE_00034', 'TE_00035', 'TE_00067' )
+				 AND q.TAR_CODE IN ('TE_00003', 'TE_00004', 'TE_00034', 'TE_00035', 'TE_00204' )
 				 AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
-		LEFT JOIN SYS_UNIT u ON u.UNIT_ID = q.ORG_ID
+		LEFT JOIN sys_unit u ON u.UNIT_ID = q.ORG_ID
 		WHERE 1=1
 		AND c.BANK_ID in ('100000','100001','100002','100003','100004','100005','100007','100018','100028','100030','100050','100055')
 	)t
@@ -76,41 +76,33 @@
 			d.TAR_CODE,
 			d.TAR_NAME,
 			IFNULL(q.TAR_VALUE,0)/10000 TAR_VALUE
-			FROM  PFM_TM_QTY_DEF d 
-			LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+			FROM  pfm_tm_qty_def d 
+			LEFT JOIN pfm_tm_qty_org q ON d.TAR_CODE = q.TAR_CODE
 			AND q.ORG_ID = #unitId# and q.TAR_DATE =STR_TO_DATE(#dataDate#,'%Y-%m-%d')
-			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00005',
-			'TE_00014',
-			'TE_00015',
+			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN (
+			'TE_00002',
+			'TE_00005',
 			'TE_00006',
 			'TE_00007',
 			'TE_00008',
 			'TE_00009',
 			'TE_00010',
+			'TE_00014',
+			'TE_00015',
+			'TE_00033',
 			'TE_00036',
-			'TE_00046',
-			'TE_00047',
-			'TE_00048',
 			'TE_00037',
-			'TE_00049',
-			'TE_00050',
 			'TE_00038',
 			'TE_00039',
 			'TE_00040',
 			'TE_00041',
 			'TE_00042',
-			'TE_00104',
-			'TE_00105',
-			'TE_00106',
-			'TE_00107',
-			'TE_00108',
-			'TE_00109',
-			'TE_00011',
-			'TE_00012',
-			'TE_00013',
-			'TE_00043',
-			'TE_00044',
-			'TE_00045',
+			'TE_00046',
+			'TE_00047',
+			'TE_00048',
+			'TE_00049',
+			'TE_00050',
+			'TE_00067',
 			'TE_00104',
 			'TE_00105',
 			'TE_00106',
@@ -119,7 +111,8 @@
 			'TE_00109',
 			'TE_00114',
 			'TE_00115',
-			'TE_00116')
+			'TE_00116'
+			)
 	</select>
 	
 	<select id="getTreasuryFundsSourceList" parameterClass="BankFundsFlowReportQueryIn" resultMap="ReportTargetMap">
@@ -127,8 +120,8 @@
 					DISTINCT d.TAR_CODE,
 					d.TAR_NAME,
 					IFNULL(q.TAR_VALUE,0)/10000 TAR_VALUE
-					FROM  PFM_TM_QTY_DEF d 
-					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+					FROM  pfm_tm_qty_def d 
+					LEFT JOIN  pfm_tm_qty_org q ON d.TAR_CODE = q.TAR_CODE
 					AND q.ORG_ID = #unitId# and q.TAR_DATE =STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00011',
 				'TE_00012',
@@ -150,8 +143,8 @@
 					d.TAR_NAME,
 					case when q.TAR_VALUE is null then 0 else q.tar_value/10000 end TAR_VALUE
 				FROM
-					PFM_TM_QTY_DEF d
-				LEFT JOIN PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE 
+					pfm_tm_qty_def d
+				LEFT JOIN pfm_tm_qty_org q ON d.TAR_CODE = q.TAR_CODE 
 					AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 				WHERE
 					d.TAR_STATUS = '1'
@@ -253,8 +246,8 @@
 					d.TAR_CODE,
 					d.TAR_NAME,
 					case when q.tar_code='TE_00069' then IfNULL(q.TAR_VALUE,0)/10000 ELSE IfNULL(q.TAR_VALUE,0) END AS TAR_VALUE
-					FROM  PFM_TM_QTY_DEF d 
-					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+					FROM  pfm_tm_qty_def d 
+					LEFT JOIN  pfm_tm_qty_org q ON d.TAR_CODE = q.TAR_CODE
 					AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 			WHERE d.TAR_STATUS = '1' and d.TAR_CODE IN ('TE_00069',	
 					'TE_00070',	
@@ -321,8 +314,8 @@
 					d.TAR_CODE,
 					d.TAR_NAME,
 					q.TAR_VALUE
-					FROM  PFM_TM_QTY_DEF d 
-					LEFT JOIN  PFM_TM_QTY_ORG q ON d.TAR_CODE = q.TAR_CODE
+					FROM  pfm_tm_qty_def d 
+					LEFT JOIN  pfm_tm_qty_org q ON d.TAR_CODE = q.TAR_CODE
 					WHERE d.TAR_STATUS = '1' AND q.ORG_ID = #unitId# and q.TAR_DATE = STR_TO_DATE(#dataDate#,'%Y-%m-%d')
 					and d.TAR_CODE IN ('TE_00069',	
 							'TE_00070',	

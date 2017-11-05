@@ -7,13 +7,13 @@
 	</resultMap>
 	<select id="getSysPosiAssignByKey" parameterClass="com.soule.app.table.SysPosiAssignPo" 
 		resultMap="SysPosiAssignMap">
-		select * from SYS_POSI_ASSIGN where 
+		select * from sys_posi_assign where 
 			POSI_ID = #posiId#
 			AND STAFF_ID = #staffId#
 	</select>
 
 	<select id="getSysPosiAssign" parameterClass="java.util.Map" resultMap="SysPosiAssignMap">
-		select * from SYS_POSI_ASSIGN 
+		select * from sys_posi_assign 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="staffId">STAFF_ID = #staffId#</isNotEmpty>
@@ -21,7 +21,7 @@
 	</select>
 
 	<select id="getSysPosiAssignCount" parameterClass="java.util.Map" resultClass="java.lang.Long">
-		select count(1) as count from SYS_POSI_ASSIGN 
+		select count(1) as count from sys_posi_assign 
 		<dynamic prepend="where">
 			<isNotEmpty prepend=" AND " property="posiId">POSI_ID = #posiId#</isNotEmpty>
 			<isNotEmpty prepend=" AND " property="staffId">STAFF_ID = #staffId#</isNotEmpty>
@@ -29,7 +29,7 @@
 	</select>
 
 	<update id="updSysPosiAssign" parameterClass="com.soule.app.table.SysPosiAssignPo">
-		update SYS_POSI_ASSIGN 
+		update sys_posi_assign 
 		<dynamic prepend="set">
 		</dynamic>
 		where 
@@ -38,12 +38,12 @@
 	</update>
 
 	<insert id="saveSysPosiAssign" parameterClass="com.soule.app.table.SysPosiAssignPo">
-		insert into SYS_POSI_ASSIGN (POSI_ID,STAFF_ID)
+		insert into sys_posi_assign (POSI_ID,STAFF_ID)
 		values(#posiId:VARCHAR# ,#staffId:VARCHAR# )
 	</insert>
 
 	<delete id="delSysPosiAssign" parameterClass="com.soule.app.table.SysPosiAssignPo">
-		delete from SYS_POSI_ASSIGN where 
+		delete from sys_posi_assign where 
 			POSI_ID = #posiId#
 			AND STAFF_ID = #staffId#
 	</delete>

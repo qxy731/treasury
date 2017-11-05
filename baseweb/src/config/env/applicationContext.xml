@@ -17,13 +17,11 @@
 		Tomcat环境下配置jndi-name值为java:/comp/env/CRMDB。
 		<jee:jndi-lookup id="dataSource" jndi-name="java:/comp/env/CRMDB" />
 	-->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-			destroy-method="close">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/treasury" />
-		<property name="user" value="root" />
-		<property name="password" value="root" />
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${JDBC.DRIVER}" />
+		<property name="jdbcUrl" value="${JDBC.URL}" />
+		<property name="user" value="${JDBC.USER}" />
+		<property name="password" value="${JDBC.PASSWORD}" />
 		<property name="autoCommitOnClose" value="true" />
 		<property name="checkoutTimeout" value="5000" />
 		<property name="initialPoolSize" value="20" />
@@ -33,35 +31,7 @@
 		<property name="acquireIncrement" value="5" />
 		<property name="maxIdleTimeExcessConnections" value="1800" />
 	</bean>
-	<!--
-		
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-			destroy-method="close">
-		<property name="driverClass" value="org.h2.Driver" />
-		<property name="jdbcUrl"
-			value="jdbc:h2:work/webapp/db/crmdb;SCHEMA=PUBLIC;MODE=Oracle" />
-		<property name="user" value="sa" />
-		<property name="password" value="" />
-		<property name="autoCommitOnClose" value="true" />
-		<property name="checkoutTimeout" value="5000" />
-		<property name="initialPoolSize" value="2" />
-		<property name="minPoolSize" value="2" />
-		<property name="maxPoolSize" value="10" />
-		<property name="maxIdleTime" value="25200" />
-		<property name="acquireIncrement" value="5" />
-		<property name="maxIdleTimeExcessConnections" value="1800" />
-	</bean>
 	
-		<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-	</bean>
-	-->
-
-
-
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocations">
 			<!-- sql map配置文件的入口文件，如果添加了一个sqlmap文件，只要在下面的入口文件中加入相应的选项即可 -->
@@ -96,6 +66,14 @@
 		</property>
 		<property name="sqlExecutor">
 			<ref bean="sqlExecutor" />
+		</property>
+	</bean>
+	<bean id="defaultService" class="com.soule.base.service.DefaultService">
+		<property name="ibatisMediator">
+			<ref bean="ibatisMediator" />
+		</property>
+		<property name="jdbcMediator">
+			<ref bean="jdbcMediator" />
 		</property>
 	</bean>
 	<bean id="sqlExecutor" class="com.soule.base.dialect.IBatisSqlExecutor">

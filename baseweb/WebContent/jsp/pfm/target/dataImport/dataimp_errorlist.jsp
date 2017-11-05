@@ -38,7 +38,10 @@ $(function () {
 		pageSize:10,
 		height:'100%',
 		heightDiff:-20,
-		data:tabledata
+		data:tabledata,
+		onError: function(e) {
+			Utils.toIndex(e);
+		}
 	});
 });
 

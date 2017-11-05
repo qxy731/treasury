@@ -41,7 +41,7 @@
 	function validate() {
 		return $('#insertForm').valid();
 	}
-	//选择部门
+	//选择国库
 	function openSelectUnit() {
 		Utils.openSelectUnit(null, '', setUnitIdName);
 	}
@@ -77,7 +77,7 @@
 				<td><input type='text' id='staffLevel'
 					name='modifyStaff.staffLevel'
 					value="${updateIn.modifyStaff.staffLevel}" /></td>
-				<td align="right"><font color="red">*</font>所属部门</td>
+				<td align="right"><font color="red">*</font>所属国库</td>
 				<td><input type='hidden' id='ownerUnitid'
 					name='modifyStaff.ownerUnitid' value="${updateIn.modifyStaff.ownerUnitid}" /><input id="unitName"
 					name="unitName" readonly="readonly"
@@ -95,7 +95,7 @@
 				<td>学历</td>
 				<td><n:select codetype="education_type" id='education' name='modifyStaff.education' value="${updateIn.modifyStaff.education}"
 						emptyOption="true" ></n:select></td>
-				<td>属性</td>
+				<td>专兼职</td>
 				<td><n:select codetype="partime_job_type" id='partTimeJob' name='modifyStaff.partTimeJob'
 						emptyOption="true" value="${updateIn.modifyStaff.partTimeJob}"></n:select></td> 
 			</tr>

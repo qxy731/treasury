@@ -2,13 +2,11 @@ package com.soule.base.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 import com.soule.app.sys.userinfo.UserInfoPositionPo;
 import com.soule.base.po.BizLinePo;
@@ -35,8 +33,6 @@ public class LogonInfoHolder implements UserDetails, ILogonUserInfo {
     private String operUnitId;
     private String operUnitName;
     private String ipAddress;
-    @Resource
-    private IServerTime serverTime;
 
     /* (non-Javadoc)
      * @see com.soule.comm.service.ILogonUserInfo#getUser()
@@ -77,7 +73,7 @@ public class LogonInfoHolder implements UserDetails, ILogonUserInfo {
 
     public boolean isAccountNonExpired() {
         if (logonInfo.getAccExpireTime() != null) {
-            return logonInfo.getAccExpireTime().after(serverTime.getSysTime());
+            return logonInfo.getAccExpireTime().after(new Date());
         }
         return true;
     }

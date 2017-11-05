@@ -17,8 +17,14 @@ public class UUIDGenerator {
 
     static {
         try {
+        	try{
             addr = InetAddress.getLocalHost().getAddress();
             addrBytes = InetAddress.getLocalHost().getAddress();
+        	}catch(Exception e1){}
+        	if(addr==null||addrBytes==null){
+        		addr = "127.0.0.1".getBytes();
+        		addrBytes = addr;
+        	}
             StringBuffer buffer = new StringBuffer(8);
             buffer.append(toHex(toInt(addr), 8));
             midValueStatic = buffer.toString();

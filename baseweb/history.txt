@@ -1,4 +1,0 @@
-2013 更新
-1. 使用maven管理
-2. spring2.5.6 --》 spring 3.0
-3. acegi 1.0.7--》 spring-security 3
