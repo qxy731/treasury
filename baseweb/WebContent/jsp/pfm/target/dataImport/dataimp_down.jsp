@@ -51,13 +51,13 @@ $(function () {
 
 function downFile() {
 	var fileType = $("#fileType").val();
-	var fname = $("#fileType").find('option:selected').text();
+	/* var fname = $("#fileType").find('option:selected').text();
 	if(fileType==""||fileType==null||fname==""||fname==null){
 		$.dialogBox.info("下载模板前请先在“文件类型”选择对应的值！");
 	    return; 
-	}
-    fname = encodeURIComponent(encodeURIComponent(fname)); 
-    var url = '${_CONTEXT_PATH}/pub/data-import!downTemplate.action?templateName='+fname;
+	} */
+   // fname = encodeURIComponent(encodeURIComponent(fname)); 
+    var url = '${_CONTEXT_PATH}/pub/data-import!downTemplate.action?templateName='+fileType;
     window.location = url;
 }
 

@@ -108,7 +108,7 @@ public class FileUploadDownServiceImpl implements IFileUploadDownService {
      * @return
      */
     private String getFileRootPath(Date createTime) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String subDir = sdf.format(createTime);
         return ParamConstants.UPLOAD_ROOT + "/" + subDir;
     }

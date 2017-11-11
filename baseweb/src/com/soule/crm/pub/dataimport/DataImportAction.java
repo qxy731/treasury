@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
@@ -16,7 +17,9 @@ import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 
+import com.soule.app.sys.enums.EnumItemPo;
 import com.soule.base.action.BaseAction;
+import com.soule.base.media.DbAccessException;
 import com.soule.base.service.IDefaultService;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
@@ -128,10 +131,25 @@ public class DataImportAction extends BaseAction {
 		try {
 			String templateName = request.getParameter("templateName");
 			templateName = java.net.URLDecoder.decode(templateName, "utf-8");
+			String fileName="";
+			EnumItemPo po = new EnumItemPo();
+			try {
+				po.setEnumId("uploadfile_type");
+				po.setItemId(templateName);
+				EnumItemPo po1 =  (EnumItemPo)sDefault.getIbatisMediator().findById("enum.getSysEnumItemByKey", po);
+				fileName = po1.getItemValue();
+				String[] str = fileName.split("\\.");
+				templateName += "."+str[1];
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				return ;
+			}
+			
+			
 	        response.reset();
-	        response.setContentType("text/plain;charset=utf-8");
+	        response.setContentType("text/plain;charset=UTF-8");
 	        response.setHeader("Content-Disposition", "attachment;filename="
-	            + new String(templateName.getBytes(),"ISO8859-1"));
+	            + new String(fileName.getBytes("GBK"),"ISO8859-1"));
 	        ServletOutputStream out = null;
 	        InputStream is = null;
 	        BufferedInputStream bis = null;
