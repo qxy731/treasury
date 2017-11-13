@@ -3,7 +3,7 @@
 <link href="${_CONTEXT_PATH}/jwebui/procbar/procbar.css" rel="stylesheet" />
 <link href="${_CONTEXT_PATH}/jwebui/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
 
-<script src="${_CONTEXT_PATH}/jwebui/jquery/jquery-1.12.4.min.js" type="text/javascript" ></script>
+<script src="${_CONTEXT_PATH}/jwebui/jquery/jquery1.7.min.js" type="text/javascript" ></script>
 <script src="${_CONTEXT_PATH}/jwebui/jquery/jquery.cookie.js" type="text/javascript" ></script>
 <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/core/base.js"  type="text/javascript"></script> 
 <%-- <script src="${_CONTEXT_PATH}/jwebui/ligerUI/js/liger.all.js" type="text/javascript"></script> --%>
