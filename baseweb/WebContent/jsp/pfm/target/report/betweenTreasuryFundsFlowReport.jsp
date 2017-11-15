@@ -35,6 +35,12 @@ body{
 	});
 	
 	function validate(){
+		var dataDate = $("#dataDate").val();
+		if(null==dataDate || dataDate==""){
+			alert("数据日期为必填项");
+			return false;
+		} 
+		
 		if($("#myform").valid()){
 			return true;
 		}
@@ -44,6 +50,7 @@ body{
 	function query() {
 		if(validate()){
 			var url = "${_CONTEXT_PATH}/report/bank-funds-flow-report!query3.action";
+			alert("admin");
 			var data = $('#myform').serialize();
 			Utils.ajaxSubmit(url, data, function(result) {
 				$.dialogBox.info(result.retMsg, function() {
