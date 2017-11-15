@@ -28,7 +28,7 @@
 				<legend>模型基础信息</legend>
 				<table class='params'>
 					<tr>
-						<td>模型名称</td>
+						<td><font color="red">*</font>模型名称</td>
 						<td><input id="modelName" name="modelName" type='text' /></td>
 					</tr>
 					<tr>
@@ -190,6 +190,11 @@
 		var grid = $('#modelTarlist').ligerGetGridManager();
 		var modelName = $("#modelName").val();
 		var modelDesc = $("#modelDesc").val();
+		
+		if($.trim(modelName) ==""){
+			Utils.alert("请输入模型名称");
+			return;
+		}
 		
 		var rows = grid.getData();
 		if (rows.length<1) {

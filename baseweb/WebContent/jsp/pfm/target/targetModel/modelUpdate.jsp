@@ -36,7 +36,7 @@
 				<form id="updateForm">
 				<table class='params'>
 					<tr>
-						<td>模型名称</td>
+						<td><font color="red">*</font>模型名称</td>
 						<td><input id="modelName" name="modelDef.modelName" type='text' value="${updateIn.modelDef.modelName}"/><input id="modelCode" name="modelDef.modelCode" type='hidden' value="${updateIn.modelDef.modelCode}"/></td>
 					</tr>
 					<tr>
@@ -241,6 +241,13 @@
 	function commit() {
 		var grid = $('#modelTarlist').ligerGetGridManager();
 		var rows = grid.getData();
+		
+		var modelName = $("#modelName").val();
+		
+		if($.trim(modelName) ==""){
+			Utils.alert("请输入模型名称");
+			return;
+		}
 		if (rows.length<1) {
 			Utils.alert("请先选择一个指标");
 			return;

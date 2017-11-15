@@ -66,11 +66,11 @@
 			<tr>
 				<td align="right"><font color="red">*</font>员工编号</td>
 				<td><input type='text' id='staffId' name='modifyStaff.staffId'
-					value="${updateIn.modifyStaff.staffId}" readonly="readonly" /></td>
+					value="${updateIn.modifyStaff.staffId}" readonly="readonly" validate="{required:true}"/></td>
 				<td align="right"><font color="red">*</font>员工姓名</td>
 				<td><input type='text' id='staffName'
 					name='modifyStaff.staffName'
-					value="${updateIn.modifyStaff.staffName}" /></td>
+					value="${updateIn.modifyStaff.staffName}"  validate="{required:true}"/></td>
 			</tr>
 			<tr>
 				<td align="right">员工级别</td>
@@ -82,7 +82,7 @@
 					name='modifyStaff.ownerUnitid' value="${updateIn.modifyStaff.ownerUnitid}" /><input id="unitName"
 					name="unitName" readonly="readonly"
 					value="${updateIn.modifyStaff.unitName}" onclick="openSelectUnit()"
-					class='unit_select' /></td>
+					class='unit_select' validate="{required:true}"/></td>
 			</tr>
 			<tr>
 				<td align="right">性别</td>
@@ -113,7 +113,7 @@
 				<td align="right"><font color="red">*</font>员工状态</td>
 				<td><n:select codetype="valid_type" id="staffStatus"
 						name='modifyStaff.staffStatus' emptyOption="true"
-						value="updateIn.modifyStaff.staffStatus"></n:select></td>
+						value="updateIn.modifyStaff.staffStatus" validate="{required:true}"></n:select></td>
 				<td colspan="2"></td>	
 			</tr>
 			<tr>

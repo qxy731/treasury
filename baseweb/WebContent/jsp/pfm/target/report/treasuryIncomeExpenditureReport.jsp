@@ -36,11 +36,6 @@ body{
 	
 	function validate(){
 		
-		var dataDate = $("#dataDate").val();
-		if(null==dataDate || dataDate==""){
-			alert("数据日期为必填项");
-			return false;
-		} 
 		if($("#myform").valid()){
 			return true;
 		}

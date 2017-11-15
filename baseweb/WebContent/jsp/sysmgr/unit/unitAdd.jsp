@@ -27,41 +27,41 @@
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库编码:</td>
 				<td nowrap="nowrap"><input id="unitId" type="text"
-					name="unitId" value="" /></td>
+					name="unitId" value="" validate="{required:true}"/></td>
 			</tr>
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库名称:</td>
 				<td nowrap="nowrap"><input id="unitName" type="text"
-					name="unitName" value="" /></td>
+					name="unitName" value="" validate="{required:true}"/></td>
 			</tr>
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;上级国库:</td>
 				<td nowrap="nowrap"><input type="text" id="superUnitName"
 					name="superUnitName" readonly="readonly" onclick="openSelectUnit()"
-					class='unit_select' /></td>
+					class='unit_select' validate="{required:true}"/></td>
 			</tr>
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库级别:</td>
 				<td nowrap="nowrap"><input id="unitLevel" type="text"
-					name="unitLevel" value="" readonly="readonly" /></td>
+					name="unitLevel" value="" readonly="readonly" validate="{required:true}"/></td>
 			</tr>
 			<!-- 开始 -->
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;清算国库代码:</td>
 				<td nowrap="nowrap"><input id="settUnitId" type="text"
-					name="settUnitId" value=""/></td>
+					name="settUnitId" value="" validate="{required:true}"/></td>
 			</tr>
 			
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;管理国库代码:</td>
 				<td nowrap="nowrap"><input id="mgrUnitId" type="text"
-					name="mgrUnitId" value="" /></td>
+					name="mgrUnitId" value="" validate="{required:true}"/></td>
 			</tr>
 			
 			<tr>
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;启用日期:</td>
 				<td nowrap="nowrap"><input id="startDate" type="text"
-					name="startDate" value="" /></td>
+					name="startDate" value="" validate="{required:true}"/></td>
 			</tr>
 			
 		<!--  结束 -->
@@ -74,7 +74,7 @@
 				<td nowrap="nowrap"><font color="red">*</font>&nbsp;国库状态:</td>
 				<td nowrap="nowrap"><n:select codetype="valid_type"
 						id="unitStatus" name='unitStatus' emptyOption="false"
-						disabled="false" cssStyle="width:152px;"></n:select></td>
+						disabled="false" cssStyle="width:152px;" ></n:select></td>
 			</tr>
 		</table>
 		<input id="superUnitId" type="hidden" name="superUnitId" />
@@ -133,34 +133,7 @@
 			}
 		}
 		function validate() {
-			var flag = true;
-			var unitId = $('#unitId').val();
-			var unitName = $('#unitName').val();
-			var superUnitId = $('#superUnitId').val();
-			var unitLevel = $('#unitLevel').val();
-			var unitKind = $('#unitKind').val();
-			var retMsg = "";
-			if ($.trim(unitId) == "") {
-				retMsg = retMsg + "【国库编码】不能为空；<br/>";
-				flag = false;
-			}
-			if ($.trim(unitName) == "") {
-				retMsg = retMsg + "【国库名称】不能为空；<br/>";
-				flag = false;
-			}
-			if ($.trim(unitId) != "9999999999"&&$.trim(superUnitId) == "") {
-				retMsg = retMsg + "【上级国库】不能为空；<br/>";
-				flag = false;
-			}
-			if ($.trim(unitLevel) == "") {
-				retMsg = retMsg + "【国库级别】不能为空；<br/>";
-				flag = false;
-			}
-			
-			if (!flag) {
-				Utils.alert(retMsg, '提示内容');
-			}
-			return flag;
+			return $("#insertForm").valid();
 		}
 		//选择国库
 		function openSelectUnit() {
