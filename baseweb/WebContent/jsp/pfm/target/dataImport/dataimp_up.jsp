@@ -92,6 +92,7 @@ function callback(result){
 	hideMask();
 	if(result.retCode.substr(0,1) == 'I') {
 		$.dialogBox.close();
+		$.dialogBox = {};
 		$.dialogBox.opener.showUpMessage();
 	}else{
 		$("#saveBtn").removeAttr("disabled");
