@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 
@@ -19,7 +18,6 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import com.soule.app.sys.enums.EnumItemPo;
 import com.soule.base.action.BaseAction;
-import com.soule.base.media.DbAccessException;
 import com.soule.base.service.IDefaultService;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
@@ -30,6 +28,8 @@ import com.soule.comm.enu.ExecuteResult;
 import com.soule.comm.enu.FunctionType;
 import com.soule.comm.tools.AppUtils;
 import com.soule.comm.tools.ContextUtil;
+import com.soule.comm.tools.DateFormatCalendar;
+import com.soule.comm.tools.DateFormatDefine;
 import com.soule.data.service.LoadFileDataManager;
 
 
@@ -201,7 +201,7 @@ public class DataImportAction extends BaseAction {
     public String batchTargetData(){
     	try{
     		String batchId = "bat_flow";
-    		request.getAttribute("bizDateType");
+    		//request.getAttribute("bizDateType");
     		String batchDate = (String)sDefault.getIbatisMediator().findById("Common.getStrCurrDate", null);
     		if("2".equals(bizDateType)){
     			batchDate = getNextMonthEndDate(batchDate);
@@ -214,7 +214,9 @@ public class DataImportAction extends BaseAction {
             }
 	    	AbstractApplicationContext cxt = (AbstractApplicationContext)ContextUtil.getApplicationContext();
 	        PrimeEntrance prime = new PrimeEntrance(cxt);
-	        prime.doBatch(batchId, batchDate, prime);
+	        DateFormatCalendar.getInstance(batchDate,DateFormatDefine.FORMAT_YYYYMMDD_02);
+	        String bDate = DateFormatCalendar.getLocalTime();
+	        prime.doBatch(batchId, bDate, prime);
 	        sDefault.getIbatisMediator().update("Common.updateCurrDate",batchDate);
 	        this.retCode = "I0000";
     		this.retMsg = "操作成功。";
@@ -365,6 +367,16 @@ public class DataImportAction extends BaseAction {
     	}catch (Exception e) {
     		e.printStackTrace();
         }*/
+		
+		try {
+			DateFormatCalendar.getInstance("20171031",DateFormatDefine.FORMAT_YYYYMMDD_02);
+			String bDate = DateFormatCalendar.getLocalTime();
+			System.out.println(bDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       
 		
 	}
 	
