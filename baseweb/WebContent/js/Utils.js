@@ -226,6 +226,16 @@ Utils.openSelectUnit = function(b,unitId,okFunction,cancelFunction) {
 	$.dialogBox.openDialog(url,p,okFunction,cancelFunction);
 }
 
+
+Utils.openSelectDate = function(b,unitId,okFunction,cancelFunction) {
+	var url = _CONTEXT_PATH + "/jsp/common/dateSelect.jsp";
+	var p = {id:"_selectDateDialog",title:'选择数据日期',width: 360,height:15,lock:true,opacity:0.07};
+	if (b) {
+		p.follow = $(b)[0];
+	}
+	$.dialogBox.openDialog(url,p,okFunction,cancelFunction);
+}
+
 Utils.getAbsPosition = function(object) {
 	var o = $(object);
 	if (o.length == 0) {

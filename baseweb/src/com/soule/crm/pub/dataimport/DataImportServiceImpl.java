@@ -159,5 +159,78 @@ public class DataImportServiceImpl implements IDataImportService {
         }
         return out;
     }
+    
+    public void deleteTargetData(String dataDate) throws ServiceException{
+    	//判断日期是否为空，若为空，不执行任何操作
+    	if(null==dataDate || "".equals(dataDate)){
+    		
+    	}else{
+    		try {
+    			//删除 大额来账清单
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatLargeFromAcctList", dataDate);
+				//删除小额来账清单
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatDribletFromAcctList", dataDate);
+				//删除大额往账清单
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatLargeIntoAcctList", dataDate);
+				//-删除小额往账清单
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatDribletinfoAcctList", dataDate);
+				//删除 大连市分库预算收入对账月报表[全辖] 
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptBudgetMAll", dataDate);
+				//删除大连市分库地方级预算收入月报表[全辖]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptLocalBudgetMAll", dataDate);
+				//删除大连市分库地市级预算收入月报表[全辖]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll01", dataDate);
+				//删除大连市分库预算收入对账月报表[全辖-国税]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptBudgetMAlltax", dataDate);
+				
+				// 删除 大连市分库中央级预算收入月报表[全辖]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCenterBudgetMAll", dataDate);
+				//删除大连市分库地市级预算收入月报表[全辖非本级]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll02", dataDate);
+				//删除大连市分库地市级预算收入月报表[全辖非本级-预算外]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll03", dataDate);
+				//删除 大连市分库地市级预算收入月报表[本级-大连市财政局]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll04", dataDate);
+				//删除大连市分库一般预算支出月报表[本级] 
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptExpendM", dataDate);
+				//删除实拨资金财政错误退回清单 
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatFinaMistakRollbackList", dataDate);
+				//删除清算国库与收款国库对账单（非税）
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatClearClloAcctInfo", dataDate);
+				//删除清算国库与清算银行对账单 
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatClearBankAcctInfo", dataDate);
+				//删除大连市分库单一账户支出授权支付月报表
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptAuthPayM", dataDate);
+				//删除大连市分库单一账户支出直接支付月报表
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptDirectSpendM", dataDate);
+				//删除大连市分库收支存明细表[全辖]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatBalanceListAll", dataDate);
+				//删除大连市分库预算收入退库统计表[全辖]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatBudgetCanlStatAll", dataDate);
+				//删除TIPS手续费查询[实时扣税]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee01", dataDate);
+				//删除TIPS手续费查询[银行端缴款]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee02", dataDate);
+				//删除TIPS手续费查询[自缴核销]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee03", dataDate);
+				//删除TIPS手续费查询[批量扣税]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee04", dataDate);
+				//删除大连市分库收支存明细表[本级]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatBalanceList", dataDate);
+				//删除同城票据交换明细 -
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatLocalClearingList", dataDate);
+				//删除 大连市分库预算收支存分科目统计表[中央]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptBudgetSubStat", dataDate);
+				//删除大连市分库预算收支存分科目统计表[地方]
+				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptLocalBudgetSubStat", dataDate);
+				
+			} catch (DbAccessException e) {
+				 logger.error("DB", e);
+			}
+    	}
+    	
+    	
+    	
+    }
 
 }

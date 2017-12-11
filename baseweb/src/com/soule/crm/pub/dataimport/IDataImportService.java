@@ -9,5 +9,7 @@ public interface IDataImportService {
     public DataImportErrorDetailOut queryFileDetail(DataImportErrorDetailIn in) throws ServiceException;
     
     public DataBatchUploadOut deleteFile(DataImportQueryIn in) throws ServiceException;
+    
+    public void deleteTargetData(String dataDate) throws ServiceException;
 
 }

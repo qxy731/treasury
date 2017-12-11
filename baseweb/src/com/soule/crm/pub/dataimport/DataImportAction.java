@@ -60,8 +60,19 @@ public class DataImportAction extends BaseAction {
     private String instanceId;
     
     private String bizDateType;
+    private String dataDate;
     
-    public String query() {
+   
+
+	public String getDataDate() {
+		return dataDate;
+	}
+
+	public void setDataDate(String dataDate) {
+		this.dataDate = dataDate;
+	}
+
+	public String query() {
         DataImportQueryIn in = queryIn;
         try {
             in.getInputHead().setPageNo(this.page);
@@ -201,11 +212,14 @@ public class DataImportAction extends BaseAction {
     public String batchTargetData(){
     	try{
     		String batchId = "bat_flow";
-    		//request.getAttribute("bizDateType");
-    		String batchDate = (String)sDefault.getIbatisMediator().findById("Common.getStrCurrDate", null);
+    		String dataDateTemp = dataDate;
+    		dataDateTemp = dataDateTemp.replaceAll("-", "")+"01";
+    		DateFormatCalendar.getInstance(dataDateTemp);
+    		String batchDate = DateFormatCalendar.getMonthEndDate();
+    		/*String batchDate = (String)sDefault.getIbatisMediator().findById("Common.getStrCurrDate", null);
     		if("2".equals(bizDateType)){
     			batchDate = getNextMonthEndDate(batchDate);
-    		}
+    		}*/
     		if (StringUtils.isEmpty(batchId) || StringUtils.isEmpty(batchDate)){
                 System.out.println(STANDARD_USAGE);
                 this.retCode = "E0000";
@@ -218,6 +232,33 @@ public class DataImportAction extends BaseAction {
 	        String bDate = DateFormatCalendar.getLocalTime();
 	        prime.doBatch(batchId, bDate, prime);
 	        sDefault.getIbatisMediator().update("Common.updateCurrDate",batchDate);
+	        this.retCode = "I0000";
+    		this.retMsg = "操作成功。";
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		this.retCode = "E0000";
+    		this.retMsg = "操作失败。";
+    	}
+    	return JSON;
+    }
+    
+    
+    
+    public String deleteTargetData(){
+    	try{
+    		String batchId = "bat_flow";
+    		String dataDateTemp = dataDate;
+    		if(null==dataDate ||"".equals(dataDate)){
+    			this.retCode = "I0000";
+        		this.retMsg = "操作成功。";
+        		return JSON;
+    		}
+    		dataDateTemp = dataDateTemp.replaceAll("-", "")+"01";
+    		DateFormatCalendar.getInstance(dataDateTemp);
+    		String batchDate = DateFormatCalendar.getMonthEndDate();
+    		
+    		this.dataImportService.deleteTargetData(batchDate);
+	    	
 	        this.retCode = "I0000";
     		this.retMsg = "操作成功。";
     	}catch(Exception e){

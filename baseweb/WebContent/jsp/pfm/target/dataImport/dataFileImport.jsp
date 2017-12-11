@@ -88,7 +88,8 @@ $(function () {
   		  {text:'导入错误信息',name:'btn_detail',icon:'detail',click:queryDetail},
   		  {text:'加载文件数据',name:'btn_loadFile',icon:'save',click:loadFileData},
   		  {text:'计算指标数据',name:'btn_batchFile',icon:'yunxing',click:batchTargetData},
-  		  {text:'批处理监控',name:'btn_batchMonitor',icon:'yunxing',click:monitorBatch}
+  		  {text:'批处理监控',name:'btn_batchMonitor',icon:'yunxing',click:monitorBatch},
+  		  {text:'删除数据源',name:'btn_deleteFile',icon:'yunxing',click:deleteTargetData}
   	],
   		  width:'99%'
   	});
@@ -108,7 +109,7 @@ $(function () {
 			{ display: '文件上传国库', name: 'orgName', align: 'left', width: 140 },
 			{ display: '文件大小(KB)', name: 'fileSize', align: 'right',width:80 },
 			{ display: '上传日期', name: 'uploadDate', align: 'center',width:125 },
-			{ display: '处理模式', name: 'importType', align: 'center',codetype:'import_type',width:70},
+			{ display: '处理模式', name: 'importType', align: 'center',codetype:'import_type',width:70}
 		],
 		pageSize:20,
 		width: '100%',
@@ -228,23 +229,42 @@ function loadFileData(){
 		});
 },true);
 }
-
+//计算指标数据
 function batchTargetData(){
-	var url = "${_CONTEXT_PATH}/pub/data-import!batchTargetData.action";
-	$.dialogBox.choice2('即将跑批计算指标，请选择跑批日期？',function () {
-		var data = {"bizDateType":"1"};
-		Utils.ajaxSubmit(url, data, function(result) {
+	Utils.openSelectDate(null,null,function () {
+		var dataDate = this.iframe.contentWindow.select();
+		if(!dataDate){
+			alert("请选择数据日期");
+			return false;
+			//return;
+		}
+		var data = {"dataDate":dataDate};
+		var url = "${_CONTEXT_PATH}/pub/data-import!batchTargetData.action"
+		 Utils.ajaxSubmit(url, data, function(result) {
 			$.dialogBox.info('跑批结束，详情请查看批处理监控。');
 			execute();
-			});
-		},function (){
-			var data = {"bizDateType":"2"};
-			Utils.ajaxSubmit(url, data, function(result) {
-				$.dialogBox.info('跑批结束，详情请查看批处理监控。');
-				execute();
-			});
-	},true);
+			});  
+		},true);
 }
+
+//删除数据源
+function deleteTargetData(){
+	Utils.openSelectDate(null,null,function () {
+		var dataDate = this.iframe.contentWindow.select();
+		if(!dataDate){
+			alert("请选择数据日期");
+			return false;
+			//return;
+		}
+		var data = {"dataDate":dataDate};
+		var url = "${_CONTEXT_PATH}/pub/data-import!deleteTargetData.action"
+		 Utils.ajaxSubmit(url, data, function(result) {
+			$.dialogBox.info('数据源已经清除。');
+			execute();
+			});  
+		},true);
+}
+
 //选择国库信息
 function openSelectUnit(){
 	AppUtils.openSelectUnit(null,$("#orgCode").val(),setUnitIdName);
