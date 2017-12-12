@@ -3,7 +3,7 @@
 
 <sqlMap namespace="bat">
 	<select id="existBatch" parameterClass="java.lang.String" resultClass="java.lang.Integer">
-		select count(1) as count from BAT_STEP
+		select count(1) as count from bat_step
 		where batch_id=#batchId#
 	</select>
 
