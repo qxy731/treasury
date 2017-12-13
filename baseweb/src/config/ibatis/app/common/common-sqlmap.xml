@@ -369,7 +369,7 @@
 	</select>
 	
 	<select  id="getEcustHostManagerCnt" parameterClass="java.util.HashMap" resultClass="java.lang.Long">
-	   SELECT COUNT(1)
+	   SELECT count(1)
 		  FROM CUS_MGR_INFO T
 		 WHERE T.STAFF_ID = #staffId#
 		   AND T.CUST_NO = #custNo#

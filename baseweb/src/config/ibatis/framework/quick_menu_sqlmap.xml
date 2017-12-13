@@ -9,12 +9,12 @@
 	<select id="getMenuNodeIdByUrl" 
 			parameterClass="java.lang.String"
 			resultClass="java.util.HashMap">
-			SELECT COUNT(1),M.NODE_ID FROM sys_menu M WHERE M.NODE_URL = #NODE_URL# GROUP BY M.NODE_ID
+			SELECT count(1),M.NODE_ID FROM sys_menu M WHERE M.NODE_URL = #NODE_URL# GROUP BY M.NODE_ID
 	</select>
 	<select id="getMenuClickedCount" 
 			parameterClass="java.util.HashMap"
 			resultClass="java.lang.Long">
-		 SELECT COUNT(*) FROM pub_menu_useinfo T 
+		 SELECT count(*) FROM pub_menu_useinfo T 
 		  WHERE T.STAFF_ID = #STAFF_ID#
 			AND T.UNIT_ID = #UNIT_ID#
 			AND T.ROLE_ID = #ROLE_ID#

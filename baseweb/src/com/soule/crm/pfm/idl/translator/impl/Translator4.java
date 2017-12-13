@@ -83,9 +83,9 @@ public class Translator4 {
 	 * 	(INDICATOR0 * PARAM0 +INDICATOR1*PARAM1) IND_VALUE 
 	 *	FROM  
 	 *		( SELECT DSL.OBJECT_ID_FROM_IND_LIB, 
-	 *			SUM (CASE WHEN  DSL.INDICATOR_ID='T_E_CI_NUM_Y_3_90110'  
+	 *			sum (CASE WHEN  DSL.INDICATOR_ID='T_E_CI_NUM_Y_3_90110'  
 	 *			AND DSL.PERIOD_NO = IDL_GET_PERIOD(PERIOD_NO, 0, 006, 003) THEN DSL.IND_VALUE END ) INDICATOR1, 
-	 *			SUM (CASE WHEN  DSL.INDICATOR_ID='T_E_CI_NUM_Y_3_90120'  
+	 *			sum (CASE WHEN  DSL.INDICATOR_ID='T_E_CI_NUM_Y_3_90120'  
 	 *			AND DSL.PERIOD_NO = IDL_GET_PERIOD(PERIOD_NO, 0, 006, 003) THEN DSL.IND_VALUE END ) INDICATOR0,
 	 *			(SELECT PARAM_VALUE FROM SYS_PARAM_VALUE 
 	 *				WHERE START_DAT <= GETDATE() AND ENDDAT >= GETDATE() AND PARAM_GROUP_CODE = 'XXXXX'
@@ -162,7 +162,7 @@ public class Translator4 {
 		dslSql.append(") "+ TABLE_ALIAS);
 		String str = dslSql.toString();
 		if(StringUtils.isNotBlank(str)){
-			str = str.replaceAll("SUM \\(","SUM(");
+			str = str.replaceAll("sum \\(","sum(");
 		}
 		return str;
 		/*if (!hasAgg) {
@@ -256,7 +256,7 @@ public class Translator4 {
 		for (int index = 0; index < indicateCount; index++) {
 			Struct s = indicatorMap.get(ss[index]);
 			if (!s.getPeriodRangeFlag()) {	// 非取指标累计部分，普通模式生成
-				dslSql.append(" SUM (CASE WHEN");
+				dslSql.append(" sum (CASE WHEN");
 				dslSql.append("  " + TABLE_ALIAS + IDLLanguage.DOT
 						+ IndicatorLibMetaData.IND_DATA_LIB_IND_ID + "= '"
 						+ s.getId() +  "'");//修改by qxy 20120809

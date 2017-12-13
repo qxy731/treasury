@@ -70,7 +70,7 @@ class CountSql implements Sql {
         System.out.print("动态SQL ：" + paramRequestScope.getDynamicSql());
         int start = sqlString.toLowerCase().indexOf("from");
         if (start >= 0) {
-            sqlString = "SELECT COUNT(1) AS c " + sqlString.substring(start);
+            sqlString = "SELECT count(1) as c " + sqlString.substring(start);
         }
         return sqlString;
     }
