@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -166,71 +167,78 @@ public class DataImportServiceImpl implements IDataImportService {
     		
     	}else{
     		try {
-    			//删除 大额来账清单
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatLargeFromAcctList", dataDate);
-				//删除小额来账清单
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatDribletFromAcctList", dataDate);
-				//删除大额往账清单
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatLargeIntoAcctList", dataDate);
-				//-删除小额往账清单
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatDribletinfoAcctList", dataDate);
-				//删除 大连市分库预算收入对账月报表[全辖] 
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptBudgetMAll", dataDate);
-				//删除大连市分库地方级预算收入月报表[全辖]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptLocalBudgetMAll", dataDate);
-				//删除大连市分库地市级预算收入月报表[全辖]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll01", dataDate);
-				//删除大连市分库预算收入对账月报表[全辖-国税]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptBudgetMAlltax", dataDate);
-				
-				// 删除 大连市分库中央级预算收入月报表[全辖]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCenterBudgetMAll", dataDate);
-				//删除大连市分库地市级预算收入月报表[全辖非本级]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll02", dataDate);
-				//删除大连市分库地市级预算收入月报表[全辖非本级-预算外]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll03", dataDate);
-				//删除 大连市分库地市级预算收入月报表[本级-大连市财政局]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptCityBudgetMAll04", dataDate);
-				//删除大连市分库一般预算支出月报表[本级] 
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptExpendM", dataDate);
-				//删除实拨资金财政错误退回清单 
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatFinaMistakRollbackList", dataDate);
-				//删除清算国库与收款国库对账单（非税）
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatClearClloAcctInfo", dataDate);
-				//删除清算国库与清算银行对账单 
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatClearBankAcctInfo", dataDate);
-				//删除大连市分库单一账户支出授权支付月报表
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptAuthPayM", dataDate);
-				//删除大连市分库单一账户支出直接支付月报表
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptDirectSpendM", dataDate);
-				//删除大连市分库收支存明细表[全辖]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatBalanceListAll", dataDate);
-				//删除大连市分库预算收入退库统计表[全辖]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatBudgetCanlStatAll", dataDate);
-				//删除TIPS手续费查询[实时扣税]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee01", dataDate);
-				//删除TIPS手续费查询[银行端缴款]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee02", dataDate);
-				//删除TIPS手续费查询[自缴核销]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee03", dataDate);
-				//删除TIPS手续费查询[批量扣税]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatTipsFee04", dataDate);
-				//删除大连市分库收支存明细表[本级]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatBalanceList", dataDate);
-				//删除同城票据交换明细 -
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatLocalClearingList", dataDate);
-				//删除 大连市分库预算收支存分科目统计表[中央]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptBudgetSubStat", dataDate);
-				//删除大连市分库预算收支存分科目统计表[地方]
-				sDefault.getIbatisMediator().delete("dataimport.deleteBatRptLocalBudgetSubStat", dataDate);
-				
+    			List<String> list = new ArrayList<String>();
+    			List<Map<String,String>> list1 = new ArrayList<Map<String,String>>();
+    			 list.add("bat_large_from_acct_list"); 
+    			 list.add("bat_driblet_from_acct_list"); 
+    			 list.add("bat_large_into_acct_list"); 
+    			 list.add("bat_driblet_into_acct_list"); 
+    			 list.add("bat_rpt_budget_m_all"); 
+    			 list.add("bat_rpt_local_budget_m_all"); 
+    			 list.add("bat_rpt_city_budget_m_all01"); 
+    			 list.add("bat_rpt_budget_m_alltax"); 
+    			 list.add("bat_rpt_center_budget_m_all"); 
+    			 list.add("bat_rpt_city_budget_m_all02"); 
+    			 list.add("bat_rpt_city_budget_m_all03"); 
+    			 list.add("bat_rpt_city_budget_m_all04"); 
+    			 list.add("bat_rpt_expend_m"); 
+    			 list.add("bat_fina_mistake_rollback_list"); 
+    			 list.add("bat_clear_cllo_acct_info"); 
+    			 list.add("bat_clear_bank_acct_info"); 
+    			 list.add("bat_rpt_auth_pay_m"); 
+    			 list.add("bat_rpt_direct_spend_m"); 
+    			 list.add("bat_balance_list_all"); 
+    			 list.add("bat_budget_canl_stat_all"); 
+    			 list.add("bat_tips_fee01"); 
+    			 list.add("bat_tips_fee02"); 
+    			 list.add("bat_tips_fee03"); 
+    			 list.add("bat_tips_fee04"); 
+    			 list.add("bat_balance_list"); 
+    			 list.add("bat_local_clearing_list"); 
+    			 list.add("bat_rpt_budget_sub_stat"); 
+    			 list.add("bat_rpt_local_budget_sub_stat"); 
+    			 /*list.add("bat_large_from_acct_list_his"); 
+    			 list.add("bat_driblet_from_acct_list_his"); 
+    			 list.add("bat_large_into_acct_list_his"); 
+    			 list.add("bat_driblet_into_acct_list_his"); 
+    			 list.add("bat_rpt_budget_m_all_his"); 
+    			 list.add("bat_rpt_local_budget_m_all_his"); 
+    			 list.add("bat_rpt_city_budget_m_all01_his"); 
+    			 list.add("bat_rpt_budget_m_alltax_his"); 
+    			 list.add("bat_rpt_center_budget_m_all_his"); 
+    			 list.add("bat_rpt_city_budget_m_all02_his"); 
+    			 list.add("bat_rpt_city_budget_m_all03_his"); 
+    			 list.add("bat_rpt_city_budget_m_all04_his"); 
+    			 list.add("bat_rpt_expend_m_his"); 
+    			 list.add("bat_fina_mistake_rollback_list_his"); 
+    			 list.add("bat_clear_cllo_acct_info_his"); 
+    			 list.add("bat_clear_bank_acct_info_his"); 
+    			 list.add("bat_rpt_auth_pay_m_his"); 
+    			 list.add("bat_rpt_direct_spend_m_his"); 
+    			 list.add("bat_balance_list_all_his"); 
+    			 list.add("bat_budget_canl_stat_all_his"); 
+    			 list.add("bat_tips_fee01_his"); 
+    			 list.add("bat_tips_fee02_his"); 
+    			 list.add("bat_tips_fee03_his"); 
+    			 list.add("bat_tips_fee04_his"); 
+    			 list.add("bat_balance_list_his"); 
+    			 list.add("bat_local_clearing_list_his"); 
+    			 list.add("bat_rpt_budget_sub_stat_his"); 
+    			 list.add("bat_rpt_local_budget_sub_stat_his"); */
+    			 
+    			 for(int i=0;i<list.size();i++){
+    				 Map<String,String> map = new HashMap<String,String>();
+    				 map.put("batTable", list.get(i));
+    				 map.put("tarDate", dataDate);
+    				 list1.add(map);
+    			 }
+    			 //批量删除数据源表
+    			 for(int i=0;i<list1.size();i++){
+    				 sDefault.getIbatisMediator().delete("dataimport.truncateTableBat", list1.get(i));
+    			 }
 			} catch (DbAccessException e) {
 				 logger.error("DB", e);
 			}
     	}
-    	
-    	
-    	
     }
-
 }
