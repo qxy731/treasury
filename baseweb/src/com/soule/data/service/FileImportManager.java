@@ -107,7 +107,7 @@ public class FileImportManager {
         }
         String fileFreq = sysUploadFileMapping.getFileFreq();
         String template = sysUploadFileMapping.getFileTemplate();
-	    String table = sysUploadFileMapping.getFileTable();
+	    String table = sysUploadFileMapping.getFileTable().toLowerCase();
         if(StringUtils.isBlank(fileFreq)){
         	log.info("the object of fileFreq is null.");
         	return;
@@ -151,53 +151,62 @@ public class FileImportManager {
     	long total = 0;
     	long  successCnt = 0;
     	long errorCnt = 0;
-    	String errorId = UUIDGenerator.generate("");
-	    if(ret instanceof BatchResult){
-	    	BatchResult bret = (BatchResult)ret;			
-        	//System.out.println(ret.getErrorMessage());
-    	    System.out.println("total:"+bret.getLineCount()+"&successCount:"+bret.getSuccessCount());
-    	    total = bret.getLineCount();
-    	    successCnt = bret.getSuccessCount();
-    	    errorCnt = total-successCnt;
-    	    errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
-    	    LinkedList<LineResultInfo> list = bret.getErrorMessageList();
-    	    for(LineResultInfo error:list){
-    	    	String detailId = UUIDGenerator.generate("");
-    		    int column = error.getColumn();
-    		    long row = error.getIndex();
-    		    String msg = getMessage(error.getMsg());
-    		    if(!error.isSuccess()){
-    		    	errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,row, column, msg);
-    		    }
-    	    }
-	    }else if(ret instanceof DefaultResultMsg){
-	    	String detailId = UUIDGenerator.generate("");
-	    	DefaultResultMsg dret = (DefaultResultMsg)ret;
-    		String msg = getMessage(dret.getErrorMessage());
-    		errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
-    		if(!dret.isSuccessful()){
-    			errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,0, 0, msg);
-    		}
-	    }else{
-	    	String detailId = UUIDGenerator.generate("");
-	    	errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
-    		errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId, 0, 0, defaultMsg);
-	    }
+    	try{
+	    	String errorId = UUIDGenerator.generate("");
+		    if(ret instanceof BatchResult){
+		    	BatchResult bret = (BatchResult)ret;			
+	        	//System.out.println(ret.getErrorMessage());
+	    	    System.out.println("total:"+bret.getLineCount()+"&successCount:"+bret.getSuccessCount());
+	    	    total = bret.getLineCount();
+	    	    successCnt = bret.getSuccessCount();
+	    	    errorCnt = total-successCnt;
+	    	    errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
+	    	    LinkedList<LineResultInfo> list = bret.getErrorMessageList();
+	    	    for(LineResultInfo error:list){
+	    	    	String detailId = UUIDGenerator.generate("");
+	    		    int column = error.getColumn();
+	    		    long row = error.getIndex();
+	    		    String msg = getMessage(error.getMsg());
+	    		    if(!error.isSuccess()){
+	    		    	errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,row, column, msg);
+	    		    }
+	    	    }
+		    }else if(ret instanceof DefaultResultMsg){
+		    	String detailId = UUIDGenerator.generate("");
+		    	DefaultResultMsg dret = (DefaultResultMsg)ret;
+	    		String msg = getMessage(dret.getErrorMessage());
+	    		errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
+	    		if(!dret.isSuccessful()){
+	    			errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId,0, 0, msg);
+	    		}
+		    }else{
+		    	String detailId = UUIDGenerator.generate("");
+		    	errorDao.insertSysUploadFileError(errorId, uploadId, total, successCnt, errorCnt);
+	    		errorDetailDao.insertSysUploadFileErrorDetail(detailId, errorId, 0, 0, defaultMsg);
+		    }
+    	}catch(Exception e){
+    		log.info("the object of errorDao or errorDetailDao is exception.");
+    	}
 	    //更新sys_upload_file_mapping的导入次数,导入状态，当result_type='1'
-	    if(ret.isSuccessful()){
-	    	 fileDao.updateFileResultType(uploadId,"1");
-	    	 mappingDao.updateSysUploadFileMapping(fileType);
-	    }else{
-	    	/*处理结果:0-未处理,1-全部成功,2-部分失败,3-全部失败*/
-	    	if(errorCnt==total){
-    			//全部失败
-    			fileDao.updateFileResultType(uploadId,"3");
-    		}else{
-    			//部分成功
-    			fileDao.updateFileResultType(uploadId,"2");
-    		}
-	    	
-	    }
+    	if(ret!=null){
+    		if(ret.isSuccessful()){
+	   	    	 fileDao.updateFileResultType(uploadId,"1");
+	   	    	 mappingDao.updateSysUploadFileMapping(fileType);
+	   	    }else{
+	   	    	/*处理结果:0-未处理,1-全部成功,2-部分失败,3-全部失败*/
+	   	    	if(errorCnt==total){
+	       			//全部失败
+	       			fileDao.updateFileResultType(uploadId,"3");
+	       		}else{
+	       			//部分成功
+	       			fileDao.updateFileResultType(uploadId,"2");
+	       		}
+	   	    	
+	   	    }
+    	}else{
+    		log.info("the object of ret is null.fileDao.updateFileResultType is 3.");
+    		fileDao.updateFileResultType(uploadId,"3");
+    	}
 	}
 	
 	private String getMessage(String msg){
@@ -219,7 +228,7 @@ public class FileImportManager {
 		// TODO Auto-generated method stub
 		String msg = "'Data truncation: Data too long for column ' ACCEPT_DATE ' at row '";
 		msg = msg.replaceAll("'","");
-		System.out.println(msg);
+		System.out.println(msg.toLowerCase());
 	}
 
 }

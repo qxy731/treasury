@@ -91,7 +91,8 @@ function doUploadFile(){
 function callback(result){
 	hideMask();
 	if(result.retCode.substr(0,1) == 'I') {
-		alert("文件上传成功。");
+		alert("文件上传成功。");		
+		$.dialogBox.opener.execute();
 		$.dialogBox.close();
 	}else{
 		$("#saveBtn").removeAttr("disabled");
