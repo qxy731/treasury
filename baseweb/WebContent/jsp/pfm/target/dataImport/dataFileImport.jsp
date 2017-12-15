@@ -208,6 +208,16 @@ function getUploadId(){
 	}
 }
 
+function getOpSelectedRow(){
+	var gridManager = $("#filelist").ligerGetGridManager(); 
+	var row = gridManager.getSelectedRow();
+	if(row){
+		return row;
+	}else{
+		return null;
+	}
+}
+
 function queryDetail(){
 	var gridManager = $("#filelist").ligerGetGridManager(); 
 	var row = gridManager.getSelectedRow();

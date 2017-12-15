@@ -40,6 +40,7 @@
 <script type='text/javascript'>
 $(function () {
 	var uploadId =  $.dialogBox.opener.getUploadId();
+	var selectedRow = $.dialogBox.opener.getOpSelectedRow();
 	var mdata = [];
 	mdata.push({"name":'errorDetailIn.uploadId','value':uploadId});
 	//输出表格
@@ -58,11 +59,19 @@ $(function () {
 		width:'100%',
 		onSuccess:function(result){
 			var errorDetailVo = result.errorDetailVo;
-			$("#uploadId").html(errorDetailVo.uploadId);
-			$("#fileName").html(errorDetailVo.fileName);
-			$("#totalNumber").html(errorDetailVo.totalNumber);
-			$("#successNumber").html(errorDetailVo.successNumber);
-			$("#failureNumber").html(errorDetailVo.failureNumber);
+			if(errorDetailVo){
+				$("#uploadId").html(errorDetailVo.uploadId);
+				$("#fileName").html(errorDetailVo.fileName);
+				$("#totalNumber").html(errorDetailVo.totalNumber);
+				$("#successNumber").html(errorDetailVo.successNumber);
+				$("#failureNumber").html(errorDetailVo.failureNumber);	
+			}else{
+				$("#uploadId").html(selectedRow.uploadId);
+				$("#fileName").html(selectedRow.fileName);
+				$("#totalNumber").html(0);
+				$("#successNumber").html(0);
+				$("#failureNumber").html(0);	
+			}			
 		},
 		onError: function(e) {
 			Utils.toIndex(e);
