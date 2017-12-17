@@ -519,7 +519,7 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
         try {
             List<ReportTargetPo> betweenTreasuryFundsList = defService.getIbatisMediator().find(this.RPT_LIST_BETWEENTREASURYFUNDSFLOW,in);
             betweenTreasuryFundsList =  assemblyBetweenTreasuryFundsNatureList(betweenTreasuryFundsList);
-            out.setBetweenTreasuryFundsSourceList(betweenTreasuryFundsList);
+            out.setAccountingAnalysisOtherList(betweenTreasuryFundsList);
             AppUtils.setResult(out, "I0000");
         } catch (DbAccessException e) {
             logger.error("DB", e);
