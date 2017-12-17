@@ -29,6 +29,7 @@ import com.soule.comm.enu.FunctionType;
 import com.soule.comm.tools.AppUtils;
 import com.soule.comm.tools.ContextUtil;
 import com.soule.comm.tools.DateFormatCalendar;
+import com.soule.comm.tools.DateFormatCalendarNew;
 import com.soule.comm.tools.DateFormatDefine;
 import com.soule.data.service.LoadFileDataManager;
 
@@ -228,8 +229,8 @@ public class DataImportAction extends BaseAction {
             }
 	    	AbstractApplicationContext cxt = (AbstractApplicationContext)ContextUtil.getApplicationContext();
 	        PrimeEntrance prime = new PrimeEntrance(cxt);
-	        DateFormatCalendar.getInstance(batchDate,DateFormatDefine.FORMAT_YYYYMMDD_02);
-	        String bDate = DateFormatCalendar.getLocalTime();
+	        DateFormatCalendarNew.getInstance(batchDate,DateFormatDefine.FORMAT_YYYYMMDD_02);
+	        String bDate = DateFormatCalendarNew.getLocalTime();
 	        prime.doBatch(batchId, bDate, prime);
 	        sDefault.getIbatisMediator().update("Common.updateCurrDate",batchDate);
 	        this.retCode = "I0000";

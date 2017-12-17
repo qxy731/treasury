@@ -171,12 +171,12 @@ public class DateFormatCalendar{
 	public static void main(String[] args){
 		try {
 			DateFormatCalendar.getInstance("20170211");
-			System.out.println(DateFormatCalendar.getTenDaysEndDate());
+			//System.out.println(DateFormatCalendar.getTenDaysEndDate());
 			System.out.println(DateFormatCalendar.getMonthEndDate());
-			System.out.println(DateFormatCalendar.getSeasonEndDate());
-			System.out.println(DateFormatCalendar.getHalfYearEndDate());
-			System.out.println(DateFormatCalendar.getYearEndDate());
-			System.out.println(DateFormatCalendar.getDayEndDate());
+			//System.out.println(DateFormatCalendar.getSeasonEndDate());
+			//System.out.println(DateFormatCalendar.getHalfYearEndDate());
+			//System.out.println(DateFormatCalendar.getYearEndDate());
+			//System.out.println(DateFormatCalendar.getDayEndDate());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
