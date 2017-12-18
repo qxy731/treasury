@@ -64,15 +64,15 @@ public class DateFormatCalendar{
     	return getInstance(date,manager.format);
     }
     
-    public static DateFormatCalendar getInstance(String date,String format) throws ParseException{
+    /*public static DateFormatCalendar getInstance(String date,String format) throws ParseException{
     	if (manager == null) {
 			 manager = new DateFormatCalendar();
         }
     	 manager.sdf = new SimpleDateFormat(manager.format);
     	 return getInstance(manager.sdf.parse(date),format);
-    }
+    }*/
     
-    public static DateFormatCalendar getInstance(Date date,String format){
+    private static DateFormatCalendar getInstance(Date date,String format){
     	 if (manager == null) {
 			 manager = new DateFormatCalendar();
          }

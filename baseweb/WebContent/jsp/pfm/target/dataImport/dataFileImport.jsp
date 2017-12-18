@@ -85,8 +85,8 @@ $(function () {
   	      {text:'下载模板',name:'insert_btn',icon:'export',click:btn_downmodule_click},
   		  {text:'上传文件',name:'commit_btn',icon:'submit',click:btn_upfile_click},
   		  {text:'删除文件',name:'delete_btn',icon:'delete',click:btn_delfile_click},
-  		  {text:'导入错误信息',name:'btn_detail',icon:'detail',click:queryDetail},
   		  {text:'加载文件数据',name:'btn_loadFile',icon:'save',click:loadFileData},
+  		  {text:'导入错误信息',name:'btn_detail',icon:'detail',click:queryDetail},
   		  {text:'计算指标数据',name:'btn_batchFile',icon:'yunxing',click:batchTargetData},
   		  {text:'批处理监控',name:'btn_batchMonitor',icon:'yunxing',click:monitorBatch},
   		  {text:'删除数据源',name:'btn_deleteFile',icon:'yunxing',click:deleteTargetData}

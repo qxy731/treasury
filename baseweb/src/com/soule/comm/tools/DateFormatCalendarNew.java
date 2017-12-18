@@ -72,7 +72,7 @@ public class DateFormatCalendarNew{
     	 return getInstance(manager.sdf.parse(date),format);
     }
     
-    public static DateFormatCalendarNew getInstance(Date date,String format){
+    private static DateFormatCalendarNew getInstance(Date date,String format){
     	 if (manager == null) {
 			 manager = new DateFormatCalendarNew();
          }

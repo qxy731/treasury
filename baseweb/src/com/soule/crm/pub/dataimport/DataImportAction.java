@@ -411,8 +411,8 @@ public class DataImportAction extends BaseAction {
         }*/
 		
 		try {
-			DateFormatCalendar.getInstance("20171031",DateFormatDefine.FORMAT_YYYYMMDD_02);
-			String bDate = DateFormatCalendar.getLocalTime();
+			DateFormatCalendarNew.getInstance("20171031",DateFormatDefine.FORMAT_YYYYMMDD_02);
+			String bDate = DateFormatCalendarNew.getLocalTime();
 			System.out.println(bDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
