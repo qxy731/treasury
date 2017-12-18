@@ -255,7 +255,7 @@ function setTab(n){
     </s:if> --%>
 <%-- <li><span onclick="changeStaffInfo()"><img src="${_CONTEXT_PATH}/images/admin.png" title="我的信息"/></span></li> --%>
 <li><span onclick="changePassword()"><img class="logout" src="${_CONTEXT_PATH}/images/password.png" title="修改密码"/></span></li>
-<li><span class="bizDate">数据日期：${bizDate}</span></li>
+<%-- <li><span class="bizDate">数据日期：${bizDate}</span></li> --%>
 </ul>
 </div>
     <div id="topmenu" >
