@@ -229,7 +229,8 @@ public class DataImportAction extends BaseAction {
             }
 	    	AbstractApplicationContext cxt = (AbstractApplicationContext)ContextUtil.getApplicationContext();
 	        PrimeEntrance prime = new PrimeEntrance(cxt);
-	        DateFormatCalendarNew.getInstance(batchDate,DateFormatDefine.FORMAT_YYYYMMDD_02);
+	        String batchDate1 = batchDate.substring(0, 4)+"-"+batchDate.substring(4,6)+"-"+batchDate.substring(6,8);
+	        DateFormatCalendarNew.getInstance(batchDate1,DateFormatDefine.FORMAT_YYYYMMDD_02);
 	        String bDate = DateFormatCalendarNew.getLocalTime();
 	        prime.doBatch(batchId, bDate, prime);
 	        sDefault.getIbatisMediator().update("Common.updateCurrDate",batchDate);

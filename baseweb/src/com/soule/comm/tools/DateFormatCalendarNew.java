@@ -29,7 +29,7 @@ public class DateFormatCalendarNew{
 	private Integer year;                  // 日期属性：年  
     private Integer month;                  // 日期属性：月  
 	private Integer day;                  // 日期属性：日  
-    private String format = DateFormatDefine.FORMAT_YYYYMMDD_01;
+    private String format = DateFormatDefine.FORMAT_YYYYMMDD_02;
     private SimpleDateFormat sdf;
     private Calendar calendar;
     private static DateFormatCalendarNew manager;
@@ -170,7 +170,7 @@ public class DateFormatCalendarNew{
 	
 	public static void main(String[] args){
 		try {
-			DateFormatCalendarNew.getInstance("20170211");
+			DateFormatCalendarNew.getInstance("2017-02-11",DateFormatDefine.FORMAT_YYYYMMDD_02);
 			//System.out.println(DateFormatCalendar.getTenDaysEndDate());
 			System.out.println(DateFormatCalendarNew.getMonthEndDate());
 			//System.out.println(DateFormatCalendar.getSeasonEndDate());
