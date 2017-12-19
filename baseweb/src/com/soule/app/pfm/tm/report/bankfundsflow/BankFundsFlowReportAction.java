@@ -25,6 +25,7 @@ import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
 import com.soule.comm.tools.DateFormatCalendar;
+import com.soule.comm.tools.DateFormatDefine;
 
 /**
  * 人员维护模块表现层处理类
@@ -51,10 +52,13 @@ public class BankFundsFlowReportAction extends BaseAction {
     public String query() {
         try{
         	String dataDate = queryIn.getDataDate();
-        	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
         	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
-        	
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate+"-01",DateFormatDefine.FORMAT_YYYYMMDD_02);
+        	dataDate = dfc2.getMonthEndDate();
+        	queryIn.setDataDate(dataDate);
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query(queryIn);
             ServiceResult head = result.getResultHead();
             bankFundsFlowList = result.getBankFundsFlowList();
@@ -74,9 +78,12 @@ public class BankFundsFlowReportAction extends BaseAction {
     public String query2() {
         try{
         	String dataDate = queryIn.getDataDate();
-        	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
-        	
+        	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate.replace("-", "")+"01",DateFormatDefine.FORMAT_YYYYMMDD_01);
+        	dataDate = dfc2.getMonthEndDate();
         	queryIn.setDataDate(dataDate);
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query2(queryIn);
             ServiceResult head = result.getResultHead();
@@ -90,14 +97,39 @@ public class BankFundsFlowReportAction extends BaseAction {
         return JSON;
     }
     
+    public String query3() {
+        try{
+        	String dataDate = queryIn.getDataDate();
+        	/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	dataDate = DateFormatCalendar.getMonthEndDate();
+        	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate+"-01",DateFormatDefine.FORMAT_YYYYMMDD_02);
+        	dataDate = dfc2.getMonthEndDate();
+        	queryIn.setDataDate(dataDate);
+            BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query3(queryIn);
+            ServiceResult head = result.getResultHead();
+            accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
+            if(accountingAnalysisOtherList == null)accountingAnalysisOtherList = new ArrayList<ReportTargetPo>();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
+    
     public String query4() {
         try{
         	
         	String dataDate = queryIn.getDataDate();
-        	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
-        	
         	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate+"-01",DateFormatDefine.FORMAT_YYYYMMDD_02);
+        	dataDate = dfc2.getMonthEndDate();
+        	queryIn.setDataDate(dataDate);
             BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query4(queryIn);
             ServiceResult head = result.getResultHead();
             accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
@@ -122,10 +154,13 @@ public class BankFundsFlowReportAction extends BaseAction {
 			retMap.put("dataDate", dataDate);
 			fileName = "与商业银行之间资金流动情况统计表-"+unitName+"-"+dataDate;
 			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
-	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
-	    	dataDate = DateFormatCalendar.getMonthEndDate();
-	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
+			/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	dataDate = DateFormatCalendar.getMonthEndDate();
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate+"-01",DateFormatDefine.FORMAT_YYYYMMDD_02);
+        	dataDate = dfc2.getMonthEndDate();
+        	queryIn = new BankFundsFlowReportQueryIn();
+        	queryIn.setDataDate(dataDate);
 	    	queryIn.setUnitId(unitId);
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			map = bankFundsFlowReportService.export(queryIn);
@@ -171,88 +206,6 @@ public class BankFundsFlowReportAction extends BaseAction {
 		}
     }
     
-    
-    public void export4(){
-        String fileName ="";
-    	Map<String,Object> retMap = new HashMap<String,Object>();
-    	String dataDate = request.getParameter("dataDate");
-    	String unitId = request.getParameter("unitId");
-    	String unitName = request.getParameter("unitName");
-    	Map<String,Object> map = new HashMap<String,Object>();
-		try {
-			map.put("dataDate", dataDate);
-			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
-			fileName = "国库会计分析其他数据统计表-"+unitName+"-"+dataDate;
-			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
-	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
-	    	dataDate = DateFormatCalendar.getMonthEndDate();
-	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
-	    	queryIn.setUnitId(unitId);
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			retMap = bankFundsFlowReportService.export4(queryIn);
-			retMap.put("unitName", unitName);
-			retMap.put("dataDate",map.get("dataDate"));
-			AccountingAnalysisOther.Data2Excel(retMap, os);
-	        byte[] content = os.toByteArray();
-	        InputStream is = new ByteArrayInputStream(content);
-	        response.setContentType("text/plain;charset=utf-8");
-	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
-	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
-	        ServletOutputStream out = response.getOutputStream();
-	        BufferedInputStream bis = null;
-	        BufferedOutputStream bos = null;
-	        try {
-	          bis = new BufferedInputStream(is);
-	          bos = new BufferedOutputStream(out);
-	          byte[] buff = new byte[1024];
-	          int bytesRead;
-	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
-	            bos.write(buff, 0, bytesRead);
-	          }
-	        } catch (Exception e) {
-	          e.printStackTrace();
-	        } finally {
-	          if (bis != null)
-	            bis.close();
-	          if (bos != null)
-	            bos.close();
-	          if(is != null)
-		        is.close();
-	          if(out != null){
-	        	out.flush();
-	  	        out.close();
-	          }
-	        }
-		} catch (ServiceException e) {
-			handleError(e);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
-    	
-    }
-    
-    
-    public String query3() {
-        try{
-        	String dataDate = queryIn.getDataDate();
-        	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
-        	dataDate = DateFormatCalendar.getMonthEndDate();
-        	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
-            BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query3(queryIn);
-            ServiceResult head = result.getResultHead();
-            accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
-            if(accountingAnalysisOtherList == null)accountingAnalysisOtherList = new ArrayList<ReportTargetPo>();
-            this.setRetCode(head.getRetCode());
-            this.setRetMsg(head.getRetMsg());
-        }catch(Exception e) {
-            handleError(e);
-        }
-        return JSON;
-    }
-    
     public void export2(){
     	BankFundsFlowReportQueryOut result;
         String fileName ="";
@@ -261,10 +214,12 @@ public class BankFundsFlowReportAction extends BaseAction {
 		try {
 			map.put("dataDate", dataDate);
 			fileName = "大连市国库收支统计表-"+dataDate;
-	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
-	    	dataDate = DateFormatCalendar.getMonthEndDate();
+	    	/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+	    	dataDate = DateFormatCalendar.getMonthEndDate();*/
+			DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate.replace("-", "")+"01",DateFormatDefine.FORMAT_YYYYMMDD_01);
+        	dataDate = dfc2.getMonthEndDate();
 	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.replaceAll("-", ""));
+	    	queryIn.setDataDate(dataDate);
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			result = bankFundsFlowReportService.query2(queryIn);
 			map.put("treasuryIncomeList", result.getTreasuryIncomList());
@@ -323,14 +278,17 @@ public class BankFundsFlowReportAction extends BaseAction {
 			retMap.put("dataDate", dataDate);
 			fileName = "与其他国库之间资金流动情况统计表-"+unitName+"-"+dataDate;
 			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
-	    	DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
-	    	dataDate = DateFormatCalendar.getMonthEndDate();
-	    	queryIn = new BankFundsFlowReportQueryIn();
-	    	queryIn.setDataDate(dataDate.substring(0, 4)+"-"+dataDate.substring(4,6)+"-"+dataDate.substring(6,8));
+			/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	dataDate = DateFormatCalendar.getMonthEndDate();
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate+"-01",DateFormatDefine.FORMAT_YYYYMMDD_02);
+        	dataDate = dfc2.getMonthEndDate();
+        	queryIn = new BankFundsFlowReportQueryIn();
+        	queryIn.setDataDate(dataDate);
 	    	queryIn.setUnitId(unitId);
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			result = bankFundsFlowReportService.query3(queryIn);
-			map = ReportTargetPo2Map.po2Map(result.getBetweenTreasuryFundsSourceList());
+			map = ReportTargetPo2Map.po2Map(result.getAccountingAnalysisOtherList());
 			map.put("unitName", unitName);
 			map.put("dataDate", retMap.get("dataDate"));
 			BetweenTreasuryFundsReport.Data2Excel(map, os);
@@ -372,10 +330,73 @@ public class BankFundsFlowReportAction extends BaseAction {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
+    }
+    
+    public void export4(){
+        String fileName ="";
+    	Map<String,Object> retMap = new HashMap<String,Object>();
+    	String dataDate = request.getParameter("dataDate");
+    	String unitId = request.getParameter("unitId");
+    	String unitName = request.getParameter("unitName");
+    	Map<String,Object> map = new HashMap<String,Object>();
+		try {
+			map.put("dataDate", dataDate);
+			unitName =  java.net.URLDecoder.decode(unitName, "utf-8");
+			fileName = "国库会计分析其他数据统计表-"+unitName+"-"+dataDate;
+			//fileName = java.net.URLDecoder.decode(fileName, "utf-8");
+			/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
+        	dataDate = DateFormatCalendar.getMonthEndDate();
+        	*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(dataDate+"-01",DateFormatDefine.FORMAT_YYYYMMDD_02);
+        	dataDate = dfc2.getMonthEndDate();
+        	queryIn = new BankFundsFlowReportQueryIn();
+        	queryIn.setDataDate(dataDate);
+	    	queryIn.setUnitId(unitId);
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			retMap = bankFundsFlowReportService.export4(queryIn);
+			retMap.put("unitName", unitName);
+			retMap.put("dataDate",map.get("dataDate"));
+			AccountingAnalysisOther.Data2Excel(retMap, os);
+	        byte[] content = os.toByteArray();
+	        InputStream is = new ByteArrayInputStream(content);
+	        response.setContentType("text/plain;charset=utf-8");
+	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
+	        ServletOutputStream out = response.getOutputStream();
+	        BufferedInputStream bis = null;
+	        BufferedOutputStream bos = null;
+	        try {
+	          bis = new BufferedInputStream(is);
+	          bos = new BufferedOutputStream(out);
+	          byte[] buff = new byte[1024];
+	          int bytesRead;
+	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+	            bos.write(buff, 0, bytesRead);
+	          }
+	        } catch (Exception e) {
+	          e.printStackTrace();
+	        } finally {
+	          if (bis != null)
+	            bis.close();
+	          if (bos != null)
+	            bos.close();
+	          if(is != null)
+		        is.close();
+	          if(out != null){
+	        	out.flush();
+	  	        out.close();
+	          }
+	        }
+		} catch (ServiceException e) {
+			handleError(e);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
     	
     }
     
-
     /**
      * 查询报表
      */

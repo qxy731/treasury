@@ -15,6 +15,7 @@ import com.soule.comm.db.LineResultInfo;
 import com.soule.comm.file.FileManager;
 import com.soule.comm.id.UUIDGenerator;
 import com.soule.comm.tools.DateFormatCalendar;
+import com.soule.comm.tools.DateFormatDefine;
 import com.soule.data.bean.SysUploadFile;
 import com.soule.data.bean.SysUploadFileMapping;
 import com.soule.data.bean.SysUploadFileQueue;
@@ -122,8 +123,10 @@ public class FileImportManager {
         }
         String date = null;
         try {
-			DateFormatCalendar.getInstance(businessDate);
-			date = DateFormatCalendar.getBusinessDate(fileFreq);
+    		/*DateFormatCalendar.getInstance(businessDate);
+			date = DateFormatCalendar.getBusinessDate(fileFreq);*/
+        	DateFormatCalendar dfc2 =new DateFormatCalendar(businessDate,DateFormatDefine.FORMAT_YYYYMMDD_01);
+        	date = dfc2.getBusinessDate(fileFreq);
 			//删除数据对应表对应当天的数据
 	    	if(StringUtils.isBlank(date)){
 	    		log.info("the object of businessDate is null.");

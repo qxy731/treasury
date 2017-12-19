@@ -24,6 +24,7 @@ import com.soule.base.service.IDefaultService;
 import com.soule.base.service.ServiceException;
 import com.soule.comm.tools.AppUtils;
 import com.soule.comm.tools.DateFormatCalendar;
+import com.soule.comm.tools.DateFormatDefine;
 import com.soule.crm.comm.IUserManager;
 import com.soule.crm.pfm.param.paraminfo.ParaminfoQPo;
 import com.soule.crm.tools.TimeTool;
@@ -280,8 +281,11 @@ public class IndexDataServiceImpl implements IIndexDataService {
 			if(indexCodeList != null && indexCodeList.size() > 0){
 				ParaminfoQPo paraminfoQPo = (ParaminfoQPo)indexCodeList.get(0);
 				str = paraminfoQPo.getSaveDate();
-				DateFormatCalendar.getInstance(recoreDate);
-				returnDate = sdf.parse(DateFormatCalendar.getBusinessDate(str));
+				//DateFormatCalendar.getInstance(recoreDate);
+				//returnDate = sdf.parse(DateFormatCalendar.getBusinessDate(str));
+				DateFormatCalendar dfc2 =new DateFormatCalendar(recoreDate,DateFormatDefine.FORMAT_YYYYMMDD_02);
+				String date = dfc2.getBusinessDate(str);
+				returnDate = sdf.parse(date.replaceAll("-", ""));
 			}
 		} catch (DbAccessException e) {
 			e.printStackTrace();
@@ -378,15 +382,22 @@ public class IndexDataServiceImpl implements IIndexDataService {
 
     
     public static void main(String[] args) {
-		File file = new File("D:\\workspaces\\treasury\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\baseweb\\upload/ExportFiles/2017-10-10_033930.xls");
+		/*File file = new File("D:\\workspaces\\treasury\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\baseweb\\upload/ExportFiles/2017-10-10_033930.xls");
 		System.out.println(file.getAbsolutePath());
 		if(!file.exists()){
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}*/
+    	try {
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			Date date = sdf.parse("2017-12-21");
+			System.out.println(sdf.format(date));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

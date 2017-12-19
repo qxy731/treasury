@@ -29,66 +29,51 @@ public class DateFormatCalendar{
 	private Integer year;                  // 日期属性：年  
     private Integer month;                  // 日期属性：月  
 	private Integer day;                  // 日期属性：日  
-    private String format = DateFormatDefine.FORMAT_YYYYMMDD_01;
+    private String format;
     private SimpleDateFormat sdf;
     private Calendar calendar;
-    private static DateFormatCalendar manager;
     
-    public static Calendar getLocalCalendar(){
-    	return manager.calendar;
+    private Calendar getLocalCalendar(){
+    	if(calendar == null){
+    		calendar = Calendar.getInstance();
+    	}
+    	return calendar;
     }
     
-    public static String getLocalTime(){
-    	return manager.sdf.format(getLocalCalendar().getTime());
+    private Date getLocalTime(){
+    	return getLocalCalendar().getTime();
     }
     
-	public static DateFormatCalendar getInstance(){
-		if (manager == null) {
-			 manager = new DateFormatCalendar();
-        }
-    	return getInstance(Calendar.getInstance().getTime(),manager.format);
-    }
-	
-	public static DateFormatCalendar getInstance(String date) throws ParseException{
-		if (manager == null) {
-			 manager = new DateFormatCalendar();
-        }
-		manager.sdf = new SimpleDateFormat(manager.format);
-    	return getInstance(manager.sdf.parse(date),manager.format);
-    }
-    
-    public static DateFormatCalendar getInstance(Date date){
-    	if (manager == null) {
-			 manager = new DateFormatCalendar();
-        }
-    	return getInstance(date,manager.format);
-    }
-    
-    /*public static DateFormatCalendar getInstance(String date,String format) throws ParseException{
-    	if (manager == null) {
-			 manager = new DateFormatCalendar();
-        }
-    	 manager.sdf = new SimpleDateFormat(manager.format);
-    	 return getInstance(manager.sdf.parse(date),format);
-    }*/
-    
-    private static DateFormatCalendar getInstance(Date date,String format){
-    	 if (manager == null) {
-			 manager = new DateFormatCalendar();
-         }
-    	 manager.format = format;
-    	 manager.sdf = new SimpleDateFormat(format);
-    	 if(manager.calendar==null){
-     		manager.calendar = Calendar.getInstance();
-     	 }
-    	 getLocalCalendar().setTime(date);
-    	 manager.year = getLocalCalendar().get(Calendar.YEAR);
-    	 manager.month = getLocalCalendar().get(Calendar.MONTH) + 1;
-    	 manager.day = getLocalCalendar().get(Calendar.DATE);
-         return manager;
+	public DateFormatCalendar(String format){
+		 this.format = format;
+	   	 this.sdf = new SimpleDateFormat(format);
+	   	 this.calendar = getLocalCalendar();
+	   	 this.year = getLocalCalendar().get(Calendar.YEAR);
+	   	 this.month = getLocalCalendar().get(Calendar.MONTH) + 1;
+	   	 this.day = getLocalCalendar().get(Calendar.DATE);
     }
 	
-	/**
+	public DateFormatCalendar(String date,String format) throws ParseException{
+    	 this.format = format;
+	   	 this.sdf = new SimpleDateFormat(format);
+	   	 this.calendar = getLocalCalendar();
+	   	 getLocalCalendar().setTime(sdf.parse(date));
+	   	 this.year = getLocalCalendar().get(Calendar.YEAR);
+	   	 this.month = getLocalCalendar().get(Calendar.MONTH) + 1;
+	   	 this.day = getLocalCalendar().get(Calendar.DATE);
+    }
+    
+    public DateFormatCalendar(Date date,String format){
+    	 this.format = format;
+		 this.sdf = new SimpleDateFormat(format);
+		 this.calendar = getLocalCalendar();
+		 getLocalCalendar().setTime(date);
+		 this.year = getLocalCalendar().get(Calendar.YEAR);
+		 this.month = getLocalCalendar().get(Calendar.MONTH) + 1;
+		 this.day = getLocalCalendar().get(Calendar.DATE);
+    }
+    
+   /**
 	 * 传入日期，处理成月末日期  YYYYMMDD
 	 * 1。年度文件。处理成年末日期  getYear()+"1231"
 	 * 2。季度文件，处理成季末日期 getYear()+ "" +"30"
@@ -96,62 +81,62 @@ public class DateFormatCalendar{
 	 * 4。日度文件，不需要处理
 	 * @param args
 	 */
-    public static String getDayEndDate(){
-    	return manager.sdf.format(getLocalCalendar().getTime());
+    public String getDayEndDate(){
+    	return sdf.format(getLocalTime());
     }
     
-    public static String getTenDaysEndDate(){
+    public String getTenDaysEndDate(){
 		 Calendar calendar = Calendar.getInstance();
-		 calendar.setTime(getLocalCalendar().getTime());
+		 calendar.setTime(getLocalTime());
 		 int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		 if(manager.day>=1 && manager.day<=10){
+		 if(day>=1 && day<=10){
 			 lastDay = 10;
-		 }else if(manager.day>=11 && manager.day<=20){
+		 }else if(day>=11 && day<=20){
 			 lastDay = 20;
 		 }
 		 calendar.set(Calendar.DATE,lastDay);
-		 return manager.sdf.format(calendar.getTime());
+		 return sdf.format(calendar.getTime());
 	}
 	
-	public static String getMonthEndDate(){
+	public String getMonthEndDate(){
 		 Calendar calendar = Calendar.getInstance();
-		 calendar.setTime(getLocalCalendar().getTime());
+		 calendar.setTime(getLocalTime());
 		 calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-		 return manager.sdf.format(calendar.getTime());
+		 return sdf.format(calendar.getTime());
 	}
 	
-	public static String getSeasonEndDate() {
+	public String getSeasonEndDate() {
 		Calendar calendar = Calendar.getInstance();
-		if (manager.month >= 1 && manager.month <= 3) {
-			calendar.set(manager.year,2,31);
-		}else if (manager.month >= 4 && manager.month <= 6) {
-			calendar.set(manager.year,5,30);
-		}else if (manager.month >= 7 && manager.month <= 9) {
-			calendar.set(manager.year,8,30);
-		}else if (manager.month >= 10 && manager.month <= 12) {
-			calendar.set(manager.year,11,31);
+		if (month >= 1 && month <= 3) {
+			calendar.set(year,2,31);
+		}else if (month >= 4 && month <= 6) {
+			calendar.set(year,5,30);
+		}else if (month >= 7 && month <= 9) {
+			calendar.set(year,8,30);
+		}else if (month >= 10 && month <= 12) {
+			calendar.set(year,11,31);
 		}
-		return manager.sdf.format(calendar.getTime());
+		return sdf.format(calendar.getTime());
 	}
 	
-	public static String getHalfYearEndDate(){
+	public String getHalfYearEndDate(){
 		Calendar calendar = Calendar.getInstance();
-		if (manager.month >= 1 && manager.month <= 6) {
-			calendar.set(manager.year,5,30);
+		if (month >= 1 && month <= 6) {
+			calendar.set(year,5,30);
 		}
-		if (manager.month >= 7 && manager.month <= 12) {
-			calendar.set(manager.year,11,31);
+		if (month >= 7 && month <= 12) {
+			calendar.set(year,11,31);
 		}
-		return manager.sdf.format(calendar.getTime());
+		return sdf.format(calendar.getTime());
 	}
 	
-	public static String getYearEndDate() {
+	public String getYearEndDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(manager.year,11,31);
-		return manager.sdf.format(calendar.getTime());
+		calendar.set(year,11,31);
+		return sdf.format(calendar.getTime());
 	}
 	
-	public static String getBusinessDate(String fileFreq){
+	public String getBusinessDate(String fileFreq){
 		if(CommConstants.DATA_FILE_FREQUENCY_TDE.equals(fileFreq)){
 			return getTenDaysEndDate();
 		}else if(CommConstants.DATA_FILE_FREQUENCY_ME.equals(fileFreq)){
@@ -170,13 +155,27 @@ public class DateFormatCalendar{
 	
 	public static void main(String[] args){
 		try {
-			DateFormatCalendar.getInstance("20170211");
-			//System.out.println(DateFormatCalendar.getTenDaysEndDate());
-			System.out.println(DateFormatCalendar.getMonthEndDate());
-			//System.out.println(DateFormatCalendar.getSeasonEndDate());
-			//System.out.println(DateFormatCalendar.getHalfYearEndDate());
-			//System.out.println(DateFormatCalendar.getYearEndDate());
-			//System.out.println(DateFormatCalendar.getDayEndDate());
+			/*DateFormatCalendar dfc1 =new DateFormatCalendar("20170211",DateFormatDefine.FORMAT_YYYYMMDD_01);
+			System.out.println(dfc1.getDayEndDate());
+			System.out.println(dfc1.getTenDaysEndDate());
+			System.out.println(dfc1.getMonthEndDate());
+			System.out.println(dfc1.getSeasonEndDate());
+			System.out.println(dfc1.getHalfYearEndDate());
+			System.out.println(dfc1.getYearEndDate());*/
+			DateFormatCalendar dfc2 =new DateFormatCalendar("2017-12-25",DateFormatDefine.FORMAT_YYYYMMDD_02);
+			/*System.out.println(dfc2.getDayEndDate());
+			System.out.println(dfc2.getTenDaysEndDate());
+			System.out.println(dfc2.getMonthEndDate());
+			System.out.println(dfc2.getSeasonEndDate());
+			System.out.println(dfc2.getHalfYearEndDate());
+			System.out.println(dfc2.getYearEndDate());*/
+			
+			
+			 Calendar calendar = Calendar.getInstance();
+			 calendar.setTime(dfc2.getLocalTime());
+			 calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+			 //SimpleDateFormat sdf = new SimpleDateFormat(dfc2.format);
+			 System.out.println(dfc2.sdf.format(calendar.getTime()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
