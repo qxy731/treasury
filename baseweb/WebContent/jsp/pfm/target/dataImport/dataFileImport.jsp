@@ -96,7 +96,7 @@ $(function () {
 	//输出表格
 	$("#filelist").ligerGrid({
 		checkbox:true,
-		isSingleCheck :true,
+		isSingleCheck :false,
 		selectRowButtonOnly:true,
 		enumlist: _enum_params ,
 		columns: [
@@ -129,17 +129,24 @@ function btn_downmodule_click() {
 
 function btn_delfile_click(){
 	var grid = $('#filelist').ligerGetGridManager();
-	var rows = grid.getSelectedRow();
+	var rows = grid.getSelectedRows();
 	if(rows==null){
 		$.dialogBox.info("请选择记录",true);
 		return;
+	}
+	
+	var uploadId="";
+	var fileId ="";
+	for(var i=0;i<rows.length;i++){
+		uploadId= uploadId+rows[i].uploadId+",";
+		fileId= fileId+rows[i].fileId+",";
 	}
 	/* if(_CREATE_USER!=rows.staffId){
 		$.dialogBox.warn("只能删除自己导入的文件!");
 		return;
 	} */
-	var uploadId=rows.uploadId;
-	doComAndUncomAndDel(uploadId,rows.fileId,'删除',"${_CONTEXT_PATH}/pub/data-import!deleteFile.action");
+	//var uploadId=rows.uploadId;
+	doComAndUncomAndDel(uploadId,fileId,'删除',"${_CONTEXT_PATH}/pub/data-import!deleteFile.action");
 }
 
 function doComAndUncomAndDel(uploadId,fileId,type,url){

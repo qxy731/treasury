@@ -129,8 +129,18 @@ public class DataImportServiceImpl implements IDataImportService {
     public DataBatchUploadOut deleteFile(DataImportQueryIn in) throws ServiceException {
         DataBatchUploadOut out = new DataBatchUploadOut();
         try {
-            sDefault.getIbatisMediator().update("dataimport.deleteImpFile", in);
-            sDefault.getIbatisMediator().update("dataimport.deleteFileQueue", in);
+        	
+        	String uploadId  = in.getUploadId();
+        	String fileId = in.getFileId();
+        	String[] uploadIdTemp = uploadId.split(",");
+        	String[] fileIdTemp = fileId.split(",");
+        	for(int i=0;i<uploadIdTemp.length;i++){
+        		DataImportQueryIn newIn = new DataImportQueryIn();
+        		newIn.setUploadId(uploadIdTemp[i]);
+        		newIn.setFileId(fileIdTemp[i]);
+        		sDefault.getIbatisMediator().update("dataimport.deleteImpFile", newIn);
+                sDefault.getIbatisMediator().update("dataimport.deleteFileQueue", newIn);
+        	}
             AppUtils.setResult(out, MsgConstants.I0000);
         } catch (DbAccessException e) {
             logger.error("SERVICE", e);
@@ -139,6 +149,8 @@ public class DataImportServiceImpl implements IDataImportService {
         return out;
     }
 
+    
+   
     @SuppressWarnings("unchecked")
 	public DataImportErrorDetailOut queryFileDetail(DataImportErrorDetailIn in) throws ServiceException {
     	DataImportErrorDetailOut out = new DataImportErrorDetailOut();
