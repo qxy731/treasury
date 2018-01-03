@@ -7,6 +7,7 @@
     
     <typeAlias alias="BankFundsFlowReportQueryIn" type="com.soule.app.pfm.tm.report.bankfundsflow.BankFundsFlowReportQueryIn"/> 
     <typeAlias alias="ReportTargetPo" type="com.soule.app.pfm.tm.report.bankfundsflow.ReportTargetPo"/>
+    <typeAlias alias="ReportBudgetIncomePo" type="com.soule.app.pfm.tm.report.bankfundsflow.ReportBudgetIncomePo"/>
     
 	<resultMap id="BankFundsFlowMap" class="BankFundsFlowPo">	
 		<result column="CUST_ORG_NO" property="custOrgNo" jdbcType="VARCHAR" />
@@ -37,6 +38,20 @@
 		<result column="TAR_CODE" property="tarCode" jdbcType="VARCHAR" />
 		<result column="TAR_NAME" property="tarName" jdbcType="VARCHAR" />
 		<result column="TAR_VALUE" property="tarValue" jdbcType="BigDecimal" />
+	</resultMap>
+	
+	<resultMap id="BudgetIncomeMap" class="ReportBudgetIncomePo">
+		<result column="TAR_DATE" property="tarDate" jdbcType="VARCHAR" />
+		<result column="UNIT_ID" property="unitId" jdbcType="VARCHAR" />
+		<result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+		<result column="SUB_CODE" property="subCode" jdbcType="VARCHAR" />
+		<result column="SUB_NAME" property="subName" jdbcType="VARCHAR" />
+		<result column="CNT_TYPE" property="cntType" jdbcType="VARCHAR" />
+		<result column="UNIT_LEVEL1" property="unitLevel1" jdbcType="VARCHAR" />
+		<result column="UNIT_LEVEL2" property="unitLevel2" jdbcType="VARCHAR" />
+		<result column="UNIT_LEVEL3" property="unitLevel3" jdbcType="VARCHAR" />
+		<result column="UNIT_LEVEL4" property="unitLevel4" jdbcType="VARCHAR" />
+		<result column="UNIT_LEVEL5" property="unitLevel5" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<select id="getBankFundsFlowList" parameterClass="BankFundsFlowReportQueryIn" resultMap="BankFundsFlowMap">
@@ -363,6 +378,42 @@
 		FROM
 			bat_rpt_budget_stat_m_his T
 		WHERE T.TAR_DATE = #dataDate#
+	</select>
+	
+	<select id="getBudgetIncomeReport" parameterClass="BankFundsFlowReportQueryIn" resultMap="BudgetIncomeMap">
+		SELECT
+			t.TAR_DATE,
+			t.UNIT_ID,
+			u.UNIT_NAME,
+			t.SUB_CODE,
+			t.SUB_NAME,
+			t.CNT_TYPE
+			<isEqual prepend="," property="dataType" compareValue="1">
+    		sum(case t.UNIT_LEVEL when '1' then t.BAL else 0 end)/10000 as UNIT_LEVEL1,
+			sum(case t.UNIT_LEVEL when '2' then t.BAL else 0 end)/10000 as UNIT_LEVEL2,
+			sum(case t.UNIT_LEVEL when '3' then t.BAL else 0 end)/10000 as UNIT_LEVEL3,
+			sum(case t.UNIT_LEVEL when '4' then t.BAL else 0 end)/10000 as UNIT_LEVEL4,
+			sum(case t.UNIT_LEVEL when '5' then t.BAL else 0 end)/10000 as UNIT_LEVEL5	  
+			</isEqual>
+			<isEqual prepend="," property="dataType" compareValue="2"> 
+    		sum(case t.UNIT_LEVEL when '1' then t.BAL_Y else 0 end)/10000 as UNIT_LEVEL1,
+			sum(case t.UNIT_LEVEL when '2' then t.BAL_Y else 0 end)/10000 as UNIT_LEVEL2,
+			sum(case t.UNIT_LEVEL when '3' then t.BAL_Y else 0 end)/10000 as UNIT_LEVEL3,
+			sum(case t.UNIT_LEVEL when '4' then t.BAL_Y else 0 end)/10000 as UNIT_LEVEL4,
+			sum(case t.UNIT_LEVEL when '5' then t.BAL_Y else 0 end)/10000 as UNIT_LEVEL5	  
+			</isEqual> 
+		FROM
+			bat_rpt_budget_income t
+		INNER JOIN sys_unit u on u.UNIT_ID = t.UNIT_ID
+		WHERE t.TAR_DATE = #dataDate#
+		and t.SUB_CODE in ($subCode$) 
+		and t.CNT_TYPE = #cntType#
+		GROUP BY 	t.TAR_DATE,
+			t.UNIT_ID,
+			u.UNIT_NAME,
+			t.SUB_CODE,
+			t.SUB_NAME,
+			t.CNT_TYPE
 	</select>
 	 
 </sqlMap>

@@ -35,6 +35,8 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
     private String RPT_LIST_EXPORT_ACCOUNTINGANALYSISOTHER = "bankfundsflowreport.exportAccountingAnalysisOtherList";
     
     private String RPT_LIST_TREASURYINCOM ="bankfundsflowreport.getTreasuryIncomeExpenditureReport";
+    
+    private String RPT_LIST_BUDGETINCOM ="bankfundsflowreport.getBudgetIncomeReport";
 
     /*
      * 与商业银行之间资金流动情况统计表
@@ -531,6 +533,41 @@ public class BankFundsFlowReportServiceImpl implements IBankFundsFlowReportServi
         return out;
     }
     
+    /*
+     * 国库会计分析其他数据统计表
+     */
+    @SuppressWarnings("unchecked")
+	public BankFundsFlowReportQueryOut query5(BankFundsFlowReportQueryIn in) throws ServiceException {
+    	BankFundsFlowReportQueryOut out = new BankFundsFlowReportQueryOut();
+        try {
+            List<ReportBudgetIncomePo> budgetIncomeList = defService.getIbatisMediator().find(this.RPT_LIST_BUDGETINCOM,in);
+            //budgetIncomeList =  assemblyReportBudgetIncomeList(budgetIncomeList);
+            out.setBudgetIncomeList(budgetIncomeList);
+            AppUtils.setResult(out, "I0000");
+        } catch (DbAccessException e) {
+            logger.error("DB", e);
+            AppUtils.setResult(out, "E0002");
+        } catch (Exception e) {
+            logger.error("SERVICE", e);
+            AppUtils.setResult(out, "E0000");
+        }
+        return out;
+    }
+    
+    
+    public Map<String,Object> export5(BankFundsFlowReportQueryIn in) throws ServiceException{
+    	Map map = new HashMap();
+    	List<ReportBudgetIncomePo> budgetIncomeList = new ArrayList<ReportBudgetIncomePo>();
+		try {
+			budgetIncomeList = defService.getIbatisMediator().find(this.RPT_LIST_BUDGETINCOM,in);
+		} catch (DbAccessException e) {
+            logger.error("DB", e);
+        } catch (Exception e) {
+            logger.error("SERVICE", e);
+        }
+		map.put("budgetIncomeList", budgetIncomeList);
+    	return map;
+    }
    
     
    

@@ -19,6 +19,7 @@ public class BankFundsFlowReportQueryOut implements Serializable, IServiceResult
     private List<ReportTargetPo> treasuryFundsSourceList;//资金来源分类
     private List<ReportTargetPo> accountingAnalysisOtherList;//国库会计分析其他数据统计表
     private List<ReportTargetPo> betweenTreasuryFundsSourceList;//国库之间资金流动情况统计
+    private List<ReportBudgetIncomePo> budgetIncomeList;//国库预算收入月报表
     
     private List<TreasuryIncomePo> treasuryIncomList;//大连市国库收支统计
     
@@ -69,6 +70,14 @@ public class BankFundsFlowReportQueryOut implements Serializable, IServiceResult
 
 	public void setAccountingAnalysisOtherList(List<ReportTargetPo> accountingAnalysisOtherList) {
 		this.accountingAnalysisOtherList = accountingAnalysisOtherList;
+	}
+	
+	public List<ReportBudgetIncomePo> getBudgetIncomeList() {
+		return budgetIncomeList;
+	}
+
+	public void setBudgetIncomeList(List<ReportBudgetIncomePo> budgetIncomeList) {
+		this.budgetIncomeList = budgetIncomeList;
 	}
 
 	public ServiceResult getResultHead() {

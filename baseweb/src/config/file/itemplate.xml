@@ -493,4 +493,21 @@
 </InFileTemplate>
 
 
+<InFileTemplate skipLine="1" type="XLS" table="bat_rpt_budget_income" desc="国库预算收入月报表" name="BAT_RPT_BUDGET_INCOME">
+<Header/>
+<Content>
+<Field type="C" name="国库代码" spec="" length="32" field="UNIT_ID" />
+<Field type="C" name="期限" spec="" length="8" field="TAR_DATE"/>
+<Field type="C" name="级次" spec="" length="1" field="UNIT_LEVEL"/>
+<Field type="C" name="征收机关" spec="" length="20" field="INCOME_ORG"/>
+<Field type="C" name="汇表范围" spec="" length="10" field="CNT_TYPE"/>
+<Field type="C" name="预算科目代码" spec="" length="10" field="SUB_CODE"/>
+<Field type="C" name="预算科目名称" spec="" length="64" field="SUB_NAME"/>
+<Field type="D" name="本月发生额" spec="" length="20" field="BAL"/>
+<Field type="D" name="本年累计" spec="" length="20" field="BAL_Y"/>
+<Field type="C" name="batchId" spec="BATCHID" length="32" field="BATCH_ID"/>
+</Content>
+<Ender/>
+</InFileTemplate>
+
 </FileTemplates>

@@ -15,12 +15,11 @@ import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 
-import com.soule.base.Md5PasswordEncoder;
 import com.soule.base.action.BaseAction;
 import com.soule.base.service.ServiceException;
 import com.soule.base.service.ServiceResult;
@@ -43,6 +42,8 @@ public class BankFundsFlowReportAction extends BaseAction {
     
     private List<ReportTargetPo> accountingAnalysisOtherList;//国库会计分析其他数据统计表
     private List<TreasuryIncomePo> treasuryIncomList;//大连市国库收支统计
+    
+    private List<ReportBudgetIncomePo> budgetIncomeList;//国库预算收入月报表
 
     private BankFundsFlowReportQueryIn queryIn;
     
@@ -121,7 +122,6 @@ public class BankFundsFlowReportAction extends BaseAction {
     
     public String query4() {
         try{
-        	
         	String dataDate = queryIn.getDataDate();
         	/*DateFormatCalendar.getInstance(dataDate.replace("-", "")+"01");
         	dataDate = DateFormatCalendar.getMonthEndDate();
@@ -134,6 +134,24 @@ public class BankFundsFlowReportAction extends BaseAction {
             ServiceResult head = result.getResultHead();
             accountingAnalysisOtherList = result.getAccountingAnalysisOtherList();
             if(accountingAnalysisOtherList == null)accountingAnalysisOtherList = new ArrayList<ReportTargetPo>();
+            this.setRetCode(head.getRetCode());
+            this.setRetMsg(head.getRetMsg());
+        }catch(Exception e) {
+            handleError(e);
+        }
+        return JSON;
+    }
+    
+    public String query5() {
+        try{
+        	String dataDate = queryIn.getDataDate();
+        	dataDate = dataDate.replace("-", "");
+        	queryIn.setDataDate(dataDate);
+        	queryIn.setSubCode(getSubCodeString(queryIn.getSubCode()));
+        	BankFundsFlowReportQueryOut result = bankFundsFlowReportService.query5(queryIn);
+            ServiceResult head = result.getResultHead();
+            budgetIncomeList = result.getBudgetIncomeList();
+            if(budgetIncomeList == null)budgetIncomeList = new ArrayList<ReportBudgetIncomePo>();
             this.setRetCode(head.getRetCode());
             this.setRetMsg(head.getRetMsg());
         }catch(Exception e) {
@@ -397,6 +415,80 @@ public class BankFundsFlowReportAction extends BaseAction {
     	
     }
     
+    public void export5(){
+        String fileName ="";
+    	Map<String,Object> retMap = new HashMap<String,Object>();
+    	String dataDate = request.getParameter("dataDate");
+    	dataDate = dataDate.replace("-", "");
+    	String subCode = request.getParameter("subCode");
+    	//subCode = getSubCodeList(subCode);
+    	String cntType = request.getParameter("cntType");
+    	String dataType = request.getParameter("dataType");
+    	Map<String,Object> map = new HashMap<String,Object>();
+		try {
+			map.put("dataDate", dataDate);
+			String cntTypeStr = "";
+			if("0".equals(cntType)){
+				cntTypeStr = "全辖";
+	        }else if("1".equals(cntType)){
+	        	cntTypeStr = "本级";
+	        }else if("2".equals(cntType)){
+	        	cntTypeStr = "全辖非本级";
+	        }else{
+	        	cntTypeStr = "";
+	        }
+			fileName = "国库预算收入月报表-"+cntTypeStr+"-"+dataDate;			
+        	queryIn = new BankFundsFlowReportQueryIn();
+        	queryIn.setDataDate(dataDate);
+	    	queryIn.setSubCode(getSubCodeString(subCode));
+	    	queryIn.setCntType(cntType);
+	    	queryIn.setDataType(dataType);
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			//retMap = new HashMap<String,Object>();
+			retMap  = bankFundsFlowReportService.export5(queryIn);
+			retMap.put("subCode", queryIn.getSubCode());
+			retMap.put("dataDate",dataDate);
+			retMap.put("cntType",cntType);
+			retMap.put("dataType",dataType);
+			BudgetIncomeReport.Data2Excel(retMap, os);
+	        byte[] content = os.toByteArray();
+	        InputStream is = new ByteArrayInputStream(content);
+	        response.setContentType("text/plain;charset=utf-8");
+	        fileName =  new String(fileName.getBytes(),"ISO8859-1");
+	        response.setHeader("Content-Disposition", "attachment;filename="+fileName+ ".xls" );
+	        ServletOutputStream out = response.getOutputStream();
+	        BufferedInputStream bis = null;
+	        BufferedOutputStream bos = null;
+	        try {
+	          bis = new BufferedInputStream(is);
+	          bos = new BufferedOutputStream(out);
+	          byte[] buff = new byte[1024];
+	          int bytesRead;
+	          while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+	            bos.write(buff, 0, bytesRead);
+	          }
+	        } catch (Exception e) {
+	          e.printStackTrace();
+	        } finally {
+	          if (bis != null)
+	            bis.close();
+	          if (bos != null)
+	            bos.close();
+	          if(is != null)
+		        is.close();
+	          if(out != null){
+	        	out.flush();
+	  	        out.close();
+	          }
+	        }
+		} catch (ServiceException e) {
+			handleError(e);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} 
+    	
+    }
+    
     /**
      * 查询报表
      */
@@ -451,13 +543,41 @@ public class BankFundsFlowReportAction extends BaseAction {
 		this.treasuryIncomList = treasuryIncomList;
 	}
 	
+	
+	public List<ReportBudgetIncomePo> getBudgetIncomeList() {
+		return budgetIncomeList;
+	}
+
+	public void setBudgetIncomeList(List<ReportBudgetIncomePo> budgetIncomeList) {
+		this.budgetIncomeList = budgetIncomeList;
+	}
+	
+	private String getSubCodeString(String subCode){
+		if(StringUtils.isBlank(subCode)){
+			return "''";
+		}
+		StringBuffer retStr = new StringBuffer();
+		String[] strTmp = subCode.split(",");
+		for(int i=0;i<strTmp.length;i++){
+			if(i>0){
+				retStr.append(",");
+			}
+			retStr.append("'").append(strTmp[i]).append("'");
+		}
+		return retStr.toString();
+	}
+
 	public static void main(String[] args){
-		String str ="111111";
-		PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
-		//96e79218965eb72c92a549dd5a330112
-		//96e79218965eb72c92a549dd5a330112
-		String ewd = passwordEncoder.encodePassword(str, null);
-		System.out.println(ewd);
+		String subCode = "";
+		StringBuffer retStr = new StringBuffer();
+		String[] strTmp = subCode.split(",");
+		for(int i=0;i<strTmp.length;i++){
+			if(i>0){
+				retStr.append(",");
+			}
+			retStr.append("'").append(strTmp[i]).append("'");
+		}
+		System.out.println(retStr.toString());
 	}
 	
 }
