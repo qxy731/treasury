@@ -34,6 +34,7 @@ $( function() {
    	 });
 	//数据初始化
 	sysmenu_data={rows:${sysZNodes}};
+	//alert(${sysZNodes});
 	//cusmenu_data={rows:${cusZNodes}};
 	changes = [];
 

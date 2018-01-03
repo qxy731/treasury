@@ -195,8 +195,7 @@ Utils.ajaxSubmit = function(action, data, onSuccess,onError)
 						$.dialogBox.info(result.retMsg);
 					}
 				}
-			}
-			else{
+			}else{
 				if (onError ) {
 					onError(result);
 				}

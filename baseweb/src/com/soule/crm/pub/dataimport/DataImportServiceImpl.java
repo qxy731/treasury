@@ -1,9 +1,7 @@
 package com.soule.crm.pub.dataimport;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,21 +13,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
-import com.ibatis.sqlmap.client.SqlMapException;
-import com.ibatis.sqlmap.engine.impl.ExtendedSqlMapClient;
-import com.ibatis.sqlmap.engine.impl.SqlMapExecutorDelegate;
-import com.ibatis.sqlmap.engine.mapping.parameter.BasicParameterMap;
-import com.ibatis.sqlmap.engine.mapping.parameter.BasicParameterMapping;
-import com.ibatis.sqlmap.engine.mapping.result.AutoResultMap;
-import com.ibatis.sqlmap.engine.mapping.sql.simple.SimpleDynamicSql;
-import com.ibatis.sqlmap.engine.mapping.statement.InsertStatement;
-import com.ibatis.sqlmap.engine.mapping.statement.MappedStatement;
-import com.ibatis.sqlmap.engine.type.DateOnlyTypeHandler;
-import com.ibatis.sqlmap.engine.type.ObjectTypeHandler;
 import com.soule.MsgConstants;
 import com.soule.app.table.SysUploadFileErrorDetailPo;
-import com.soule.app.table.SysUploadFilePo;
 import com.soule.base.media.DbAccessException;
 /*import com.neusoft.MsgConstants;
 import com.neusoft.app.table.SysUploadFilePo;
@@ -208,46 +193,72 @@ public class DataImportServiceImpl implements IDataImportService {
     			 list.add("bat_balance_list"); 
     			 list.add("bat_local_clearing_list"); 
     			 list.add("bat_rpt_budget_sub_stat"); 
-    			 list.add("bat_rpt_local_budget_sub_stat"); 
-    			 /*list.add("bat_large_from_acct_list_his"); 
-    			 list.add("bat_driblet_from_acct_list_his"); 
-    			 list.add("bat_large_into_acct_list_his"); 
-    			 list.add("bat_driblet_into_acct_list_his"); 
-    			 list.add("bat_rpt_budget_m_all_his"); 
-    			 list.add("bat_rpt_local_budget_m_all_his"); 
-    			 list.add("bat_rpt_city_budget_m_all01_his"); 
-    			 list.add("bat_rpt_budget_m_alltax_his"); 
-    			 list.add("bat_rpt_center_budget_m_all_his"); 
-    			 list.add("bat_rpt_city_budget_m_all02_his"); 
-    			 list.add("bat_rpt_city_budget_m_all03_his"); 
-    			 list.add("bat_rpt_city_budget_m_all04_his"); 
-    			 list.add("bat_rpt_expend_m_his"); 
-    			 list.add("bat_fina_mistake_rollback_list_his"); 
-    			 list.add("bat_clear_cllo_acct_info_his"); 
-    			 list.add("bat_clear_bank_acct_info_his"); 
-    			 list.add("bat_rpt_auth_pay_m_his"); 
-    			 list.add("bat_rpt_direct_spend_m_his"); 
-    			 list.add("bat_balance_list_all_his"); 
-    			 list.add("bat_budget_canl_stat_all_his"); 
-    			 list.add("bat_tips_fee01_his"); 
-    			 list.add("bat_tips_fee02_his"); 
-    			 list.add("bat_tips_fee03_his"); 
-    			 list.add("bat_tips_fee04_his"); 
-    			 list.add("bat_balance_list_his"); 
-    			 list.add("bat_local_clearing_list_his"); 
-    			 list.add("bat_rpt_budget_sub_stat_his"); 
-    			 list.add("bat_rpt_local_budget_sub_stat_his"); */
+    			 list.add("bat_rpt_local_budget_sub_stat");
+    			 list.add("bat_rpt_budget_income");
+    			 list.add("bat_rpt_budget_stat_m_his");//TAR_DATE
     			 
     			 for(int i=0;i<list.size();i++){
     				 Map<String,String> map = new HashMap<String,String>();
-    				 map.put("batTable", list.get(i));
-    				 map.put("tarDate", dataDate);
+    				 String table = list.get(i).toString();
+    				 map.put("batTable", table);
+    				 if("bat_rpt_budget_income".equals(table)){
+    					map.put("tarDate", dataDate.substring(0,6));
+    					map.put("hisStartDate", dataDate.substring(0,6));
+    				 }else{
+    					map.put("tarDate", dataDate);
+    					map.put("hisStartDate", dataDate);
+    				 }
     				 list1.add(map);
     			 }
     			 //批量删除数据源表
     			 for(int i=0;i<list1.size();i++){
     				 sDefault.getIbatisMediator().delete("dataimport.truncateTableBat", list1.get(i));
     			 }
+    			 
+    			 list = new ArrayList<String>();
+    			 list1 = new ArrayList<Map<String,String>>();
+    			 list.add("bat_large_from_acct_list_his");// HIS_START_DATE
+    			 list.add("bat_driblet_from_acct_list_his"); // HIS_START_DATE
+    			 list.add("bat_large_into_acct_list_his");  // HIS_START_DATE
+    			 list.add("bat_driblet_into_acct_list_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_budget_m_all_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_local_budget_m_all_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_city_budget_m_all01_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_budget_m_alltax_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_center_budget_m_all_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_city_budget_m_all02_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_city_budget_m_all03_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_city_budget_m_all04_his");// HIS_START_DATE 
+    			 list.add("bat_rpt_expend_m_his"); // HIS_START_DATE
+    			 list.add("bat_fina_mistake_rollback_list_his");  // HIS_START_DATE
+    			 list.add("bat_clear_cllo_acct_info_his"); // HIS_START_DATE
+    			 list.add("bat_clear_bank_acct_info_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_auth_pay_m_his"); // HIS_START_DATE
+    			 list.add("bat_rpt_direct_spend_m_his"); // HIS_START_DATE
+    			 list.add("bat_balance_list_all_his"); // HIS_START_DATE
+    			 list.add("bat_budget_canl_stat_all_his");// HIS_START_DATE 
+    			 list.add("bat_tips_fee01_his"); // HIS_START_DATE
+    			 list.add("bat_tips_fee02_his"); // HIS_START_DATE
+    			 list.add("bat_tips_fee03_his"); // HIS_START_DATE
+    			 list.add("bat_tips_fee04_his"); // HIS_START_DATE
+    			 list.add("bat_balance_list_his"); // HIS_START_DATE
+    			 list.add("bat_local_clearing_list_his"); // HIS_START_DATE
+    			 for(int i=0;i<list.size();i++){
+    				 Map<String,String> map = new HashMap<String,String>();
+    				 String table = list.get(i).toString();
+    				 map.put("batTable", table);
+    				 if("bat_rpt_budget_income".equals(table)){
+    					map.put("hisStartDate", dataDate.substring(0,6));
+    				 }else{
+    					map.put("hisStartDate", dataDate);
+    				 }
+    				 list1.add(map);
+    			 }
+    			 //批量删除数据源表
+    			 for(int i=0;i<list1.size();i++){
+    				 sDefault.getIbatisMediator().delete("dataimport.truncateTableBatHis", list1.get(i));
+    			 }
+    			 
 			} catch (DbAccessException e) {
 				 logger.error("DB", e);
 			}

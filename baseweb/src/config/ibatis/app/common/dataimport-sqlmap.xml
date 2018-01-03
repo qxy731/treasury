@@ -150,4 +150,8 @@
 	 	delete from $batTable$  where tar_date=#tarDate#
 	</delete>
 	
+	<delete id="truncateTableBatHis" parameterClass="java.util.HashMap">
+	 	delete from $batTable$  where HIS_START_DATE=#hisStartDate#
+	</delete>
+	
 </sqlMap>

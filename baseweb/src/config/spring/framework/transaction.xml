@@ -30,10 +30,11 @@
 			<tx:method name="select*" read-only="true" />
 			<tx:method name="query*" read-only="true" />
 			<tx:method name="criteria*" read-only="true" />			
-			<tx:method name="list*" read-only="true" />
+			<!-- <tx:method name="list*" read-only="true" /> -->
 			<tx:method name="detail*" read-only="true" />
 
 			<!--其他方法，如save，update，insert等对数据库进行写入操作的方法，当产生ServiceException进行回滚 -->
+			<tx:method name="list*" read-only="false" rollback-for="ServiceException" />
 			<tx:method name="init*" read-only="false" rollback-for="ServiceException" />
 			<tx:method name="*insert*" read-only="false" rollback-for="ServiceException" />
 			<tx:method name="*update*" read-only="false" rollback-for="ServiceException" />

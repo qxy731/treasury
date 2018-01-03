@@ -240,9 +240,14 @@ function loadFileData(){
 	var url = "${_CONTEXT_PATH}/pub/data-import!loadFileData.action";
 	var data = {};
 	$.dialogBox.confirm('您确定现在开始加载文件数据吗？',function () {
+		$(".l-grid-loading").css("display","block");
 		Utils.ajaxSubmit(url, data, function(result) {
+			$(".l-grid-loading").css("display","none");
 			$.dialogBox.info('加载文件数据已全部完成，导入结果信息请查看详情！');
 			execute();
+		},function(result){
+			$(".l-grid-loading").css("display","none");
+			$.dialogBox.error(result.retMsg);
 		});
 },true);
 }
@@ -256,10 +261,15 @@ function batchTargetData(){
 			//return;
 		}
 		var data = {"dataDate":dataDate};
-		var url = "${_CONTEXT_PATH}/pub/data-import!batchTargetData.action"
+		var url = "${_CONTEXT_PATH}/pub/data-import!batchTargetData.action";
+		$(".l-grid-loading").css("display","block");
 		 Utils.ajaxSubmit(url, data, function(result) {
-			$.dialogBox.info('跑批结束，详情请查看批处理监控。');
-			execute();
+				$(".l-grid-loading").css("display","none");
+				$.dialogBox.info('跑批结束，详情请查看批处理监控。');
+				execute();
+			},function(result){
+				$(".l-grid-loading").css("display","none");
+				$.dialogBox.error(result.retMsg);
 			});  
 		},true);
 }
@@ -274,12 +284,18 @@ function deleteTargetData(){
 			//return;
 		}
 		var data = {"dataDate":dataDate};
-		var url = "${_CONTEXT_PATH}/pub/data-import!deleteTargetData.action"
+		var url = "${_CONTEXT_PATH}/pub/data-import!deleteTargetData.action";
+		$(".l-grid-loading").css("display","block");
 		 Utils.ajaxSubmit(url, data, function(result) {
-			$.dialogBox.info('数据源已经清除。');
-			execute();
+				$(".l-grid-loading").css("display","none");
+				$.dialogBox.info('数据源已经清除。');
+				execute();			
+			},function(result){
+				$(".l-grid-loading").css("display","none");
+				$.dialogBox.error(result.retMsg);
 			});  
 		},true);
+	 //$(".l-grid-hd-row").removeClass("l-checked");
 }
 
 //选择国库信息

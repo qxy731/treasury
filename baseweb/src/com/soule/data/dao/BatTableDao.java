@@ -11,12 +11,17 @@ public class BatTableDao {
 		sql.append("delete from ");
 		sql.append(table);
 		sql.append(" where TAR_DATE='");
-		sql.append(date);
-		if(CommConstants.IMPORT_TYPE_TWO.equals(importType)){
-			sql.append("' and BATCH_ID='");
-			sql.append(batchId);
+		if("bat_rpt_budget_income".equals(table.toLowerCase())){
+			sql.append(date.substring(0,6));
+		}else{
+			sql.append(date);
 		}
 		sql.append("'");
+		if(CommConstants.IMPORT_TYPE_TWO.equals(importType)){
+			sql.append(" and BATCH_ID='");
+			sql.append(batchId);
+			sql.append("'");
+		}
 		System.out.println(sql.toString());
 		helper.execute(sql.toString());		
 	}
@@ -27,7 +32,11 @@ public class BatTableDao {
 		sql.append("select count(1) from ");
 		sql.append(table);
 		sql.append(" where TAR_DATE='");
-		sql.append(date);
+		if("bat_rpt_budget_income".equals(table.toLowerCase())){
+			sql.append(date.substring(0,6));
+		}else{
+			sql.append(date);
+		}
 		sql.append("' and BATCH_ID='");
 		sql.append(batchId);
 		sql.append("'");
